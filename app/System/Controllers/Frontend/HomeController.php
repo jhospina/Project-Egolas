@@ -19,8 +19,5 @@ class HomeController extends Controller {
         return view("searcher/index")->with("productions",$productions);
     }
     
-    public function feed() {
-        return view("admin/feed");
-    }
 
 }

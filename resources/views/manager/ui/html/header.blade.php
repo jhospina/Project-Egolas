@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>@yield('titulo',"Bandicot")</title>
+        <title>Bandicot System - @yield('titulo',"Bandicot - El lugar para encontrar lo quieres ver")</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
@@ -9,7 +9,7 @@
         {{ HTML::style('assets/plugins/bootstrap-submenu/css/bootstrap-submenu.css', array('media' => 'screen')) }}
 
         {{--CSS PERSONALIZADO--}}
-        {{ HTML::style('assets/css/templates/admin/main.css', array('media' => 'screen')) }}
+        {{ HTML::style('assets/css/templates/manager/main.css', array('media' => 'screen')) }}
 
         @yield('css')
 
@@ -29,19 +29,3 @@
     </head>
     <body>
 
-    
-        
-        
-        
-
-        {{-- Include all compiled plugins (below), or include individual files as needed --}}
-        {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}
-        {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
-        {{ HTML::script('assets/js/bootstrap-tooltip.js') }}
-
-
-        {{--OTROS SCRIPTS--}}
-        @yield("script")
-    </body>
-
-</html>

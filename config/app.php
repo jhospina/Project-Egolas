@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -196,6 +196,7 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         "HTML"=> Illuminate\Html\HtmlFacade::class,
         "Form"=> Illuminate\Html\FormFacade::class,
+        "User"=>  App\System\Models\User::class,
     ],
 
 ];
