@@ -7,6 +7,7 @@
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap-theme.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap-submenu/css/bootstrap-submenu.css', array('media' => 'screen')) }}
+        {{ HTML::style('assets/plugins/switchery/switchery.css', array('media' => 'screen')) }}
 
         {{--CSS PERSONALIZADO--}}
         {{ HTML::style('assets/css/templates/manager/main.css', array('media' => 'screen')) }}
@@ -16,6 +17,8 @@
         {{-- jQuery (necessary for Bootstraps JavaScript plugins) --}}
         {{ HTML::script('assets/js/jquery.js') }}
         {{ HTML::script('assets/js/jquery-1.10.2.js') }}
+
+       
 
 
         {{-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --}}

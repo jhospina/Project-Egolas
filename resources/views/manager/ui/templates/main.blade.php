@@ -3,7 +3,7 @@
 <nav class="navbar navbar-inverse" id="navbar">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{URL::to("")}}">
+            <a class="navbar-brand" href="{{URL::to("manager/dashboard")}}">
                 <img class="img-rounded" style="width: 150px;" id="logo-okonexion" src="{{URL::to("assets/images/logo.png")}}">
             </a>
         </div>
@@ -18,7 +18,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href=""><span class="glyphicon glyphicon-lock"></span> {{trans("ui.user.menu.edit.password")}}</a></li>
+                        <li><a href="{{URL::to("manager/password/edit")}}"><span class="glyphicon glyphicon-lock"></span> {{trans("ui.user.menu.edit.password")}}</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="{{URL::to("manager/auth/logout")}}"><span class="glyphicon glyphicon-log-out"></span> {{trans("ui.user.menu.logout")}}</a></li>
                     </ul>
@@ -29,7 +29,7 @@
 </nav>
 <div id="main">
     <div id="menu" class="col-md-2">
-
+        @include("manager/ui/html/menu")
     </div>
     <div style="height:100%;" class="col-md-2">
 

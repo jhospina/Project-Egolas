@@ -197,6 +197,8 @@ return [
         "HTML"=> Illuminate\Html\HtmlFacade::class,
         "Form"=> Illuminate\Html\FormFacade::class,
         "User"=>  App\System\Models\User::class,
+        "Util"=>  App\System\Library\Complements\Util::class,
+        "HtmlControl"=>  \App\System\Library\Complements\HtmlControl::class,
     ],
 
 ];

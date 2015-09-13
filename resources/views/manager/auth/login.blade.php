@@ -35,27 +35,26 @@
     </div>
 
     <div class="container" style="margin-top: 50px;margin-bottom:100px;">
+        @include("ui/msg/index",array("message_id"=>1))
         <div class="row">
             <div class="text-center">
                 <div class="text-left" style="display: inline-block;width:45%;">
                     <div class="panel panel-default">
                         <div class="panel-heading text-left">
-                            <span class="glyphicon glyphicon-lock"></span> Ingreso al sistema</div>
+                            <span class="glyphicon glyphicon-lock"></span> {{trans("gen.join.into.system")}}</div>
                         <div class="panel-body">
                             <form class="form-horizontal" role="form" method="POST">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">
-                                        Correo electrónico</label>
+                                    <label for="inputEmail3" class="col-sm-4 control-label">{{trans("user.attr.email")}}</label>
                                     <div class="col-sm-8">
-                                        <input type="email" class="form-control" id="inputEmail3" name="{{User::AUTH_EMAIL}}" placeholder="Correo electrónico" value="{{old('email')}}" required>
+                                        <input type="email" class="form-control" id="inputEmail3" name="{{User::AUTH_EMAIL}}" placeholder="{{trans("user.attr.email")}}" value="{{old('email')}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">
-                                        Contraseña</label>
+                                    <label for="inputPassword3" class="col-sm-4 control-label">{{trans("user.attr.password")}}</label>
                                     <div class="col-sm-8">
-                                        <input type="password" class="form-control" name="{{User::AUTH_PASSWORD}}" id="inputPassword3" placeholder="Contraseña" required>
+                                        <input type="password" class="form-control" name="{{User::AUTH_PASSWORD}}" id="inputPassword3" placeholder="{{trans("user.attr.password")}}" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -63,15 +62,15 @@
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="{{User::AUTH_REMEMBER}}"/>
-                                                Recordarme
+                                                {{trans("user.attr.rememberme")}}
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group last">
                                     <div class="col-sm-offset-4 col-sm-8">
-                                        <button type="submit" class="btn btn-success btn-sm">Ingresar</button>
-                                        <button type="reset" class="btn btn-default btn-sm">Limpiar</button>
+                                        <button type="submit" class="btn btn-success btn-sm">{{trans("ui.btn.login")}}</button>
+                                        <button type="reset" class="btn btn-default btn-sm">{{trans("ui.btn.clean")}}</button>
                                     </div>
                                 </div>
                             </form>
@@ -84,7 +83,7 @@
     </div>
 
     <div class="text-center" style="color:white;">
-        <i>&copy; Copyright - Todos los derechos reservador</i>
+        <i>{{trans("gen.copyright")}}</i>
     </div>
 
 </div>

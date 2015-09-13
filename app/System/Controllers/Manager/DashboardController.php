@@ -15,4 +15,5 @@ class DashboardController extends Controller {
         return view("manager/contents/dashboard");
     }
     
+    
 }

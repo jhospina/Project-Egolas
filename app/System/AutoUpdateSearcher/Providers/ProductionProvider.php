@@ -27,8 +27,6 @@ class ProductionProvider extends HTMLProvider {
     var $url_provider;
     var $name_ref;
 
-    const TAXONOMY_ID_DEFAULT = 1;
-
     function __construct($name, $url) {
         $this->url_provider = $url;
         $this->name_ref = $name;
@@ -77,7 +75,7 @@ class ProductionProvider extends HTMLProvider {
             $this->title_original = $title_ori;
 
         //(SLUG)*************************/
-        $this->slug = Util::createSlug($this->title);
+        $this->slug = Util::createSlug(trim($this->title));
 
         //(DESCRIPCION)*************************/
         if (!preg_match_all('/<p[^>]*itemprop=["\']description*["\']\>(.*?)<\/p>/i', $match_content, $match_description, PREG_SET_ORDER))
@@ -159,7 +157,7 @@ class ProductionProvider extends HTMLProvider {
             if (is_null($term = $cat)) {
                 $term = new Term;
                 $term->name = $category;
-                $term->taxonomy_id = self::TAXONOMY_ID_DEFAULT;
+                $term->taxonomy_id = Production::TAXONOMY_ID;
                 $term->slug = Util::createSlug($category);
                 $term->save();
             }

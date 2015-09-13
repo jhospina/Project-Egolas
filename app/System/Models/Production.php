@@ -6,9 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Production extends Model {
 
+    protected $fillable = ['title', "title_original", "slug", 'description', 'state', 'year', 'rating_rel', "duration"];
+
     const ATTR_ID = "id";
     const ATTR_TITLE = "title";
-    const ATTR_ORIGINAL = "title_original";
+    const ATTR_TITLE_ORIGINAL = "title_original";
     const ATTR_SLUG = "slug";
     const ATTR_DESCRIPTION = "description";
     const ATTR_STATE = "state";
@@ -22,9 +24,12 @@ class Production extends Model {
     const STATE_IN_WAIT = "IW"; //En espera
     const STATE_COMING_SOON = "CS"; //Proximo a estrenar
     const STATE_ACTIVE = "AC"; //Activo
+    const STATE_IN_CINEMA = "IC"; // SOLO EN CINES
     //ESTADO - Distribuidores online de las producciones
     const STATE_DEALER_ACTIVE = "DA";
     const STATE_DEALER_INACTIVE = "DI";
+    //TAXONOMY ID
+    const TAXONOMY_ID = 1;
 
     /** Busca una produccion por su titulo original, de lo contrario retorna Null
      * 
@@ -45,6 +50,24 @@ class Production extends Model {
 
     public function terms() {
         return $this->belongsToMany('App\System\Models\Term', "productions_terms");
+    }
+
+    /** Obtiene el estilo de color representativo del estado de una produccion
+     * 
+     * @param type $state
+     * @return string
+     */
+    public static function getStyleColorState($state) {
+        switch ($state) {
+            case Production::STATE_ACTIVE:
+                return "success";
+            case Production::STATE_IN_WAIT:
+                return "default";
+            case Production::STATE_COMING_SOON:
+                return "warning";
+            case Production::STATE_IN_CINEMA:
+                return "danger";
+        }
     }
 
 }
