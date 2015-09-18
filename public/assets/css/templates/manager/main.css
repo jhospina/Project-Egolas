@@ -14,7 +14,7 @@
     position: fixed;
     top: 0px;
     width: 100%;
-    z-index: 99999;
+    z-index: 99;
 }
 
 #navbar .navbar-brand{
@@ -51,7 +51,7 @@ body,html{
     top: 52px;
     left: 0px;
     border-right: 1px black solid;
-    z-index: 99999;
+    z-index: 99;
 }
 
 
@@ -111,4 +111,13 @@ body,html{
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 280px;
+}
+
+.dealer-production .icon-dealer{
+    max-height:30px;
+}
+
+.dealer-production .panel-heading{
+        clear: both;
+    height: 66px; 
 }

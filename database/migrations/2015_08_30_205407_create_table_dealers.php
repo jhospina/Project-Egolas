@@ -13,9 +13,10 @@ class CreateTableDealers extends Migration
     public function up()
     {
         Schema::create('dealers', function (Blueprint $table) {
-            $table->integer("id");
+            $table->increments("id");
             $table->string("name");
             $table->string("website");
+            $table->string("image");
             $table->string("type",2);
             $table->string("model",2);
         });

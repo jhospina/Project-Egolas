@@ -18,6 +18,7 @@ class CreateTableProductionsDealers extends Migration {
             $table->string("url");
             $table->text("content");
             $table->string("languages");
+            $table->string("quality", 2);
         });
     }
 

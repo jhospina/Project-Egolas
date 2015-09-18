@@ -9,6 +9,7 @@ use \App\System\Library\Complements\UI;
 use \App\System\Models\Production;
 use Illuminate\Support\Facades\DB;
 use App\System\Models\Taxonomy;
+use \App\System\Models\Dealer;
 
 class ProductionController extends Controller {
 
@@ -69,6 +70,12 @@ class ProductionController extends Controller {
             $production->terms()->attach($set[$i]);
 
         return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.info.change.saved"), null, 2));
+    }
+
+    function getDealers($id) {
+        $production = Production::find($id);
+        $dealers= Dealer::all();
+        return view("manager/contents/production/dealers")->with("production",$production)->with("dealers",$dealers);
     }
 
     /** Edita un atributo de una produccion mendiante ajax

@@ -39,6 +39,8 @@ class ProductionProvider extends HTMLProvider {
      */
     private function loadAttributes() {
 
+
+
         //Obtiene la tabla de referencia de información de la produccion
         if (!preg_match_all('/<table[^>]*id=["\']title-overview-widget-layout*["\']\>(.*?)<\/table>/', $this->htmlContent, $match))
             return;
@@ -56,10 +58,9 @@ class ProductionProvider extends HTMLProvider {
             return;
 
         //Asigna el titulo de la produccion
-        $this->title = utf8_encode(strip_tags((isset($match_title[0][1])) ? $this->getLatinTitle($match_title[0][1]) : null));
-  
-        $title_ori = $match_title[0][1];
+        $this->title =strip_tags((isset($match_title[0][1])) ? $this->getLatinTitle($match_title[0][1]) : null);
 
+        $title_ori = $match_title[0][1];
         //(AÑO)*************************************/
         //Obtiene el año de lanzamiento de la produccion
         if (!preg_match_all('/<span[^>]*class=["\']nobr*["\']\>(.*?)<\/span>/i', $match[0][0], $match_year, PREG_SET_ORDER))
@@ -96,7 +97,8 @@ class ProductionProvider extends HTMLProvider {
             return;
 
         foreach ($match_categories as $category) {
-            $this->categories[] = Util::traslateText(strip_tags($category[2]));
+            $cat = Util::traslateText(strip_tags($category[2]));
+            $this->categories[] = Util::textDecodetoSimply($cat);
         }
 
         //RATING
@@ -112,10 +114,10 @@ class ProductionProvider extends HTMLProvider {
 
         $this->image = Util::convertPathToUrl($path_image);
 
-
         //(PERSONAL DE LA PRODUCCION)*************************************
         if (!preg_match_all('/<div\s+.*?itemprop=[\"\']director[\"\']?[^>]*>(.*?)<\/div>/i', $match_content, $match_director_bar, PREG_SET_ORDER))
             return;
+
         //DIRECTOR
         if (!preg_match_all('/<a[^>]*href=["\']\/name\/.*["\']*itemprop=["\']url*["\']\>(.*?)<\/a>/i', $match_director_bar[0][1], $match_director, PREG_SET_ORDER))
             return;
@@ -135,6 +137,9 @@ class ProductionProvider extends HTMLProvider {
     }
 
     function save() {
+        if (!$this->validate())
+            return;
+
         $production = (is_null($object = Production::searchByTitle($this->getTitle()))) ? new Production : $object;
         $production->title = $this->getTitle();
         $production->title_original = $this->getTitle_original();
@@ -164,6 +169,7 @@ class ProductionProvider extends HTMLProvider {
             $production->terms()->attach($term->id);
         }
 
+
         //Relaciona un director con la producción a uno existente o lo crea sin o existe
         $director = $this->getDirector();
         $staff_director = (is_null($person = Person::searchByName($director[0]))) ? new Person() : $person;
@@ -186,6 +192,8 @@ class ProductionProvider extends HTMLProvider {
         //Relaciona los actores con la produccion a uno existente o lo crea sino existe
         $actors = $this->actors;
         foreach ($actors as $actor) {
+            if (is_null($actor[0]) || !isset($actor[0]) || strlen($actor[0]) == 0)
+                continue;
             $staff_actor = (is_null($person = Person::searchByName($actor[0]))) ? new Person() : $person;
             $staff_actor->name = $actor[0];
             $staff_actor->save();
@@ -215,18 +223,18 @@ class ProductionProvider extends HTMLProvider {
         $contentHtml = new HTMLProvider();
         $contentHtml->loadContent($url);
 
+ 
         if (!preg_match_all('/<li[^>]*class=["\']g*["\']\>(.*?)<\/li>/i', $contentHtml->htmlContent, $match_result))
             return $title;
 
-
+        
         $link = Util::extractURLFromText($match_result[0][0]);
         $link = strip_tags($link[1]);
-
+    
         //Pagina de wikipedia de la produccion
         if (strpos($link, "es.wikipedia") === false) {
             $contentHtml->loadContent($link);
 
-            
             if (!preg_match_all('/<li[^>]*class=["\']interlanguage-link interwiki-es*["\']\>(.*?)<\/li>/i', $contentHtml->htmlContent, $match_result))
                 return $title;
 
@@ -238,18 +246,20 @@ class ProductionProvider extends HTMLProvider {
 
         $contentHtml->loadContent((strpos($link, "https") === false) ? "https:" . $link : $link);
 
+       
         if (!preg_match_all('/<table\s+.*?class=[\"\']infobox plainlist plainlinks[\"\']?[^>]*>(.*?)<\/table>/i', $contentHtml->htmlContent, $match_result))
             return $title;
+        
 
         if (!preg_match_all('/Título<\/th>(.*?)<\/td>/i', $match_result[0][0], $match_info, PREG_SET_ORDER))
             return $title;
 
-
+       
 
         if (strpos($match_info[0][0], "España") !== false) {
 
             if (strpos($match_info[0][0], "<i>") !== false) {
-
+                
                 preg_match_all('/<i>(.*?)<\/i>/i', $match_info[0][0], $match_title, PREG_SET_ORDER);
 
                 if (strpos($match_info[0][0], "Latinoamérica") !== false) {
@@ -297,6 +307,10 @@ class ProductionProvider extends HTMLProvider {
 
             return Util::traslateText(strip_tags($match_title[0][0]));
         }
+    }
+
+    private function validate() {
+        return (!is_null($this->director) && !is_null($this->description) && !is_null($this->image));
     }
 
     //****************************************

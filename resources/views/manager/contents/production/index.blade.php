@@ -21,7 +21,11 @@
                 <td>{{$production->slug}}</td>
                 <td>{{(is_null($production->rating_rel))?trans("gen.info.undenfined"):$production->rating_rel}}</td>
                 <td>{{(is_null($production->duration))?trans("gen.info.undenfined"):$production->duration." min"}}</td>
-                <td><a href="{{URL::to("manager/productions/edit/".$production->id)}}" title="{{trans("gen.info.edit")}}"><span class="glyphicon glyphicon-edit"></span></a></td>
+                <td>
+                    <a href="{{URL::to("manager/productions/".$production->id."/dealers")}}" title="{{trans("gen.info.content.dealers")}}"><span class="glyphicon glyphicon-flag"></span></a>
+                    <a href="{{URL::to("manager/productions/edit/".$production->id)}}" title="{{trans("gen.info.edit")}}"><span class="glyphicon glyphicon-edit"></span></a>
+                </td>
+              
             </tr>
             @endforeach
         </table>

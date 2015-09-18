@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\System\Models\AutoProcess;
 use Illuminate\Http\Request;
 use \App\System\Library\Complements\UI;
+use App\System\Models\QueueProductions;
+use App\System\Library\Complements\DateUtil;
+use App\System\AutoUpdateSearcher\Providers\ProductionProvider;
 
 class AutoUpdateSearcherController extends Controller {
 
@@ -57,6 +60,7 @@ class AutoUpdateSearcherController extends Controller {
     }
 
     function getLiveProductions() {
+        
         return view("manager/contents/auto/live/productions");
     }
 

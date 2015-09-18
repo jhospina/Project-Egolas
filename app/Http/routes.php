@@ -29,24 +29,37 @@ Route::group(["prefix" => "manager", "namespace" => "Manager"], function() {
     Route::post("password/edit", "Auth\PasswordController@postEditPassword");
     autoProcess();
     productions();
+    dealers();
 });
 
 function productions() {
-    Route::get("productions", "ProductionController@index");
-    Route::get("productions/edit/{id}", "ProductionController@getEdit");
-    Route::post("productions/edit/{id}", "ProductionController@postEdit");
+    $class = "ProductionController@";
+    Route::get("productions", $class . "index");
+    Route::get("productions/edit/{id}", $class . "getEdit");
+    Route::post("productions/edit/{id}", $class . "postEdit");
+    Route::get("productions/{id}/dealers", $class . "getDealers");
     //AJAX
-    Route::post("productions/ajax/post/edit/", "ProductionController@ajaxPostEdit");
-    Route::post("productions/ajax/get/records", "ProductionController@ajaxGetRecords");
+    Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
+    Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");
 }
 
 function autoProcess() {
-    Route::get("auto/process", "AutoUpdateSearcherController@getProcess");
-    Route::get("auto/process/add", "AutoUpdateSearcherController@getAddProcess");
-    Route::post("auto/process/add", "AutoUpdateSearcherController@postAddProcess");
-    Route::get("auto/process/delete/{id}", "AutoUpdateSearcherController@getDeleteProcess");
+
+    $class = "AutoUpdateSearcherController@";
+
+    Route::get("auto/process", $class . "getProcess");
+    Route::get("auto/process/add", $class . "getAddProcess");
+    Route::post("auto/process/add", $class . "postAddProcess");
+    Route::get("auto/process/delete/{id}", $class . "getDeleteProcess");
     //AJAX
-    Route::post("auto/process/ajax/activated", "AutoUpdateSearcherController@ajaxAutoProcessActivated");
+    Route::post("auto/process/ajax/activated", $class . "ajaxAutoProcessActivated");
     //EN VIVO
-    Route::get("auto/live/productions", "AutoUpdateSearcherController@getLiveProductions");
+    Route::get("auto/live/productions", $class . "getLiveProductions");
+}
+
+function dealers() {
+    $class = "DealerController@";
+    Route::get("dealers", $class . "getIndex");
+    Route::get("dealers/creator/{id}", $class . "getCreator");
+    Route::post("dealers/creator/{id}", $class . "postCreator");
 }

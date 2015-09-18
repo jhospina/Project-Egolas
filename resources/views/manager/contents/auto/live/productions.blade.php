@@ -75,16 +75,16 @@
                             "<td class='attr' id='{{App\System\Models\Production::ATTR_SLUG}}-" + id + "'>" + data["{{App\System\Models\Production::ATTR_SLUG}}"] + "</td>" +
                             "<td class='attr' id='{{App\System\Models\Production::ATTR_RATING_REL}}-" + id + "'>" + data["{{App\System\Models\Production::ATTR_RATING_REL}}"] + "</td>" +
                             "<td class='attr' id='{{App\System\Models\Production::ATTR_DURATION}}-" + id + "'>" + data["{{App\System\Models\Production::ATTR_DURATION}}"] + "</td>" +
-                            "<td></td>" +
+                            "<td><a target='_blank' href='{{URL::to('manager/productions/edit')}}/" + id + "' title='{{trans('gen.info.edit')}}'><span class='glyphicon glyphicon-edit'></span></a></td>" +
                             "</tr>");
 
                     handlerClickEdit();
                 }
 
-                /*
+                
                  setTimeout(function () {
                  getProduction();
-                 }, 60000);*/
+                 }, 60000);
 
             }
         });

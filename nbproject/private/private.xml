@@ -3,21 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/auto/live/productions.blade.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/Production.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/manager/main.css</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/user.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/ProductionController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/manager/main.css</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/gen.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/sec.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/ProductionController.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/User.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/ui/html/menu.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/production/dealers.blade.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Http/routes.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/production/index.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/production/edit.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Providers/AppServiceProvider.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/DealerController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/Dealer.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/auto/process.blade.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/attr.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/ui.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/AutoUpdateSearcherController.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/msg.php</file>
         </group>
     </open-files>
