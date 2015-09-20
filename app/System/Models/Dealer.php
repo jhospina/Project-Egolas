@@ -22,6 +22,8 @@ class Dealer extends Model {
     const MODEL_FREE = "MF";
     const MODEL_PREMIUM = "MP";
     //PIVOT - Productions - Dealers
+    const PIVOT_PRODUCTION_ATTR_DEALER_ID = "dealer_id";
+    const PIVOT_PRODUCTION_ATTR_PRODUCTION_ID = "production_id";
     const PIVOT_PRODUCTION_ATTR_STATE = "state";
     const PIVOT_PRODUCTION_ATTR_URL = "url";
     const PIVOT_PRODUCTION_ATTR_CONTENT = "content";

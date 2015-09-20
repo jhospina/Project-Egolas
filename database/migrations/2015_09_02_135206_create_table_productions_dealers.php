@@ -16,7 +16,7 @@ class CreateTableProductionsDealers extends Migration {
             $table->string("production_id");
             $table->string("state", 2);
             $table->string("url");
-            $table->text("content");
+            $table->text("content")->nullable();
             $table->string("languages");
             $table->string("quality", 2);
         });

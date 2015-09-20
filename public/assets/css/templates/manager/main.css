@@ -121,3 +121,16 @@ body,html{
         clear: both;
     height: 66px; 
 }
+
+.dealer-production{
+    opacity: 0.2;
+    cursor:pointer;
+}
+
+.dealer-production:hover{
+    opacity: 1;
+}
+
+.dealer-production.active-deal{
+    opacity: 1;
+}

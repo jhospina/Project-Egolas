@@ -41,6 +41,8 @@ function productions() {
     //AJAX
     Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");
+    Route::post("productions/ajax/post/dealer",$class . "ajaxPostDealer");
+    Route::post("productions/ajax/post/edit/pivot/dealer/state",$class . "ajaxPostEditPivotDealerState");
 }
 
 function autoProcess() {
