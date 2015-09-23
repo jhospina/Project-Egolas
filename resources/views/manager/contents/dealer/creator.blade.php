@@ -30,6 +30,10 @@ $models = Dealer::getModels();
                     <input class="form-control input-lg" type="text" name="{{Dealer::ATTR_WEBSITE}}" value="{{(isset($dealer->website))?$dealer->website:null}}">
                 </div>
                 <div class="form-group">
+                    <label>{{trans("gen.info.url.search")}}</label>
+                    <input class="form-control input-lg" type="text" name="{{Dealer::ATTR_URL_SEARCH}}" value="{{(isset($dealer->url_search))?$dealer->url_search:null}}">
+                </div>
+                <div class="form-group">
                     <label>{{trans("gen.info.type")}}</label>
                     <select class="form-control input-lg" name="{{Dealer::ATTR_TYPE}}">
                         @foreach($types as $type)

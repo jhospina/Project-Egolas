@@ -29,6 +29,7 @@ class DealerController extends Controller {
         $dealer = Dealer::findOrNew($data[Dealer::ATTR_ID]);
         $dealer->name = $data[Dealer::ATTR_NAME];
         $dealer->website = $data[Dealer::ATTR_WEBSITE];
+        $dealer->url_search = $data[Dealer::ATTR_URL_SEARCH];
         $dealer->type = $data[Dealer::ATTR_TYPE];
         $dealer->model = $data[Dealer::ATTR_MODEL];
 

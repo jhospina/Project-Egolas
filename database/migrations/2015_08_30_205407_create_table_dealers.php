@@ -16,6 +16,7 @@ class CreateTableDealers extends Migration
             $table->increments("id");
             $table->string("name");
             $table->string("website");
+            $table->string("url_search");
             $table->string("image");
             $table->string("type",2);
             $table->string("model",2);

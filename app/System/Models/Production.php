@@ -49,6 +49,7 @@ class Production extends Model {
                         ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_URL)
                         ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_CONTENT)
                         ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES)
+                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES)
                         ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_QUALITY)
                         ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_STATE)
 

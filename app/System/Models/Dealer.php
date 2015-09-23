@@ -12,6 +12,7 @@ class Dealer extends Model {
     const ATTR_ID = "id";
     const ATTR_NAME = "name";
     const ATTR_WEBSITE = "website";
+    const ATTR_URL_SEARCH="url_search";
     const ATTR_IMAGE = "image";
     const ATTR_TYPE = "type";
     const ATTR_MODEL = "model";
@@ -28,18 +29,21 @@ class Dealer extends Model {
     const PIVOT_PRODUCTION_ATTR_URL = "url";
     const PIVOT_PRODUCTION_ATTR_CONTENT = "content";
     const PIVOT_PRODUCTION_ATTR_LANGUAGES = "languages";
-    const PIVOT_PRODUCTION_ATTR_QUALITY="quality";
-    const PIVOT_PRODUCTION_STATE_AVAILABLE="SA";
-    const PIVOT_PRODUCTION_STATE_OFFLINE="SO";
-    const PIVOT_PRODUCTION_QUALITY_HD="HD";
-    const PIVOT_PRODUCTION_QUALITY_FULL_HD="FH";
-    const PIVOT_PRODUCTION_QUALITY_DVD="DV";
-     const PIVOT_PRODUCTION_QUALITY_CAM="CA";
+    const PIVOT_PRODUCTION_ATTR_SUBTITLES = "subtitles";
+    const PIVOT_PRODUCTION_ATTR_QUALITY = "quality";
+    //STATE
+    const PIVOT_PRODUCTION_STATE_AVAILABLE = "SA";
+    const PIVOT_PRODUCTION_STATE_OFFLINE = "SO";
+    //QUALITY
+    const PIVOT_PRODUCTION_QUALITY_HD = "HD";
+    const PIVOT_PRODUCTION_QUALITY_FULL_HD = "FH";
+    const PIVOT_PRODUCTION_QUALITY_DVD = "DV";
+    const PIVOT_PRODUCTION_QUALITY_CAM = "CA";
+    //SUBTITLES
+    const PIVOT_PRODUCTION_SUBTITLE_ENGLISH = "EN";
+    const PIVOT_PRODUCTION_SUBTITLE_SPANISH = "ES";
+    const PIVOT_PRODUCTION_SUBTITLE_PORTUGUES = "PO";
     
-    
-    
-
-
     /** Obtiene un array con los tipos de proveedores
      * 
      * @return type
@@ -53,7 +57,7 @@ class Dealer extends Model {
         }
         return $types;
     }
-    
+
     /** Obtiene un array con los modelos de proveedores
      * 
      * @return type
@@ -67,8 +71,8 @@ class Dealer extends Model {
         }
         return $models;
     }
-    
-    static function getPivotProductionStates(){
+
+    static function getPivotProductionStates() {
         $class = new ReflectionClass(__CLASS__);
         $states = array();
         foreach ($class->getConstants() as $index => $value) {
@@ -77,16 +81,25 @@ class Dealer extends Model {
         }
         return $states;
     }
-    
-    
-    static function getPivotProductionQualities(){
+
+    static function getPivotProductionQualities() {
         $class = new ReflectionClass(__CLASS__);
         $qualities = array();
         foreach ($class->getConstants() as $index => $value) {
             if (strpos($index, strtoupper("PIVOT_PRODUCTION_QUALITY_")) !== false)
-                $qualities[$value] = trans("attr.pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_QUALITY.".".$value);
+                $qualities[$value] = trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_QUALITY . "." . $value);
         }
         return $qualities;
+    }
+    
+     static function getPivotProductionSubtitles() {
+        $class = new ReflectionClass(__CLASS__);
+        $subs = array();
+        foreach ($class->getConstants() as $index => $value) {
+            if (strpos($index, strtoupper("PIVOT_PRODUCTION_SUBTITLE_")) !== false)
+                $subs[$value] = trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES . "." . $value);
+        }
+        return $subs;
     }
 
 }

@@ -17,6 +17,26 @@ Route::get('manager/auth/login', "Manager\Auth\AuthController@getLogin");
 Route::post('manager/auth/login', "Manager\Auth\AuthController@postLogin");
 
 
+
+Route::group(["prefix" => "f", "namespace" => "Frontend"], function() {
+    productions_frontend();
+});
+
+
+
+function productions_frontend(){
+    $class = "ProductionController@";
+     Route::get("production/{slug}", $class."getInfo");
+}
+
+
+
+
+
+
+
+
+
 /*
   Route::get("/searcher/auto/feed/productions","AutoUpdateSearcherController@productions_feed");
   Route::get("/searcher/auto/track/production/{take}","AutoUpdateSearcherController@production_track"); */

@@ -1,3 +1,7 @@
+<?php
+
+use App\System\Models\Dealer;
+?>
 @extends("manager/ui/templates/main")
 
 @section("title") {{trans("gen.info.edit")}}: {{$production->title}}@stop
@@ -96,6 +100,32 @@
     </div>
 </form>
 
+
+<div class="col-lg-12">
+    <h1><span class="glyphicon glyphicon-flag"></span> {{trans("ui.menu.item.contents.dealers")}} <a href="{{URL::to("manager/productions/".$production->id."/dealers")}}"><span class="glyphicon glyphicon-edit"></span></a></h1>
+
+    <table class="table table-striped">
+        <tr><th></th><th>{{trans("gen.info.name")}}</th>
+        <th>{{trans("gen.info.quality")}}</th>
+        <th>{{trans("gen.info.type")}}</th>
+        <th>{{trans("gen.info.model")}}</th>
+        <th>{{trans("gen.info.state")}}</th>
+        <th></th>
+        </tr>
+        @foreach($dealers as $dealer)
+        <tr>
+            <td><img class="icon-dealer img-rounded" src="{{$dealer->image}}"></td>
+            <td>{{$dealer->name}}</td>
+            <td>{{trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_QUALITY . "." .$dealer->pivot->quality)}}</td>
+            <td>{{trans("attr.dealer." . Dealer::ATTR_TYPE . "." .$dealer->type)}}</td>
+            <td>{{trans("attr.dealer." . Dealer::ATTR_MODEL . "." .$dealer->model)}}</td>
+            <td>{{trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_STATE . "." .$dealer->pivot->state)}}</td>
+            <td><a target="_blank" href="{{$dealer->pivot->url}}">{{trans("gen.info.link")}}</a></td>
+        </tr>
+
+
+        @endforeach
+    </table>
 </div>
 
 @stop

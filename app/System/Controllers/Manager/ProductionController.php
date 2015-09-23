@@ -32,10 +32,13 @@ class ProductionController extends Controller {
 
         $categories = Taxonomy::getAllTerms(Production::TAXONOMY_ID);
 
+        $dealers = $production->dealers;
+
         return view("manager/contents/production/edit")
                         ->with("production", $production)
                         ->with("cats_selected", $cats_selected)
                         ->with("categories", $categories)
+                        ->with("dealers", $dealers);
         ;
     }
 
@@ -78,7 +81,7 @@ class ProductionController extends Controller {
         return view("manager/contents/production/dealers")->with("production", $production)->with("dealers", $dealers);
     }
 
-    /** Edita un atributo de una produccion mendiante ajax
+    /** Edita un atributo de una produccion mendiante ajax (manager/productions/ajax/post/edit/)
      * 
      * @param Request $request
      * @return boolean
@@ -124,9 +127,11 @@ class ProductionController extends Controller {
         $attrs = array(
             Dealer::PIVOT_PRODUCTION_ATTR_URL => $data[Dealer::PIVOT_PRODUCTION_ATTR_URL],
             Dealer::PIVOT_PRODUCTION_ATTR_CONTENT => (strlen($data[Dealer::PIVOT_PRODUCTION_ATTR_CONTENT]) > 0) ? $data[Dealer::PIVOT_PRODUCTION_ATTR_CONTENT] : null,
-            Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES => json_encode($data[Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES]),
+            Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES => (isset($data[Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES])) ? json_encode($data[Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES]) : null,
+            Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES => (isset($data[Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES])) ? json_encode($data[Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES]) : null,
             Dealer::PIVOT_PRODUCTION_ATTR_QUALITY => $data[Dealer::PIVOT_PRODUCTION_ATTR_QUALITY]
         );
+
 
 
         $exist = DB::table('productions_dealers')
@@ -147,20 +152,19 @@ class ProductionController extends Controller {
 
         return json_encode(array());
     }
-    
-    
+
     function ajaxPostEditPivotDealerState(Request $request) {
 
         if (!$request->ajax())
             return;
-        
+
         $data = $request->all();
-        
+
         DB::table("productions_dealers")
-                    ->where(Dealer::PIVOT_PRODUCTION_ATTR_PRODUCTION_ID, $data[Dealer::PIVOT_PRODUCTION_ATTR_PRODUCTION_ID])
-                    ->where(Dealer::PIVOT_PRODUCTION_ATTR_DEALER_ID, $data[Dealer::PIVOT_PRODUCTION_ATTR_DEALER_ID])
-                    ->update([Dealer::PIVOT_PRODUCTION_ATTR_STATE=>$data[Dealer::PIVOT_PRODUCTION_ATTR_STATE]]);
-        
+                ->where(Dealer::PIVOT_PRODUCTION_ATTR_PRODUCTION_ID, $data[Dealer::PIVOT_PRODUCTION_ATTR_PRODUCTION_ID])
+                ->where(Dealer::PIVOT_PRODUCTION_ATTR_DEALER_ID, $data[Dealer::PIVOT_PRODUCTION_ATTR_DEALER_ID])
+                ->update([Dealer::PIVOT_PRODUCTION_ATTR_STATE => $data[Dealer::PIVOT_PRODUCTION_ATTR_STATE]]);
+
         return json_encode(array());
     }
 

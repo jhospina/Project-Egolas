@@ -19,10 +19,13 @@ return [
     "pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_QUALITY.".".Dealer::PIVOT_PRODUCTION_QUALITY_HD=>"Alta definición (HD)",
     "pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_QUALITY.".".Dealer::PIVOT_PRODUCTION_QUALITY_DVD=>"DVD",
     "pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_QUALITY.".".Dealer::PIVOT_PRODUCTION_QUALITY_CAM=>"CAM (Grabado en cine)",
+    "pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES.".".Dealer::PIVOT_PRODUCTION_SUBTITLE_ENGLISH=>"Ingles",
+    "pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES.".".Dealer::PIVOT_PRODUCTION_SUBTITLE_SPANISH=>"Español",
+    "pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES.".".Dealer::PIVOT_PRODUCTION_SUBTITLE_PORTUGUES=>"Portugues",
     
     "language.".Language::EN_US=>"Ingles",
     "language.".Language::ES_ES=>"Español España",
     "language.".Language::ES_LT=>"Español Latino",
-    ""
+    "language.".Language::PR_BR=>"Portugues",
     
 ];

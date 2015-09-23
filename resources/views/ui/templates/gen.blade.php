@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>@yield('titulo',"Bandicot - El lugar para encontrar lo quieres ver")</title>
+        <title>@yield('title',"Bandicot - El lugar para encontrar lo quieres ver") | Bandicot.com</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
@@ -47,6 +47,12 @@
         {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
         {{ HTML::script('assets/js/bootstrap-tooltip.js') }}
 
+         <script>
+            jQuery(".tooltip-left").tooltip({placement: "left"});
+            jQuery(".tooltip-top").tooltip({placement: "top"});
+            jQuery(".tooltip-right").tooltip({placement: "right"});
+            jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
+        </script>
 
         {{--OTROS SCRIPTS--}}
         @yield("script")

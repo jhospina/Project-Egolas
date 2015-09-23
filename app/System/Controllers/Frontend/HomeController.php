@@ -14,9 +14,9 @@ class HomeController extends Controller {
      */
     public function index() {
 
-        $productions = Production::where(Production::ATTR_STATE, Production::STATE_IN_WAIT)->get();
+        $productions_recently = Production::where(Production::ATTR_STATE, Production::STATE_ACTIVE)->get();
 
-        return view("searcher/index")->with("productions",$productions);
+        return view("frontend/index")->with("productions_recently",$productions_recently);
     }
     
 

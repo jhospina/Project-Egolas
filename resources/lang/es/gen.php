@@ -31,4 +31,13 @@ return [
     "info.languages"=>"Idiomas",
     "info.content"=>"Contenido",
     "info.quality"=>"Calidad",
+    "info.subtitles"=>"Subtitulos",
+    "info.url.search"=>"URL del buscador",
+    "info.activate"=>"Activar",
+    "info.modifided"=>"Modificado",
+    "info.link"=>"Enlace",
+    "info.added.recently"=>"Agregadas recientemente",
+    "info.synopsis"=>"Sinopsis",
+    "info.director"=>"Director",
+    "info.delivery"=>"Reparto",
 ];
