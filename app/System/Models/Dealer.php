@@ -43,6 +43,8 @@ class Dealer extends Model {
     const PIVOT_PRODUCTION_SUBTITLE_ENGLISH = "EN";
     const PIVOT_PRODUCTION_SUBTITLE_SPANISH = "ES";
     const PIVOT_PRODUCTION_SUBTITLE_PORTUGUES = "PO";
+    //UTIL
+    const OWN="Bandicot";
     
     /** Obtiene un array con los tipos de proveedores
      * 

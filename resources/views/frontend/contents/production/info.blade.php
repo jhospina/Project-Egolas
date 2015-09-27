@@ -1,6 +1,7 @@
 <?php
 
 use App\System\Library\Complements\Util;
+use \App\System\Models\Dealer;
 ?>
 
 @extends("ui/templates/gen")
@@ -35,19 +36,71 @@ use App\System\Library\Complements\Util;
     <div class="col-md-4">
         <div class="col-md-12"><b>{{trans("gen.info.director")}}</b></div>
         <div class="col-md-12">
-            <div class="staff">
-                {{$director->name}}
-            </div>
+            <a href="{{URL::to("f/person/".$director->slug)}}" class="staff">
+                <div class="avatar">
+                    <img class="img-circle" src="{{$director->image}}"/>
+                </div>
+                <div class="person">{{$director->name}}</div>
+            </a>
         </div>
         <div class="col-md-12"><b>{{trans("gen.info.delivery")}}</b></div>
         <div class="col-md-12" id="staff-content">
             @foreach($staff as $person)
-            <div class="staff">
-                {{$person->name}}
-            </div>
+            <a href="{{URL::to("f/person/".$person->slug)}}" class="staff">
+                <div class="avatar">
+                    <img class="img-circle" src="{{$person->image}}"/>
+                </div>
+                <div class="person">{{$person->name}}</div>
+            </a>
             @endforeach
         </div>
     </div>
 </div>
+
+<div id="dealers" class="content container">
+    <div class="col-md-12 text-center"><h3>{{trans("gen.info.availability")}}</h3></div>
+    <div class="col-md-12">
+        <?php foreach ($dealers as $dealer): ?>
+            <?php
+            $languages = array();
+            foreach (json_decode($dealer->pivot->languages) as $index => $value):
+                $languages[] = trans("attr.language." . $value);
+            endforeach;
+            $subtitles = array();
+            if (!is_null($dealer->pivot->subtitles)) {
+                foreach (json_decode($dealer->pivot->subtitles) as $index => $value):
+                    $subtitles[] = trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES . "." . $value);
+                endforeach;
+                if ($dealer->name == Dealer::OWN)
+                    continue;
+            }
+            ?>
+            <div class="dealer col-md-4">
+                <div class="model {{$dealer->model}}">{{trans("attr.dealer." . Dealer::ATTR_MODEL . "." . $dealer->model)}}</div>
+                <div class="img-dealer">
+                    <img class="img-circle" src="{{$dealer->image}}">
+                </div>
+                <div class="details col-md-12">
+                    <div class="col-md-4"><span class="glyphicon glyphicon-certificate"></span> {{trans("gen.info.quality")}}</div>
+                    <div class="col-md-8">{{trans("attr.pivot.production.dealer.".Dealer::PIVOT_PRODUCTION_ATTR_QUALITY.".".$dealer->pivot->quality)}}</div>
+                    <div class="col-md-4"><span class="glyphicon glyphicon-globe"></span> {{trans("gen.info.language")}}</div>
+                    <div class="col-md-8">
+                        {{Util::formatResultArray($languages,", ")}}
+                    </div>
+                    <div class="col-md-4"><span class="glyphicon glyphicon-subtitles"></span> {{trans("gen.info.subtitles")}}</div>
+                    <div class="col-md-8">
+                        @if(count($subtitles)>0)
+                        {{Util::formatResultArray($subtitles,", ")}}
+                        @else
+                        {{trans("gen.info.none")}}
+                        @endif
+                    </div>
+                </div>
+                <a target="_blank" href="{{$dealer->pivot->url}}" class="tag-type"><span class="{{trans("attr.dealer." . Dealer::ATTR_TYPE . ".".$dealer->type.".icon")}}"></span> {{trans("attr.dealer." . Dealer::ATTR_TYPE . ".".$dealer->type)}}</a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
 
 @stop

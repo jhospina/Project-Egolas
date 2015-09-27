@@ -2,18 +2,14 @@
 
 namespace App\System\Controllers\Manager;
 
-use Validator;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Http\Request;
-use \App\System\Models\User;
+use App\System\Library\Complements\GoogleTranslate;
+use stdClass;
 
 class DashboardController extends Controller {
-    
-    function index(){
+
+    function index() {
         return view("manager/contents/dashboard");
     }
-    
-    
+
 }

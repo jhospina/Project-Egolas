@@ -82,4 +82,15 @@ class Production extends Model {
         }
     }
 
+    //MUTATORS
+    
+    public function setSlugAttribute($value) {
+        //Evita que un slug se repita
+        $count = Production::where(Production::ATTR_SLUG, $value)->get()->count();
+        if (is_null($this->attributes[Production::ATTR_SLUG]) && $count > 0)
+            $this->attributes[Production::ATTR_SLUG] = $value . "-" . (intval($count) + 1);
+        else
+            $this->attributes[Production::ATTR_SLUG] = $value;
+    }
+
 }

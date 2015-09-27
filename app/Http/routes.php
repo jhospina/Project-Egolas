@@ -20,6 +20,7 @@ Route::post('manager/auth/login', "Manager\Auth\AuthController@postLogin");
 
 Route::group(["prefix" => "f", "namespace" => "Frontend"], function() {
     productions_frontend();
+    persons_frontend();
 });
 
 
@@ -29,11 +30,10 @@ function productions_frontend(){
      Route::get("production/{slug}", $class."getInfo");
 }
 
-
-
-
-
-
+function persons_frontend(){
+    $class = "PersonController@";
+     Route::get("person/{slug}", $class."getInfo");
+}
 
 
 

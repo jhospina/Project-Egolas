@@ -34,5 +34,18 @@ class Person extends Model {
     public function productions() {
         return $this->belongsToMany('App\System\Models\Production', "staff")->withPivot('role');
     }
+    
+    //MUTATORS
+    
+    public function setSlugAttribute($value){
+        //Evita que un slug se repita
+        $count=Person::where(Person::ATTR_SLUG,$value)->get()->count();
+       if(is_null($this->attributes[Person::ATTR_SLUG]) && $count>0)
+           $this->attributes[Person::ATTR_SLUG]=$value."-".(intval($count)+1);
+       else
+           $this->attributes[Person::ATTR_SLUG]=$value;
+           
+    }
+    
 
 }

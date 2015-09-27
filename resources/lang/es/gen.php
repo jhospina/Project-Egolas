@@ -29,6 +29,7 @@ return [
     "info.delete"=>"Eliminar",
     "info.state"=>"Estado",
     "info.languages"=>"Idiomas",
+    "info.language"=>"Idioma",
     "info.content"=>"Contenido",
     "info.quality"=>"Calidad",
     "info.subtitles"=>"Subtitulos",
@@ -40,4 +41,6 @@ return [
     "info.synopsis"=>"Sinopsis",
     "info.director"=>"Director",
     "info.delivery"=>"Reparto",
+    "info.availability"=>"Disponibilidad",
+    "info.none"=>"Ninguno"
 ];

@@ -3,22 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/gen.css</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/user.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/gen.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/sec.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Frontend/HomeController.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/frontend/index.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/frontend/production/info.css</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Http/routes.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Library/Enum/Language.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/frontend/contents/production/info.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/ui/templates/gen.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/attr.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/ui.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/ui/templates/main.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Frontend/ProductionController.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/msg.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/AutoUpdateSearcher/Providers/PersonProvider.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Library/Complements/GoogleTranslate.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/DashboardController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Library/Complements/Util.php</file>
         </group>
     </open-files>
 </project-private>

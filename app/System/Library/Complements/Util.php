@@ -458,14 +458,14 @@ class Util {
      * @param type $lang [es] Idioma al que se traduce
      */
     static function traslateText($text, $ori = "en", $lang = "es") {
-        $url = "https://statickidz.com/scripts/traductor/?&source=" . $ori . "&target=" . $lang . "&q=" . str_replace(array(" ", "&", "\"", "'"), array("%20", "%26", "", ""), $text);
-
+        $key="trnsl.1.1.20150926T181524Z.a85a3099d51c2652.398557c17cf81bfbf684b1cc8610aed23291a4bc";
+        $url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=".$key."&lang=".$lang."&text=" .urlencode($text); 
         $html = new \App\System\AutoUpdateSearcher\Providers\HTMLProvider();
         $html->loadContent($url);
-
-
+        $content = json_decode($html->htmlContent);
+ 
         if ($content = json_decode($html->htmlContent))
-            return $content->translation;
+            return $content->text[0];
         else
             return $text;
     }

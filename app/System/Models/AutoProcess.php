@@ -17,7 +17,8 @@ class AutoProcess extends Model {
     //CRONS
     const CRON_PRODUCTION_TRACK = "productionTrack";
     const CRON_PRODUCTIONS_FEED = "productionsFeed";
-    
+    const CRON_PERSON_TRACK = "personTrack";
+
     /** Busca un proceso por su nombre
      * 
      * @param type $name Nombre del proceso
