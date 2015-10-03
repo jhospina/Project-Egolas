@@ -44,17 +44,9 @@ class Production extends Model {
             return $production;
     }
 
-    public function dealers() {
-        return $this->belongsToMany('App\System\Models\Dealer', "productions_dealers")
-                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_URL)
-                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_CONTENT)
-                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_LANGUAGES)
-                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_SUBTITLES)
-                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_QUALITY)
-                        ->withPivot(Dealer::PIVOT_PRODUCTION_ATTR_STATE)
-
-        ;
-    }
+    public function chapters(){
+        return $this->hasMany('Chapter', 'production_id');
+      }
 
     public function staff() {
         return $this->belongsToMany('App\System\Models\Person', "staff")->withPivot('role');

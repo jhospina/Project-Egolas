@@ -8,3 +8,47 @@ and open the template in the editor.
     Author     : Jhon
 */
 
+#info,#movies{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 0px;
+    color:black;
+    min-height: 430px;
+}
+
+#movies{
+    margin-top: 20px;
+    padding: 20px;
+    min-height: initial;
+    margin-bottom: 50px;
+    padding-top: 0px;
+}
+
+.title{
+    padding: 20px;
+    font-size: 23pt;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+#biography{
+    font-family: sans-serif;
+    padding: 20px;
+    text-align: justify;
+}
+
+#biography img{
+    float: left;
+    margin: 13px;
+    margin-top: 0px;
+}

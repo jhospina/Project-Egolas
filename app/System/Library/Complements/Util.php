@@ -458,12 +458,12 @@ class Util {
      * @param type $lang [es] Idioma al que se traduce
      */
     static function traslateText($text, $ori = "en", $lang = "es") {
-        $key="trnsl.1.1.20150926T181524Z.a85a3099d51c2652.398557c17cf81bfbf684b1cc8610aed23291a4bc";
-        $url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=".$key."&lang=".$lang."&text=" .urlencode($text); 
+        $key = "trnsl.1.1.20150926T181524Z.a85a3099d51c2652.398557c17cf81bfbf684b1cc8610aed23291a4bc";
+        $url = "https://translate.yandex.net/api/v1.5/tr.json/translate?key=" . $key . "&lang=" . $lang . "&text=" . urlencode($text);
         $html = new \App\System\AutoUpdateSearcher\Providers\HTMLProvider();
         $html->loadContent($url);
         $content = json_decode($html->htmlContent);
- 
+
         if ($content = json_decode($html->htmlContent))
             return $content->text[0];
         else
@@ -480,6 +480,28 @@ class Util {
         $search = array(" ", ":", "'", "\"");
         $replace = array("+", "", "", "");
         return strtolower(str_replace($search, $replace, $text));
+    }
+
+    /** Aplica saltos de linea a un texto, indicado por una bandera y un contador
+     * 
+     * @param type $text EL texto
+     * @param type $flag La bandera que indica en donde se debe aplicar el salto de linea
+     * @param type $count El contador que indica cada cuanto se debe aplicar el salto de linea
+     * @param type $jump El indicador de salto
+     * @return string
+     */
+    static function applyJumpsIntoText($text, $flag = ".", $count = 4, $jump = "<br/><br/>") {
+        $text = explode($flag, $text);
+        $result = "";
+
+        for ($i = 0; $i < count($text); $i++) {
+            $result.=$text[$i] . ". ";
+            if ($i > 0 && $i % $count == 0) {
+                $result.=$jump;
+            }
+        }
+
+        return $result;
     }
 
 }

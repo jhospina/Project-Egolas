@@ -28,6 +28,7 @@ Route::group(["prefix" => "f", "namespace" => "Frontend"], function() {
 function productions_frontend(){
     $class = "ProductionController@";
      Route::get("production/{slug}", $class."getInfo");
+     Route::get("production/{slug}/play", $class."getPlay");
 }
 
 function persons_frontend(){
@@ -49,7 +50,6 @@ Route::group(["prefix" => "manager", "namespace" => "Manager"], function() {
     Route::post("password/edit", "Auth\PasswordController@postEditPassword");
     autoProcess();
     productions();
-    dealers();
 });
 
 function productions() {
@@ -57,12 +57,9 @@ function productions() {
     Route::get("productions", $class . "index");
     Route::get("productions/edit/{id}", $class . "getEdit");
     Route::post("productions/edit/{id}", $class . "postEdit");
-    Route::get("productions/{id}/dealers", $class . "getDealers");
     //AJAX
     Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");
-    Route::post("productions/ajax/post/dealer",$class . "ajaxPostDealer");
-    Route::post("productions/ajax/post/edit/pivot/dealer/state",$class . "ajaxPostEditPivotDealerState");
 }
 
 function autoProcess() {
@@ -77,11 +74,4 @@ function autoProcess() {
     Route::post("auto/process/ajax/activated", $class . "ajaxAutoProcessActivated");
     //EN VIVO
     Route::get("auto/live/productions", $class . "getLiveProductions");
-}
-
-function dealers() {
-    $class = "DealerController@";
-    Route::get("dealers", $class . "getIndex");
-    Route::get("dealers/creator/{id}", $class . "getCreator");
-    Route::post("dealers/creator/{id}", $class . "postCreator");
 }

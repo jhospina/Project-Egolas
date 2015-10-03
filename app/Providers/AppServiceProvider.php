@@ -66,6 +66,8 @@ class AppServiceProvider extends ServiceProvider {
                     $production->save();
                     return $production->name . " Agregado";
                 }
+                
+                 return "Sin cola";
             });
 
 
@@ -89,6 +91,8 @@ class AppServiceProvider extends ServiceProvider {
                     $person->save();
                     return $person->name . " Agregado";
                 }
+                
+                return "Sin cola";
             });
         });
     }

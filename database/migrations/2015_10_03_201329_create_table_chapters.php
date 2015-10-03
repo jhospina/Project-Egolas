@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableProductionsDealers extends Migration {
+class CreateTableChapters extends Migration {
 
     /**
      * Run the migrations.
@@ -11,14 +11,15 @@ class CreateTableProductionsDealers extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('productions_dealers', function (Blueprint $table) {
-            $table->integer("dealer_id");
-            $table->string("production_id");
-            $table->string("state", 2);
-            $table->string("url");
+        Schema::create('chapters', function (Blueprint $table) {
+            $table->increments("id");
+            $table->integer("production_id");
+            $table->text("video"); 
             $table->string("languages");
             $table->string("subtitles")->nullable();
             $table->string("quality", 2);
+            $table->string("type", 2);
+            $table->string("state", 2);
         });
     }
 
@@ -28,7 +29,7 @@ class CreateTableProductionsDealers extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('productions_dealers');
+        Schema::drop('chapters');
     }
 
 }

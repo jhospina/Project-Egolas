@@ -28,10 +28,13 @@ use \App\System\Models\Dealer;
     <div class="col-md-4">
         <b>{{trans("gen.info.synopsis")}}</b><br/>
         <p class="text-justify">{{$production->description}}</p>
-        <div class="col-md-3 attr">{{trans("gen.time.year")}}</div><div class="col-md-9 value">{{$production->year}}</div>
-        <div class="col-md-3 attr">{{trans("gen.info.duration")}}</div><div class="col-md-9 value">{{$production->duration}} min</div>
+        <div class="col-md-3 attr"><span class="glyphicon glyphicon-calendar"></span> {{trans("gen.time.year")}}</div><div class="col-md-9 value">{{$production->year}}</div>
+        <div class="col-md-3 attr"><span class="glyphicon glyphicon-time"></span> {{trans("gen.info.duration")}}</div><div class="col-md-9 value">{{$production->duration}} min</div>
         <div class="col-md-12 attr" style="margin-top:20px;">{{trans("gen.info.categories")}}</div>
         <div class="col-md-12 value">{{Util::formatResultObjects($categories, \App\System\Models\Term::ATTR_NAME,", ")}}</div>
+        <div class="col-md-12 value text-center">
+            <a id="ver-online" href="{{URL::to("f/production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Ver online</a>
+        </div>
     </div>
     <div class="col-md-4">
         <div class="col-md-12"><b>{{trans("gen.info.director")}}</b></div>

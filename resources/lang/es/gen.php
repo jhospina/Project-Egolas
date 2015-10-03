@@ -42,5 +42,6 @@ return [
     "info.director"=>"Director",
     "info.delivery"=>"Reparto",
     "info.availability"=>"Disponibilidad",
-    "info.none"=>"Ninguno"
+    "info.none"=>"Ninguno",
+    "info.movies"=>"Peliculas",
 ];

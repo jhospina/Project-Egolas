@@ -1,6 +1,10 @@
 <?php
 
-use App\System\Models\Dealer;
+use App\System\Models\Chapter;
+
+$langs = App\System\Library\Enum\Language::getAll();
+$qualities = Chapter::getQualities();
+$subs = Chapter::getSubtitles();
 ?>
 @extends("manager/ui/templates/main")
 
@@ -11,10 +15,10 @@ use App\System\Models\Dealer;
 
 <div class="col-md-12">
 
-    <div class="col-md-9">
+    <div class="col-md-8">
         @include("ui/msg/index",array("message_id"=>2))
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <nav class="navbar navbar-default">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-save"></span> {{trans("gen.info.as.save")}}:</a>
@@ -101,31 +105,63 @@ use App\System\Models\Dealer;
 </form>
 
 
-<div class="col-lg-12">
-    <h1><span class="glyphicon glyphicon-flag"></span> {{trans("ui.menu.item.contents.dealers")}} <a href="{{URL::to("manager/productions/".$production->id."/dealers")}}"><span class="glyphicon glyphicon-edit"></span></a></h1>
+<div class="col-lg-12" id="content-edit-production-video">
+    <h2>Video</h2>
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <label>{{trans("gen.info.name")}}</label>
+                <input id="name-chapter"type="text" class="input-lg form-control" value=""> 
+            </div>
+            <div class="col-md-12">
+                <label>{{trans("gen.info.content")}}</label>
+                <textarea id="video-chapter" class="form-control"></textarea>
+            </div>
 
-    <table class="table table-striped">
-        <tr><th></th><th>{{trans("gen.info.name")}}</th>
-        <th>{{trans("gen.info.quality")}}</th>
-        <th>{{trans("gen.info.type")}}</th>
-        <th>{{trans("gen.info.model")}}</th>
-        <th>{{trans("gen.info.state")}}</th>
-        <th></th>
-        </tr>
-        @foreach($dealers as $dealer)
-        <tr>
-            <td><img class="icon-dealer img-rounded" src="{{$dealer->image}}"></td>
-            <td>{{$dealer->name}}</td>
-            <td>{{trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_QUALITY . "." .$dealer->pivot->quality)}}</td>
-            <td>{{trans("attr.dealer." . Dealer::ATTR_TYPE . "." .$dealer->type)}}</td>
-            <td>{{trans("attr.dealer." . Dealer::ATTR_MODEL . "." .$dealer->model)}}</td>
-            <td>{{trans("attr.pivot.production.dealer." . Dealer::PIVOT_PRODUCTION_ATTR_STATE . "." .$dealer->pivot->state)}}</td>
-            <td><a target="_blank" href="{{$dealer->pivot->url}}">{{trans("gen.info.link")}}</a></td>
-        </tr>
+        </div>
+        <div class="col-md-6">
+            <div class="col-md-12">
+                <label>{{trans("gen.info.type")}}</label>
+                <div class="form-group">
+                    <label><input type="radio" id="type-chapter" name="type-chapter" value="{{Chapter::TYPE_MAIN}}" checked> {{trans("attr.chapter.type.".Chapter::TYPE_MAIN)}}</label> &nbsp;&nbsp;&nbsp;
+                    <label> <input type="radio" id="type-chapter" name="type-chapter" value="{{Chapter::TYPE_EPISODE}}"> {{trans("attr.chapter.type.".Chapter::TYPE_EPISODE)}}</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{trans("gen.info.languages")}}</label>
+                <div class="form-group">
+                    @foreach($langs as $lang => $value)
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="checkbox-circle" id="language-chapter-{{$lang}}"/> {{$value}}
+                    </label><br/>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{trans("gen.info.subtitles")}}</label>
+                <div class="form-group">
+                    @foreach($subs as $sub => $value)
+                    <label class="checkbox-inline">
+                        <input type="checkbox" class="checkbox-circle" id="subtitle-chapter-{{$sub}}"/> {{$value}}
+                    </label><br/>
+                    @endforeach
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label>{{trans("gen.info.quality")}}</label>
+                <div class="form-group">
+                    @foreach($qualities as $quality => $value)
 
-
-        @endforeach
-    </table>
+                    <div class="radio">
+                        <label>
+                            <input type="radio" id="quality-chapter-{{$quality}}" name="quality-chapter" value="{{$quality}}"> {{$value}}
+                        </label>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @stop

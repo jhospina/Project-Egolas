@@ -118,7 +118,7 @@ img.icon-dealer{
 }
 
 .dealer-production .panel-heading{
-        clear: both;
+    clear: both;
     height: 66px; 
 }
 
@@ -133,4 +133,15 @@ img.icon-dealer{
 
 .dealer-production.active-deal{
     opacity: 1;
+}
+
+
+#content-edit-production-video{
+    background-color: #F5F5F5;
+    margin-top: 20px;
+    border: 1px #B9B9B9 solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+ padding-bottom: 20px;
 }

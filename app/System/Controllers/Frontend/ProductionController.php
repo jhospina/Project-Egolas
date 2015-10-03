@@ -23,4 +23,12 @@ class ProductionController extends Controller {
                         ->with("dealers", $dealers);
     }
 
+    function getPlay($slug) {
+        $production = Production::where(Production::ATTR_SLUG, $slug)->get()[0];
+        $frame_video = $production->dealers()->where(Dealer::PIVOT_PRODUCTION_ATTR_STATE, Dealer::PIVOT_PRODUCTION_STATE_AVAILABLE)->where(Dealer::ATTR_NAME, Dealer::OWN)->get()[0]->pivot->content;
+        return view("frontend/contents/production/play")
+                        ->with("production", $production)
+                        ->with("frame_video", $frame_video);
+    }
+
 }
