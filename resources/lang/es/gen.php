@@ -44,4 +44,7 @@ return [
     "info.availability"=>"Disponibilidad",
     "info.none"=>"Ninguno",
     "info.movies"=>"Peliculas",
+    "info.save"=>"Guardar",
+    "info.episodes"=>"Capitulos",
+    "info.add"=>"Agregar"
 ];

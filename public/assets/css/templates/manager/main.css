@@ -143,5 +143,35 @@ img.icon-dealer{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
- padding-bottom: 20px;
+    padding-bottom: 20px;
 }
+
+#btn-guardar-shapter{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+#form-add-video{
+    padding: 20px;
+    border: 1px #BDBDBD solid;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+#display-chapters{
+    margin-top:20px;
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding:30px;
+}
+
+#display-chapters table td,.production-index{
+    cursor: pointer;
+}
+

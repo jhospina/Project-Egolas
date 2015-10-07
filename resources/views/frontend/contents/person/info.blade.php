@@ -2,6 +2,7 @@
 
 use App\System\Library\Complements\Util;
 use \App\System\Models\Dealer;
+use App\System\Models\Production;
 ?>
 
 @extends("ui/templates/gen")
@@ -25,7 +26,7 @@ use \App\System\Models\Dealer;
     <div class="col-md-12 title">{{trans("gen.info.movies")}}</div>
     @foreach($productions as $production)
     <div class="content-production">
-        <a href="{{URL::to("f/production/".$production->slug)}}"><img class="tooltip-bottom production" title="{{$production->title}}" src="{{$production->image}}"></a>
+        <a href="{{URL::to("f/production/".$production->slug)}}"><img class="tooltip-bottom production {{($production->state!=Production::STATE_ACTIVE)?"production-not-available":null}}" title="{{$production->title}}" src="{{$production->image}}"></a>
     </div>
     @endforeach
 </div>

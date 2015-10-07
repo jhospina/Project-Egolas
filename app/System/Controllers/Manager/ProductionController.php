@@ -9,6 +9,8 @@ use \App\System\Library\Complements\UI;
 use \App\System\Models\Production;
 use Illuminate\Support\Facades\DB;
 use App\System\Models\Taxonomy;
+use App\System\Models\Chapter;
+use App\System\Library\Complements\Util;
 
 class ProductionController extends Controller {
 
@@ -74,7 +76,6 @@ class ProductionController extends Controller {
         return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.info.change.saved"), null, 2));
     }
 
-
     /** Edita un atributo de una produccion mendiante ajax (manager/productions/ajax/post/edit/)
      * 
      * @param Request $request
@@ -107,6 +108,40 @@ class ProductionController extends Controller {
         $productions = Production::orderBy(Production::ATTR_ID, "DESC")->take(intval($data["count"]))->get();
 
         return json_encode($productions);
+    }
+
+    function ajaxChapterCreator(Request $request) {
+        if (!$request->ajax())
+            return;
+        $data = $request->all();
+        $chapter = (isset($data[Chapter::ATTR_ID])) ? Chapter::findOrNew($data[Chapter::ATTR_ID]) : new Chapter();
+        $chapter->production_id = $data[Chapter::ATTR_PRODUCTION_ID];
+        $chapter->name = $data[Chapter::ATTR_NAME];
+        $chapter->video = $data[Chapter::ATTR_VIDEO];
+        $chapter->quality = $data[Chapter::ATTR_QUALITY];
+        $chapter->languages = $data[Chapter::ATTR_LANGUAGES];
+        $chapter->subtitles = (isset($data[Chapter::ATTR_SUBTITLES])) ? $data[Chapter::ATTR_SUBTITLES] : null;
+        $chapter->type = $data[Chapter::ATTR_TYPE];
+        $chapter->state = $data[Chapter::ATTR_STATE];
+        $chapter->save();
+        return json_encode(
+                array(
+                    Chapter::ATTR_ID => $chapter->id,
+                    Chapter::ATTR_NAME => $chapter->name,
+                    Chapter::ATTR_VIDEO => htmlentities($chapter->video),
+                    Chapter::ATTR_QUALITY => $chapter->quality,
+                    Chapter::ATTR_LANGUAGES => Util::formatResultArray($data[Chapter::ATTR_LANGUAGES], ",", "\"", "\""),
+                    Chapter::ATTR_SUBTITLES => Util::formatResultArray($chapter->subtitles, ",", "\"", "\""),
+                    Chapter::ATTR_STATE => $chapter->state)
+        );
+    }
+    
+    function ajaxDeleteChapter(Request $request){
+        if (!$request->ajax())
+            return;
+        $data = $request->all();
+        Chapter::findOrNew($data[Chapter::ATTR_ID])->delete();
+        return json_encode(array());
     }
 
 }

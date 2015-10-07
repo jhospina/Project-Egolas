@@ -1,0 +1,131 @@
+body{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+    background: #111111; /* Old browsers */
+    color:white;
+    font-family: 'Roboto', sans-serif!important;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+#background {
+    height: 100%;
+    width: 150%;
+    position: absolute;
+    left: -5%;
+}
+#navbar{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc0000+100;Red+Flat */
+    background: #cc0000; /* Old browsers */
+    background: -moz-linear-gradient(top,  #cc0000 0%, #cc0000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cc0000), color-stop(100%,#cc0000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #cc0000 0%,#cc0000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-bottom: 1px white solid;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 999;
+}
+
+#navbar,#navbar.navbar{
+    height: 80px;
+}
+
+#navbar .navbar-brand{
+    height:100%;
+}
+
+#background .poster{
+    width: 200px;
+    height: 295px;
+    margin: 0px;
+    vertical-align: top;
+    padding: 0px;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+#background .poster img{
+    opacity: 0;   
+}
+
+
+#background .poster .spinner{
+    position: absolute;
+    top: 93px;
+    left: 77px;
+    width: 50px;
+}
+
+
+
+#spinner,.spinner{
+    background: url(http://bandicot.com/public/assets/images/loaders/site-spinner.png) 50% 50%/100% no-repeat;
+    width: 6.942em;
+    height: 6.942em;
+    -animation: spin 1.10s infinite linear;
+    -ms-animation: spin 1.10s infinite linear;
+    -webkit-animation: spinw 1.10s infinite linear;
+    -moz-animation: spinm 1.10s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}
+
+#overligth{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,969696+100 */
+    background: #000000; /* Old browsers */
+    background: -moz-linear-gradient(left,  #000000 0%, #969696 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#000000), color-stop(100%,#969696)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #000000 0%,#969696 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #000000 0%,#969696 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #000000 0%,#969696 100%); /* IE10+ */
+    background: linear-gradient(to right,  #000000 0%,#969696 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#969696',GradientType=1 ); /* IE6-9 */
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+#content-main{
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    height: 100%;
+}
+
+#content-form{
+    background-color: white;
+    color: black;
+    padding: 10px;
+    top: 23px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

@@ -13,6 +13,9 @@ body{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
     background: #111111; /* Old browsers */
     color:white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
 }
 
 #navbar{
@@ -59,4 +62,41 @@ img.production:hover{
     height: 297px;
     float: left;
 
+}
+
+
+
+
+
+#spinner{
+    background: url(http://bandicot.com/public/assets/images/loaders/site-spinner.png) 50% 50%/100% no-repeat;
+    width: 6.942em;
+    height: 6.942em;
+    -animation: spin 1.10s infinite linear;
+    -ms-animation: spin 1.10s infinite linear;
+    -webkit-animation: spinw 1.10s infinite linear;
+    -moz-animation: spinm 1.10s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}
+
+.production-not-available{
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
 }

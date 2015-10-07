@@ -23,20 +23,17 @@ Route::group(["prefix" => "f", "namespace" => "Frontend"], function() {
     persons_frontend();
 });
 
-
-
-function productions_frontend(){
+function productions_frontend() {
     $class = "ProductionController@";
-     Route::get("production/{slug}", $class."getInfo");
-     Route::get("production/{slug}/play", $class."getPlay");
+    Route::get("production/{slug}", $class . "getInfo");
+    Route::get("production/{slug}/play", $class . "getPlay");
+    Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
 }
 
-function persons_frontend(){
+function persons_frontend() {
     $class = "PersonController@";
-     Route::get("person/{slug}", $class."getInfo");
+    Route::get("person/{slug}", $class . "getInfo");
 }
-
-
 
 /*
   Route::get("/searcher/auto/feed/productions","AutoUpdateSearcherController@productions_feed");
@@ -60,6 +57,8 @@ function productions() {
     //AJAX
     Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");
+    Route::post("productions/ajax/chapter/creator", $class . "ajaxChapterCreator");
+    Route::post("productions/ajax/chapter/delete",$class."ajaxDeleteChapter");
 }
 
 function autoProcess() {

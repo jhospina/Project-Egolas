@@ -4,15 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Http/routes.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/Production.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/production/index.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/production/edit.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/manager/main.css</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/ProductionController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/gen.css</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/gen.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/ui/templates/gen.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Frontend/HomeController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/ui/navbar.blade.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/attr.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/ui/html/menu.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/frontend/contents/production/play.blade.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/Chapter.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/frontend/index.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/ui/templates/land.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/land.css</file>
         </group>
     </open-files>
 </project-private>

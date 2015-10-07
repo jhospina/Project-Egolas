@@ -11,7 +11,7 @@ class Chapter extends Model {
 
     const ATTR_ID = "id";
     const ATTR_PRODUCTION_ID = "production_id";
-    const ATTR_NAME="name";
+    const ATTR_NAME = "name";
     const ATTR_VIDEO = "video";
     const ATTR_LANGUAGES = "languages";
     const ATTR_SUBTITLES = "subtitles";
@@ -61,6 +61,22 @@ class Chapter extends Model {
                 $subtitles[$value] = trans("attr.chapter." . Chapter::ATTR_SUBTITLES . "." . $value);
         }
         return $subtitles;
+    }
+
+    public function setLanguagesAttribute($value) {
+        $this->attributes[Chapter::ATTR_LANGUAGES] = json_encode($value);
+    }
+
+    public function getLanguagesAttribute($value) {
+        return json_decode($value);
+    }
+
+    public function setSubtitlesAttribute($value) {
+        $this->attributes[Chapter::ATTR_SUBTITLES] = (is_null($value)) ? $value : json_encode($value);
+    }
+
+    public function getSubtitlesAttribute($value) {
+        return (is_null($value)) ? $value : json_decode($value);
     }
 
 }

@@ -3,6 +3,7 @@
 namespace App\System\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\System\Models\Chapter;
 
 class Production extends Model {
 
@@ -31,6 +32,14 @@ class Production extends Model {
     //TAXONOMY ID
     const TAXONOMY_ID = 1;
 
+    /** Indica si la produccion tiene un video unico principal
+     * 
+     * @return type
+     */
+    public function haveVideoMain() {
+        return (count($this->chapters()->where(Chapter::ATTR_TYPE, Chapter::TYPE_MAIN)->get()) > 0);
+    }
+
     /** Busca una produccion por su titulo original, de lo contrario retorna Null
      * 
      * @param type $title Titulo de la produccion a buscar
@@ -44,9 +53,9 @@ class Production extends Model {
             return $production;
     }
 
-    public function chapters(){
-        return $this->hasMany('Chapter', 'production_id');
-      }
+    public function chapters() {
+        return $this->hasMany('App\System\Models\Chapter', 'production_id');
+    }
 
     public function staff() {
         return $this->belongsToMany('App\System\Models\Person', "staff")->withPivot('role');
@@ -75,7 +84,7 @@ class Production extends Model {
     }
 
     //MUTATORS
-    
+
     public function setSlugAttribute($value) {
         //Evita que un slug se repita
         $count = Production::where(Production::ATTR_SLUG, $value)->get()->count();
