@@ -3,7 +3,7 @@
     <head>
         <title>@yield('title',"Bandicot - El lugar para encontrar lo quieres ver") | Bandicot.com</title>
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-       
+       <meta name="robots" content="noindex">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
@@ -12,7 +12,7 @@
 
         {{--CSS PERSONALIZADO--}}
         {{ HTML::style('assets/css/templates/gen.css', array('media' => 'screen')) }}
-
+          {{ HTML::style('assets/css/util.css', array('media' => 'screen')) }}
         @yield('css')
 
         {{-- jQuery (necessary for Bootstraps JavaScript plugins) --}}
@@ -58,6 +58,10 @@
 
         {{--OTROS SCRIPTS--}}
         @yield("script")
+        
+        @if(isset($path))
+        {{App\System\Library\Complements\Util::getImportJScriptCurrent($path)}}
+        @endif
     </body>
 
 </html>

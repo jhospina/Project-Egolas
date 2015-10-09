@@ -21,10 +21,22 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $table = 'users';
     protected $fillable = ['name', "lastname", "role", 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
+    
+    const ATTR_ID="id";
+    const ATTR_NAME="name";
+    const ATTR_LASTNAME="lastname";
+    const ATTR_STATE="state";
+    const ATTR_KEY_ACTIVATION="keyActivation";
+    const ATTR_ROLE="role";
+    const ATTR_EMAIL="email";
+    const ATTR_PASSWORD="password";
 
+    //Estados
+    const STATE_UNCONFIRMED_ACCOUNT = "UA"; //Cuenta sin confirmar
+    const STATE_ACTIVED_ACCOUNT = "AA"; //Cuenta activada
 //Roles
     const ROLE_ADMIN = "AD";
-    const ROLE_STANDAR = "ST";
+    const ROLE_SUSCRIPTOR = "SU";
     //AUTH
     const AUTH_EMAIL = "email";
     const AUTH_PASSWORD = "password";

@@ -21,6 +21,7 @@ Route::post('manager/auth/login', "Manager\Auth\AuthController@postLogin");
 Route::group(["prefix" => "f", "namespace" => "Frontend"], function() {
     productions_frontend();
     persons_frontend();
+    user_fronted();
 });
 
 function productions_frontend() {
@@ -33,6 +34,12 @@ function productions_frontend() {
 function persons_frontend() {
     $class = "PersonController@";
     Route::get("person/{slug}", $class . "getInfo");
+}
+
+function user_fronted(){
+    $class = "UserController@";
+    Route::post("user/post/create/account",$class."postCreateAccount");
+    
 }
 
 /*

@@ -46,5 +46,7 @@ return [
     "info.movies"=>"Peliculas",
     "info.save"=>"Guardar",
     "info.episodes"=>"Capitulos",
-    "info.add"=>"Agregar"
+    "info.add"=>"Agregar",
+    "info.error"=>"Ha ocurrido un error inesperado, intentalo de nuevo.",
+    "error.captcha"=>"Error de captcha"
 ];

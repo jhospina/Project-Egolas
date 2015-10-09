@@ -1,5 +1,10 @@
-@extends("ui/templates/land")
+<?php
 
+use App\System\Models\User;
+?>
+
+
+@extends("ui/templates/land",array("path"=>"frontend/"))
 
 @section("content")
 
@@ -50,23 +55,34 @@
 
         <div class="row">
             <div id="content-form" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <form role="form">
+                <form role="form" action="{{URL::to('f/user/post/create/account')}}" method="POST">
+                    {{ csrf_field() }}
                     <h2 class="text-center">¡Crear tu cuenta gratis!</h2>
                     <hr class="colorgraph">
+                    @if(session()->has("error"))
+                    <div class="alert alert-danger">
+                        {{session("error")}}
+                    </div>
+                    @endif
+                    @if(session()->has("error-captcha"))
+                    <div class="alert alert-danger">
+                        {{session("error-captcha")}}
+                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="Nombre" tabindex="1">
+                                <input type="text" name="{{User::ATTR_NAME}}" id="{{User::ATTR_NAME}}" class="form-control input-lg" placeholder="Nombre" tabindex="1" value="{{(session()->has(User::ATTR_NAME))?session(User::ATTR_NAME):""}}">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <div class="form-group">
-                                <input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="Apellido" tabindex="2">
+                                <input type="text" name="{{User::ATTR_LASTNAME}}" id="{{User::ATTR_LASTNAME}}" class="form-control input-lg" placeholder="Apellido" tabindex="2" value="{{(session()->has(User::ATTR_LASTNAME))?session(User::ATTR_LASTNAME):""}}">
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Correo electrónico" tabindex="4">
+                        <input type="email" name="{{User::ATTR_EMAIL}}" id="{{User::ATTR_EMAIL}}" class="form-control input-lg" placeholder="Correo electrónico" tabindex="4" value="{{(session()->has(User::ATTR_EMAIL))?session(User::ATTR_EMAIL):""}}">
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
@@ -85,12 +101,16 @@
                             Al hacer clic en el botón <i>"Registrarme"</i>, tu aceptas haber leido y aceptado los <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terminos y condiciones</a> para el uso de nuestro sitio web.
                         </div>
                     </div>
-
-                    <hr class="colorgraph">
                     <div class="row">
-                        <div class="col-xs-12 col-md-12"><input type="submit" value="Registrarme" class="btn btn-primary btn-block btn-lg" tabindex="7"></div>
+                        <div class="col-xs-12 col-sm-12 col-md-12" style="padding: 10px;text-align: center;">
+                       <div class="g-recaptcha" data-sitekey="6LdEcQ4TAAAAANULfMhMKz8wvgxzjM8kcUnpsjuv"></div>
+                        </div>
                     </div>
                 </form>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-12 col-md-12"><button type="button" onClick="submit(this);" class="btn btn-primary btn-block btn-lg">Registrarme</button></div>
+                </div>
             </div>
         </div>
 
@@ -102,54 +122,33 @@
 
 <!-- Modal -->
 <div class="modal fade"  id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content" style="color:black;">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title" id="myModalLabel">Terminos y condiciones</h4>
-			</div>
-			<div class="modal-body">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" data-dismiss="modal">I Agree</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="color:black;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Terminos y condiciones</h4>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque, modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem ad.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 @stop
 
 @section("script")
-<script>
-    $(document).ready(function () {
-        $(".poster img").each(function () {
-            $(this).load(function () {
-                var parent = $(this).parent();
-                $(parent.children(".spinner")).fadeOut();
-                $(this).animate({"opacity": 1});
-            });
-        });
 
-        //animLeft();
-    });
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src='{{URL::to("assets/scripts/library/validations.js")}}'></script>
 
-    function animLeft() {
-        $("#background").animate({"left": "-" + Math.floor(Math.random() * 30) + "%", "top": "-" + Math.floor(Math.random() * 30) + "%"}, 30000, function () {
-            animRight();
-        });
-    }
-
-    function animRight() {
-        $("#background").animate({"left": "-" + Math.floor(Math.random() * 30) + "%", "top": Math.floor(Math.random() * 30) + "%"}, 30000, function () {
-            animLeft();
-        });
-    }
-</script>
 @stop

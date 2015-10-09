@@ -504,4 +504,15 @@ class Util {
         return $result;
     }
 
+    /** Retorna una importacion html de un script(JS) correspondiente a un path en el sistema
+     * 
+     * @param type $path
+     * @return type
+     */
+    static function getImportJScriptCurrent($path) {
+        $filename = Util::fileDeleteExtension(basename($_SERVER['PHP_SELF']));
+        $url = Util::convertPathToUrl(public_path()) . "/assets/scripts/" . $path . $filename . ".js";
+        return (Util::UrlExist($url)) ? "<script src='" . $url . "'></script>" : null;
+    }
+
 }

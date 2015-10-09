@@ -4,6 +4,7 @@
         <title>@yield('title',"Bandicot - El mejor lugar para ver peliculas gratis") | Bandicot.com</title>
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
+        <meta name="robots" content="noindex">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
@@ -12,6 +13,7 @@
 
         {{--CSS PERSONALIZADO--}}
         {{ HTML::style('assets/css/templates/land.css', array('media' => 'screen')) }}
+        {{ HTML::style('assets/css/util.css', array('media' => 'screen')) }}
 
         @yield('css')
 
@@ -31,8 +33,8 @@
     </head>
     <body>
 
-            @yield("content")
-            
+        @yield("content")
+
         {{-- Include all compiled plugins (below), or include individual files as needed --}}
         {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}
         {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
@@ -47,6 +49,10 @@
 
         {{--OTROS SCRIPTS--}}
         @yield("script")
+
+        @if(isset($path))
+        {{App\System\Library\Complements\Util::getImportJScriptCurrent($path)}}
+        @endif
     </body>
 
 </html>

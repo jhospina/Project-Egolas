@@ -10,13 +10,14 @@ body{
 html,body{
     width:100%;
     height:100%;
-    overflow:hidden;
+    overflow-x:hidden;
+    max-height: 100%;
 }
 
 #background {
     height: 100%;
     width: 150%;
-    position: absolute;
+    position: fixed;
     left: -5%;
 }
 #navbar{
@@ -114,7 +115,7 @@ html,body{
     opacity: 0.8;
 }
 #content-main{
-    position: fixed;
+    position: absolute;
     top: 80px;
     width: 100%;
     height: 100%;
@@ -128,4 +129,31 @@ html,body{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.g-recaptcha {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.tooltip-error .tooltip-inner{
+    background: red;
+    font-size: 12pt;
+}
+
+.tooltip-error.bottom .tooltip-arrow{
+    border-bottom-color: red!important;
+}
+
+.tooltip-error.left .tooltip-arrow{
+    border-left-color: red!important;
+}
+
+.tooltip.left.tooltip-error{
+    margin-left: -2px;
+}
+
+.tooltip.bottom.tooltip-error{
+    margin-top: 1px;
 }
