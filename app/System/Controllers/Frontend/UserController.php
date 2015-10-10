@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 use App\System\Models\User;
 use App\System\Library\Security\ReCaptcha;
 use App\System\Library\Com\Email;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
 
+    /** Recibe un peticion para crear una cuenta de usuario
+     * 
+     * @param Request $request
+     * @return string
+     */
     function postCreateAccount(Request $request) {
         $data = $request->all();
 
@@ -21,11 +27,10 @@ class UserController extends Controller {
                             ->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])
                             ->with("error", trans("gen.info.error"));
 
-
-
         //*******************************************
         //CONTROL DE CAPTCHA
         //*******************************************
+        //   $response=file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LdEcQ4TAAAAABgMkSCLV3iVH-sXXk5Xqb79dfNt&response=".$data["g-recaptcha-response"]."&remoteip=".$_SERVER['REMOTE_ADDR']);
 
         $reCaptcha = new ReCaptcha("6LdEcQ4TAAAAABgMkSCLV3iVH-sXXk5Xqb79dfNt");
         // si se detecta la respuesta como enviada
@@ -38,12 +43,19 @@ class UserController extends Controller {
         $response = $reCaptcha->verifyResponse($_SERVER["REMOTE_ADDR"], $data["g-recaptcha-response"]);
 
         //Valida el captcha
-        /*
-          if ($response == null || !$response->success)
-          return redirect()->back()->with(User::ATTR_NAME, $data[User::ATTR_NAME])
-          ->with(User::ATTR_LASTNAME, $data[User::ATTR_LASTNAME])
-          ->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])
-          ->with("error-captcha", trans("gen.error.captcha")); */
+        if ($response == null || !$response->success)
+            return redirect()->back()->with(User::ATTR_NAME, $data[User::ATTR_NAME])
+                            ->with(User::ATTR_LASTNAME, $data[User::ATTR_LASTNAME])
+                            ->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])
+                            ->with("error-captcha", trans("gen.error.captcha"));
+
+        //Verifica si el corre ingresado existe
+        if (User::existEmail($data[User::ATTR_EMAIL]))
+            return redirect()->back()->with(User::ATTR_NAME, $data[User::ATTR_NAME])
+                            ->with(User::ATTR_LASTNAME, $data[User::ATTR_LASTNAME])
+                            ->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])
+                            ->with("error", "El correo electrónico ingresado ya esta registrado");
+
 
         $keyActivation = \hash("sha256", $data[User::ATTR_EMAIL]);
         $user = new User;
@@ -62,10 +74,13 @@ class UserController extends Controller {
                 "<p>Para confirmar este correo electrónico debes hacer clic <a href='" . $activationLink . "'>aquí</a>. También puedes copiar y pegar el siguiente enlace:<br/><br/>" . $activationLink . "</p>" .
                 "<p><i><b>Atención:<b/> Si crees que se ha tratado de una equivocación, por favor ignora este mensaje.</i></p>";
 
-        $email = new Email("Activación de cuenta", $data[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description]);
-        $email->send();
+        /* $email = new Email("Activación de cuenta", $data[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description]);
+          $email->send(); */
 
-        return "REGISTRO REALIZADO";
+        Auth::loginUsingId($user->id);
+        return redirect("user/dashboard")->with("request","welcome");
     }
 
+    
+    
 }

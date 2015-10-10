@@ -1,10 +1,8 @@
 <?php
-
 use App\System\Models\User;
 ?>
 
-
-@extends("ui/templates/land",array("path"=>"frontend/"))
+@extends("frontend/templates/land",array("path"=>"frontend/"))
 
 @section("content")
 

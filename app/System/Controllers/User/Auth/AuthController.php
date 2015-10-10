@@ -1,6 +1,6 @@
 <?php
 
-namespace App\System\Controllers\Manager\Auth;
+namespace App\System\Controllers\User\Auth;
 
 use Validator;
 use App\Http\Controllers\Controller;
@@ -12,22 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use \App\System\Library\Complements\UI;
 
 class AuthController extends Controller {
-    /*
-      |--------------------------------------------------------------------------
-      | Registration & Login Controller
-      |--------------------------------------------------------------------------
-      |
-      | This controller handles the registration of new users, as well as the
-      | authentication of existing users. By default, this controller uses
-      | a simple trait to add these behaviors. Why don't you explore it?
-      |
-     */
 
-use AuthenticatesAndRegistersUsers,
-    ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers,
+        ThrottlesLogins;
 
-    protected $redirectPath = '/manager/dashboard';
-    protected $loginPath = '/manager/auth/login';
+    protected $redirectPath = '/user/dashboard';
+    protected $loginPath = '/user/auth/login';
 
     /**
      * Create a new authentication controller instance.
@@ -38,9 +28,8 @@ use AuthenticatesAndRegistersUsers,
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-   
     public function getLogin() {
-        return view("manager/auth/login");
+        return view("user/auth/login");
     }
 
     public function postLogin(Request $request) {
@@ -48,7 +37,7 @@ use AuthenticatesAndRegistersUsers,
 
         //Login aceptado
         if (Auth::attempt([User::AUTH_EMAIL => $data[User::AUTH_EMAIL], User::AUTH_PASSWORD => $data[User::AUTH_PASSWORD]], (isset($data[User::AUTH_REMEMBER])))) {
-            return redirect("manager/dashboard");
+            return redirect("user/dashboard");
             //Login Incorrecto
         } else {
             return redirect()->back()->withInput()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.login.error")));
@@ -57,7 +46,7 @@ use AuthenticatesAndRegistersUsers,
 
     public function logout() {
         Auth::logout();
-        return redirect("manager/auth/login");
+        return redirect("");
     }
 
 }

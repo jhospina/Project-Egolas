@@ -4,15 +4,23 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use App\System\Models\User;
+use Illuminate\Support\Facades\Auth;
 
-class Authenticate
-{
+class Authenticate {
+
     /**
      * The Guard implementation.
      *
      * @var Guard
      */
     protected $auth;
+    private $excepts = [
+        "/manager/auth/login",
+        "/manager/auth/logout",
+        "/user/auth/login",
+        "/user/auth/logout"
+    ];
 
     /**
      * Create a new filter instance.
@@ -20,8 +28,7 @@ class Authenticate
      * @param  Guard  $auth
      * @return void
      */
-    public function __construct(Guard $auth)
-    {
+    public function __construct(Guard $auth) {
         $this->auth = $auth;
     }
 
@@ -32,16 +39,21 @@ class Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
+    public function handle($request, Closure $next) {
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('manager/auth/login');
+                $petition = $request->getRequestUri();
+                if (strpos($petition, "/user/") !== false && !in_array($petition, $this->excepts))
+                    return redirect()->guest('user/auth/login');
+
+                if (strpos($petition, "/manager/") !== false && !in_array($petition, $this->excepts))
+                    return redirect()->guest('manager/auth/login');
             }
         }
 
         return $next($request);
     }
+
 }

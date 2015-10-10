@@ -16,5 +16,6 @@ return [
     "menu.item.autogenerator.processes" => "Procesos",
     "menu.item.autogenerator.live.productions" => "En vivo - Producciones",
     "menu.item.contents.dealers" => "Proveedores de contenido",
+    "menu.item.my.account"=>"Mi cuenta",
     "btn.cancel"=>"Cancelar"
 ];

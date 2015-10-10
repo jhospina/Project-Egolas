@@ -187,7 +187,7 @@ class Util {
      * @return string La url
      */
     static function getCurrentUrl() {
-        $url = Util::crearUrl($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+        $url = Util::createUrl($_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
         return $url;
     }
 

@@ -1,0 +1,50 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 09-oct-2015, 10:53:35
+    Author     : ingen
+*/
+
+#menu{
+    background: #111111;
+    height: 100%;
+    position: fixed;
+    top: 80px;
+    z-index: 1;     
+}
+
+body{
+    background: white;
+}
+
+#avatar img {
+    width: 100%;
+    max-width: 200px;
+}
+
+#avatar{
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+
+#menu .list-group {
+    margin-top: 20px;
+    color: black;
+}
+
+#navbar{
+    position: fixed;
+    width: 100%;
+}
+
+
+#main {
+    height: 100%;
+    margin-top: 80px;
+    color: black;
+}

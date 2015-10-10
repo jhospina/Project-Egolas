@@ -9,8 +9,8 @@ class Email {
     const VAR_HEADER = "header";
     const VAR_NAME = "name";
     const VAR_DESCRIPTION = "description";
-    const VAR_EMAIL="email";
-  
+    const VAR_EMAIL = "email";
+
     var $header;
     var $name;
     var $description;
@@ -41,16 +41,32 @@ class Email {
      * @return boolean
      */
     function send() {
-        $data = [
+
+        $data = $this->getData();
+
+        return Mail::send('emails.' . $this->getTemplate(), $data, function($message) {
+                    $message->to($this->getEmail())->subject($this->getSubject());
+                });
+    }
+
+    /** Pone en cola el correo para enviar
+     * 
+     * @return type
+     */
+    function queue() {
+        $data = $this->getData();
+        return Mail::queue('emails.' . $this->getTemplate(), $data, function($message) {
+                    $message->to($this->getEmail())->subject($this->getSubject());
+                });
+    }
+
+    private function getData() {
+        return [
             self::VAR_HEADER => $this->getHeader(),
             self::VAR_NAME => $this->getName(),
             self::VAR_DESCRIPTION => $this->getDescription(),
             self::VAR_EMAIL => $this->getEmail()
         ];
-
-        return Mail::send('emails.' . $this->getTemplate(), $data, function($message) {
-                    $message->to($this->getEmail())->subject($this->getSubject());
-                });
     }
 
     function getHeader() {

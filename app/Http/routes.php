@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /*
   |--------------------------------------------------------------------------
   | Application Routes
@@ -11,10 +13,35 @@
   |
  */
 
-Route::get('/', "Frontend\HomeController@index");
 
-Route::get('manager/auth/login', "Manager\Auth\AuthController@getLogin");
-Route::post('manager/auth/login', "Manager\Auth\AuthController@postLogin");
+
+
+//*****************************************************
+//USER*********************************************
+//*****************************************************
+
+
+
+Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["auth"]], function() {
+    menu_user();
+    auth_user();
+});
+
+function menu_user() {
+    $class = "MenuController@";
+    Route::get("dashboard", $class . "getDashboard");
+    Route::get("account", $class . "getAccount");
+}
+
+function auth_user() {
+    $class = "Auth\AuthController@";
+    Route::get("auth/logout", $class . "logout");
+}
+
+//*****************************************************
+//FRONTEND*********************************************
+//*****************************************************
+Route::get('/', "Frontend\HomeController@index");
 
 
 
@@ -36,18 +63,18 @@ function persons_frontend() {
     Route::get("person/{slug}", $class . "getInfo");
 }
 
-function user_fronted(){
+function user_fronted() {
     $class = "UserController@";
-    Route::post("user/post/create/account",$class."postCreateAccount");
-    
+    Route::post("user/post/create/account", $class . "postCreateAccount");
 }
 
-/*
-  Route::get("/searcher/auto/feed/productions","AutoUpdateSearcherController@productions_feed");
-  Route::get("/searcher/auto/track/production/{take}","AutoUpdateSearcherController@production_track"); */
+//*****************************************************
+//MANAGER*********************************************
+//*****************************************************
 
-
-Route::group(["prefix" => "manager", "namespace" => "Manager"], function() {
+Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => ["auth"]], function() {
+    Route::get('auth/login', "Auth\AuthController@getLogin");
+    Route::post('auth/login', "Auth\AuthController@postLogin");
     Route::get("dashboard", "DashboardController@index");
     Route::get('auth/logout', "Auth\AuthController@logout");
     Route::get("password/edit", "Auth\PasswordController@getEditPassword");
@@ -65,7 +92,7 @@ function productions() {
     Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");
     Route::post("productions/ajax/chapter/creator", $class . "ajaxChapterCreator");
-    Route::post("productions/ajax/chapter/delete",$class."ajaxDeleteChapter");
+    Route::post("productions/ajax/chapter/delete", $class . "ajaxDeleteChapter");
 }
 
 function autoProcess() {
