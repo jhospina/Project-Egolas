@@ -4,7 +4,7 @@ use App\System\Library\Complements\Util;
 use \App\System\Models\Dealer;
 ?>
 
-@extends("ui/templates/gen")
+@extends("frontend/templates/gen")
 
 @section("title"){{$production->title}}@stop
 

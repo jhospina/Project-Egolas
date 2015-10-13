@@ -4,7 +4,7 @@ use App\System\Library\Complements\Util;
 use \App\System\Models\Dealer;
 ?>
 
-@extends("ui/templates/gen")
+@extends("frontend/templates/gen")
 
 @section("title"){{$production->title}}@stop
 
@@ -23,24 +23,10 @@ use \App\System\Models\Dealer;
     <div id="play-production" class="container content">
         <div class="col-md-12">
             <div class="embed-responsive embed-responsive-16by9">
-                <div id="spinner"></div>
-                {{str_replace("<iframe ","<iframe id='video' class='embed-responsive-item' ",$video)}}
-            </div>
+                <iframe  scrolling=no frameborder=0 src="{{URL::to("media/videoplayer/play/?s=".$id_video)}}" allowfullscreen></iframe>
+              </div>
         </div> 
     </div>
 </div>
-
-@stop
-
-@section("script")
-<script>
-
-    $("#video").load(function () {
-        $("#spinner").fadeOut(function(){
-              $("#video").css("opacity", "1");
-        });
-    });
-
-</script>
 
 @stop

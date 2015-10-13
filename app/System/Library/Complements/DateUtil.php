@@ -1,7 +1,7 @@
 <?php
 
 namespace App\System\Library\Complements;
-
+use DateTime;
 class DateUtil {
 
     const FORMAT_STANDARD = "Y-m-d H:i:s";
@@ -94,16 +94,16 @@ class DateUtil {
         //"Y-m-d H:i:s" => "%d-%d-%d %d:%d:%d"
         $format = str_replace("d", "X", $this->format);
         $spe = str_replace(
-                array("Y", "m", "X", "H", "i", "s"), "%d", $format);
+                array("Y", "m", "X", "H", "i", "s","j","n"), "%d", $format);
 
         list($year, $month, $day, $hour, $min, $sec) = sscanf($date, $spe);
 
-        $this->ano = $year;
-        $this->mes = $month;
-        $this->dia = $day;
-        $this->hora = $hour;
+        $this->year = $year;
+        $this->month = $month;
+        $this->day = $day;
+        $this->hour = $hour;
         $this->min = $min;
-        $this->seg = $sec;
+        $this->sec = $sec;
         $this->object = new DateTime($date);
     }
 
@@ -217,5 +217,71 @@ class DateUtil {
         $monthes = DateUtil::getMonthsNames();
         return $monthes[$month];
     }
+    
+    function getFormat() {
+        return $this->format;
+    }
+
+    function getYear() {
+        return $this->year;
+    }
+
+    function getMonth() {
+        return $this->month;
+    }
+
+    function getDay() {
+        return $this->day;
+    }
+
+    function getHour() {
+        return $this->hour;
+    }
+
+    function getMin() {
+        return $this->min;
+    }
+
+    function getSec() {
+        return $this->sec;
+    }
+
+    function getObject() {
+        return $this->object;
+    }
+
+    function setFormat($format) {
+        $this->format = $format;
+    }
+
+    function setYear($year) {
+        $this->year = $year;
+    }
+
+    function setMonth($month) {
+        $this->month = $month;
+    }
+
+    function setDay($day) {
+        $this->day = $day;
+    }
+
+    function setHour($hour) {
+        $this->hour = $hour;
+    }
+
+    function setMin($min) {
+        $this->min = $min;
+    }
+
+    function setSec($sec) {
+        $this->sec = $sec;
+    }
+
+    function setObject($object) {
+        $this->object = $object;
+    }
+
+
 
 }

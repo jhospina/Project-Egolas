@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["auth"]], function() {
     menu_user();
     auth_user();
+    account_user();
 });
 
 function menu_user() {
@@ -36,6 +37,13 @@ function menu_user() {
 function auth_user() {
     $class = "Auth\AuthController@";
     Route::get("auth/logout", $class . "logout");
+    Route::get("auth/login", $class . "getLogin");
+    Route::post("auth/login", $class . "postLogin");
+}
+
+function account_user() {
+    $class = "UserController@";
+    Route::post("account/post/save/info", $class . "postSaveInfoAccount");
 }
 
 //*****************************************************
@@ -45,17 +53,25 @@ Route::get('/', "Frontend\HomeController@index");
 
 
 
-Route::group(["prefix" => "f", "namespace" => "Frontend"], function() {
+Route::group(["namespace" => "Frontend"], function() {
     productions_frontend();
     persons_frontend();
     user_fronted();
+    home_fronted();
 });
+
+function home_fronted() {
+    $class = "HomeController@";
+    Route::get("browser", $class . "getBrowser");
+}
 
 function productions_frontend() {
     $class = "ProductionController@";
     Route::get("production/{slug}", $class . "getInfo");
     Route::get("production/{slug}/play", $class . "getPlay");
     Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
+    //Reproductor de video
+    Route::get("media/videoplayer/play/",$class."videoPlayer");
 }
 
 function persons_frontend() {

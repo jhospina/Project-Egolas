@@ -4,6 +4,7 @@ namespace App\System\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use \App\System\Models\Production;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller {
 
@@ -13,10 +14,18 @@ class HomeController extends Controller {
      * @return Response
      */
     public function index() {
-        $productions= Production::all()->take(50);
+        if (Auth::check()) {
+            return redirect("browser");
+        }
+        $productions = Production::all()->take(60);
         return view("frontend/index")
-        ->with("productions",$productions);
+                        ->with("productions", $productions);
     }
-    
+
+    public function getBrowser() {
+        $productions = Production::all()->where(Production::ATTR_STATE,  Production::STATE_ACTIVE);
+        return view("frontend/contents/gen/browser")
+                        ->with("productions", $productions);
+    }
 
 }

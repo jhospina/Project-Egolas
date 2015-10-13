@@ -13,7 +13,6 @@ $(document).ready(function () {
 
     //Verifica que las imagenes hallan sido cargadas
     setTimeout(function () {
-        if (!loaded)
             $(".poster img").each(function () {
                 var parent = $(this).parent();
                 $(parent.children(".spinner")).fadeOut();

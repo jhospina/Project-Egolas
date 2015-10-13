@@ -510,8 +510,7 @@ class Util {
      * @return type
      */
     static function getImportJScriptCurrent($path) {
-        $filename = Util::fileDeleteExtension(basename($_SERVER['PHP_SELF']));
-        $url = Util::convertPathToUrl(public_path()) . "/assets/scripts/" . $path . $filename . ".js";
+        $url = Util::convertPathToUrl(public_path()) . "/assets/scripts/" . $path . ".js";
         return (Util::UrlExist($url)) ? "<script src='" . $url . "'></script>" : null;
     }
 

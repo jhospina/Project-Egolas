@@ -2,7 +2,7 @@
 use App\System\Models\User;
 ?>
 
-@extends("frontend/templates/land",array("path"=>"frontend/"))
+@extends("frontend/templates/land",array("path"=>"frontend/index"))
 
 @section("content")
 
@@ -12,8 +12,8 @@ use App\System\Models\User;
             <img class="img-rounded" style="width: 250px;height:58px;" id="logo-okonexion" src="{{URL::to("assets/images/logo.png")}}">
         </a>
     </div>
-    <div>
-
+    <div class="collapse navbar-collapse" style="text-align: right;">
+        <a href="{{URL::to("user/auth/login")}}" id="btn-login-f" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> {{trans("gen.info.login")}}</a>
     </div>
 </nav>
 

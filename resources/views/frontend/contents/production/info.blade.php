@@ -3,7 +3,7 @@
 use App\System\Library\Complements\Util;
 ?>
 
-@extends("ui/templates/gen")
+@extends("frontend/templates/gen")
 
 @section("title"){{$production->title}}@stop
 
@@ -41,14 +41,14 @@ use App\System\Library\Complements\Util;
         @endif
         @if($isVideoMain)
         <div class="col-md-12 value text-center">
-            <a id="ver-online" href="{{URL::to("f/production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Ver online</a>
+            <a id="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Ver online</a>
         </div>
         @endif
     </div>
     <div class="col-md-4">
         <div class="col-md-12"><b>{{trans("gen.info.director")}}</b></div>
         <div class="col-md-12">
-            <a href="{{URL::to("f/person/".$director->slug)}}" class="staff">
+            <a href="{{URL::to("person/".$director->slug)}}" class="staff">
                 <div class="avatar">
                     <img class="img-circle" src="{{$director->image}}"/>
                 </div>
@@ -58,7 +58,7 @@ use App\System\Library\Complements\Util;
         <div class="col-md-12"><b>{{trans("gen.info.delivery")}}</b></div>
         <div class="col-md-12" id="staff-content">
             @foreach($staff as $person)
-            <a href="{{URL::to("f/person/".$person->slug)}}" class="staff">
+            <a href="{{URL::to("person/".$person->slug)}}" class="staff">
                 <div class="avatar">
                     <img class="img-circle" src="{{$person->image}}"/>
                 </div>

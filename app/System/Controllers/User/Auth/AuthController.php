@@ -29,7 +29,7 @@ class AuthController extends Controller {
     }
 
     public function getLogin() {
-        return view("user/auth/login");
+        return view("user/contents/auth/login");
     }
 
     public function postLogin(Request $request) {
@@ -37,10 +37,10 @@ class AuthController extends Controller {
 
         //Login aceptado
         if (Auth::attempt([User::AUTH_EMAIL => $data[User::AUTH_EMAIL], User::AUTH_PASSWORD => $data[User::AUTH_PASSWORD]], (isset($data[User::AUTH_REMEMBER])))) {
-            return redirect("user/dashboard");
+            return redirect("browser");
             //Login Incorrecto
         } else {
-            return redirect()->back()->withInput()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.login.error")));
+            return redirect()->back()->withInput()->with(UI::message(UI::MESSAGE_TYPE_ERROR, trans("msg.login.error")))->with(User::ATTR_EMAIL,$data[User::ATTR_EMAIL]);
         }
     }
 

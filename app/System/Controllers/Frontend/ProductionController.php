@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use \App\System\Models\Production;
 use App\System\Models\Person;
 use App\System\Models\Chapter;
+use App\System\Library\Security\Hash;
 
 class ProductionController extends Controller {
 
@@ -27,10 +28,10 @@ class ProductionController extends Controller {
 
     function getPlay($slug) {
         $production = Production::where(Production::ATTR_SLUG, $slug)->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->get()[0];
-        $video = $production->chapters[0]->video;
-        return view("frontend/contents/production/play")
+        $id_video = $production->chapters[0]->video;
+        return view("ui/media/videoplayer")
                         ->with("production", $production)
-                        ->with("video", $video);
+                        ->with("video", $id_video);
     }
 
     function getPlayChapter($slug, $id_chapter, $name) {
@@ -40,6 +41,12 @@ class ProductionController extends Controller {
         return view("frontend/contents/production/play-chapter")
                         ->with("production", $production)
                         ->with("video", html_entity_decode($video[0]->video));
+    }
+
+    function videoPlayer() {
+        $id_video = Hash::decrypt(urldecode($_GET["s"]));
+        $video = Chapter::where(Chapter::ATTR_ID, $id_video)->get()[0]->video;
+        return view("ui/media/videoplayer")->with("video", $video);
     }
 
 }

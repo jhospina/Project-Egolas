@@ -1,0 +1,109 @@
+
+html,body{
+    width: 100%;
+    height: 100%;
+    background: black;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+
+video {
+    width: 100%;
+    height: 100%;
+}
+
+#controls {
+    position: absolute;
+    bottom: 6px;
+    padding: 0px;
+    width: 96%;
+    left: 2%;
+    background: #cc0000;
+    background: -moz-linear-gradient(left, #cc0000 0%, #cc0000 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#cc0000), color-stop(100%,#cc0000));
+    background: -webkit-linear-gradient(left, #cc0000 0%,#cc0000 100%);
+    background: -o-linear-gradient(left, #cc0000 0%,#cc0000 100%);
+    background: -ms-linear-gradient(left, #cc0000 0%,#cc0000 100%);
+    background: linear-gradient(to right, #cc0000 0%,#cc0000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=1 );
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 45px;
+    z-index: 2147483648;
+    display: none;
+}
+
+#controls .driver{
+    float: left;
+    padding: 8px;
+    font-size: 17pt;
+    color: white;
+    cursor: pointer;
+}
+#controls .driver:hover{
+    color: #FFA9A9;
+}
+
+div#left, div#right {
+    float: left;
+    width: 50%;
+    height: 45px;
+}
+
+div#right{
+    text-align: right;
+}
+
+#right section,#left section{
+    clear: both;
+    height: 45px;
+    display: inline-block;
+}
+
+
+#left {
+    text-align: left;
+}
+
+
+#btn-back{
+    padding: 6px;
+    border: 4px white solid;
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    color: white;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    font-size: 30pt;
+    top: 2%;
+    left: 2%;
+    cursor: pointer;
+    z-index: 999999999;
+    display: none;
+}
+
+#btn-back:hover{
+    border-color: red;
+    color:red;
+}

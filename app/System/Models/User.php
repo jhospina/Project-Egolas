@@ -26,10 +26,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const ATTR_NAME = "name";
     const ATTR_LASTNAME = "lastname";
     const ATTR_STATE = "state";
-    const ATTR_AVATAR="avatar";
-    const ATTR_BIRTH="birth";
-    const ATTR_CITY="city";
-    const ATTR_COUNTRY="country";
+    const ATTR_AVATAR = "avatar";
+    const ATTR_BIRTH = "birth";
+    const ATTR_CITY = "city";
+    const ATTR_COUNTRY = "country";
     const ATTR_KEY_ACTIVATION = "keyActivation";
     const ATTR_ROLE = "role";
     const ATTR_EMAIL = "email";

@@ -31,7 +31,7 @@
         <link rel="shortcut icon" href="{{URL::to("/assets/images/favicon.png")}}">
 
     </head>
-    <body>
+    <body id="body-{{(isset($id_body))?$id_body:null}}">
 
         @yield("content")
 

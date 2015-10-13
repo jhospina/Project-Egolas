@@ -57,5 +57,8 @@ return [
     "info.country" => "Pais",
     "info.city" => "Ciudad",
     "info.select"=>"Seleccionar",
+    "info.complete"=>"Completado",
+    "info.login"=>"Iniciar sesión",
+    "info.password"=>"Contraseña"
     
 ];
