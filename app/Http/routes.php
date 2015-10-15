@@ -37,6 +37,10 @@ function menu_user() {
 function auth_user() {
     $class = "Auth\AuthController@";
     Route::get("auth/logout", $class . "logout");
+    Route::get("auth/recovery", $class . "getRecovery");
+    Route::post("auth/recovery", $class . "postRecovery");
+    Route::post("auth/recovery/reset/password", $class . "postResetPassword");
+    Route::post("auth/recovery/reset/password/post", $class . "postSetResetPassword");
     Route::get("auth/login", $class . "getLogin");
     Route::post("auth/login", $class . "postLogin");
 }

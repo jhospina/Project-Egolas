@@ -19,7 +19,11 @@ class Authenticate {
         "/manager/auth/login",
         "/manager/auth/logout",
         "/user/auth/login",
-        "/user/auth/logout"
+        "/user/auth/logout",
+        "/user/auth/recovery",
+        "/user/auth/recovery?request=send-mail&form=token",
+        "/user/auth/recovery/reset/password",
+        "/user/auth/recovery/reset/password/post"
     ];
 
     /**

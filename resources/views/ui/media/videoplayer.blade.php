@@ -28,7 +28,7 @@ use App\System\Library\Complements\Util;
         <a href="{{URL::to("production/".$production->slug)}}" id="btn-back">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        <video id="video" src="{{$video}}"></video>
+        <video id="video" src="{{$url_video}}"></video>
         <div id="controls">
             <div id="left">
                 <section>

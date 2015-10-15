@@ -39,7 +39,7 @@ $data = array(
                     <span class="button-checkbox">
                         <button type="button" class="btn" data-color="info">Recordarme</button>
                         <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-                        <a href="" class="btn btn-link pull-right">¿Olvidaste tu contraseña?</a>
+                        <a href="{{URL::to("user/auth/recovery")}}" class="btn btn-link pull-right">¿Olvidaste tu contraseña?</a>
                     </span>
                 </form>
                 <hr class="colorgraph">

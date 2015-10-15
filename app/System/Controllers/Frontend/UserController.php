@@ -74,13 +74,11 @@ class UserController extends Controller {
                 "<p>Para confirmar este correo electrónico debes hacer clic <a href='" . $activationLink . "'>aquí</a>. También puedes copiar y pegar el siguiente enlace:<br/><br/>" . $activationLink . "</p>" .
                 "<p><i><b>Atención:<b/> Si crees que se ha tratado de una equivocación, por favor ignora este mensaje.</i></p>";
 
-        /* $email = new Email("Activación de cuenta", $data[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description]);
-          $email->send(); */
+        $email = new Email("Activación de cuenta", $data[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description]);
+        $email->send();
 
         Auth::loginUsingId($user->id);
-        return redirect("user/dashboard")->with("request","welcome");
+        return redirect("user/dashboard")->with("request", "welcome");
     }
 
-    
-    
 }

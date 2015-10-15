@@ -1,6 +1,7 @@
 <?php
 
 return [
+    "price.cuant"=>"1.7",
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",

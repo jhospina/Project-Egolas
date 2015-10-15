@@ -72,8 +72,6 @@ $(document).ready(function () {
 });
 
 
-var tooltip_template = '<div class="tooltip tooltip-error" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>';
-
 function submit(btn) {
     if ($("#email").val().length == 0) {
         jQuery($("#email").parent()).tooltip({placement: "left", trigger: "manual", title: "Introduce tu correo electrónico de acceso", template: tooltip_template});

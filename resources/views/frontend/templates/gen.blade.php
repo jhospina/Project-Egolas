@@ -31,7 +31,7 @@
     </head>
     <body id="body-{{(isset($id_body))?$id_body:null}}">
 
-        @include("ui/navbar")
+        @include("frontend/ui/navbar")
 
         <div id="main">
         

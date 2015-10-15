@@ -1,6 +1,6 @@
 <?php
 
-namespace App\System\Controllers\Manager\Auth;
+namespace App\System\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -30,10 +30,11 @@ use ResetsPasswords;
      */
     public function __construct() {
         $this->middleware('auth');
+        
     }
 
     public function getEditPassword() {
-        return view("manager/contents/user/editPassword");
+        return view("user/contents/user/editPassword");
     }
 
     public function postEditPassword(Request $request) {
@@ -49,6 +50,10 @@ use ResetsPasswords;
             return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_SUCCESS, trans("msg.editPass.success"), null, 2));
         else
             return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_ERROR, trans("msg.editPass.error.pass.current"), null, 2));
+    }
+    
+    public function resetPassword() {
+       
     }
 
 }

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Http/routes.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Library/Enum/Language.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/gen.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/js/ui/videoplayer.js</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/attr.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/frontend/index.blade.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/ui.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/doc/terms.blade.php</file>
         </group>
     </open-files>
 </project-private>
