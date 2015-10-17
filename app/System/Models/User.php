@@ -22,6 +22,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $fillable = ['name', "lastname", "role", 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
 
+    const PATH_UPLOADS = "res/users/uploads/";
+    const PATH_TEMPORAL = "res/users/temporal/";
     const ATTR_ID = "id";
     const ATTR_NAME = "name";
     const ATTR_LASTNAME = "lastname";
@@ -68,6 +70,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     static public function existEmail($email) {
         return (User::where(User::ATTR_EMAIL, $email)->count() > 0);
+    }
+    
+    function getPathUploads(){
+        return User::PATH_UPLOADS.$this->id."/";
+    }
+    
+    function getPathTemporal(){
+        return User::PATH_TEMPORAL.$this->id."/";
     }
 
 }

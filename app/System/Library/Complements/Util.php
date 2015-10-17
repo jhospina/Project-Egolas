@@ -44,11 +44,11 @@ class Util {
         if (strpos($URL, "https") !== false)
             $URL = str_replace("https://", "", $URL);
 
-        $public = public_path("");
-        $desc = explode("/", $public);
+        $public = str_replace("/public/", "/", public_path("") . "/");
+        $desc = explode("/", substr($public, 0, strlen($public) - 1));
         $last = end($desc);
         $posRaiz = strpos($URL, $last);
-        return $public . substr($URL, $posRaiz + strlen($last));
+        return str_replace("//", "/public/", $public . substr($URL, $posRaiz + strlen($last)));
     }
 
     static function convertPathToUrl($path, $dominio = "bandicot.com") {
@@ -474,6 +474,16 @@ class Util {
         $regex = '/https?\:\/\/[^\" ]+/i';
         preg_match_all($regex, $text, $partes);
         return ($partes[0]);
+    }
+    
+    /** Elimina cualquier link de un texto dado
+     *  
+     * @param type $text
+     * @return type
+     */
+     static function removeURLsFromText($text,$replace="") {
+        $regex = '/https?\:\/\/[^\" ]+/i';
+        return preg_replace($regex,$replace,$text);
     }
 
     static function convertTextToSearch($text) {

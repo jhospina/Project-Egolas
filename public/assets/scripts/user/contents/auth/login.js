@@ -68,6 +68,13 @@ $(document).ready(function () {
     $("input").keypress(function () {
         $(this).parent().removeClass("has-error")
     });
+    
+     $('#password').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            submit($("#submit"));
+        }
+    });
 
 });
 

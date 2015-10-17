@@ -8,6 +8,12 @@ use App\System\Models\Person;
 use App\System\Models\Chapter;
 use App\System\Library\Security\Hash;
 use App\System\Library\Media\Video;
+use Illuminate\Http\Request;
+use App\System\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+use App\System\Library\Complements\DateUtil;
+use App\System\Models\User;
+use App\System\Library\Complements\Util;
 
 class ProductionController extends Controller {
 
@@ -32,9 +38,9 @@ class ProductionController extends Controller {
         $id_video = $production->chapters[0]->video;
         $video = new Video($id_video);
         $url_video = $video->getData(array(Video::FIELD_FLVURL));
-          return view("ui/media/videoplayer")
-          ->with("production", $production)
-          ->with("url_video", $url_video);
+        return view("ui/media/videoplayer")
+                        ->with("production", $production)
+                        ->with("url_video", $url_video);
     }
 
     function getPlayChapter($slug, $id_chapter, $name) {
@@ -52,6 +58,55 @@ class ProductionController extends Controller {
         $url_video = $video->getData(array(Video::FIELD_FLVURL));
         exit($url_video);
         //return view("ui/media/videoplayer")->with("url_video", $url_video);
+    }
+
+    function ajax_postComment(Request $request) {
+
+        if (!$request->ajax())
+            return;
+
+        $data = $request->all();
+        $comment = new Comment;
+        $comment->user_id = Auth::user()->id;
+        $comment->production_id = $data[Comment::ATTR_PRODUCTION_ID];
+        $comment->content = Util::removeURLsFromText(strip_tags($data[Comment::ATTR_CONTENT]),"[Enlace bloqueado]");
+        $comment->created_at = DateUtil::getCurrentTime();
+        $comment->save();
+
+        return json_encode(array("content"=>$comment->content));
+    }
+
+    function ajax_getComments(Request $request) {
+        if (!$request->ajax())
+            return;
+        $data = $request->all();
+
+        $comments = Comment::where(Comment::ATTR_PRODUCTION_ID, $data[Comment::ATTR_PRODUCTION_ID])->orderBy("id", "DESC")->skip($data["skip"])->take(10)->get();
+
+        $response = array();
+
+        if ($data["skip"] == 0)
+            $total_comments = Comment::where(Comment::ATTR_PRODUCTION_ID, $data[Comment::ATTR_PRODUCTION_ID])->count();
+
+        foreach ($comments as $comment) {
+            $user = User::findOrNew($comment->user_id);
+            $data_comment = array("content" => $comment->content,
+                "date" => DateUtil::calculateDifference($comment->created_at),
+                "name" => $user->name,
+                "avatar" => (is_null($user->avatar)) ? url("assets/images/user_icon.png") : $user->avatar);
+            
+            if ($data["skip"] == 0)
+                $data_comment["total"] = $total_comments;
+
+            $response[] = $data_comment;
+        }
+        
+        if(count($comments)==0)
+             $response[]=array("total"=>0);
+
+
+
+        return json_encode($response);
     }
 
 }

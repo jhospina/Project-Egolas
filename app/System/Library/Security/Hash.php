@@ -31,4 +31,17 @@ class Hash {
         return $result;
     }
 
+    /** Ofusca un contenido HTML
+     * 
+     * @param type $html
+     */
+    static function dimToUnicode($html) {
+        $ls = explode("|@|", chunk_split($html, 1, "|@|"));
+        $res = "";
+        for ($i = 0; $i < count($ls)-1; $i++) {
+            $res.="\u00" . bin2hex($ls[$i]);
+        }
+        return $res;
+    }
+
 }

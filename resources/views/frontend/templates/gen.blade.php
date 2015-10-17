@@ -54,6 +54,7 @@
             jQuery(".tooltip-top").tooltip({placement: "top"});
             jQuery(".tooltip-right").tooltip({placement: "right"});
             jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
+            
         </script>
 
         {{--OTROS SCRIPTS--}}

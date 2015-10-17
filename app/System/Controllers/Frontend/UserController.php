@@ -67,6 +67,11 @@ class UserController extends Controller {
         $user->role = User::ROLE_SUSCRIPTOR;
         $user->keyActivation = $keyActivation;
         $user->save();
+        
+        //Crea las carpetas de manejo de archivos del usuarios
+        mkdir(public_path($user->getPathTemporal()));
+        mkdir(public_path($user->getPathUploads()));
+       
 
         $activationLink = url("user/confirm/email/" . $keyActivation);
 

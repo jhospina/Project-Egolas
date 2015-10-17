@@ -56,6 +56,10 @@ class Production extends Model {
     public function chapters() {
         return $this->hasMany('App\System\Models\Chapter', 'production_id');
     }
+    
+    public function comments() {
+        return $this->hasMany('App\System\Models\Comment', 'production_id');
+    }
 
     public function staff() {
         return $this->belongsToMany('App\System\Models\Person', "staff")->withPivot('role');

@@ -9,6 +9,7 @@
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap-theme.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap-submenu/css/bootstrap-submenu.css', array('media' => 'screen')) }}
+         {{HTML::style("assets/plugins/fileinput/css/fileinput.css",array("media"=>"screen"))}}
 
         {{--CSS PERSONALIZADO--}}
         {{ HTML::style('assets/css/util.css', array('media' => 'screen')) }}
@@ -37,26 +38,25 @@
         @include("user/ui/menu")
 
         <div id="main" class="col-md-10 col-md-offset-2">
-
             @yield("content")
-
         </div>
+        
+ 
 
-
-        <footer>
-
-        </footer>
 
         {{-- Include all compiled plugins (below), or include individual files as needed --}}
         {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}
         {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
         {{ HTML::script('assets/js/bootstrap-tooltip.js') }}
-
+        {{ HTML::script('assets/scripts/user/templates/gen.js') }}
+                {{HTML::script("assets/plugins/fileinput/js/fileinput.js")}}
         <script>
             jQuery(".tooltip-left").tooltip({placement: "left"});
             jQuery(".tooltip-top").tooltip({placement: "top"});
             jQuery(".tooltip-right").tooltip({placement: "right"});
             jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
+                   var url_ajax_upload_avatar="{{URL::to('user/account/ajax/upload/avatar')}}";
+                   var token_ajax="{{ Session::token() }}";
         </script>
 
         {{--OTROS SCRIPTS--}}

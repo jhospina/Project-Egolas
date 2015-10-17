@@ -48,3 +48,41 @@ body{
     margin-top: 80px;
     color: black;
 }
+
+#content-avatar {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+#action-edit-avatar{
+    cursor: pointer;
+}
+
+
+#action-edit-avatar #icon-edit-avatar{
+    position: absolute;
+    color: white;
+    font-size: 20pt;
+    left: 10px;
+    bottom: 0px;
+}
+
+#action-edit-avatar.hover{
+    height: 50px;
+    position: absolute;
+    bottom: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+#action-edit-avatar label{
+    font-size: 10pt;
+    position: absolute;
+    bottom: 0px;
+    left: 40px;
+    width: 100px;
+    max-width: 100px;
+    text-align: left;
+    display: none;
+}

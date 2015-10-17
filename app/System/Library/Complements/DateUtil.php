@@ -117,7 +117,8 @@ class DateUtil {
         return trans("gen.date.format.01", array("dia" => $date[2], "mes" => $monthes[$date[1]], "ano" => $date[0], "hora" => $ft[1]));
     }
 
-    static function calculateDifference($date1, $date2) {
+    static function calculateDifference($date1, $date2=null) {
+        $date2=(is_null($date2))?DateUtil::getCurrentTime():$date2;
         $minute = 60;
         $hour = $minute * 60;
         $day = $hour * 24;
@@ -141,7 +142,7 @@ class DateUtil {
         } elseif ($difference >= $day && $difference < $day * 2) {
             $time = "1 " . trans("gen.time.day");
         } elseif ($difference >= $day * 2 && $difference < $month) {
-            $time = floor($difference / $day) . " " . trans("gen.time.years");
+            $time = floor($difference / $day) . " " . trans("gen.time.days");
         } elseif ($difference >= $month && $difference < $month * 2) {
             $time = "1 " . trans("gen.time.month") . " " . DateDateUtil::calculateDifference($date1, date(DateDateUtil::FORMAT_STANDARD, intval($difference - $month) + strtotime($date1)));
         } elseif ($difference >= $month * 2 && $difference < $year) {

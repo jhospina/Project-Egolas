@@ -44,7 +44,6 @@
     padding: 10px;
     font-size: 23pt;
     font-weight: bold;
-    font-family: sans-serif;
 }
 
 #rating-imdb{
@@ -157,7 +156,6 @@
     padding: 10px;
     font-size: 23pt;
     font-weight: bold;
-    font-family: sans-serif;
     color:white;
 }
 
@@ -194,9 +192,59 @@
     opacity: 0;
 }
 
-#spinner{
-    z-index: 999;
+#comments{
+    padding: 0px;
+    color:black;
+    margin-top: 30px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+#comments h2{
+    padding:10px;
+}
+
+#comments .avatar{
+    width: 60px;
+    display: inline-block;
     position: absolute;
-    top: 40%;
-    left: 45%;
+    right: 0px;
+}
+
+textarea#content-comment {
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#comments .comment{
+    clear: both;
+    display: inline-block;
+    width: 100%;
+    min-height: 100px;
+}
+
+div#list-comment {
+    clear: both;
+    display: inline-block;
+    width: 100%;
+}
+
+#comments .comment .comment-content{
+    background: white;
+    color: black;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    clear: both;
+}
+
+#comments .comment .col-xs-1.col-md-1 {
+    min-height: 100px;
+    text-align: right;
+}
+
+#comments .comment .name{
+   
 }

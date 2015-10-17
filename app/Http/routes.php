@@ -15,11 +15,23 @@ use Illuminate\Support\Facades\Auth;
 
 
 
+//*****************************************************
+//AJAX*********************************************
+//*****************************************************
+
+
+Route::group(["prefix" => "ajax", "middleware" => ["auth"]], function() {
+    ajax_comments();
+});
+
+function ajax_comments() {
+    Route::post("comment/create", "Frontend\ProductionController@ajax_postComment");
+    Route::post("comment/get", "Frontend\ProductionController@ajax_getComments");
+}
 
 //*****************************************************
 //USER*********************************************
 //*****************************************************
-
 
 
 Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["auth"]], function() {
@@ -48,6 +60,8 @@ function auth_user() {
 function account_user() {
     $class = "UserController@";
     Route::post("account/post/save/info", $class . "postSaveInfoAccount");
+    //Ajax
+    Route::post("account/ajax/upload/avatar", $class . "ajaxUpdateAvatar");
 }
 
 //*****************************************************
@@ -62,7 +76,15 @@ Route::group(["namespace" => "Frontend"], function() {
     persons_frontend();
     user_fronted();
     home_fronted();
+    doc_frontend();
 });
+
+function doc_frontend(){
+    $class = "HomeController@";
+    Route::get("doc/terms", $class . "getTerms");
+    Route::get("doc/privacypolicy",$class . "getPrivacyPolicy");
+}
+
 
 function home_fronted() {
     $class = "HomeController@";
@@ -75,7 +97,7 @@ function productions_frontend() {
     Route::get("production/{slug}/play", $class . "getPlay");
     Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
     //Reproductor de video
-    Route::get("media/videoplayer/play/",$class."videoPlayer");
+    Route::get("media/videoplayer/play/", $class . "videoPlayer");
 }
 
 function persons_frontend() {

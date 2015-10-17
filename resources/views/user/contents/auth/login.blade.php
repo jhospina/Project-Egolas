@@ -38,7 +38,7 @@ $data = array(
                     </div>
                     <span class="button-checkbox">
                         <button type="button" class="btn" data-color="info">Recordarme</button>
-                        <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
+                        <input type="checkbox" name="{{User::AUTH_REMEMBER}}" id="remember_me" checked="checked" class="hidden">
                         <a href="{{URL::to("user/auth/recovery")}}" class="btn btn-link pull-right">¿Olvidaste tu contraseña?</a>
                     </span>
                 </form>
@@ -46,7 +46,7 @@ $data = array(
 
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-6">
-                        <button type="button" onclick="submit(this);" class="btn btn-lg btn-success btn-block">Ingresar</button>
+                        <button type="button" onclick="submit(this);" id="submit" class="btn btn-lg btn-success btn-block">Ingresar</button>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <a href="{{URL::to("")}}" class="btn btn-lg btn-primary btn-block">Crear una cuenta</a>

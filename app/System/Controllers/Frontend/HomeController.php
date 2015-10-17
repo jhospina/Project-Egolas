@@ -28,4 +28,12 @@ class HomeController extends Controller {
                         ->with("productions", $productions);
     }
 
+    public function getTerms(){
+        return view("frontend/contents/doc/terms");
+    }
+    
+    public function getPrivacyPolicy(){
+        return view("frontend/contents/doc/privacy-policy");
+    }
+    
 }

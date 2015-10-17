@@ -1,5 +1,7 @@
 <?php
+
 use App\System\Library\Complements\Util;
+use App\System\Library\Security\Hash;
 ?><!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +30,7 @@ use App\System\Library\Complements\Util;
         <a href="{{URL::to("production/".$production->slug)}}" id="btn-back">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        <video id="video" src="{{$url_video}}"></video>
+        <video id='video' src='{{$url_video}}'></video>
         <div id="controls">
             <div id="left">
                 <section>
@@ -48,7 +50,7 @@ use App\System\Library\Complements\Util;
         {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
         {{ HTML::script('assets/js/bootstrap-tooltip.js') }}
         {{ HTML::script('assets/js/ui/videoplayer.js') }}
-        <script>
+        <script>;
             jQuery(".tooltip-left").tooltip({placement: "left"});
             jQuery(".tooltip-top").tooltip({placement: "top"});
             jQuery(".tooltip-right").tooltip({placement: "right"});

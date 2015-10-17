@@ -1,7 +1,9 @@
 <?php
 
 return [
-    "price.cuant"=>"1.7",
+    "doc.terms" => "Términos y condiciones de uso",
+    "doc.privacy.policy" => "Politica de privacidad",
+    "price.cuant" => "1.7",
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",
@@ -16,9 +18,17 @@ return [
     "info.si" => "Si",
     "info.no" => "No",
     "info.edit" => "Editar",
-    "time.day"=>"Día",
-    "time.month"=>"Mes",
+    "time.day" => "Día",
+    "time.days" => "Dias",
+    "time.month" => "Mes",
+    "time.months" => "Meses",
     "time.year" => "Año",
+    "time.years" => "Años",
+    "time.seconds" => "Segundos",
+    "time.minute" => "Minuto",
+    "time.minutes" => "Minutos",
+    "time.hour" => "Hora",
+    "time.hours" => "Horas",
     "info.image" => "Imagen",
     "info.mask" => "Caratula",
     "info.categories" => "Categorias",
@@ -57,9 +67,8 @@ return [
     "info.birth" => "Fecha de nacimiento",
     "info.country" => "Pais",
     "info.city" => "Ciudad",
-    "info.select"=>"Seleccionar",
-    "info.complete"=>"Completado",
-    "info.login"=>"Iniciar sesión",
-    "info.password"=>"Contraseña"
-    
+    "info.select" => "Seleccionar",
+    "info.complete" => "Completado",
+    "info.login" => "Iniciar sesión",
+    "info.password" => "Contraseña"
 ];

@@ -32,6 +32,7 @@ body{
 #navbar,#navbar.navbar{
     height: 80px;
     z-index: 999;
+        top: 0px;
 }
 
 #navbar .navbar-brand{
@@ -63,4 +64,30 @@ padding: 0px 10px;
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+
+#spinner,.spinner{
+    background: url(http://bandicot.com/public/assets/images/loaders/site-spinner.png) 50% 50%/100% no-repeat;
+    width: 6.942em;
+    height: 6.942em;
+    -animation: spin 1.10s infinite linear;
+    -ms-animation: spin 1.10s infinite linear;
+    -webkit-animation: spinw 1.10s infinite linear;
+    -moz-animation: spinm 1.10s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
 }

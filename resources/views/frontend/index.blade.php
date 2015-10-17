@@ -53,7 +53,7 @@ use App\System\Models\User;
 
         <div class="row">
             <div id="content-form" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <form role="form" action="{{URL::to('f/user/post/create/account')}}" method="POST">
+                <form role="form" action="{{URL::to('user/post/create/account')}}" method="POST">
                     {{ csrf_field() }}
                     <h2 class="text-center">¡Crea tu cuenta gratis!</h2>
                     <hr class="colorgraph">
@@ -96,7 +96,7 @@ use App\System\Models\User;
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            Al hacer clic en el botón <i>"Registrarme"</i>, tu aceptas haber leido y aceptado los <a href="#" data-toggle="modal" data-target="#t_and_c_m">Terminos y condiciones</a> para el uso de nuestro sitio web.
+                            Al hacer clic en el botón <i>"Registrarme"</i>, tu aceptas haber leido y aceptado los <a href="#" data-toggle="modal" data-target="#t_and_c_m">{{trans("gen.doc.terms")}}</a> ademas de la <a href="#" data-toggle="modal" data-target="#t_and_c_privacy">{{trans("gen.doc.privacy.policy")}}</a> para el uso de nuestro plataforma web.
                         </div>
                     </div>
                     <div class="row">
@@ -118,16 +118,34 @@ use App\System\Models\User;
 </div>
 
 
-<!-- Modal -->
+<!-- Modal - TERMS -->
 <div class="modal fade"  id="t_and_c_m" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="color:black;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h1 class="modal-title" id="myModalLabel">Términos y condiciones de uso</h1>
+                <h1 class="modal-title" id="myModalLabel">{{trans("gen.doc.terms")}}</h1>
             </div>
             <div class="modal-body text-justify">
               @include("doc/terms")
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal - PRIVACY -->
+<div class="modal fade"  id="t_and_c_privacy" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="color:black;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h1 class="modal-title" id="myModalLabel">{{trans("gen.doc.privacy.policy")}}</h1>
+            </div>
+            <div class="modal-body text-justify">
+              @include("doc/privacy-policy")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>

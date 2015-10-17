@@ -1,9 +1,11 @@
 <?php
 
 use App\System\Library\Complements\Util;
+use App\System\Models\User;
+use App\System\Library\Complements\DateUtil;
 ?>
 
-@extends("frontend/templates/gen")
+@extends("frontend/templates/gen",array("path"=>"frontend/contents/production/info"))
 
 @section("title"){{$production->title}}@stop
 
@@ -86,4 +88,31 @@ use App\System\Library\Complements\Util;
 </div>
 @endif
 
+<div id="comments" class="content container">
+    <div class="title col-md-12"><h2>¿Qué te parecio esta película? Haz un comentario</h2></div>
+    <div id="create-comment">
+        <div class="col-xs-1 col-md-1" style="height: 110px;">
+            <img class="avatar img-circle" src="{{(is_null(Auth::user()->avatar))?URL::to("assets/images/user_icon.png"):Auth::user()->avatar}}">
+        </div>
+        <div class="col-xs-11">
+            <textarea class="form-control input-lg" id="content-comment" placeholder="Escribe un comentario aquí..."></textarea>
+            <div class="col-mx-12 text-right">
+                <input type="hidden" id="production-id" value="{{$production->id}}">
+                <button type="button" id="submit-post-comment" class="btn btn-primary">Comentar</button>
+            </div>
+        </div>
+    </div>
+    <div class="title col-md-12"><h2><span class="glyphicon glyphicon-comment"></span> Comentarios</h2></div>
+    <div id="list-comment"></div>
+</div>
+
+@stop
+
+@section("script")
+<script>
+    var ajax_post_comment = "{{URL::to('ajax/comment/create')}}";
+    var ajax_get_comments = "{{URL::to('ajax/comment/get')}}";
+    var token = "{{ Session::token() }}";
+    var name_user = "{{Auth::user()->name}}";
+</script>
 @stop
