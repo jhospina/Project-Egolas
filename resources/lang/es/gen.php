@@ -3,7 +3,7 @@
 return [
     "doc.terms" => "Términos y condiciones de uso",
     "doc.privacy.policy" => "Politica de privacidad",
-    "price.cuant" => "1.7",
+    "price.cuant" => "6",
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",
@@ -70,5 +70,20 @@ return [
     "info.select" => "Seleccionar",
     "info.complete" => "Completado",
     "info.login" => "Iniciar sesión",
-    "info.password" => "Contraseña"
+    "info.password" => "Contraseña",
+    "date.january" => "Enero",
+    "date.febrary" => "Febrero",
+    "date.march" => "Marzo",
+    "date.april" => "Abril",
+    "date.may" => "Mayo",
+    "date.june" => "Junio",
+    "date.july" => "Julio",
+    "date.august" => "Agosto",
+    "date.septembre" => "Septiembre",
+    "date.october" => "Octubre",
+    "date.november" => "Noviembre",
+    "date.december" => "Diciembre",
+    "info.ip.address"=>"Dirección IP",
+    "info.date"=>"Fecha"
+    
 ];

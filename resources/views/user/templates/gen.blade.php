@@ -37,12 +37,13 @@
 
         @include("user/ui/menu")
 
-        <div id="main" class="col-md-10 col-md-offset-2">
+        <div id="main" class="col-xs-10 col-xs-offset-2">
             @yield("content")
         </div>
         
- 
-
+        
+        {{-- MENSAJE MODAL --}}
+        @include("ui/msg/modal-message")
 
         {{-- Include all compiled plugins (below), or include individual files as needed --}}
         {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}

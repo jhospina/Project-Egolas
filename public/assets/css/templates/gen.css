@@ -65,5 +65,9 @@ img.production:hover{
 
 #img-avatar {
     max-width: 48px;
+    background: white;
 }
 
+#nav-info .dropdown-menu li {
+    font-size: 13pt;
+}

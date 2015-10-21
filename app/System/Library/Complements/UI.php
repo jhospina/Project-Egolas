@@ -22,4 +22,8 @@ class UI {
         return array("message_type" => $type, "message_params" => $params, "message" => $message, "message_pos" => $pos);
     }
 
+    public static function modalMessage($title, $message, $btn_close = "¡Entendido!") {
+        return array("modal_message_title" => $title, "modal_message_content" => $message, "modal_message_btn_close" => $btn_close);
+    }
+
 }

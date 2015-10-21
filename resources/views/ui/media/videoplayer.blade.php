@@ -30,18 +30,9 @@ use App\System\Library\Security\Hash;
         <a href="{{URL::to("production/".$production->slug)}}" id="btn-back">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        <video id='video' src='{{$url_video}}'></video>
-        <div id="controls">
-            <div id="left">
-                <section>
-                    <div id="play" data-state="play" class="driver"><span class="glyphicon glyphicon-play"></span></div>
-                </section>
-            </div>
-            <div id="right">
-                <section>
-                    <div id="full-screen" data-fullscreen="false" class="driver"><span class="glyphicon glyphicon-fullscreen"></span></div>
-                </section>
-            </div>
+
+        <div id="content-video" class="embed-responsive embed-responsive-16by9">
+            <iframe src="{{$url_video}}&autostart=true" allowtransparency="true" frameborder="0" scrolling="no"  allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen></iframe>
         </div>
 
 

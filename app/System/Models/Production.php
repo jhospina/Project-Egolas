@@ -56,7 +56,7 @@ class Production extends Model {
     public function chapters() {
         return $this->hasMany('App\System\Models\Chapter', 'production_id');
     }
-    
+
     public function comments() {
         return $this->hasMany('App\System\Models\Comment', 'production_id');
     }
@@ -67,6 +67,10 @@ class Production extends Model {
 
     public function terms() {
         return $this->belongsToMany('App\System\Models\Term', "productions_terms");
+    }
+
+    public function ratings() {
+        return $this->hasMany('App\System\Models\ProductionRating', 'production_id');
     }
 
     /** Obtiene el estilo de color representativo del estado de una produccion

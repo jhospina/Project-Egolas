@@ -5,7 +5,7 @@
 
 @section("content")
 
-<div class="content container">
+<div class="content container text-justify">
     <h1 class="text-center">{{trans("gen.doc.terms")}}</h1>
 @include("doc/terms")
 </div>

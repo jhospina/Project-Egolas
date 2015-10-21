@@ -14,26 +14,29 @@ class HomeController extends Controller {
      * @return Response
      */
     public function index() {
-        if (Auth::check()) {
+        if (Auth::check())
             return redirect("browser");
-        }
+
         $productions = Production::all()->take(60);
         return view("frontend/index")
                         ->with("productions", $productions);
     }
 
     public function getBrowser() {
-        $productions = Production::all()->where(Production::ATTR_STATE,  Production::STATE_ACTIVE);
+        if (!Auth::check())
+            return redirect("user/auth/login?redirect_to=" . url("browser"));
+
+        $productions = Production::all()->where(Production::ATTR_STATE, Production::STATE_ACTIVE);
         return view("frontend/contents/gen/browser")
                         ->with("productions", $productions);
     }
 
-    public function getTerms(){
+    public function getTerms() {
         return view("frontend/contents/doc/terms");
     }
-    
-    public function getPrivacyPolicy(){
+
+    public function getPrivacyPolicy() {
         return view("frontend/contents/doc/privacy-policy");
     }
-    
+
 }

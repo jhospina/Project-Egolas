@@ -210,6 +210,7 @@
     display: inline-block;
     position: absolute;
     right: 0px;
+    background: white;
 }
 
 textarea#content-comment {
@@ -246,5 +247,60 @@ div#list-comment {
 }
 
 #comments .comment .name{
-   
+
+}
+
+#rating{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffffff 0%, #f6f6f6 47%, #ededed 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#f6f6f6), color-stop(100%,#ededed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ffffff 0%,#f6f6f6 47%,#ededed 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 5px;
+    color:black;
+    min-height: 60px;
+    margin-top:20px;
+}
+
+#rating .progress{
+    border: 1px #CCCCCC solid;
+    height: 25px;
+}
+
+#rating #content-bar{
+    position: relative;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+#rating #content-bar .line{
+    border: 1px black solid;
+    height: 35px;
+    width: 1px;
+    position: absolute;
+    top: 10px;
+}
+
+#rating #content-bar .line img{
+    width: 30px;
+    top: 35px;
+    position: relative;
+    left: -15px;
+    cursor: pointer;
+}
+
+#rating #content-bar .line img.inactive{
+    filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
 }

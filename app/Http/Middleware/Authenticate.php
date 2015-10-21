@@ -49,15 +49,23 @@ class Authenticate {
                 return response('Unauthorized.', 401);
             } else {
                 $petition = $request->getRequestUri();
-                if (strpos($petition, "/user/") !== false && !in_array($petition, $this->excepts))
-                    return redirect()->guest('user/auth/login');
+                if (strpos($petition, "/user/") !== false && !$this->isExcept($petition))
+                    return redirect()->guest('user/auth/login?redirect_to=' . url($petition));
 
-                if (strpos($petition, "/manager/") !== false && !in_array($petition, $this->excepts))
+                if (strpos($petition, "/manager/") !== false && !$this->isExcept($petition))
                     return redirect()->guest('manager/auth/login');
             }
         }
 
         return $next($request);
+    }
+
+    public function isExcept($petition) {
+        for ($i = 0; $i < count($this->excepts); $i++)
+            if (strpos($petition, $this->excepts[$i]) !== false)
+                return true;
+
+        return false;
     }
 
 }

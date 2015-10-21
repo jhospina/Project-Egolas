@@ -3,6 +3,7 @@
 use \App\System\Models\Production;
 use App\System\Models\Chapter;
 use App\System\Library\Enum\Language;
+use App\System\Models\ProductionRating;
 
 return [
     "production." . Production::ATTR_STATE . "." . Production::STATE_ACTIVE => "Activo",
@@ -22,5 +23,15 @@ return [
     "language." . Language::EN_US => "Ingles",
     "language." . Language::ES_ES => "Español España",
     "language." . Language::ES_LT => "Español Latino",
-    "language." . Language::PR_BR => "Portugues"
+    "language." . Language::PR_BR => "Portugues",
+    "production.rating." . ProductionRating::RATING_1 => "No me gusto nada",
+    "production.rating." . ProductionRating::RATING_2 => "Fue decepcionante",
+    "production.rating." . ProductionRating::RATING_3 => "Me parecio regular",
+    "production.rating." . ProductionRating::RATING_4 => "Me gusto",
+    "production.rating." . ProductionRating::RATING_5 => "Me encanto totalmente",
+    "production.rating." . ProductionRating::RATING_1 . ".public" => "No gustó",
+    "production.rating." . ProductionRating::RATING_2 . ".public" => "Fue decepcionante",
+    "production.rating." . ProductionRating::RATING_3 . ".public" => "Fue regular",
+    "production.rating." . ProductionRating::RATING_4 . ".public" => "Gustó",
+    "production.rating." . ProductionRating::RATING_5 . ".public" => "Encantó",
 ];

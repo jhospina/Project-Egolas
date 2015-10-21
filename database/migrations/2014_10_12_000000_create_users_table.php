@@ -16,7 +16,12 @@ class CreateUsersTable extends Migration {
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('lastname')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->date('birth')->nullable();
             $table->string("keyActivation");
+            $table->dateTime('premium_to')->nullable();
             $table->string("state", 2)->default(User::STATE_UNCONFIRMED_ACCOUNT);
             $table->string('role', 2)->default(User::ROLE_SUSCRIPTOR); //Rol del usuario -> Usuario Suscriptor
             $table->string('email')->unique();

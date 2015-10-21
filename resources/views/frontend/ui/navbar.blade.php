@@ -8,6 +8,7 @@
         <div class="nav navbar-nav navbar-right" id="bar-user">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span style="color:white;">{{Auth::user()->name}}</span>&nbsp;
                     @if(Auth::check())
                     <img class="img-circle" id="img-avatar" src="{{(is_null(Auth::user()->avatar))?URL::to("assets/images/user_icon.png"):Auth::user()->avatar}}"/>
                     @endif

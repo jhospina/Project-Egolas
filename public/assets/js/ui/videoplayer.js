@@ -1,26 +1,39 @@
-var video = $("video")[0];
+//var video = $("video")[0];
 
 $(document).ready(function () {
 
-    $("body").mousemove(function () {
-        $("#controls").show();
-        $("#btn-back").show();
-        $('body').css('cursor', 'pointer');
+    /* $("html").mousemove(function () {
+     // $("#controls").show();
+     $("#btn-back").show();
+     $('body').css('cursor', 'pointer');
+     });+/
+     
+     var movementTimer = null;
+     $("iframe").mousemove(function (e)
+     {
+     clearTimeout(movementTimer);
+     movementTimer = setTimeout(function ()
+     {
+     //$("#controls").fadeOut();
+     $("#btn-back").fadeOut();
+     $('iframe').css('cursor', 'none');
+     
+     }, 4000);
+     });*/
+
+    $("iframe").height($(window).height()).width($(window).width());
+    $("iframe").attr("height", $(window).height()).attr("width", $(window).width());
+
+    $(window).resize(function () {
+        $("iframe").height($(window).height()).width($(window).width());
+        $("iframe").attr("height", $(window).height()).attr("width", $(window).width());
     });
 
-    var movementTimer = null;
-    $("body").mousemove(function (e)
-    {
-        clearTimeout(movementTimer);
-        movementTimer = setTimeout(function ()
-        {
-            $("#controls").fadeOut();
-            $("#btn-back").fadeOut();
-            $('body').css('cursor', 'none');
 
-        }, 4000);
-    })
+});
 
+/*
+$(document).ready(function () {
 
     $("#play").click(function () {
         playPause(this);
@@ -68,4 +81,4 @@ function playPause(btn) {
         video.pause();
         $(btn).html("<span class='glyphicon glyphicon-play'></span>");
     }
-}
+} */

@@ -1,8 +1,6 @@
 <?php
-
-use App\System\Library\Complements\Util;
-use App\System\Models\User;
-use App\System\Library\Complements\DateUtil;
+$rating=80;
+$aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 ?>
 
 @extends("frontend/templates/gen",array("path"=>"frontend/contents/production/info"))
@@ -71,6 +69,24 @@ use App\System\Library\Complements\DateUtil;
     </div>
 </div>
 
+
+<div id="rating" class="container content">
+    <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} opiniones)</small></h2>
+    <div id="content-bar">
+        @for($i=1;$i<=5;$i++)
+        <div class="line" style="left:{{($i*20)-0.2}}%">
+            <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
+        </div>
+        @endfor
+        <div class="progress">
+            <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="{{$rating}}" aria-valuemin="0" aria-valuemax="100" style="background-color: rgb({{255-$aux}},{{number_format(($rating/100)*255,0)}},0);">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @if(!$isVideoMain && count($chapters)>1)
 <div id="chapters" class="content container">
 
@@ -110,6 +126,7 @@ use App\System\Library\Complements\DateUtil;
 
 @section("script")
 <script>
+    var progress_rating="{{$rating}}%";
     var ajax_post_comment = "{{URL::to('ajax/comment/create')}}";
     var ajax_get_comments = "{{URL::to('ajax/comment/get')}}";
     var token = "{{ Session::token() }}";

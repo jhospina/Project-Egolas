@@ -9,6 +9,7 @@ use App\System\Models\User;
 use App\System\Library\Security\ReCaptcha;
 use App\System\Library\Com\Email;
 use Illuminate\Support\Facades\Auth;
+use App\System\Library\Complements\UI;
 
 class UserController extends Controller {
 
@@ -67,23 +68,25 @@ class UserController extends Controller {
         $user->role = User::ROLE_SUSCRIPTOR;
         $user->keyActivation = $keyActivation;
         $user->save();
-        
+
         //Crea las carpetas de manejo de archivos del usuarios
         mkdir(public_path($user->getPathTemporal()));
         mkdir(public_path($user->getPathUploads()));
-       
+
 
         $activationLink = url("user/confirm/email/" . $keyActivation);
 
-        $description = "<p>Este correo electrónico ha sido asociado a una nueva cuenta en bandicot.com, para poder usar esta cuenta es necesario activarla confirmando este correo electrónico.</p>" .
-                "<p>Para confirmar este correo electrónico debes hacer clic <a href='" . $activationLink . "'>aquí</a>. También puedes copiar y pegar el siguiente enlace:<br/><br/>" . $activationLink . "</p>" .
+        $description = "<p>Este correo electrónico ha sido asociado a una nueva cuenta en bandicot&#46;com, para poder usar esta cuenta es necesario activarla confirmando este correo electrónico.</p>" .
+                "<p>Para confirmar este correo electrónico debes hacer clic en botón \"Activar cuenta\" que se muestra a continuación:<br/><br/>" .
+                "<a style='display: block;padding: 10px;border: 1px black solid;width: 200px;text-align: center;color: white;background: red;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;font-style: normal;text-transform: uppercase;margin: auto;' href='" . $activationLink . "' target='_blank'>Activar cuenta</a></p>" .
                 "<p><i><b>Atención:<b/> Si crees que se ha tratado de una equivocación, por favor ignora este mensaje.</i></p>";
 
         $email = new Email("Activación de cuenta", $data[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description]);
         $email->send();
 
         Auth::loginUsingId($user->id);
-        return redirect("user/dashboard")->with("request", "welcome");
+        return redirect("user/dashboard")->with(UI::modalMessage("¡Bienvenido a Bandicot.com!", view("ui/msg/contents/bienvenido-a-bandicot-com")->render()));
     }
 
+    
 }

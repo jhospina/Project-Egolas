@@ -36,12 +36,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const ATTR_ROLE = "role";
     const ATTR_EMAIL = "email";
     const ATTR_PASSWORD = "password";
+    const ATTR_PREMIUM_TO = "premium_to"; //Indica hasta cuando estara sera un suscriptor premium
     //Estados
     const STATE_UNCONFIRMED_ACCOUNT = "UA"; //Cuenta sin confirmar
     const STATE_ACTIVED_ACCOUNT = "AA"; //Cuenta activada
 //Roles
     const ROLE_ADMIN = "AD";
     const ROLE_SUSCRIPTOR = "SU";
+    const ROLE_SUSCRIPTOR_PREMIUM = "SP";
     //AUTH
     const AUTH_EMAIL = "email";
     const AUTH_PASSWORD = "password";
@@ -71,13 +73,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     static public function existEmail($email) {
         return (User::where(User::ATTR_EMAIL, $email)->count() > 0);
     }
-    
-    function getPathUploads(){
-        return User::PATH_UPLOADS.$this->id."/";
+
+    function getPathUploads() {
+        return User::PATH_UPLOADS . $this->id . "/";
     }
-    
-    function getPathTemporal(){
-        return User::PATH_TEMPORAL.$this->id."/";
+
+    function getPathTemporal() {
+        return User::PATH_TEMPORAL . $this->id . "/";
+    }
+
+    public function contributions() {
+        return $this->hasMany('App\System\Models\Payment', 'user_id');
+    }
+
+    public function ratings() {
+        return $this->belongsToMany('App\System\Models\Production', "production_ratings")->withPivot('rating')->withPivot("date");
     }
 
 }

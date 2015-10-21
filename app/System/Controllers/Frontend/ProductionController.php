@@ -24,20 +24,22 @@ class ProductionController extends Controller {
         $staff = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get();
         $isVideoMain = $production->haveVideoMain();
         $chapters = $production->chapters;
+        $rating_count = $production->ratings()->count();
+        $rating = number_format(($production->ratings()->avg('rating')*100)/5, 0);
         return view("frontend/contents/production/info")
                         ->with("production", $production)
                         ->with("categories", $categories)
                         ->with("staff", $staff)
                         ->with("director", $director)
                         ->with("isVideoMain", $isVideoMain)
-                        ->with("chapters", $chapters);
+                        ->with("chapters", $chapters)
+                        ->with("rating", $rating)
+                        ->with("rating_count", $rating_count);
     }
 
     function getPlay($slug) {
         $production = Production::where(Production::ATTR_SLUG, $slug)->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->get()[0];
-        $id_video = $production->chapters[0]->video;
-        $video = new Video($id_video);
-        $url_video = $video->getData(array(Video::FIELD_FLVURL));
+        $url_video = $production->chapters[0]->video;
         return view("ui/media/videoplayer")
                         ->with("production", $production)
                         ->with("url_video", $url_video);
@@ -69,11 +71,11 @@ class ProductionController extends Controller {
         $comment = new Comment;
         $comment->user_id = Auth::user()->id;
         $comment->production_id = $data[Comment::ATTR_PRODUCTION_ID];
-        $comment->content = Util::removeURLsFromText(strip_tags($data[Comment::ATTR_CONTENT]),"[Enlace bloqueado]");
+        $comment->content = Util::removeURLsFromText(strip_tags($data[Comment::ATTR_CONTENT]), "[Enlace bloqueado]");
         $comment->created_at = DateUtil::getCurrentTime();
         $comment->save();
 
-        return json_encode(array("content"=>$comment->content));
+        return json_encode(array("content" => $comment->content));
     }
 
     function ajax_getComments(Request $request) {
@@ -94,15 +96,15 @@ class ProductionController extends Controller {
                 "date" => DateUtil::calculateDifference($comment->created_at),
                 "name" => $user->name,
                 "avatar" => (is_null($user->avatar)) ? url("assets/images/user_icon.png") : $user->avatar);
-            
+
             if ($data["skip"] == 0)
                 $data_comment["total"] = $total_comments;
 
             $response[] = $data_comment;
         }
-        
-        if(count($comments)==0)
-             $response[]=array("total"=>0);
+
+        if (count($comments) == 0)
+            $response[] = array("total" => 0);
 
 
 

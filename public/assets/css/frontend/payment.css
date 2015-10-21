@@ -1,0 +1,61 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18-oct-2015, 7:30:25
+    Author     : ingen
+*/
+
+#body-payment-index{
+    background:url(../../images/backgrounds/background-premium.jpg); 
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#body-payment-index .container{
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px black solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#body-payment-index .jumbotron{
+    background:none;
+    color:black;
+}
+
+
+.jumbotron p.resalt{
+    font-size: 18pt;
+    background: red;
+    color: white;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.jumbotron p{
+    font-size: 18pt;
+}
+
+.jumbotron li {
+    text-align: left;
+    font-size: 16pt;
+    list-style-image: url(http://bandicot.com/assets/images/favicon.png);
+}
+
+#body-payment-index #btn-pay{
+margin-bottom: 20px;
+}
+
+#body-payment-index #btn-pay section {
+    font-size: 20pt;
+}
+
+#body-payment-index .page-header{
+    border:none;
+}

@@ -3,6 +3,7 @@
 namespace App\System\Library\Com;
 
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class Email {
 
@@ -10,6 +11,7 @@ class Email {
     const VAR_NAME = "name";
     const VAR_DESCRIPTION = "description";
     const VAR_EMAIL = "email";
+    const EMAIL_FROM = "bandicot.info@gmail.com";
 
     var $header;
     var $name;
@@ -28,11 +30,10 @@ class Email {
     function __construct($subject, $email, $data = null, $template = "gen") {
         $this->setSubject($subject);
         $this->setEmail($email);
-        if (!is_null($data) && is_array($data)) {
-            $this->setHeader(isset($data[Email::VAR_HEADER]) ? $data[Email::VAR_HEADER] : $subject);
-            $this->setName(isset($data[Email::VAR_NAME]) ? $data[Email::VAR_NAME] : null);
-            $this->setDescription(isset($data[Email::VAR_DESCRIPTION]) ? $data[Email::VAR_DESCRIPTION] : null);
-        }
+
+        $this->setHeader(isset($data[Email::VAR_HEADER]) ? $data[Email::VAR_HEADER] : $subject);
+        $this->setName(isset($data[Email::VAR_NAME]) ? $data[Email::VAR_NAME] : (Auth::check()) ? Auth::user()->name : null);
+        $this->setDescription(isset($data[Email::VAR_DESCRIPTION]) ? $data[Email::VAR_DESCRIPTION] : null);
         $this->setTemplate($template);
     }
 

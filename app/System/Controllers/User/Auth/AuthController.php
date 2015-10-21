@@ -40,7 +40,7 @@ class AuthController extends Controller {
 
         //Login aceptado
         if (Auth::attempt([User::AUTH_EMAIL => $data[User::AUTH_EMAIL], User::AUTH_PASSWORD => $data[User::AUTH_PASSWORD]], (isset($data[User::AUTH_REMEMBER])))) {
-            return redirect("browser");
+            return redirect((isset($data["redirect_to"]) ? $data["redirect_to"] : "browser"));
             //Login Incorrecto
         } else {
             return redirect()->back()->withInput()->with(UI::message(UI::MESSAGE_TYPE_ERROR, trans("msg.login.error")))->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL]);
@@ -92,15 +92,15 @@ class AuthController extends Controller {
         $email = $data[PasswordReset::ATTR_EMAIL];
         $token = $data[PasswordReset::ATTR_TOKEN];
 
-        if (is_null($pet = PasswordReset::where(PasswordReset::ATTR_EMAIL, $email)->where(PasswordReset::ATTR_TOKEN, $token)->where(PasswordReset::ATTR_ACTIVE,Util::convertBooleanToInt(true))->get()))
+        if (is_null($pet = PasswordReset::where(PasswordReset::ATTR_EMAIL, $email)->where(PasswordReset::ATTR_TOKEN, $token)->where(PasswordReset::ATTR_ACTIVE, Util::convertBooleanToInt(true))->get()))
             return redirect("user/auth/recovery?request=send-mail&form=token")->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])->with(UI::message(UI::MESSAGE_TYPE_ERROR, "Error: Solicitud invalida"));
 
-        if (DateUtil::difSec($pet[0]->created_at, DateUtil::getCurrentTime()) > 60 * 60 * 2){
-            $pet[0]->active=Util::convertBooleanToInt(false);
+        if (DateUtil::difSec($pet[0]->created_at, DateUtil::getCurrentTime()) > 60 * 60 * 2) {
+            $pet[0]->active = Util::convertBooleanToInt(false);
             $pet->save();
             return redirect("user/auth/recovery?request=send-mail&form=token")->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])->with(UI::message(UI::MESSAGE_TYPE_ERROR, "Error: El código de seguridad ha expirado. <a href='" . url("user/auth/recovery") . "'>¿Realizar una nueva solicitud?</a>"));
         }
-            
+
         return view("user/contents/auth/resetPassword")->with(PasswordReset::ATTR_EMAIL, $email)->with(PasswordReset::ATTR_TOKEN, $token);
     }
 
@@ -113,11 +113,11 @@ class AuthController extends Controller {
         $email = $data[PasswordReset::ATTR_EMAIL];
         $token = $data[PasswordReset::ATTR_TOKEN];
 
-        if (is_null($pet = PasswordReset::where(PasswordReset::ATTR_EMAIL, $email)->where(PasswordReset::ATTR_TOKEN, $token)->where(PasswordReset::ATTR_ACTIVE,Util::convertBooleanToInt(true))->get()))
+        if (is_null($pet = PasswordReset::where(PasswordReset::ATTR_EMAIL, $email)->where(PasswordReset::ATTR_TOKEN, $token)->where(PasswordReset::ATTR_ACTIVE, Util::convertBooleanToInt(true))->get()))
             return redirect("user/auth/recovery?request=send-mail&form=token")->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])->with(UI::message(UI::MESSAGE_TYPE_ERROR, "Error: Solicitud invalida"));
 
-        if (DateUtil::difSec($pet[0]->created_at, DateUtil::getCurrentTime()) > 60 * 60 * 2){
-            $pet[0]->active=Util::convertBooleanToInt(false);
+        if (DateUtil::difSec($pet[0]->created_at, DateUtil::getCurrentTime()) > 60 * 60 * 2) {
+            $pet[0]->active = Util::convertBooleanToInt(false);
             $pet->save();
             return redirect("user/auth/recovery?request=send-mail&form=token")->with(User::ATTR_EMAIL, $data[User::ATTR_EMAIL])->with(UI::message(UI::MESSAGE_TYPE_ERROR, "Error: El código de seguridad ha expirado. <a href='" . url("user/auth/recovery") . "'>¿Realizar una nueva solicitud?</a>"));
         }

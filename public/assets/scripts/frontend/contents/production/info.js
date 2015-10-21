@@ -43,11 +43,10 @@ $(document).ready(function () {
 
 });
 
-
 var skip = 0;
 var total_comment = -1;
 $(document).ready(function () {
-    
+
     loadComments();
 
 //Carga los comentarios cuando llegan al final de la pagina
@@ -109,3 +108,28 @@ function loadComments() {
         }
     });
 }
+
+
+
+
+//RATING
+
+$(document).ready(function () {
+    
+    console.log(progress_rating);
+    $("#content-bar .progress-bar").animate({"width": progress_rating},2000);
+
+    $("#rating #content-bar .line img").hover(function () {
+        $(this).animate({
+            'margin-left': '-=2px',
+            'margin-right': '+=2px'
+        }, 50, function () {
+            $(this).animate({
+                'margin-left': '+=2px',
+                'margin-right': '-=2px'
+            }, 50, function () {
+                //and so on...
+            });
+        });
+    })
+});

@@ -8,18 +8,19 @@ use App\System\Library\Complements\DateUtil;
 $completation = UserUtil::getPercentageCompleteProfile($user);
 $countries = Country::getAll();
 
-$birth = new DateUtil($user->birth." 0:0:0","Y-n-j H:i:s");
+$birth = new DateUtil($user->birth . " 0:0:0", "Y-n-j H:i:s");
 ?>
 @extends("user/templates/gen",array("title"=>"<span class='glyphicon glyphicon-user'></span> ".trans('ui.menu.item.my.account'),"path"=>"user/contents/account"))
 
 @section("content")
 
-<div class="page-header">
-    <h1>Mis datos</h1>
-</div>
+
 @include("ui/msg/index",array("message_id"=>1))
 <div class="col-lg-12">
     <div class="col-lg-6">
+        <div class="page-header">
+            <h1>Mis datos</h1>
+        </div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{$completation}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$completation}}%;">
                 {{$completation}}% Completado
@@ -73,13 +74,47 @@ $birth = new DateUtil($user->birth." 0:0:0","Y-n-j H:i:s");
             </div>
             <div class="form-group">
                 <label>{{trans("gen.info.city")}}</label>
-                <input class='form-control' name='{{User::ATTR_CITY}}' value='{{$user->city}}'/>
+                <input class='form-control' type="text" name='{{User::ATTR_CITY}}' value='{{$user->city}}'/>
             </div>
             <div class="form-group text-center">
                 <button id="btn-submit" type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-save"></span> {{trans("gen.info.save")}}</button>
             </div>
         </form>
     </div>
+    <div class="col-lg-4 col-lg-offset-2" style="    padding: 25px;
+         background: #F5F5F5;
+         -webkit-border-radius: 5px;
+         -moz-border-radius: 5px;
+         border-radius: 5px;
+         margin-top: 20px;
+         border: 1px #D0D0D0 solid;">
+        <div class="page-header">
+            <h2>Cambiar contraseña</h2>
+        </div>
+        <form id="form-pass" action="{{URL::to("user/account/post/save/new/pass")}}" method="POST">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <label>Contraseña actual</label>
+                <input class='form-control' type="password" id="current-pass" name='current-pass' value=''/>
+            </div>
+            <div class="form-group">
+                <label>Contraseña nueva</label>
+                <input class='form-control' type="password" id="new-pass" name='new-pass' value=''/>
+            </div>
+            <div class="form-group">
+                <label>Repetir nueva contraseña</label>
+                <input class='form-control' type="password" id="new-pass-rep" name='new-pass-rep' value=''/>
+            </div>
+            <div class="form-group text-center">
+                <button id="btn-submit-pass" type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-lock"></span> Establecer nueva contraseña</button>
+            </div>
+        </form>
+    </div>
+</div>
 </div>
 
+@stop
+
+@section("script")
+<script src='{{URL::to("assets/scripts/library/validations.js")}}'></script>
 @stop

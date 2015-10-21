@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\Auth;
  */
 
 
+//*****************************************************
+//PAYMENT*********************************************
+//*****************************************************
+Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => ["auth"]], function() {
+    $class = "PaymentController@";
+    Route::get("/", $class . "getIndex");
+    Route::post("payment/post", $class . "postPayment");
+    Route::get("payment/status", $class . "getStatus");
+});
+
+
 
 //*****************************************************
 //AJAX*********************************************
@@ -44,6 +55,7 @@ function menu_user() {
     $class = "MenuController@";
     Route::get("dashboard", $class . "getDashboard");
     Route::get("account", $class . "getAccount");
+    Route::get("contributions", $class . "getContributions");
 }
 
 function auth_user() {
@@ -60,15 +72,17 @@ function auth_user() {
 function account_user() {
     $class = "UserController@";
     Route::post("account/post/save/info", $class . "postSaveInfoAccount");
+    Route::post("account/post/save/new/pass", $class . "postSaveNewPass");
+    Route::get("confirm/email/{token}", $class . "getActivateAccount");
     //Ajax
     Route::post("account/ajax/upload/avatar", $class . "ajaxUpdateAvatar");
+    Route::post("account/ajax/send/email/confirmation", $class . "ajaxSendConfirmation");
 }
 
 //*****************************************************
 //FRONTEND*********************************************
 //*****************************************************
 Route::get('/', "Frontend\HomeController@index");
-
 
 
 Route::group(["namespace" => "Frontend"], function() {
@@ -79,12 +93,11 @@ Route::group(["namespace" => "Frontend"], function() {
     doc_frontend();
 });
 
-function doc_frontend(){
+function doc_frontend() {
     $class = "HomeController@";
     Route::get("doc/terms", $class . "getTerms");
-    Route::get("doc/privacypolicy",$class . "getPrivacyPolicy");
+    Route::get("doc/privacypolicy", $class . "getPrivacyPolicy");
 }
-
 
 function home_fronted() {
     $class = "HomeController@";

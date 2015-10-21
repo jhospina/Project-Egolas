@@ -27,9 +27,12 @@ $data = array(
             <fieldset>
                 <h1><span class="glyphicon glyphicon-user"></span> Ingresa a tu cuenta</h1>
                 <hr class="colorgraph">
-                   @include("ui/msg/index",array("message_id"=>1))
+                @include("ui/msg/index",array("message_id"=>1))
                 <form action="" method="POST">
                     {{ csrf_field() }}
+                    @if(isset($_GET["redirect_to"]))
+                    <input type="hidden" name="redirect_to" value="{{$_GET["redirect_to"]}}">
+                    @endif
                     <div class="form-group">
                         <input type="email" name="email" id="email" class="form-control input-lg" placeholder="{{trans("gen.info.email")}}" value="{{(session()->has(User::ATTR_EMAIL))?session(User::ATTR_EMAIL):""}}">
                     </div>

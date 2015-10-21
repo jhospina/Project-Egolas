@@ -228,7 +228,7 @@ class DateUtil {
     }
 
     function getMonth() {
-        return $this->month;
+       return   DateUtil::getNameMonth(DateUtil::numberAdapt($this->month));
     }
 
     function getDay() {
