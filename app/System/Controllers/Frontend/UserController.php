@@ -10,6 +10,8 @@ use App\System\Library\Security\ReCaptcha;
 use App\System\Library\Com\Email;
 use Illuminate\Support\Facades\Auth;
 use App\System\Library\Complements\UI;
+use App\System\Models\Production\ProductionFavorite;
+use App\System\Library\Complements\DateUtil;
 
 class UserController extends Controller {
 
@@ -88,5 +90,25 @@ class UserController extends Controller {
         return redirect("user/dashboard")->with(UI::modalMessage("¡Bienvenido a Bandicot.com!", view("ui/msg/contents/bienvenido-a-bandicot-com")->render()));
     }
 
+    /** Recibe una peticion ajax para agregar a favoritos una produccion (ajax/user/favorites/add/production)
+     * 
+     * @param Request $request
+     * @return type
+     */
+    function ajax_addProductionToFavorites(Request $request) {
+
+        if (!$request->ajax())
+            return;
+
+           $data = $request->all();
+        
+        //Verifica si la produccion ya se encuentra en favoritos
+        if (Production::inFavorites($data["production_id"]))
+            return json_encode(array(false));
+
+        Auth::user()->favorites()->attach($data["production_id"],array(User::ATTR_FAVORITES_PIVOT_DATE=>DateUtil::getCurrentTime()));
     
+        return json_encode(array(true));
+    }
+
 }

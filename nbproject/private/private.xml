@@ -4,13 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Http/routes.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/frontend/contents/production/info.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/user/contents/favorites.blade.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/scripts/user/contents/favorites.js</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/templates/user/gen.css</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/gen.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/User.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/attr.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/css/frontend/production/info.css</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Frontend/ProductionController.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/ui.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/public/assets/scripts/frontend/contents/production/info.js</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/User/MenuController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/user/contents/account.blade.php</file>
         </group>
     </open-files>
 </project-private>

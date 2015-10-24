@@ -15,6 +15,7 @@
     padding: 0px;
     color:black;
     min-height: 460px;
+    position: relative;
 }
 
 
@@ -146,10 +147,21 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
     color: white;
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
-    box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
-    cursor:pointer;
+    cursor: pointer;
+    border: 1px #26328A inset;
+    margin-bottom: 20px;
+}
+
+#ver-online:hover{
+    background: #152C58;
+    background: -moz-linear-gradient(top, #152C58 0%, #2c539e 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2c539e), color-stop(100%,#2c539e));
+    background: -webkit-linear-gradient(top, #152C58 0%,#2c539e 100%);
+    background: -o-linear-gradient(top, #152C58 0%,#2c539e 100%);
+    background: -ms-linear-gradient(top, #152C58 0%,#2c539e 100%);
+    background: linear-gradient(to bottom, #152C58 0%,#2c539e 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#152C58', endColorstr='#2c539e',GradientType=0 );
 }
 
 #title-play{
@@ -268,6 +280,7 @@ div#list-comment {
     color:black;
     min-height: 60px;
     margin-top:20px;
+    position: relative;
 }
 
 #rating .progress{
@@ -297,10 +310,140 @@ div#list-comment {
     cursor: pointer;
 }
 
-#rating #content-bar .line img.inactive{
+img.inactive{
     filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -o-filter: grayscale(100%);
+}
+
+#open-modal-rating-new {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    font-size: 15pt;
+}
+
+#modal-rating .progress{
+    width: 30px;
+    height: 400px;
+    position: relative;
+}
+
+#modal-rating .progress .progress-bar{
+    width: 100%;
+    height: 0%;
+    position: absolute;
+    bottom: 0px;
+}
+
+#content-bar-rating{
+    position: relative;
+    width: 300px;
+    margin: auto;
+    margin-top: 30px;
+    left: 5%;
+}
+
+#content-bar-rating .line {
+    position: absolute;
+    border: 1px black solid;
+    width: 43px;
+    height: 1px;
+    z-index: 9;
+    left: 0px;
+}
+
+
+#content-bar-rating .line img{
+    width: 40px;
+    top: -15px;
+    position: relative;
+    left: 50px;
+    cursor: pointer;
+}
+
+#content-bar-rating .line .rating-description{
+    width: 100%;
+    top: -32px;
+    position: absolute;
+    left: 100px;
+    cursor: pointer;
+    min-width: 180px;
+    height: 50px;
+    vertical-align: middle;
+    padding-top: 25px;
+}
+
+#modal-rating{
+    color:black;
+}
+
+#info #btn-add-list{
+
+}
+
+#poster{
+    display: inline-block;
+    position: relative;
+}
+
+#content-add-favorite{
+    // display: none;
+    position: absolute;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    width: 100%;
+    font-size: 14pt;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 40%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+#content-add-favorite label{
+    font-weight: 100;
+    font-size: 20pt;
+}
+
+#content-add-favorite .glyphicon{
+    font-size: 45pt;
+}
+
+#inFav{
+    display: inline-block;
+    position: absolute;
+    padding: 10px;
+    color:#A17700;
+    top: 0px;
+    font-size: 26pt;
+    right: 0px;
+}
+
+#inFav .glyphicon{
+    background: #eab92d;
+    background: -moz-linear-gradient(top, #eab92d 0%, #c79810 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eab92d), color-stop(100%,#c79810));
+    background: -webkit-linear-gradient(top, #eab92d 0%,#c79810 100%);
+    background: -o-linear-gradient(top, #eab92d 0%,#c79810 100%);
+    background: -ms-linear-gradient(top, #eab92d 0%,#c79810 100%);
+    background: linear-gradient(to bottom, #eab92d 0%,#c79810 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eab92d', endColorstr='#c79810',GradientType=0 );
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    text-align: center;
+    background: gold;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    text-align: center;
+    border: 1px black solid;
 }

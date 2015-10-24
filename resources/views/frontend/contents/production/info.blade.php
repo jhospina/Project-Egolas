@@ -1,5 +1,4 @@
 <?php
-$rating=80;
 $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 ?>
 
@@ -22,7 +21,17 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
     </div>
     <div class="col-md-3" id="image-content">
-        <img class="img-rounded" src="{{$production->image}}">
+        <div id="poster">
+            <img class="img-rounded" src="{{$production->image}}">
+            @if(!$inFav)
+            <div id="content-add-favorite">
+                <span class="glyphicon glyphicon-star-empty"></span>
+                <label>Agregar a mi lista de favoritos</label>
+            </div>
+            @else
+            <div id="inFav" title="En favoritos"><span class="glyphicon glyphicon-star"></span></div>
+            @endif
+        </div>
     </div>
     <div class="col-md-4">
         <b>{{trans("gen.info.synopsis")}}</b><br/>
@@ -41,7 +50,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         @endif
         @if($isVideoMain)
         <div class="col-md-12 value text-center">
-            <a id="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Ver online</a>
+            <a id="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
         </div>
         @endif
     </div>
@@ -71,11 +80,14 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
 
 <div id="rating" class="container content">
-    <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} opiniones)</small></h2>
+    @if(!$userIsRated)
+    <div id="open-modal-rating-new" class="btn btn-success"><span class="glyphicon glyphicon-heart"></span> Dar mi opinión</div>
+    @endif
+    <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count>1)?"opiniones":"opinión"}})</small></h2>
     <div id="content-bar">
         @for($i=1;$i<=5;$i++)
         <div class="line" style="left:{{($i*20)-0.2}}%">
-            <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
+            <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\Production\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
         </div>
         @endfor
         <div class="progress">
@@ -85,6 +97,37 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     </div>
 </div>
 
+
+<!-- Modal Rating -->
+<!-- Modal -->
+<div class="modal fade" id="modal-rating" tabindex="-1" role="dialog" aria-labelledby="modal-rating">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h2 class="modal-title text-center">¿Cuál fue tu nivel de satifacción con esta producción?</h2>
+            </div>
+            <div class="modal-body">
+                <div id="content-bar-rating">
+                    @for($i=1;$i<=5;$i++)
+                    <div class="line" style="bottom:{{($i*20)-0.2}}%" data-rating="{{$i}}">
+                        <img class="inactive" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
+                        <div class="rating-description">{{trans("attr.production.rating.".constant("App\System\Models\Production\ProductionRating::RATING_".$i))}}</div>
+                    </div>
+                    @endfor
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{$rating}}" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary disabled" id="send-rating" disabled>Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @if(!$isVideoMain && count($chapters)>1)
@@ -126,10 +169,12 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
 @section("script")
 <script>
-    var progress_rating="{{$rating}}%";
+    var progress_rating = "{{$rating}}%";
     var ajax_post_comment = "{{URL::to('ajax/comment/create')}}";
+    var ajax_post_rating = "{{URL::to('ajax/production/rating/post')}}";
     var ajax_get_comments = "{{URL::to('ajax/comment/get')}}";
     var token = "{{ Session::token() }}";
     var name_user = "{{Auth::user()->name}}";
+    var ajax_post_favorites = "{{URL::to('ajax/user/favorites/add/production')}}";
 </script>
 @stop

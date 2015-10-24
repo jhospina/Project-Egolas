@@ -33,11 +33,17 @@ Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => 
 
 Route::group(["prefix" => "ajax", "middleware" => ["auth"]], function() {
     ajax_comments();
+    ajax_user();
 });
 
 function ajax_comments() {
     Route::post("comment/create", "Frontend\ProductionController@ajax_postComment");
     Route::post("comment/get", "Frontend\ProductionController@ajax_getComments");
+    Route::post("production/rating/post", "Frontend\ProductionController@ajax_postRating");
+}
+
+function ajax_user() {
+    Route::post("user/favorites/add/production", "Frontend\UserController@ajax_addProductionToFavorites");
 }
 
 //*****************************************************
@@ -56,6 +62,7 @@ function menu_user() {
     Route::get("dashboard", $class . "getDashboard");
     Route::get("account", $class . "getAccount");
     Route::get("contributions", $class . "getContributions");
+    Route::get("favorites", $class . "getFavorites");
 }
 
 function auth_user() {

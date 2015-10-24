@@ -4,6 +4,7 @@ namespace App\System\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\System\Models\Chapter;
+use Illuminate\Support\Facades\Auth;
 
 class Production extends Model {
 
@@ -70,7 +71,7 @@ class Production extends Model {
     }
 
     public function ratings() {
-        return $this->hasMany('App\System\Models\ProductionRating', 'production_id');
+        return $this->hasMany('App\System\Models\Production\ProductionRating', 'production_id');
     }
 
     /** Obtiene el estilo de color representativo del estado de una produccion
@@ -100,6 +101,15 @@ class Production extends Model {
             $this->attributes[Production::ATTR_SLUG] = $value . "-" . (intval($count) + 1);
         else
             $this->attributes[Production::ATTR_SLUG] = $value;
+    }
+
+    /**  Indica si la produccion esta en favoritos
+     * 
+     * @param type $production_id
+     * @return type
+     */
+    static function inFavorites($production_id) {
+        return (Auth::user()->favorites()->where("production_id", $production_id)->count() > 0);
     }
 
 }

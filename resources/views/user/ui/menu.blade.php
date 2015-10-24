@@ -31,6 +31,7 @@ $url = Util::getCurrentUrl();
 
     <div class="list-group">
         <a href="{{URL::to("user/dashboard")}}" class="list-group-item {{(strpos($url,"dashboard")!==false)?'active':null}}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a>
+        <a href="{{URL::to("user/favorites")}}" class="list-group-item {{(strpos($url,"favorites")!==false)?'active':null}}"><span class="glyphicon glyphicon-star"></span> {{trans('ui.menu.item.my.list.favorites')}}</a>
         <a href="{{URL::to("user/contributions")}}" class="list-group-item {{(strpos($url,"contributions")!==false)?'active':null}}"><span class="glyphicon glyphicon-transfer"></span> {{trans('ui.menu.item.contributions')}}</a>
         <a href="{{URL::to("user/account")}}" class="list-group-item {{(strpos($url,"account")!==false)?'active':null}}"><span class="glyphicon glyphicon-user"></span> {{trans('ui.menu.item.my.account')}}</a>
         <a href="{{URL::to("user/auth/logout")}}" class="list-group-item"><span class="glyphicon glyphicon-log-out"></span> {{trans("ui.user.menu.logout")}} </a>

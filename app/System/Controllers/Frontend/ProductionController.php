@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use App\System\Library\Complements\DateUtil;
 use App\System\Models\User;
 use App\System\Library\Complements\Util;
+use App\System\Models\Production\ProductionRating;
+use App\System\Models\Production\ProductionFavorite;
 
 class ProductionController extends Controller {
 
@@ -25,7 +27,9 @@ class ProductionController extends Controller {
         $isVideoMain = $production->haveVideoMain();
         $chapters = $production->chapters;
         $rating_count = $production->ratings()->count();
-        $rating = number_format(($production->ratings()->avg('rating')*100)/5, 0);
+        $rating = number_format(($production->ratings()->avg('rating') * 100) / 5, 0);
+        $userIsRated = ProductionRating::userIsRated($production->id);
+        $inFav = Production::inFavorites($production->id);
         return view("frontend/contents/production/info")
                         ->with("production", $production)
                         ->with("categories", $categories)
@@ -34,7 +38,9 @@ class ProductionController extends Controller {
                         ->with("isVideoMain", $isVideoMain)
                         ->with("chapters", $chapters)
                         ->with("rating", $rating)
-                        ->with("rating_count", $rating_count);
+                        ->with("rating_count", $rating_count)
+                        ->with("userIsRated", $userIsRated)
+                        ->with("inFav", $inFav);
     }
 
     function getPlay($slug) {
@@ -109,6 +115,30 @@ class ProductionController extends Controller {
 
 
         return json_encode($response);
+    }
+
+    /** Recibe la peticion con una calificacion de un usuario (ajax/production/rating/post)
+     * 
+     * @param Request $request
+     */
+    function ajax_postRating(Request $request) {
+
+        if (!$request->ajax())
+            return json_encode(array());
+
+        $data = $request->all();
+
+        if (ProductionRating::userIsRated($data["production_id"]))
+            return json_encode(array());
+
+        $rating = new ProductionRating();
+        $rating->user_id = Auth::user()->id;
+        $rating->production_id = $data["production_id"];
+        $rating->rating = $data["rating"];
+        $rating->date = DateUtil::getCurrentTime();
+        $rating->save();
+
+        return json_encode(array());
     }
 
 }

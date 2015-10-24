@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableProductionRatings extends Migration {
+class CreateTableProductionFavorites extends Migration {
 
     /**
      * Run the migrations.
@@ -11,11 +11,10 @@ class CreateTableProductionRatings extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('production_ratings', function (Blueprint $table) {
-             $table->increments("id");
+        Schema::create('production_favorites', function (Blueprint $table) {
+            $table->increments("id");
             $table->integer("user_id");
             $table->integer("production_id");
-            $table->float("rating");
             $table->dateTime("date");
         });
     }
@@ -26,7 +25,7 @@ class CreateTableProductionRatings extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('production_ratings');
+        Schema::drop('production_favorites');
     }
 
 }

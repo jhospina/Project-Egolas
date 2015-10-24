@@ -109,15 +109,12 @@ function loadComments() {
     });
 }
 
-
-
-
 //RATING
-
+var rating = 0;
+var rating_before = 0;
 $(document).ready(function () {
-    
-    console.log(progress_rating);
-    $("#content-bar .progress-bar").animate({"width": progress_rating},2000);
+
+    $("#content-bar .progress-bar").animate({"width": progress_rating}, 2000);
 
     $("#rating #content-bar .line img").hover(function () {
         $(this).animate({
@@ -131,5 +128,127 @@ $(document).ready(function () {
                 //and so on...
             });
         });
-    })
+    });
+
+
+    $("#open-modal-rating-new").click(function () {
+        $("#modal-rating").modal("show");
+    });
+
+    $("#modal-rating .rating-description").click(function () {
+        $("#send-rating").removeAttr("disabled");
+        $("#send-rating").removeClass("disabled");
+
+        rating_before = rating;
+        rating = parseInt($(this).parent().attr("data-rating"));
+        $("#modal-rating img").addClass("inactive");
+        $(this).parent().children("img").removeClass("inactive");
+        animateBar();
+    });
+
+    $("#modal-rating .line img").click(function () {
+        $("#send-rating").removeAttr("disabled");
+        $("#send-rating").removeClass("disabled");
+
+        rating_before = rating;
+        rating = parseInt($(this).parent().attr("data-rating"));
+        $("#modal-rating img").addClass("inactive");
+        $(this).parent().children("img").removeClass("inactive");
+        animateBar();
+    });
+});
+
+function getColorBar(rating) {
+    switch (parseInt(rating)) {
+        case 1:
+            return "rgb(255, 51, 0)";
+        case 2:
+            return "rgb(255, 102, 0)";
+        case 3:
+            return "rgb(255, 153, 0)";
+        case 4:
+            return "rgb(51, 204, 0)";
+        case 5:
+            return "rgb(0, 255, 0)";
+    }
+}
+
+var progress = 0;
+
+function animateBar() {
+
+    var count = (rating > rating_before) ? 1 : -1;
+    var f = 0;
+    for (var i = rating_before; i != rating; i = i + count) {
+        f++;
+        setTimeout(function () {
+            progress += 20 * count;
+            $("#modal-rating .progress-bar").css("background", getColorBar(progress / 20));
+            $("#modal-rating .progress-bar").animate({"height": progress + "%"}, 200);
+        }, f * 198);
+    }
+}
+
+
+$(document).ready(function () {
+    $("#send-rating").click(function () {
+
+        $(this).html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span> Enviando...");
+        $(this).attr("disabled");
+        $(this).addClass("disabled");
+
+
+        $.ajax({
+            url: ajax_post_rating,
+            type: 'POST',
+            dataType: 'json',
+            data: {"_token": token, production_id: $("#production-id").val(), rating: rating},
+            success: function (response) {
+                $("#modal-rating .modal-body").html("<div class='text-center'><h3>Tu opinión ha sido recibida.</h3><h3>¡Muchas gracias!</h3><h3 class='glyphicon glyphicon-thumbs-up'></h3></div>");
+                $("#send-rating").html("...");
+                $("#send-rating").removeAttr("disabled");
+                $("#send-rating").removeClass("disabled");
+                $("#modal-rating .modal-footer").remove();
+                setTimeout(function () {
+                    $("#modal-rating").modal("hide");
+                    location.reload();
+                }, 3000);
+            }
+        });
+
+    });
+});
+
+//FAVORITES
+$(document).ready(function () {
+    $("#content-add-favorite").mouseover(function () {
+        $(this).css("opacity", 1);
+    });
+
+    $("#content-add-favorite").mouseout(function () {
+        if ($(this).attr("data-flag") != "sending")
+            $(this).css("opacity", 0);
+    });
+    $("#content-add-favorite").click(function () {
+        $("#content-add-favorite").unbind("click");
+        $(this).css("opacity", 1);
+        $(this).attr("data-flag", "sending");
+        $(this).html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span><label>Agregando a tu lista...</label>");
+
+        $.ajax({
+            url: ajax_post_favorites,
+            type: 'POST',
+            dataType: 'json',
+            data: {"_token": token, production_id: $("#production-id").val()},
+            success: function (response) {
+                if (response == "true") {
+                    $("#content-add-favorite").html("<span style='color:green;' class='glyphicon glyphicon-ok'></span><label>Agregando a favoritos</label>");
+                    setTimeout(function () {
+                        $("#content-add-favorite").remove();
+                        $("#poster").append("<div id='inFav' title='En favoritos'><span class='glyphicon glyphicon-star'></span></div>");
+                    }, 3000);
+                }
+            }
+        });
+    });
 });

@@ -18,5 +18,6 @@ return [
     "menu.item.autogenerator.live.productions" => "En vivo - Producciones",
     "menu.item.contents.dealers" => "Proveedores de contenido",
     "menu.item.my.account"=>"Mi cuenta",
+    "menu.item.my.list.favorites"=>"Mi lista de favoritos",
     "btn.cancel"=>"Cancelar"
 ];

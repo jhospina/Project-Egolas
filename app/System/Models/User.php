@@ -48,6 +48,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const AUTH_EMAIL = "email";
     const AUTH_PASSWORD = "password";
     const AUTH_REMEMBER = "remember";
+    //FAVORITES
+    const ATTR_FAVORITES_PIVOT_DATE = "date";
 
     static public function editPassword($current, $new) {
 
@@ -86,8 +88,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\System\Models\Payment', 'user_id');
     }
 
-    public function ratings() {
-        return $this->belongsToMany('App\System\Models\Production', "production_ratings")->withPivot('rating')->withPivot("date");
+    public function favorites() {
+        return $this->belongsToMany("App\System\Models\Production", "production_favorites", "user_id", "production_id")->withPivot(User::ATTR_FAVORITES_PIVOT_DATE);
     }
 
 }

@@ -3,7 +3,7 @@
 use \App\System\Models\Production;
 use App\System\Models\Chapter;
 use App\System\Library\Enum\Language;
-use App\System\Models\ProductionRating;
+use App\System\Models\Production\ProductionRating;
 
 return [
     "production." . Production::ATTR_STATE . "." . Production::STATE_ACTIVE => "Activo",
