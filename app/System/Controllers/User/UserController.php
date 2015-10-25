@@ -132,4 +132,35 @@ class UserController extends Controller {
         return json_encode(array());
     }
 
+    function ajax_getProductionsFromFavorites(Request $request) {
+        if (!$request->ajax())
+            return;
+        $data = $request->all();
+
+        $favorites = Auth::user()->favorites()->orderBy("id", "DESC")->skip($data["skip"])->take(21)->get();
+
+        if ($data["skip"] == 0)
+            $total_productions = Auth::user()->favorites()->count();
+
+        $response = array();
+
+        foreach ($favorites as $production) {
+            $data_fav = array("slug" => $production->slug,
+                "id" => $production->id,
+                "title" => $production->title,
+                "image" => $production->image,
+                "description" => Util::trimText($production->description, 150));
+
+            if ($data["skip"] == 0)
+                $data_fav["total"] = $total_productions;
+
+            $response[] = $data_fav;
+        }
+
+        if (count($favorites) == 0)
+            $response[] = array("total" => 0);
+
+        return json_encode($response);
+    }
+
 }

@@ -25,8 +25,7 @@ class MenuController extends Controller {
     }
 
     function getFavorites() {
-        $favorites = Auth::user()->favorites()->orderBy("id","DESC")->get();
-        return view("user/contents/favorites")->with("favorites", $favorites);
+         return view("user/contents/favorites");
     }
 
 }

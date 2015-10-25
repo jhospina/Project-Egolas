@@ -1,0 +1,40 @@
+.slider-bcot{
+    clear: both;
+    position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.slider-bcot section{
+        position: relative;
+        left:0px;
+}
+.slider-bcot .item{
+    display:inline-block;
+}
+
+.slider-bcot .arrow{
+    position: absolute;
+    width: 50px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.76);
+    font-size: 20pt;
+    cursor: pointer;
+    display: none;
+}
+
+
+.slider-bcot .arrow.arrow-left{
+    left: 0px;
+}
+
+.slider-bcot .arrow.arrow-right{
+    right: 0px;
+}
+
+.slider-bcot .arrow .glyphicon{
+    position: absolute;
+    top: 50%;
+    margin-top: -50%;
+    left: 50%;
+    margin-left: -28%;
+}

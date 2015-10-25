@@ -100,14 +100,29 @@ class UserController extends Controller {
         if (!$request->ajax())
             return;
 
-           $data = $request->all();
-        
+        $data = $request->all();
+
         //Verifica si la produccion ya se encuentra en favoritos
         if (Production::inFavorites($data["production_id"]))
             return json_encode(array(false));
 
-        Auth::user()->favorites()->attach($data["production_id"],array(User::ATTR_FAVORITES_PIVOT_DATE=>DateUtil::getCurrentTime()));
-    
+        Auth::user()->favorites()->attach($data["production_id"], array(User::ATTR_FAVORITES_PIVOT_DATE => DateUtil::getCurrentTime()));
+
+        return json_encode(array(true));
+    }
+
+    /** Recibe una peticion ajax para eliminar de favoritos una produccion
+     * 
+     * @param Request $request
+     */
+    function ajax_deleteProductionToFavorites(Request $request) {
+        if (!$request->ajax())
+            return;
+
+        $data = $request->all();
+
+        Auth::user()->favorites()->detach($data["production_id"]);
+        
         return json_encode(array(true));
     }
 

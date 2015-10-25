@@ -76,7 +76,6 @@ function loadComments() {
         success: function (response) {
 
             $("#content-loader").remove();
-
             skip += response.length;
             for (var i = 0; i < response.length; i++) {
 
@@ -88,7 +87,6 @@ function loadComments() {
                     skip = 0;
                     return;
                 }
-
 
                 var html = "<div class='comment'>" +
                         "<div class='col-xs-1 col-md-1'>" +
