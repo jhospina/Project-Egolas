@@ -16,6 +16,7 @@ use App\System\Models\User;
 use App\System\Library\Complements\Util;
 use App\System\Models\Production\ProductionRating;
 use App\System\Models\Production\ProductionFavorite;
+use App\System\Models\Term;
 
 class ProductionController extends Controller {
 
@@ -139,6 +140,37 @@ class ProductionController extends Controller {
         $rating->save();
 
         return json_encode(array());
+    }
+
+    function ajax_getProductionsByCategory(Request $request) {
+
+        if (!$request->ajax())
+            return json_encode(array());
+
+
+        $data = $request->all();
+        $cat_id = $data["category_id"];
+        $skip = $data["skip"];
+        $filtered = (isset($data["filtered"]) && $data["filtered"]=="true") ? true : false;
+
+        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("id", "DESC")->skip($skip)->take(36)->get() : Term::findOrNew($cat_id)->productions()->orderBy("id", "DESC")->skip($skip)->take(36)->get();
+
+        $response = array();
+        if ($skip == 0)
+            $total_productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->count() : Term::findOrNew($cat_id)->productions()->count();
+
+        foreach ($productions as $production) {
+            $data_production = array("html" => Production::getVisualHtml($production));
+
+            if ($skip == 0)
+                $data_production["total"] = $total_productions;
+            $response[] = $data_production;
+        }
+
+        if (count($productions) == 0)
+            $response[] = array("total" => 0);
+
+        return json_encode($response);
     }
 
 }

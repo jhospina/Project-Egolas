@@ -25,9 +25,7 @@ use App\System\Models\Production;
 <div id="movies" class="content container">
     <div class="col-md-12 title">{{trans("gen.info.movies")}}</div>
     @foreach($productions as $production)
-    <div class="content-production">
-        <a href="{{URL::to("production/".$production->slug)}}"><img class="tooltip-bottom production {{($production->state!=Production::STATE_ACTIVE)?"production-not-available":null}}" title="{{$production->title}}" src="{{$production->image}}"></a>
-    </div>
+     {{Production::getVisualHtml($production)}}
     @endforeach
 </div>
 

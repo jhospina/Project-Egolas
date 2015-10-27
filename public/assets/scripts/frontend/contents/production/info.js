@@ -37,6 +37,7 @@ $(document).ready(function () {
                 $("#submit-post-comment").html("Comentar");
                 $("#submit-post-comment").removeAttr("disabled");
                 $("#submit-post-comment").removeClass("disabled");
+                
             }
         });
     });
@@ -102,6 +103,7 @@ function loadComments() {
                         "  </div>";
 
                 $("#list-comment").append(html);
+                console.log("total=> "+total_comment);
             }
         }
     });

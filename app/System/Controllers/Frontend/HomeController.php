@@ -5,6 +5,7 @@ namespace App\System\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use \App\System\Models\Production;
 use Illuminate\Support\Facades\Auth;
+use App\System\Models\Term;
 
 class HomeController extends Controller {
 
@@ -26,9 +27,11 @@ class HomeController extends Controller {
         if (!Auth::check())
             return redirect("user/auth/login?redirect_to=" . url("browser"));
 
-        $productions = Production::orderBy("id","DESC")->take(20)->get();
+        $productions = Production::orderBy("id", "DESC")->take(30)->get();
+        $categories = Term::all();
         return view("frontend/contents/gen/browser")
-                        ->with("productions", $productions);
+                        ->with("productions", $productions)
+                        ->with("categories", $categories);
     }
 
     public function getTerms() {

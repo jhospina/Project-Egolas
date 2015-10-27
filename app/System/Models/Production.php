@@ -32,6 +32,8 @@ class Production extends Model {
     const STATE_DEALER_INACTIVE = "DI";
     //TAXONOMY ID
     const TAXONOMY_ID = 1;
+  
+    
 
     /** Indica si la produccion tiene un video unico principal
      * 
@@ -110,6 +112,23 @@ class Production extends Model {
      */
     static function inFavorites($production_id) {
         return (Auth::user()->favorites()->where("production_id", $production_id)->count() > 0);
+    }
+
+    /** Obtiene un html en un formato standar para mostrar la produccion
+     * 
+     * @param type $production (Production) El objeto de production
+     * @return type
+     */
+    static function getVisualHtml(Production $production) {
+        $html = "<div class='production'>" .
+                "<a href='" . url("production/" . $production->slug) . "'>" .
+                "<img class='img-rounded";
+        $html.=($production->state != Production::STATE_ACTIVE) ? " production-not-available" : "";
+        $html.="' src='" . $production->image . "'><div class='over'><span class='glyphicon glyphicon-play-circle'></span>" . $production->title . "</div>" .
+                "</a>" .
+                "</div>";
+
+        return $html;
     }
 
 }

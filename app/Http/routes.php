@@ -34,6 +34,7 @@ Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => 
 Route::group(["prefix" => "ajax", "middleware" => ["auth"]], function() {
     ajax_comments();
     ajax_user();
+    ajax_productions();
 });
 
 function ajax_comments() {
@@ -46,6 +47,10 @@ function ajax_user() {
     Route::post("user/favorites/add/production", "Frontend\UserController@ajax_addProductionToFavorites");
     Route::post("user/favorites/delete/production", "Frontend\UserController@ajax_deleteProductionToFavorites");
     Route::post("user/favorites/get/productions", "User\UserController@ajax_getProductionsFromFavorites");
+}
+
+function ajax_productions(){
+    Route::post("productions/get/by/category", "Frontend\ProductionController@ajax_getProductionsByCategory");
 }
 
 //*****************************************************
@@ -96,6 +101,7 @@ Route::get('/', "Frontend\HomeController@index");
 
 Route::group(["namespace" => "Frontend"], function() {
     productions_frontend();
+    category_frontend();
     persons_frontend();
     user_fronted();
     home_fronted();
@@ -112,6 +118,12 @@ function home_fronted() {
     $class = "HomeController@";
     Route::get("browser", $class . "getBrowser");
 }
+
+function category_frontend() {
+    $class = "CategoryController@";
+    Route::get("category/{slug}", $class . "getProductions");
+}
+
 
 function productions_frontend() {
     $class = "ProductionController@";
