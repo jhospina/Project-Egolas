@@ -32,8 +32,6 @@ class Production extends Model {
     const STATE_DEALER_INACTIVE = "DI";
     //TAXONOMY ID
     const TAXONOMY_ID = 1;
-  
-    
 
     /** Indica si la produccion tiene un video unico principal
      * 
@@ -129,6 +127,38 @@ class Production extends Model {
                 "</div>";
 
         return $html;
+    }
+
+    static function search($query) {
+        return Production::where(self::ATTR_TITLE, "LIKE", "%" . $query . "%")->orWhere(self::ATTR_TITLE_ORIGINAL, "LIKE", "%" . $query . "%")->orderBy(self::ATTR_STATE, "DESC")->get();
+    }
+
+    /** Ordene una coleccion de produccion por el estado, posicionando los que estan activos en primer lugar
+     * 
+     * @param type $productions
+     * @return array
+     */
+    static function sortByState($productions) {
+        $actives = array();
+        $others = array();
+        foreach ($productions as $production) {
+            if ($production->state == Production::STATE_ACTIVE)
+                $actives[] = $production;
+            else
+                $others[] = $production;
+        }
+
+        $productions = array();
+
+        foreach ($actives as $production) {
+            $productions[] = $production;
+        }
+
+        foreach ($others as $production) {
+            $productions[] = $production;
+        }
+
+        return $productions;
     }
 
 }

@@ -47,5 +47,9 @@ class Person extends Model {
            
     }
     
+    public static function search($name){
+        return Person::where(self::ATTR_NAME,"LIKE","%".$name."%")->get();
+    }
+    
 
 }

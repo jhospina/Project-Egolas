@@ -5,8 +5,15 @@
         </a>
     </div>
     <div id="nav-info" class="collapse navbar-collapse">
-        <div class="nav navbar-nav navbar-right" id="bar-user">
-            <li class="dropdown">
+        <ul class="nav navbar-nav navbar-right" id="bar-user">
+            <li id="search-box" data-url="{{URL::to("")}}" style="@{{(isset($query))?"width:260px;height:34px;":""}}">
+                @if(isset($query))
+                <div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span><input id="search" style="@{{(isset($query))?"width:200px;":""}}" type="text" class="form-control" value='{{$query}}' placeholder="Títulos, personas..."><span id="loader-search" class="input-group-addon"><span class="glyphicon glyphicon-refresh"></span></div>
+                @else
+                <a><span class="glyphicon glyphicon-search"></span> {{trans("gen.info.search")}}</a>
+                @endif
+            </li>
+            <li class="dropdown" style="border-left: 1px #902B2B solid;">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <span style="color:white;">{{Auth::user()->name}}</span>&nbsp;
                     @if(Auth::check())
@@ -20,6 +27,6 @@
                     <li><a href="{{URL::to("user/auth/logout")}}"><span class="glyphicon glyphicon-log-out"></span> {{trans("ui.user.menu.logout")}}</a></li>
                 </ul>
             </li>
-        </div>
+        </ul>
     </div>
 </nav>

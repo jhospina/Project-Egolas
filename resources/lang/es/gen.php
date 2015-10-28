@@ -84,6 +84,6 @@ return [
     "date.november" => "Noviembre",
     "date.december" => "Diciembre",
     "info.ip.address"=>"Dirección IP",
-    "info.date"=>"Fecha"
-    
+    "info.date"=>"Fecha",
+    "info.search"=>"Buscar",
 ];

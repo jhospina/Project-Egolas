@@ -247,3 +247,107 @@ footer li{
     margin-bottom: 5px;
     clear: both;
 }
+
+#search-box{
+    position: absolute;
+    right: 160px;
+    top: 0;
+    width: 100px;
+    bottom: 0;
+    margin: auto;
+    height: 55px;
+    cursor:pointer;
+}
+
+#search-box a{
+    color: white;
+}
+
+ul#bar-user {
+    position: relative;
+}
+
+#search-box #search{
+    width:0px;
+    background: white;
+    color: black;
+    border-left: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+#search-box #search:focus{
+    outline: none;
+    border-color: initial;
+    box-shadow: none;
+    border: 0px;
+}
+
+#search-box .input-group-addon{
+    background: white;
+    color: black;
+    border-right: 0px;
+    border: 0px;
+}
+
+.jumbotron{
+    background: none;
+}
+
+#search-box #loader-search{
+    color:white;
+}
+
+#body-search #persons{
+    padding:0px;
+}
+
+#body-search #persons .person{
+    width: 145px;
+    text-align: center;
+    border: 1px #545454 solid;
+    margin: 9px;
+    float: left;
+    display: block;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ac0600+0,920500+44,6e0400+100 */
+    background: #ac0600; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ac0600 0%, #920500 44%, #6e0400 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ac0600), color-stop(44%,#920500), color-stop(100%,#6e0400)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ac0600 0%,#920500 44%,#6e0400 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ac0600 0%,#920500 44%,#6e0400 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #ac0600 0%,#920500 44%,#6e0400 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #ac0600 0%,#920500 44%,#6e0400 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ac0600', endColorstr='#6e0400',GradientType=0 ); /* IE6-9 */
+    cursor: pointer;
+}
+
+#body-search #persons .person a:hover{
+ color:black;   
+}
+
+#body-search #persons .person img{
+    width: 143px;
+    height: 168px;
+    border-radius: 0px;
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+    -moz-border-radius-topright: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#body-search #persons .person .name-person{
+    background: white;
+    color: black;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-weight: bold;
+}

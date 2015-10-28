@@ -49,7 +49,7 @@ function ajax_user() {
     Route::post("user/favorites/get/productions", "User\UserController@ajax_getProductionsFromFavorites");
 }
 
-function ajax_productions(){
+function ajax_productions() {
     Route::post("productions/get/by/category", "Frontend\ProductionController@ajax_getProductionsByCategory");
 }
 
@@ -106,6 +106,7 @@ Route::group(["namespace" => "Frontend"], function() {
     user_fronted();
     home_fronted();
     doc_frontend();
+    search_frontend();
 });
 
 function doc_frontend() {
@@ -119,11 +120,15 @@ function home_fronted() {
     Route::get("browser", $class . "getBrowser");
 }
 
+function search_frontend() {
+    $class = "SearchController@";
+    Route::get("search/{query}", $class . "getSearch");
+}
+
 function category_frontend() {
     $class = "CategoryController@";
     Route::get("category/{slug}", $class . "getProductions");
 }
-
 
 function productions_frontend() {
     $class = "ProductionController@";

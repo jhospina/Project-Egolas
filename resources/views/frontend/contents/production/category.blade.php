@@ -13,7 +13,7 @@
 
 <div class="col-xs-12" id="head-category" style="margin-left:9px;padding-bottom: 9px;margin: 0px 0 20px;border-bottom: 1px solid #eee;">
     <div class="col-sm-6">
-        <h1>{{$category->name}}</h1>
+        <h1>{{ucfirst($category->name)}}</h1>
     </div>
     <div class="col-sm-6">
         <div id="check-filter">

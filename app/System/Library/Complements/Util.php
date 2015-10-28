@@ -62,14 +62,14 @@ class Util {
      * @param type $lenght La longitud en caracteres
      * @return string El texto recortado
      */
-    static function trimText($text, $lenght) {
+    static function trimText($text, $lenght, $post = "...") {
         $text = strip_tags($text);
         $text_end = "";
-        $words = explode(" ", $text);
+        $words = explode(" ", str_replace("-", " ", $text));
         for ($i = 0; $i < count($words); $i++) {
             $text_end.=$words[$i] . " ";
             if (strlen($text_end) >= $lenght)
-                return substr($text_end, 0, strlen($text_end) - 1) . "...";
+                return substr($text_end, 0, strlen($text_end) - 1) . $post;
         }
 
         return $text;
@@ -475,15 +475,15 @@ class Util {
         preg_match_all($regex, $text, $partes);
         return ($partes[0]);
     }
-    
+
     /** Elimina cualquier link de un texto dado
      *  
      * @param type $text
      * @return type
      */
-     static function removeURLsFromText($text,$replace="") {
+    static function removeURLsFromText($text, $replace = "") {
         $regex = '/https?\:\/\/[^\" ]+/i';
-        return preg_replace($regex,$replace,$text);
+        return preg_replace($regex, $replace, $text);
     }
 
     static function convertTextToSearch($text) {
