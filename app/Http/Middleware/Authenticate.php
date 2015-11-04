@@ -44,16 +44,25 @@ class Authenticate {
      * @return mixed
      */
     public function handle($request, Closure $next) {
+        $petition = $request->getRequestUri();
+
+        //Restringe el acceso a manager solo para administrador
+        if (strpos($petition, "/manager/") !== false)
+            if (Auth::check() && Auth::user()->role != User::ROLE_ADMIN)
+                return redirect("/");
+
+
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                $petition = $request->getRequestUri();
+
                 if (strpos($petition, "/user/") !== false && !$this->isExcept($petition))
                     return redirect()->guest('user/auth/login?redirect_to=' . url($petition));
 
-                if (strpos($petition, "/manager/") !== false && !$this->isExcept($petition))
+                if (strpos($petition, "/manager/") !== false && !$this->isExcept($petition)) {
                     return redirect()->guest('manager/auth/login');
+                }
             }
         }
 

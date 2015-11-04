@@ -1,3 +1,7 @@
+<?php
+
+use \App\System\Models\Production;
+?>
 @extends("frontend/templates/gen",array("path"=>"frontend/contents/gen/browser","id_body"=>"browser"))
 
 @section("css")
@@ -23,10 +27,7 @@
                             {{$production->title}}
                         </div>
                     </a>
-
-
                 </div>
-
             </div>
             @endforeach
         </section>
@@ -36,7 +37,7 @@
 <div id="categories">
     <?php foreach ($categories as $category): ?>
         <?php
-        $productions = $category->productions;
+        $productions = $category->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy(Production::ATTR_ID, "DESC")->take(20)->get();
         if (count($productions) < 10)
             continue;
         ?>
@@ -56,7 +57,7 @@
 
                         </div>
                     </div>
-                <?php endforeach; ?>
+<?php endforeach; ?>
             </section>
         </div>
     </div>

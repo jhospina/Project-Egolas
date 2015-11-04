@@ -9,8 +9,8 @@ use App\System\Library\Complements\Util;
 class Video {
 
     //Token de lectura
-    const TOKEN_READ = "1BVdGXIYkFcEEamGFb1gmz1LJAb75Cp4V3KrwmMUjwWKZpB9Toqixg..";
-
+    const TOKEN_READ = "c1xrJv7-ih1Fw5hX_b7JBvUyiIrooZejAfHZDC4CkXFiVuuq95-crA..";
+    const PLAYER_DEFAULT="//players.brightcove.net/4584534319001/default_default/index.html";
     var $id_video;
 
     //METADATOS DEL VIDEO

@@ -1,7 +1,7 @@
 //Dimensiones de la pantalla
 var w_screen;
 var h_screen;
-
+var menu_mobile = false;
 var gen_w_production;
 var gen_h_production;
 
@@ -10,6 +10,52 @@ $(document).ready(function () {
     w_screen = $(window).width();
     h_screen = $(window).height();
     gen_adapter();
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() <= 80) {
+            $("#navbar").show();
+        } else {
+            if (h_screen <= 400)
+                $("#navbar").hide();
+        }
+    });
+
+    //Menu - Mobile
+    $("#go-menu-mobile").click(function () {
+        if (!menu_mobile) {
+            $("body").css("position", "absolute").css("right", "0px").css("overflow", "hidden");
+            $("body").animate({"right": "200px"}, 500, function () {
+                menu_mobile = true;
+            });
+
+            $("#overligth-menu-mob").fadeIn(500);
+            $("#menu-mobile")
+                    .css("height", (h_screen + 50) - parseInt(($("#menu-mobile").css("top")).toString().replace("px", "")))
+                    .css("right", "-" + $("#menu-mobile").css("width"))
+                    .show()
+                    .animate({"right": "0px"}, 500);
+            $(this).css("background","white");
+            $(this).children("a").children(".glyphicon").css("color","black");
+
+        } else {
+            $(this).css("background","none");
+            $(this).children("a").children(".glyphicon").css("color","white");
+            $("#overligth-menu-mob").fadeOut(500);
+            $("body").animate({"right": "0px"}, 500, function () {
+                menu_mobile = false;
+                $("body").css("position", "static").css("overflow-y", "initial");
+            });
+            $("#menu-mobile").animate({"right": "-" + $("#menu-mobile").css("width")}, 500, function () {
+                $(this).hide();
+            });
+        }
+    });
+
+    $("#btn-search-mob").click(function () {
+        if ($("#search-mob").val().length > 0)
+            location.href = url_site + "/search/" + encodeURI($("#search-mob").val());
+    });
+
 });
 
 
@@ -18,10 +64,10 @@ function gen_handlerOver() {
         //OVER IN PRODUCTIÖN
         $("div.production").mouseenter(function () {
             // $(this).animate({"width": 214, "height": 318}, 50);
-            $(this).children("a").children(".over").css("opacity",1);
+            $(this).children("a").children(".over").css("opacity", 1);
         }).mouseleave(function () {
             // $(this).animate({"width": gen_w_production, "height": gen_h_production}, 50);
-            $(this).children("a").children(".over").css("opacity",0);
+            $(this).children("a").children(".over").css("opacity", 0);
         });
 
         $("div.production").click(function () {
@@ -35,7 +81,6 @@ function gen_adapter() {
 
     gen_h_production = $("div.production").height();
     gen_w_production = $("div.production").width();
-
 
     /**
      * DETERMINA EL TAMAÑO DE LOS POSTER SEGUN EL TAMAÑO DE LA PANTALLA

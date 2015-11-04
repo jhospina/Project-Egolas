@@ -8,6 +8,7 @@ use App\System\Models\Person;
 use App\System\Models\QueuePersons;
 use App\System\Models\Term;
 Use App\System\Library\Complements\DateUtil;
+use App\System\Library\Media\BingSearchImage;
 
 class ProductionProvider extends HTMLProvider {
 
@@ -19,6 +20,7 @@ class ProductionProvider extends HTMLProvider {
     private $rating_rel = null;
     private $duration = null;
     private $image;
+    private $poster;
     private $categories = array();
     //********************
     private $director;
@@ -58,7 +60,7 @@ class ProductionProvider extends HTMLProvider {
             return;
 
         //Asigna el titulo de la produccion
-        $this->title =strip_tags((isset($match_title[0][1])) ? $this->getLatinTitle($match_title[0][1]) : null);
+        $this->title = strip_tags((isset($match_title[0][1])) ? $this->getLatinTitle($match_title[0][1]) : null);
 
         $title_ori = $match_title[0][1];
         //(AÑO)*************************************/
@@ -97,7 +99,7 @@ class ProductionProvider extends HTMLProvider {
             return;
 
         foreach ($match_categories as $category) {
-            $cat = Util::traslateText(strip_tags($category[2]));
+            $cat = strip_tags($category[2]);
             $this->categories[] = Util::textDecodetoSimply($cat);
         }
 
@@ -109,11 +111,39 @@ class ProductionProvider extends HTMLProvider {
         if (!preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>(.*?)[\"\']>/i', $match_content, $match_image, PREG_SET_ORDER))
             return;
 
-        $path_image = public_path("assets/db/images/") . md5($this->title_original) . ".jpg";
-        copy(strip_tags($match_image[0][1]), $path_image);
+        try {
+            if (Util::UrlExist(strip_tags($match_image[0][1]))) {
+                $path_image = public_path("assets/db/images/") . md5($this->title_original);
+                copy(strip_tags($match_image[0][1]), $path_image . ".jpg");
+                $this->image = Util::convertPathToUrl($path_image . ".jpg");
+            } else {
+                $this->image = null;
+            }
+        } catch (Exception $e) {
+            $this->image = null;
+        }
 
-        $this->image = Util::convertPathToUrl($path_image);
+        //POSTER
+        $search = new BingSearchImage($this->title_original . " poster", 1700, 1200);
+        $images = $search->getResult();
 
+        //Verifica que la url este bien
+        $i = -1;
+        do {
+            $i++;
+            $url_poster = $images[$i];
+        } while (!Util::UrlExist($url_poster));
+
+        try {
+            if (is_array(@getimagesize($url_poster))) {
+                copy($url_poster, $path_image . "-poster.jpg");
+                $this->poster = Util::convertPathToUrl($path_image . "-poster.jpg");
+            } else {
+                $this->poster = null;
+            }
+        } catch (Exception $e) {
+            $this->poster = null;
+        }
         //(PERSONAL DE LA PRODUCCION)*************************************
         if (!preg_match_all('/<div\s+.*?itemprop=[\"\']director[\"\']?[^>]*>(.*?)<\/div>/i', $match_content, $match_director_bar, PREG_SET_ORDER))
             return;
@@ -150,18 +180,18 @@ class ProductionProvider extends HTMLProvider {
         $production->rating_rel = $this->getRating_rel();
         $production->duration = $this->getDuration();
         $production->image = $this->getImage();
+        $production->poster = $this->poster;
         $production->save();
 
         //CATEGORIAS DE LA PRODUCCION
         $categories = $this->categories;
 
         foreach ($categories as $category) {
-            $category = Util::traslateText($category);
             //Verifica si ya existe la categoria, si no existe la crea y la asigna a la produccion
             $cat = Term::searchByName($category);
             if (is_null($term = $cat)) {
                 $term = new Term;
-                $term->name = $category;
+                $term->name = ucfirst(strtolower($category));
                 $term->taxonomy_id = Production::TAXONOMY_ID;
                 $term->slug = Util::createSlug($category);
                 $term->save();
@@ -223,14 +253,14 @@ class ProductionProvider extends HTMLProvider {
         $contentHtml = new HTMLProvider();
         $contentHtml->loadContent($url);
 
- 
+
         if (!preg_match_all('/<li[^>]*class=["\']g*["\']\>(.*?)<\/li>/i', $contentHtml->htmlContent, $match_result))
             return $title;
 
-        
+
         $link = Util::extractURLFromText($match_result[0][0]);
         $link = strip_tags($link[1]);
-    
+
         //Pagina de wikipedia de la produccion
         if (strpos($link, "es.wikipedia") === false) {
             $contentHtml->loadContent($link);
@@ -246,36 +276,36 @@ class ProductionProvider extends HTMLProvider {
 
         $contentHtml->loadContent((strpos($link, "https") === false) ? "https:" . $link : $link);
 
-       
+
         if (!preg_match_all('/<table\s+.*?class=[\"\']infobox plainlist plainlinks[\"\']?[^>]*>(.*?)<\/table>/i', $contentHtml->htmlContent, $match_result))
             return $title;
-        
+
 
         if (!preg_match_all('/Título<\/th>(.*?)<\/td>/i', $match_result[0][0], $match_info, PREG_SET_ORDER))
             return $title;
 
-       
+
 
         if (strpos($match_info[0][0], "España") !== false) {
 
             if (strpos($match_info[0][0], "<i>") !== false) {
-                
+
                 preg_match_all('/<i>(.*?)<\/i>/i', $match_info[0][0], $match_title, PREG_SET_ORDER);
 
                 if (strpos($match_info[0][0], "Latinoamérica") !== false) {
                     if (strpos($match_info[0][0], "España") > strpos($match_info[0][0], "Latinoamérica"))
-                        return strip_tags($match_title[0][0]);
+                        return (isset($match_title[0][0])) ? strip_tags($match_title[0][0]) : $title;
                     else
-                        return strip_tags($match_title[1][0]);
+                        return (isset($match_title[1][0])) ? strip_tags($match_title[1][0]) : $title;
                 }
                 if (strpos($match_info[0][0], "Hispanoamérica") !== false) {
                     if (strpos($match_info[0][0], "España") > strpos($match_info[0][0], "Hispanoamérica"))
-                        return strip_tags($match_title[0][0]);
+                        return (isset($match_title[0][0])) ? strip_tags($match_title[0][0]) : $title;
                     else
-                        return strip_tags($match_title[1][0]);
+                        return (isset($match_title[1][0])) ? strip_tags($match_title[1][0]) : $title;
                 }
 
-                return strip_tags($match_title[0][0]);
+                return (isset($match_title[0][0])) ? strip_tags($match_title[0][0]) : $title;
             } else {
 
                 $hispanoamerica = 'Hispanoam' . utf8_decode("é") . 'rica';

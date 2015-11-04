@@ -13,6 +13,7 @@
 
         {{--CSS PERSONALIZADO--}}
         {{ HTML::style('assets/css/templates/land.css', array('media' => 'screen')) }}
+        {{ HTML::style('assets/css/templates/land-mobile.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/css/util.css', array('media' => 'screen')) }}
 
         @yield('css')

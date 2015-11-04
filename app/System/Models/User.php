@@ -50,6 +50,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const AUTH_REMEMBER = "remember";
     //FAVORITES
     const ATTR_FAVORITES_PIVOT_DATE = "date";
+    //Playbacks
+    const ATTR_PLAYBACKS_PIVOT_IP = "ip";
+    const ATTR_PLAYBACKS_PIVOT_DATE = "date";
 
     static public function editPassword($current, $new) {
 
@@ -90,6 +93,23 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function favorites() {
         return $this->belongsToMany("App\System\Models\Production", "production_favorites", "user_id", "production_id")->withPivot(User::ATTR_FAVORITES_PIVOT_DATE);
+    }
+
+    public function playbacks() {
+        return $this->belongsToMany("App\System\Models\Production", "playbacks", "user_id", "production_id")->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP);
+    }
+
+    /** Obtiene un array con la información de la ultima reproduccion del usuario autenticado
+     * 
+     * @return array (Date, IP, Production_id)
+     */
+    public function getLastPlayBack() {
+        if ($this->playbacks()->count() > 0) {
+            $play = $this->playbacks()->orderBy(User::ATTR_PLAYBACKS_PIVOT_DATE, "DESC")->get()[0];
+            return array($play->pivot->date, $play->pivot->ip, $play->id);
+        } else {
+            return array(null, null, null);
+        }
     }
 
 }

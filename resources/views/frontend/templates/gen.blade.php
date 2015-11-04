@@ -12,6 +12,7 @@
 
         {{--CSS PERSONALIZADO--}}
         {{ HTML::style('assets/css/templates/gen.css', array('media' => 'screen')) }}
+        {{ HTML::style('assets/css/templates/gen-mobile.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/css/util.css', array('media' => 'screen')) }}
         @yield('css')
 
@@ -70,7 +71,8 @@
             jQuery(".tooltip-top").tooltip({placement: "top"});
             jQuery(".tooltip-right").tooltip({placement: "right"});
             jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
-
+            var url_site = "{{URL::to('')}}";
+           
         </script>
 
         {{--OTROS SCRIPTS--}}

@@ -40,6 +40,15 @@ $url = Util::getCurrentUrl();
 </div>
 
 
+<div id="menu-mobile" class="col-xs-12">
+    <a href="{{URL::to("user/dashboard")}}" class="col-xs-3 item {{(strpos($url,"dashboard")!==false)?'active':null}}"><span class="glyphicon glyphicon-dashboard"></span></a>
+    <a href="{{URL::to("user/favorites")}}" class="col-xs-3 item {{(strpos($url,"favorites")!==false)?'active':null}}"><span class="glyphicon glyphicon-star"></span></a>
+    <a href="{{URL::to("user/contributions")}}" class="col-xs-2 item {{(strpos($url,"contributions")!==false)?'active':null}}"><span class="glyphicon glyphicon-transfer"></span></a>
+    <a href="{{URL::to("user/account")}}" class="col-xs-2 item {{(strpos($url,"account")!==false)?'active':null}}"><span class="glyphicon glyphicon-user"></span></a>
+    <a href="{{URL::to("user/auth/logout")}}" class="col-xs-2 item"><span class="glyphicon glyphicon-log-out"></span></a>
+</div>
+
+
 
 
 

@@ -81,14 +81,14 @@ $(document).ready(function () {
 
 function submit(btn) {
     if ($("#email").val().length == 0) {
-        jQuery($("#email").parent()).tooltip({placement: "left", trigger: "manual", title: "Introduce tu correo electrónico de acceso", template: tooltip_template});
+        jQuery($("#email").parent()).tooltip({placement: (isMobile())?"top":"left", trigger: "manual", title: "Introduce tu correo electrónico de acceso", template: tooltip_template});
         jQuery($("#email").parent()).tooltip("show");
         jQuery($("#email").parent()).addClass("has-error");
         return;
     }
 
     if (!isEmail($("#email").val())) {
-        jQuery($("#email").parent()).tooltip({placement: "left", trigger: "manual", title: "El correo electrónico ingresado es invalido", template: tooltip_template});
+        jQuery($("#email").parent()).tooltip({placement: (isMobile())?"top":"left", trigger: "manual", title: "El correo electrónico ingresado es invalido", template: tooltip_template});
         jQuery($("#email").parent()).tooltip("show");
         jQuery($("#email").parent()).addClass("has-error");
         return;

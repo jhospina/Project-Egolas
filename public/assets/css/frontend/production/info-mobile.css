@@ -1,0 +1,101 @@
+@media screen and (max-width:768px), screen and (max-height:400px){
+
+}
+
+@media screen and (max-width:1200px){
+
+    div#image-content img {
+        width: 100%;
+    }
+
+
+}
+
+
+@media screen and (max-width:991px){
+
+    #image-content,#info .col-md-4,#title-production{
+        text-align: left;
+    }
+
+    #staff-content {
+        margin-bottom: 20px;
+    }
+
+    #image-content {
+        margin-bottom: 20px;   
+    }
+
+    #comments .title.col-md-12{
+        padding:0px;
+    }
+
+    div#open-modal-rating-new {
+        bottom: 0px;
+        width: 100%;
+        top: initial;
+    }
+    #rating #content-bar {
+        margin-bottom: 60px;
+    }
+
+
+
+
+}
+
+@media screen and (max-width:991px) and (min-width:570px){
+
+    #rating-imdb {
+        position: absolute;
+        right: 0px;
+        top: -65px;
+    }
+
+    #image-content {
+        padding: 8px;
+        text-align: center;
+    }
+
+
+}
+
+@media screen and (max-width:570px){
+    div#title-production {
+        display: none;
+    }
+
+    #title-production-mob{
+        display:block;
+    }
+
+    #image-content {
+        padding: 8px;
+        text-align: center;
+    }
+
+    #image-content img{
+        width: 100%;
+    }
+
+    #poster {
+        width: 70%;
+    }
+
+    #rating-imdb {
+        width: 100%;
+    }
+
+    #create-comment .col-xs-1, #list-comment .col-xs-1{
+        width:20%;
+    }
+
+    #create-comment .col-xs-11,#list-comment .col-xs-11{
+        width:80%;
+    }
+
+    div#content-not-comments .col-xs-6.text-center {
+        width: 100%;
+    }
+
+}

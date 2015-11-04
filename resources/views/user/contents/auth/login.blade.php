@@ -17,9 +17,7 @@ $data = array(
 @section("content")
 
 
-<div id="head-login">
-
-</div>
+<div id="head-login" onclick="location.href='{{URL::to('')}}'"></div>
 
 <div class="container">
     <div class="row" style="margin-top:40px">
@@ -52,7 +50,7 @@ $data = array(
                         <button type="button" onclick="submit(this);" id="submit" class="btn btn-lg btn-success btn-block">Ingresar</button>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
-                        <a href="{{URL::to("")}}" class="btn btn-lg btn-primary btn-block">Crear una cuenta</a>
+                        <a href="{{URL::to("")}}" class="btn btn-lg btn-primary btn-block" id="btn-create-account"></a>
                     </div>
                 </div>
             </fieldset>

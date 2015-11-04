@@ -20,6 +20,7 @@ function loadProductions() {
     if (skip == 0 && $("#favorites .production").length > 0)
         skip = parseInt($("#favorites .production").length);
 
+
     //PETICICION AJAX
     $.ajax({
         url: ajax_get_fav,

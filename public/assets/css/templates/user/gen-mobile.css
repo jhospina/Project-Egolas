@@ -1,0 +1,190 @@
+
+div#menu-mobile {
+    padding: 0px;
+    position: fixed;
+    top: 80px;
+    left: 0px;
+    display: none;
+    z-index: 10;
+}
+
+div#menu-mobile .item:first-child{
+    border-left: 0px;
+}
+
+div#menu-mobile .item{
+    font-size: 20pt;
+    text-align: center;
+    padding: 10px;
+    border-left: 2px white solid; 
+    color: white;
+    background: #3f4c6b;
+    background: -moz-linear-gradient(top, #3f4c6b 0%, #3f4c6b 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3f4c6b), color-stop(100%,#3f4c6b));
+    background: -webkit-linear-gradient(top, #3f4c6b 0%,#3f4c6b 100%);
+    background: -o-linear-gradient(top, #3f4c6b 0%,#3f4c6b 100%);
+    background: -ms-linear-gradient(top, #3f4c6b 0%,#3f4c6b 100%);
+    background: linear-gradient(to bottom, #3f4c6b 0%,#3f4c6b 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#3f4c6b',GradientType=0 );
+}
+
+div#menu-mobile .item.active {
+    background: deepskyblue;
+}
+
+#main .title-mobile{
+    display:none;
+}
+
+#main div#avatar {
+    display: none;
+}
+
+@media screen and (max-width:1100px){
+    div#menu{
+        display: none;
+    }
+
+    #main{
+        margin-top: 160px;
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    div#menu-mobile {
+        display: block;   
+    }
+
+    #main div#avatar {
+        display: block;
+    }
+}
+
+@media screen and (max-width:768px), screen and (max-height:400px){
+
+    div#menu-mobile .item {
+        font-size: 15pt;
+    }
+
+    #navbar, #navbar.navbar {
+        height: 65px!important;
+    }
+
+    #logo{ 
+        height: 35px!important;
+        width:auto;
+    }
+
+    div#menu-mobile {
+        top: 66px;
+    }
+
+    #main .title-mobile{
+        display:block;
+    }
+
+    #main{
+        margin-top: 130px;
+        text-align: center;
+    }
+
+
+    #favorites .production {
+        width: 120px;
+        display:inline-block;
+        float: initial;
+    }
+
+    #favorites .production img {
+        width: 120px;
+        height: 165px;
+    }
+
+    .spinner {
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 50px;
+    }
+
+    div#favorites {
+        text-align: center;
+    }
+    #account-content{
+        text-align: left;
+    }
+
+    #modal-avatar .file-preview {
+        display: none;
+    }
+
+    #modal-avatar .form-control.file-caption.kv-fileinput-caption {
+        display: none;
+    }
+
+    #modal-avatar .btn.btn-primary.btn-file {
+        width: 100%;
+        font-size: 20pt;
+        padding: 20px;
+    }
+    select#day,select#month, select#year {
+        width: 30%!important;
+    }
+
+    img#img-thankyou {
+        width: 100%;
+    }
+
+    div#modal-message #modal-message-title {
+        font-size: 20pt;
+        text-align: center;
+    }
+    
+    div#modal-message .caption-date{
+        text-align: center;
+    }
+    
+}
+
+@media screen and (max-width:850px){
+    #table-contributions .trans-id{
+        display:none;
+    }
+}
+
+@media screen and (max-width:580px){
+    #table-contributions .dir-ip{
+        display:none;
+    }
+
+}
+
+@media screen and (max-width:530px){
+    #btn-add-contributions{
+        font-size: 12pt;
+        display: block;
+        white-space: normal;
+        line-height: 1.4;
+        height: 56px;
+        border: 1px #565656 solid;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background: #FF4545;
+        color: white;
+        text-shadow: none;
+    }
+
+    #btn-add-contributions img{
+        display: none;
+    }
+
+    #btn-new-contribution{
+        font-size: 18pt;
+        white-space: normal;
+        text-align: center;
+    }
+
+
+}

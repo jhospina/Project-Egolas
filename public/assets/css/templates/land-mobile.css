@@ -1,0 +1,95 @@
+
+/*@media (max-width:350px){
+    #logo-mobile{
+        display:block;
+        width: 35px;
+    }
+
+    #logo{
+        display:none;
+    }
+}*/
+
+
+@media (max-width:768px){
+    #navbar, #navbar.navbar{
+        height: 60px!important;
+    }   
+
+    #logo{
+        height: 35px!important;
+        width:auto;
+    }
+
+    #overligth,#content-main{
+        top:60px!important;
+    }
+
+    #background .poster {
+        width: 100px;
+        height: 147px;
+    }
+
+    #btn-mobile-login{
+        display:block!important;
+    }
+
+    #body-login #head-login{
+        border-radius: 0px;
+        width: 100%;
+        background-size: 200px;
+        height: 60px;
+    }
+
+    #msg-forbidden #content-premium{
+        border-left:0px;
+    }
+    
+    #msg-forbidden h1{
+        text-align: center;
+    }
+    
+    #msg-forbidden{
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+
+}
+
+@media (max-width:510px){
+    #msg-forbidden ul#countdown li span {
+        font-size: 2em;
+        line-height: 56px;
+        height: 56px;
+    }
+
+    #msg-forbidden ul#countdown li{
+        width:20%;
+        height: 56px;
+        background: transparent url('../../plugins/countdown/images/timer-piece.png') no-repeat;
+        background-position: top;
+        background-size: 100% 56px;
+    }
+
+    #msg-forbidden ul#countdown li span::before {
+        content: none;
+        width: 100%;
+        height: 0px;
+        border-top: 0px solid white;
+        position: absolute;
+        top: 0px;
+    }
+}
+
+@media (max-width:420px){
+    .btn.btn-lg{
+        font-size:10pt;
+    }
+    h1{
+        font-size: 30px
+    }
+
+    #btn-create-account:after{
+        content:"Registrarse"
+    }
+}

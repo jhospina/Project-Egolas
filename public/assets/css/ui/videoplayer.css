@@ -26,16 +26,15 @@ html,body{
 
 
 video {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
 }
 
 #controls {
     position: absolute;
-    bottom: 6px;
+    bottom: 25px;
     padding: 0px;
-    width: 96%;
-    left: 2%;
+    width: 80%;
+    left: 0;
     background: #cc0000;
     background: -moz-linear-gradient(left, #cc0000 0%, #cc0000 100%);
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#cc0000), color-stop(100%,#cc0000));
@@ -47,15 +46,17 @@ video {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    height: 45px;
+    height: 55px;
     z-index: 2147483648;
     display: none;
+    right: 0;
+    margin: auto;
 }
 
 #controls .driver{
     float: left;
     padding: 8px;
-    font-size: 17pt;
+    font-size: 25pt;
     color: white;
     cursor: pointer;
 }
@@ -66,7 +67,7 @@ video {
 div#left, div#right {
     float: left;
     width: 50%;
-    height: 45px;
+    height: 55px;
 }
 
 div#right{
@@ -75,7 +76,7 @@ div#right{
 
 #right section,#left section{
     clear: both;
-    height: 45px;
+    height: 55px;
     display: inline-block;
 }
 
@@ -106,4 +107,149 @@ div#right{
 #btn-back:hover{
     border-color: red;
     color:red;
+}
+
+
+video::-webkit-media-controls-enclosure {
+    display:none !important;
+}
+
+#volumen-control{
+    height: 150px;
+    width: 50px;
+    position: absolute;
+    top: -155px;
+    background: #cc0000;
+    background: -moz-linear-gradient(left, #cc0000 0%, #cc0000 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#cc0000), color-stop(100%,#cc0000));
+    background: -webkit-linear-gradient(left, #cc0000 0%,#cc0000 100%);
+    background: -o-linear-gradient(left, #cc0000 0%,#cc0000 100%);
+    background: -ms-linear-gradient(left, #cc0000 0%,#cc0000 100%);
+    background: linear-gradient(to right, #cc0000 0%,#cc0000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=1 );
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    display: none;
+}
+
+#volumen-control #content-volumen{
+    height: 86%;
+    width: 12px;
+    margin: auto;
+    margin-top: 18%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px #FF4141 solid;
+    background: #711C1C;
+    position: relative;
+}
+#volumen-control #progress-vol{
+    background: white;
+    background: white;
+    width: 100%;
+    height: 50%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0px;
+}
+
+
+#volumen-control #market-vol{
+
+}
+
+#barProgress{
+    width: 80%;
+    position: absolute;
+    height: 25px;
+    bottom: 79px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 2147483648;
+    display: none;
+}
+
+#barProgress .content-bar{
+    width: 92%;
+    float: left;
+    height: 9px;
+    border: 1px gray solid;
+    margin-top: 8px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: rgba(49, 49, 49, 0.58);
+}
+
+#barProgress #time{
+    width: 8%;
+    float: left;
+    color: white;
+    font-size: 13pt;
+    text-align: right;
+}
+
+#barProgress #bar-time{
+    width: 0%;
+    background: white;
+    height: 7px;
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+
+#title-video {
+    font-size: 16pt!important;
+    padding: 12px!important;
+}
+
+div#play,div#sound {
+    border-right: 1px #693131 solid;
+    height: 55px;
+}
+
+
+.embed-responsive.embed-responsive-16by9 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+#nots-rotate{
+    display: none;
+    position: fixed;
+    z-index: 99999999;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: #282828;
+}
+
+#nots-rotate h2{
+    color: #7A7A7A;
+}
+
+#nots-rotate img {
+    width: 100%;
+    max-width: 384px;
+}
+
+#nots-rotate section{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    display: table;
 }

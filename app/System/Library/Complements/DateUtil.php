@@ -1,7 +1,9 @@
 <?php
 
 namespace App\System\Library\Complements;
+
 use DateTime;
+
 class DateUtil {
 
     const FORMAT_STANDARD = "Y-m-d H:i:s";
@@ -74,6 +76,42 @@ class DateUtil {
         return $new_date;
     }
 
+    /** Agrega un numero definido de horas a la fecha objeto y lo reasigna a la fecha
+     * 
+     * @param type $num El numero de horas a añadir
+     * @return String Retorna la new fecha
+     */
+    function addHours($num) {
+        $this->object->add(date_interval_create_from_date_string("$num hours"));
+        $new_date = $this->object->format($this->format);
+        $this->assignAttributes($this->object->format($this->format));
+        return $new_date;
+    }
+
+    /** Agrega un numero definido de minutos a la fecha objeto y lo reasigna a la fecha
+     * 
+     * @param type $num El numero de minutos a añadir
+     * @return String Retorna la new fecha
+     */
+    function addMinutes($num) {
+        $this->object->add(date_interval_create_from_date_string("$num minutes"));
+        $new_date = $this->object->format($this->format);
+        $this->assignAttributes($this->object->format($this->format));
+        return $new_date;
+    }
+
+    /** Agrega un numero definido de segundos a la fecha objeto y lo reasigna a la fecha
+     * 
+     * @param type $num El numero de dias a añadir
+     * @return String Retorna la new fecha
+     */
+    function addSeconds($num) {
+        $this->object->add(date_interval_create_from_date_string("$num seconds"));
+        $new_date = $this->object->format($this->format);
+        $this->assignAttributes($this->object->format($this->format));
+        return $new_date;
+    }
+
     /** Sustraer un numero definido de dias a la fecha objeto
      * 
      * @param type $num
@@ -94,7 +132,7 @@ class DateUtil {
         //"Y-m-d H:i:s" => "%d-%d-%d %d:%d:%d"
         $format = str_replace("d", "X", $this->format);
         $spe = str_replace(
-                array("Y", "m", "X", "H", "i", "s","j","n"), "%d", $format);
+                array("Y", "m", "X", "H", "i", "s", "j", "n"), "%d", $format);
 
         list($year, $month, $day, $hour, $min, $sec) = sscanf($date, $spe);
 
@@ -117,8 +155,8 @@ class DateUtil {
         return trans("gen.date.format.01", array("dia" => $date[2], "mes" => $monthes[$date[1]], "ano" => $date[0], "hora" => $ft[1]));
     }
 
-    static function calculateDifference($date1, $date2=null) {
-        $date2=(is_null($date2))?DateUtil::getCurrentTime():$date2;
+    static function calculateDifference($date1, $date2 = null) {
+        $date2 = (is_null($date2)) ? DateUtil::getCurrentTime() : $date2;
         $minute = 60;
         $hour = $minute * 60;
         $day = $hour * 24;
@@ -175,7 +213,7 @@ class DateUtil {
      * 
      * @return String
      */
-    static function getTimeStamp($zone='America/Bogota') {
+    static function getTimeStamp($zone = 'America/Bogota') {
         date_default_timezone_set($zone);
         return date("YmdGis");
     }
@@ -186,7 +224,7 @@ class DateUtil {
      * @param String $zone [America/Bogota] Zona Horaria
      * @return type
      */
-    public static function getCurrentTime($format24 = true, $zone='America/Bogota') {
+    public static function getCurrentTime($format24 = true, $zone = 'America/Bogota') {
         date_default_timezone_set($zone);
         return ($format24) ? date('Y-m-d H:i:s') : date('Y-m-d h:i:sa');
     }
@@ -196,7 +234,7 @@ class DateUtil {
      */
     static function getMonthsNames() {
         return array("01" => trans("gen.date.january"),
-            "02" => trans("gen.date.february"),
+            "02" => trans("gen.date.febrary"),
             "03" => trans("gen.date.march"),
             "04" => trans("gen.date.april"),
             "05" => trans("gen.date.may"),
@@ -215,10 +253,12 @@ class DateUtil {
      * @return type
      */
     static function getNameMonth($month) {
+        if ($month <= 0)
+            return null;
         $monthes = DateUtil::getMonthsNames();
         return $monthes[$month];
     }
-    
+
     function getFormat() {
         return $this->format;
     }
@@ -228,7 +268,7 @@ class DateUtil {
     }
 
     function getMonth() {
-       return   DateUtil::getNameMonth(DateUtil::numberAdapt($this->month));
+        return DateUtil::getNameMonth(DateUtil::numberAdapt($this->month));
     }
 
     function getDay() {
@@ -282,7 +322,5 @@ class DateUtil {
     function setObject($object) {
         $this->object = $object;
     }
-
-
 
 }

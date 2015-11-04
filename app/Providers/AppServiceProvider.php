@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider {
                 foreach ($queue as $production) {
                     $provider = new ProductionProvider($production->name, $production->link);
                     $provider->save();
-                    //Indica el registro como procesado. Esto ocasiona que la produccion ya no se vuelva a actualizar, hasta una nueva cola. 
+                    //Indica el registro como procesado. Esto ocasiona que la produccion ya no se vuelva a actualizar, hasta una nueva cola.
                     $production->date_processed = DateUtil::getCurrentTime();
                     $production->save();
                     return $production->name . " Agregado";

@@ -251,6 +251,7 @@ div#list-comment {
     -moz-border-radius: 5px;
     border-radius: 5px;
     clear: both;
+    text-align: left;
 }
 
 #comments .comment .col-xs-1.col-md-1 {
@@ -446,4 +447,16 @@ img.inactive{
     border-radius: 50px;
     text-align: center;
     border: 1px black solid;
+}
+
+div#details .attr, #details .value {
+    text-align: left;
+}
+
+#title-production-mob{
+    display:none;
+}
+
+#comments .title.col-md-12 {
+    text-align: left;
 }

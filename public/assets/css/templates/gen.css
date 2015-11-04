@@ -25,6 +25,10 @@ and open the template in the editor.
     -moz-animation: spinm 1.10s infinite linear;
 }
 
+#logo-mobile{
+    display:none;
+}
+
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
@@ -325,7 +329,7 @@ ul#bar-user {
 }
 
 #body-search #persons .person a:hover{
- color:black;   
+    color:black;   
 }
 
 #body-search #persons .person img{
@@ -351,3 +355,28 @@ ul#bar-user {
     border-bottom-left-radius: 10px;
     font-weight: bold;
 }
+
+#explore-menu {
+    height: 80px;
+    color: white;
+}
+
+#explore-menu .dropdown-toggle {
+    padding: 29px;
+    color: white;
+}
+
+#explore-menu .dropdown-menu{
+    width: 570px;
+}
+
+#explore-menu .dropdown-menu li{
+    width: 25%;
+    float: left;
+}
+
+#logo{
+    width:250px;
+    height:51px;
+}
+

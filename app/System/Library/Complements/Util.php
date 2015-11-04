@@ -448,7 +448,7 @@ class Util {
      * @return type
      */
     static function createSlug($text) {
-        return str_replace(array(" ", ".", ":"), array("-", "", ""), strtolower(Util::textDecodetoSimply($text)));
+        return str_replace(array(" ", ".", ":",","), array("-", "", "",""), strtolower(Util::textDecodetoSimply($text)));
     }
 
     /** Traduce un texto con ayuda de Google Translate

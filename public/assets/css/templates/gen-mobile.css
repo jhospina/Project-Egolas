@@ -1,0 +1,126 @@
+
+#go-menu-mobile {
+    border-left: 1px #6B4646 solid;
+    position: fixed;
+    top: 2px;
+    right: 1px;
+    padding: 14px;
+}
+
+#go-menu-mobile:active{
+    background: red;
+}
+
+#go-menu-mobile .glyphicon{
+    font-size: 23pt;
+    margin-top: 10px;
+    vertical-align: top;
+    color: white;
+}
+
+div#menu-mobile {
+    position: absolute;
+    top: 77px;
+    right: -1px;
+    padding: 10px;
+    background: white;
+    color: black;
+    text-align: center;
+    display: none;
+    width: 200px;
+    overflow-y: auto;
+    border-top: 10px white solid;
+}
+
+div#menu-mobile .my-account{
+    margin-bottom: 50px;
+}
+
+
+#menu-mobile #categories-mobile{
+    clear: both;
+    text-align: left;
+    font-size: 14pt;
+}
+
+#menu-mobile #categories-mobile a{
+    background: #C70000;
+    color: white;
+}
+
+#btn-search-mob{
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+
+div#overligth-menu-mob {
+    position: fixed;
+    left: 0px;
+    top: 80px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    display: none;
+}
+
+@media screen and (max-width:768px), screen and (max-height:400px){
+    #logo{
+        height: 35px!important;
+        width:auto;
+    }
+
+    #navbar, #navbar.navbar {
+        height: 65px!important;
+    }
+
+    #main {
+        margin-top: 75px!important;
+    }
+
+    #go-menu-mobile {
+        padding: 7px;
+    }
+
+    #menu-mobile{
+        top:63px!important;
+    }
+
+    div#overligth-menu-mob{
+        top:65px!important;
+    }
+
+    #body-search #persons .person{
+        display: inline-block;
+        float: inherit;
+        -webkit-border-top-left-radius: 10px;
+        -webkit-border-top-right-radius: 10px;
+        -moz-border-radius-topleft: 10px;
+        -moz-border-radius-topright: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    #body-search #persons .person img {
+        display: none;
+    }
+
+    #body-search #persons .person .name-person{
+        -webkit-border-top-left-radius: 10px;
+        -webkit-border-top-right-radius: 10px;
+        -moz-border-radius-topleft: 10px;
+        -moz-border-radius-topright: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 8px;
+        font-size: 12pt;
+        height: 36px;
+        overflow: hidden;
+    }
+    
+        #body-search #persons .person .name-person:active{
+            background: red;
+            color:white;
+        }
+}

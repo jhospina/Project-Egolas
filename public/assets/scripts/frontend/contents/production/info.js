@@ -24,7 +24,7 @@ $(document).ready(function () {
                         "<img class='avatar img-circle' src='" + $("#create-comment .avatar").attr("src") + "'> " +
                         "</div>" +
                         "<div class='col-xs-11'>" +
-                        " <div class='col-xs-4' style='padding-left:0px;'>" + name_user + "</div>" +
+                        " <div class='col-xs-4' style='padding-left:0px;text-align:left;'>" + name_user + "</div>" +
                         " <div class='col-xs-8 text-right'>Hace un momento</div>" +
                         " <div class='comment-content'>" +
                         response.content +
@@ -94,7 +94,7 @@ function loadComments() {
                         "<img class='avatar img-circle' src='" + response[i].avatar + "'> " +
                         "</div>" +
                         "<div class='col-xs-11'>" +
-                        " <div class='col-xs-4' style='padding-left:0px;'>" + response[i].name + "</div>" +
+                        " <div class='col-xs-4' style='padding-left:0px;text-align:left;'>" + response[i].name + "</div>" +
                         " <div class='col-xs-8 text-right'>Hace " + response[i].date + "</div>" +
                         " <div class='comment-content'>" +
                         response[i].content +
@@ -103,7 +103,6 @@ function loadComments() {
                         "  </div>";
 
                 $("#list-comment").append(html);
-                console.log("total=> "+total_comment);
             }
         }
     });

@@ -114,7 +114,8 @@ body{
 }
 
 #role-account{
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     text-align: center;
     margin-top: 5px;
     display: inline-block;
@@ -165,7 +166,8 @@ body{
 }
 
 #name-account{
-    width: 200px;
+    width: 100%;
+    max-width: 200px;
     text-align: center;
     margin-top: 5px;
     display: inline-block;
@@ -247,4 +249,13 @@ body{
 
 #content-loader{
     margin-top: 20px;
+}
+#logo{
+    width:250px;
+    height:51px;
+}
+
+
+#img-thankyou{
+    width:700px;
 }

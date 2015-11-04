@@ -51,3 +51,15 @@ function strip_tags(input, allowed) {
                 return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
             });
 }
+
+
+function isMobile() {
+    return (
+            (navigator.userAgent.match(/Android/i)) ||
+            (navigator.userAgent.match(/webOS/i)) ||
+            (navigator.userAgent.match(/iPhone/i)) ||
+            (navigator.userAgent.match(/iPod/i)) ||
+            (navigator.userAgent.match(/iPad/i)) ||
+            (navigator.userAgent.match(/BlackBerry/))
+            );
+}

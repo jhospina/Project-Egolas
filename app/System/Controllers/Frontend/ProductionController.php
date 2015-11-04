@@ -21,7 +21,10 @@ use App\System\Models\Term;
 class ProductionController extends Controller {
 
     function getInfo($slug) {
-        $production = Production::where(Production::ATTR_SLUG, $slug)->get()[0];
+        $production = Production::where(Production::ATTR_SLUG, $slug)->get();
+        if (count($production) == 0)
+            return redirect("");
+        $production = $production[0];
         $categories = $production->terms;
         $director = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0];
         $staff = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get();
@@ -45,11 +48,48 @@ class ProductionController extends Controller {
     }
 
     function getPlay($slug) {
-        $production = Production::where(Production::ATTR_SLUG, $slug)->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->get()[0];
-        $url_video = $production->chapters[0]->video;
+        $production = Production::where(Production::ATTR_SLUG, $slug)->get();
+        if (count($production) == 0)
+            return redirect("");
+        $production = $production[0];
+
+        if ($production->state != Production::STATE_ACTIVE)
+            return redirect("production/" . $slug);
+
+        //Obtiene los datos de la ultima reproduccion del usuario
+        list($play_date, $play_ip, $play_production) = Auth::user()->getLastPlayBack();
+
+        //Verifica la restriccion de usuario gratis, en la que solo permite ver una pelicula por semana
+        if (Auth::user()->role == User::ROLE_SUSCRIPTOR) {
+
+            $time = DateUtil::difSec($play_date, DateUtil::getCurrentTime());
+            /**
+             * EL usuario gratis tiene 24 horas para ver la produccion que escogio
+             */
+            if ($time < (60 * 60 * 24) && $production->id != $play_production)
+                return view("frontend/contents/production/play-forbbiden")->with("production", $production)->with("message", view("ui/msg/contents/play-forbidden-production-in-play")->with("production", Production::find($play_production))->render());
+
+            //El usuario solo puede ver una produccion por semana
+            if ($time < (60 * 60 * 24 * 7) && $time > (60 * 60 * 24))
+                return view("frontend/contents/production/play-forbbiden")
+                                ->with("production", $production)
+                                ->with("message", view("ui/msg/contents/play-forbidden-production-time-out")
+                                        ->with("production", Production::find($play_production))->with("time",$time)->render())
+                                ->with("script", "assets/plugins/countdown/js/countdown.js")
+                                ->with("css", array("assets/plugins/countdown/css/styles.css"));
+        }
+
+        if ($production->id != $play_production) {
+            //Registrar la reproduccion
+            Auth::user()->playbacks()->attach($production->id, array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(), User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime()));
+        }
+        $id_video = $production->chapters[0]->video;
+        $video = new Video($id_video);
+        $url_video = $video->getData(array(Video::FIELD_FLVURL));
         return view("ui/media/videoplayer")
                         ->with("production", $production)
-                        ->with("url_video", $url_video);
+                        ->with("url_video", $url_video)
+                        ->with("id_video", $id_video);
     }
 
     function getPlayChapter($slug, $id_chapter, $name) {
@@ -151,13 +191,40 @@ class ProductionController extends Controller {
         $data = $request->all();
         $cat_id = $data["category_id"];
         $skip = $data["skip"];
-        $filtered = (isset($data["filtered"]) && $data["filtered"]=="true") ? true : false;
+        $filtered = (isset($data["filtered"]) && $data["filtered"] == "true") ? true : false;
 
-        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("id", "DESC")->skip($skip)->take(36)->get() : Term::findOrNew($cat_id)->productions()->orderBy("id", "DESC")->skip($skip)->take(36)->get();
+        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("state", "ASC")->skip($skip)->take(36)->get() : Term::findOrNew($cat_id)->productions()->orderBy("state", "ASC")->skip($skip)->take(36)->get();
 
         $response = array();
         if ($skip == 0)
             $total_productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->count() : Term::findOrNew($cat_id)->productions()->count();
+
+        foreach ($productions as $production) {
+            $data_production = array("html" => Production::getVisualHtml($production));
+
+            if ($skip == 0)
+                $data_production["total"] = $total_productions;
+            $response[] = $data_production;
+        }
+
+        if (count($productions) == 0)
+            $response[] = array("total" => 0);
+
+        return json_encode($response);
+    }
+
+    function ajax_getProductions(Request $request) {
+        if (!$request->ajax())
+            return json_encode(array());
+
+        $data = $request->all();
+        $skip = $data["skip"];
+
+        $productions = Production::orderBy("id", "ASC")->skip($skip)->take(72)->get();
+
+        $response = array();
+        if ($skip == 0)
+            $total_productions = Production::all()->count();
 
         foreach ($productions as $production) {
             $data_production = array("html" => Production::getVisualHtml($production));

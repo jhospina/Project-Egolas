@@ -61,6 +61,7 @@ html,body{
 
 #background .poster img{
     opacity: 0;   
+    width: 100%;
 }
 
 
@@ -182,18 +183,12 @@ a#btn-login-f {
 
 #body-login #head-login{
     background-image: url(../../images/logo.png);
-    width: 80%;
+    width: 100%;
     height: 100px;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 350px;
     background-color: red;
-    -webkit-border-bottom-right-radius: 100px;
-    -webkit-border-bottom-left-radius: 100px;
-    -moz-border-radius-bottomright: 100px;
-    -moz-border-radius-bottomleft: 100px;
-    border-bottom-right-radius: 100px;
-    border-bottom-left-radius: 100px;
     margin: auto;
     border: 1px black inset;
     border-top: 0px;
@@ -213,4 +208,93 @@ a#btn-login-f {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+#logo-mobile{
+    display:none;
+}
+
+#logo{
+    width:250px;
+    height:51px;
+}
+
+a#btn-mobile-login {
+    position: fixed;
+    right: 25px;
+    font-size: 25pt;
+    color: white;
+    top: 10px;
+    display: none;
+}
+
+#btn-create-account:after{
+    content: "Crear una cuenta";
+}
+
+#msg-forbidden{
+    background: rgba(0, 0, 0, 0.85);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px #6B6B6B solid;
+
+}
+
+#msg-forbidden ul li{
+    list-style: none;
+}
+
+
+#msg-forbidden ul li:before{
+    font-family: 'Glyphicons Halflings';
+    content: "\e013";
+    color: green;
+}
+
+#msg-forbidden ul li div{
+    display: inline-block;
+    width: 90%;
+    vertical-align: top;
+    margin-left: 1%;
+}
+
+div#logo-msg-forbidden {
+    width: 100%;
+    background: rgba(255, 0, 0, 0.8);
+    margin-bottom: 30px;
+}
+
+#logo-msg-forbidden img {
+    width: 100%;
+    max-width: 500px;
+}
+
+#msg-forbidden{
+    color:white;
+}
+
+#msg-forbidden .caption{
+    font-size: 14pt;
+    border: 1px white solid;
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(208, 0, 0, 0.85);
+    font-weight: 300;
+}
+
+#msg-forbidden #content-premium{
+    border-left:1px white solid;
+    padding-bottom: 20px;
+}
+
+#msg-forbidden #countdown li:before{
+    content: none;
+}
+
+#msg-forbidden ul#countdown{
+    text-align: center;
+    padding: 0px;
 }

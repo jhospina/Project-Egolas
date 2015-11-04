@@ -34,7 +34,7 @@ $(document).ready(function () {
 });
 
 function animLeft() {
-    $("#background").animate({"left": "-" + Math.floor(Math.random() * 30) + "%", "top": "-" + Math.floor(Math.random() * 30) + "%"}, 30000, function () {
+    $("#background").animate({"left":"-" + Math.floor(Math.random() * 30) + "%", "top": "-" + Math.floor(Math.random() * 30) + "%"}, 30000, function () {
         animRight();
     });
 }
@@ -53,7 +53,7 @@ function submit(btn) {
     var password = $("#password");
     var password_confirmation = $("#password_confirmation");
     if (name.val().length == 0) {
-        jQuery(name.parent()).tooltip({placement: "left", trigger: "manual", title: "¿Cómo te llamas?", template: tooltip_template});
+        jQuery(name.parent()).tooltip({placement: (isMobile())?"top":"left", trigger: "manual", title: "¿Cómo te llamas?", template: tooltip_template});
         jQuery(name.parent()).tooltip("show");
         jQuery(name.parent()).addClass("has-error");
         return;
@@ -69,7 +69,7 @@ function submit(btn) {
     if (!isEmail(email.val()))
     {
         jQuery(email.parent()).tooltip({
-            placement: "left",
+            placement: (isMobile())?"top":"left",
             trigger: "manual",
             title: "Necesitas un correo electrónico válido",
             template: tooltip_template});
@@ -81,7 +81,7 @@ function submit(btn) {
     if (password.val().length < 6)
     {
         jQuery(password.parent()).tooltip({
-            placement: "left",
+            placement: (isMobile())?"top":"left",
             trigger: "manual",
             title: "Ingresa una contraseña mayor a 6 caracteres",
             template: tooltip_template});

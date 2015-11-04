@@ -14,9 +14,16 @@ $birth = new DateUtil($user->birth . " 0:0:0", "Y-n-j H:i:s");
 
 @section("content")
 
-
 @include("ui/msg/index",array("message_id"=>1))
-<div class="col-lg-12">
+
+<div id="avatar">
+    <div id="content-avatar">
+        <img class="img-rounded" src="{{(is_null(Auth::user()->avatar))?URL::to("assets/images/user_icon.png"):Auth::user()->avatar}}"/>
+    </div>
+    <div class="caption">Pulsa en la imagen para cambiar de foto</div>
+</div>
+
+<div class="col-lg-12" id="account-content">
     <div class="col-lg-6">
         <div class="page-header">
             <h1>Mis datos</h1>

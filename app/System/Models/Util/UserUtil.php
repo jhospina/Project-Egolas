@@ -26,7 +26,19 @@ class UserUtil {
      * @return type
      */
     static function getPercentageCompleteProfile(User $user) {
-        $attrs = UserUtil::getAttributes();
+        $attrs = array(User::ATTR_ID,
+            User::ATTR_NAME,
+            User::ATTR_LASTNAME,
+            User::ATTR_STATE,
+            User::ATTR_AVATAR,
+            User::ATTR_BIRTH,
+            User::ATTR_CITY,
+            User::ATTR_COUNTRY,
+            User::ATTR_KEY_ACTIVATION,
+            User::ATTR_ROLE,
+            User::ATTR_EMAIL,
+            User::ATTR_PASSWORD,
+        );
         $count_complete = 0;
         foreach ($attrs as $attr => $value) {
             if (!is_null($user[$value]))

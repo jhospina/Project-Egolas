@@ -24,14 +24,24 @@ class HomeController extends Controller {
     }
 
     public function getBrowser() {
+  
         if (!Auth::check())
             return redirect("user/auth/login?redirect_to=" . url("browser"));
 
-        $productions = Production::orderBy("id", "DESC")->take(30)->get();
+        $productions = Production::where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("id", "DESC")->take(30)->get();
         $categories = Term::all();
         return view("frontend/contents/gen/browser")
                         ->with("productions", $productions)
                         ->with("categories", $categories);
+    }
+
+    /**
+     * Muestra el catalogo de peliculals de bandicot, solo para visitantes
+     */
+    public function getCatalogue() {
+        if (Auth::check())
+            return redirect("browser");
+        return view("frontend/contents/gen/catalogue");
     }
 
     public function getTerms() {

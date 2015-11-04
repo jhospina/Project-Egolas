@@ -49,7 +49,7 @@ $(document).ready(function () {
     $('#upload-avatar').on('fileuploaded', function (event, data, previewId, index) {
         var response = data.response;
         $("#modal-avatar").modal("hide");
-          $('#upload-avatar').fileinput('reset');
+        $('#upload-avatar').fileinput('reset');
         $("#avatar img").attr("src", response.url);
     });
 
@@ -69,6 +69,44 @@ $(document).ready(function () {
 
 
 
+//MOBILE
+var w_screen;
+var h_screen;
+$(document).ready(function () {
+    w_screen = $(window).width();
+    h_screen = $(window).height();
+
+    $(window).scroll(function () {
+
+        if (w_screen > 768 && w_screen <= 1200) {
+            if ($(window).scrollTop() <= 80) {
+                $("#navbar").show();
+                $("#menu-mobile").css("top", "80px");
+            } else {
+                $("#navbar").hide();
+                $("#menu-mobile").css("top", "0px");
+            }
+        }
+
+        if (w_screen < 768) {
+            if ($(window).scrollTop() <= 60) {
+                $("#navbar").show();
+                $("#menu-mobile").css("top", "66px");
+            } else {
+                $("#navbar").hide();
+                $("#menu-mobile").css("top", "0px");
+            }
+        }
+
+    });
+
+    if (w_screen <= 1100) {
+        $("#menu #avatar").remove();
+        $("#content-avatar").click(function () {
+            $("#modal-avatar").modal("show");
+        });
+    }
+});
 
 
 function strip_tags(input, allowed) {

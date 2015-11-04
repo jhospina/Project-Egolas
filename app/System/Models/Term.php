@@ -21,7 +21,7 @@ class Term extends Model {
      * @return type
      */
     static function searchByName($name) {
-        $terms = Term::where(Term::ATTR_NAME, $name)->get();
+        $terms = Term::where(Term::ATTR_NAME, ucfirst(strtolower($name)))->get();
         if (!count($terms) > 0)
             return null;
         foreach ($terms as $term)

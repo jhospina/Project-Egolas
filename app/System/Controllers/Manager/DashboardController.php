@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller {
 
     function index() {
-        if (Auth::user()->role == User::ROLE_SUSCRIPTOR)
-            return redirect("user/dashboard");
         return view("manager/contents/dashboard");
     }
 

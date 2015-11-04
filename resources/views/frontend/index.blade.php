@@ -1,4 +1,5 @@
 <?php
+
 use App\System\Models\User;
 ?>
 
@@ -7,9 +8,11 @@ use App\System\Models\User;
 @section("content")
 
 <nav class="navbar navbar-inverse" id="navbar">
+    <a id="btn-mobile-login" href="{{URL::to("user/auth/login")}}"><span class="glyphicon glyphicon-log-in"></span></a>
     <div class="navbar-header">
         <a class="navbar-brand" href="{{URL::to("")}}">
-            <img class="img-rounded" style="width: 250px;height:58px;" id="logo-okonexion" src="{{URL::to("assets/images/logo.png")}}">
+            <img id="logo" src="{{URL::to("assets/images/logo.png")}}">
+            <img id="logo-mobile" src="{{URL::to("assets/images/logo-mobile.png")}}">
         </a>
     </div>
     <div class="collapse navbar-collapse" style="text-align: right;">
@@ -34,18 +37,20 @@ use App\System\Models\User;
     <div class="col-lg-6">
 
         <div class="jumbotron" style="background: none;">
-            <h1>¡Disfruta del mejor catalogo de peliculas gratis en internet!</h1>
+            <h1>¡Disfruta del mejor catalogo de peliculas de internet!</h1>
             <p>
-            <ul>
-                <li>Peliculas en alta definición (HD)</li>
+            <ul style="font-size: 16pt;">
+                <li>Peliculas en calidad de DVD</li>
+                <li>¡Puedes verlas completamente gratis!</li>
+                <li>Ve peliculas desde casi cualquier dispositivo</li>
                 <li>La mejor selección para tus gustos</li>
-                <li>El mejor contenido en español</li>
+                <li>Todo el contenido en español</li>
                 <li>Hazle seguimiento a los proximos estrenos</li>
-                <li>Entarate cuando tus peliculas favoritas esten disponibles</li>
+                <li>¿Deseas ver una pelicula y no esta disponible? ¡Solicitala!</li>
                 <li>Sin publicidad molesta</li>
             </ul>
             </p>
-            <p><a class="btn btn-danger btn-lg" href="#" role="button"><span class="glyphicon glyphicon-th"></span> Ver catalogo</a></p>
+            <p><a class="btn btn-danger btn-lg" href="{{URL::to('catalogue')}}" role="button"><span class="glyphicon glyphicon-th"></span> Ver catalogo</a></p>
         </div>
 
     </div>
@@ -101,7 +106,7 @@ use App\System\Models\User;
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12" style="padding: 10px;text-align: center;">
-                       <div class="g-recaptcha" data-sitekey="6LdEcQ4TAAAAANULfMhMKz8wvgxzjM8kcUnpsjuv"></div>
+                            <div class="g-recaptcha" data-sitekey="6LdEcQ4TAAAAANULfMhMKz8wvgxzjM8kcUnpsjuv"></div>
                         </div>
                     </div>
                 </form>
@@ -127,7 +132,7 @@ use App\System\Models\User;
                 <h1 class="modal-title" id="myModalLabel">{{trans("gen.doc.terms")}}</h1>
             </div>
             <div class="modal-body text-justify">
-              @include("doc/terms")
+                @include("doc/terms")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>
@@ -145,7 +150,7 @@ use App\System\Models\User;
                 <h1 class="modal-title" id="myModalLabel">{{trans("gen.doc.privacy.policy")}}</h1>
             </div>
             <div class="modal-body text-justify">
-              @include("doc/privacy-policy")
+                @include("doc/privacy-policy")
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Acepto</button>

@@ -25,7 +25,6 @@ Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => 
 });
 
 
-
 //*****************************************************
 //AJAX*********************************************
 //*****************************************************
@@ -98,22 +97,14 @@ function account_user() {
 //*****************************************************
 Route::get('/', "Frontend\HomeController@index");
 
-
-Route::group(["namespace" => "Frontend"], function() {
+Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend"]], function() {
     productions_frontend();
     category_frontend();
     persons_frontend();
     user_fronted();
     home_fronted();
-    doc_frontend();
     search_frontend();
 });
-
-function doc_frontend() {
-    $class = "HomeController@";
-    Route::get("doc/terms", $class . "getTerms");
-    Route::get("doc/privacypolicy", $class . "getPrivacyPolicy");
-}
 
 function home_fronted() {
     $class = "HomeController@";
@@ -147,6 +138,26 @@ function persons_frontend() {
 function user_fronted() {
     $class = "UserController@";
     Route::post("user/post/create/account", $class . "postCreateAccount");
+}
+
+//*****************************************************
+//VISITANTES*********************************************
+//*****************************************************
+
+Route::group(["namespace" => "Frontend"], function() {
+    home_guest();
+    productions_guest();
+});
+
+function home_guest() {
+    $class = "HomeController@";
+    Route::get("doc/terms", $class . "getTerms");
+    Route::get("doc/privacypolicy", $class . "getPrivacyPolicy");
+    Route::get("catalogue", $class . "getCatalogue");
+}
+
+function productions_guest(){
+     Route::post("ajax/get/productions", "ProductionController@ajax_getProductions");
 }
 
 //*****************************************************
