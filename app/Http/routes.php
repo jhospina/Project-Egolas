@@ -98,7 +98,7 @@ function account_user() {
 //*****************************************************
 Route::get('/', "Frontend\HomeController@index");
 
-Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend"]], function() {
+Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend","notifications"]], function() {
     productions_frontend();
     category_frontend();
     persons_frontend();

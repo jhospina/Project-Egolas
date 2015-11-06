@@ -89,7 +89,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     function getPathTemporal() {
         return User::PATH_TEMPORAL . $this->id . "/";
     }
-
+    
+    public function comments() {
+        return $this->hasMany('App\System\Models\Comment', 'user_id');
+    }
+    
+    public function ratings() {
+        return $this->hasMany('App\System\Models\Production\ProductionRating', 'user_id');
+    }
     public function contributions() {
         return $this->hasMany('App\System\Models\Payment', 'user_id');
     }
