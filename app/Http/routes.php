@@ -46,6 +46,7 @@ function ajax_user() {
     Route::post("user/favorites/add/production", "Frontend\UserController@ajax_addProductionToFavorites");
     Route::post("user/favorites/delete/production", "Frontend\UserController@ajax_deleteProductionToFavorites");
     Route::post("user/favorites/get/productions", "User\UserController@ajax_getProductionsFromFavorites");
+    Route::post("user/production/track", "Frontend\UserController@ajax_trackProduction");
 }
 
 function ajax_productions() {

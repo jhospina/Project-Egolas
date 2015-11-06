@@ -1,4 +1,7 @@
 <?php
+
+use App\System\Models\Production;
+
 $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 ?>
 
@@ -16,15 +19,23 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 <h1 id="title-production-mob" class="text-center">{{$production->title}}<br/><small>{{$production->title_original}}</small></h1>
 <div id="info" class="content container">
     <div id="title-production" class="col-md-10">{{$production->title}} <span id="title-ori">({{$production->title_original}})</span></div>
+    @if(!is_null($production->rating_rel) && floatVal($production->rating_rel)>0)
     <div class="col-md-2 text-right" style="padding: 0px;">
         <div id="rating-imdb">
             {{$production->rating_rel}}
             <div id="tag-imdb">IMDB</div>
         </div>
     </div>
+    @else
+    <div class="col-md-2 text-right" style="padding: 0px;">
+        <div id="comming-soon">
+            Proximamente
+        </div>
+    </div>
+    @endif
     <div class="col-md-3" id="image-content">
         <div id="poster">
-            <img class="img-rounded" src="{{$production->image}}">
+            <img class="img-rounded {{($production->state!=Production::STATE_ACTIVE)?"inactive":""}}" src="{{$production->image}}">
             @if(!$inFav)
             <div id="content-add-favorite">
                 <span class="glyphicon glyphicon-star-empty"></span>
@@ -34,6 +45,11 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
             <div id="inFav" title="En favoritos"><span class="glyphicon glyphicon-star"></span></div>
             @endif
         </div>
+        @if($isVideoMain)
+        <div class="col-md-12 value text-center">
+            <a id="ver-online-poster" class="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
+        </div>
+        @endif
     </div>
     <div class="col-md-4">
         <b>{{trans("gen.info.synopsis")}}</b><br/>
@@ -54,12 +70,30 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
         @if($isVideoMain)
         <div class="col-md-12 value text-center">
-            <a id="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
+            <a id="ver-online-st" class="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
         </div>
+        @endif
+        @if($production->state!=Production::STATE_ACTIVE)
+        @if(!Production::isTracking($production->id))
+        <div id="content-notified">
+            <h4 class="text-center">¿Quieres que te informemos cuando esta producción este disponible?</h4>
+            <div class="text-center" style="margin-top:20px;">
+                @if(Auth::user()->role==User::ROLE_SUSCRIPTOR_PREMIUM)
+                <button id="track-production" class="btn btn-success"><span class="glyphicon glyphicon-envelope"></span> ¡Si, Avísenme!</button>
+                @else
+                <div class="tooltip-bottom" title="Disponible solo para usuarios Premium">
+                    <button id="track-production-not" class="btn btn-success disabled"><span class="glyphicon glyphicon-envelope"></span> ¡Si, Avísenme!</button>
+                </div>
+                @endif
+            </div>
+        </div>
+        @else
+        <div class="caption" style="border-top: 1px gray solid;border-bottom: 1px gray solid;padding:10px;"><span class="glyphicon glyphicon-envelope"></span> Seras informado cuando esta producción este disponible</p></div>
+        @endif
         @endif
 
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" id="director">
         <div class="col-md-12"><b>{{trans("gen.info.director")}}</b></div>
         <div class="col-md-12">
             @if(!is_null($director->image))<a href="{{URL::to("person/".$director->slug)}}" class="staff"> @endif
@@ -67,7 +101,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
                     <img class="img-circle" src="{{$director->image}}"/>
                 </div>
                 @endif
-                <div class="person">{{$director->name}}</div>
+                <div class="person" style="{{(is_null($director->image))?"width:100%":""}}">{{$director->name}}</div>
                 @if(!is_null($director->image))</a>@endif
         </div>
         <div class="col-md-12"><b>{{trans("gen.info.delivery")}}</b></div>
@@ -81,7 +115,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
                     <img class="img-circle" src="{{$person->image}}"/>
                 </div>
                 @endif
-                <div class="person">{{$person->name}}</div>
+                <div class="person" style="{{(is_null($person->image))?"width:100%":""}}">{{$person->name}}</div>
                 @if(!is_null($person->image))  </a> @endif
             @endforeach
         </div>
@@ -188,5 +222,6 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     var token = "{{ Session::token() }}";
     var name_user = "{{Auth::user()->name}}";
     var ajax_post_favorites = "{{URL::to('ajax/user/favorites/add/production')}}";
+    var ajax_post_track = "{{URL::to('ajax/user/production/track')}}";
 </script>
 @stop

@@ -151,6 +151,7 @@ class PaymentController extends Controller {
             $message = view("ui/msg/contents/muchas-gracias-usuario")->with("date_premium", $date->getDay() . " de " . $date->getMonth() . " del " . $date->getYear())->render();
             $email = new Email("¡Gracias " . Auth::user()->name . " por tu aporte!", Auth::user()->email);
             $email->setDescription($message);
+            $email->setName(Auth::user()->name);
             //Envia un correo de agredecimiento
             $email->queue();
             return redirect("user/dashboard")->with(UI::modalMessage("Pago realizado. ¡Muchas gracias " . Auth::user()->name . "!", $message, "De nada, es un placer"));

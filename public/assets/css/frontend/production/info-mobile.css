@@ -52,21 +52,57 @@
         top: -65px;
     }
 
+    #comming-soon {
+        position: absolute;
+        right: 0px;
+        top: 8px;
+    }
+
+    span#title-ori {
+        width: 100%;
+        display: block;
+    }
+
     #image-content {
         padding: 8px;
         text-align: center;
+    }
+
+    #ver-online-poster{
+        display:block;
+    }
+
+    #ver-online-st{
+        display: none;
+    }
+    
+    #director{
+        margin-top:20px;
     }
 
 
 }
 
 @media screen and (max-width:570px){
+
+     #director{
+        margin-top:20px;
+    }
+
     div#title-production {
         display: none;
     }
 
     #title-production-mob{
         display:block;
+    }
+
+    #ver-online-poster{
+        display:block;
+    }
+
+    #ver-online-st{
+        display: none;
     }
 
     #image-content {
@@ -76,13 +112,15 @@
 
     #image-content img{
         width: 100%;
+        max-width: 245px;
     }
 
     #poster {
         width: 70%;
+        max-width: 245px;
     }
 
-    #rating-imdb {
+    #rating-imdb, #comming-soon {
         width: 100%;
     }
 

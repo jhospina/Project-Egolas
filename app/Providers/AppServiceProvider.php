@@ -10,6 +10,9 @@ use App\System\AutoUpdateSearcher\Providers\ProductionProvider;
 use App\System\Models\AutoProcess;
 use App\System\Models\QueuePersons;
 use App\System\AutoUpdateSearcher\Providers\PersonProvider;
+use App\System\Models\User;
+use App\System\Models\Production;
+use App\System\Library\Com\Email;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -66,8 +69,8 @@ class AppServiceProvider extends ServiceProvider {
                     $production->save();
                     return $production->name . " Agregado";
                 }
-                
-                 return "Sin cola";
+
+                return "Sin cola";
             });
 
 
@@ -91,8 +94,60 @@ class AppServiceProvider extends ServiceProvider {
                     $person->save();
                     return $person->name . " Agregado";
                 }
-                
+
                 return "Sin cola";
+            });
+
+
+            /**
+             * CRON: Envio de correo de notificacion de producciones disponibles
+             * DESCRIPCION: Verifica todos las producciones en seguimientos por parte de los usuarios premium y cuando esten disponibles les envia un correo notificandoles
+             * EJECUCION: Cada 12 horas
+             */
+            \Cron::add(AutoProcess::CRON_USER_PRODUCTION_TRACK_SEND_MAIL, '* */12 * * *', function() {
+
+                if (!AutoProcess::isActived(AutoProcess::CRON_USER_PRODUCTION_TRACK_SEND_MAIL))
+                    return "Desactivado";
+
+
+                //Obtiene todos los usuarios premium
+                $users = User::where(User::ATTR_ROLE, User::ROLE_SUSCRIPTOR_PREMIUM)->get();
+                foreach ($users as $user) {
+                    //Obtiene las producciones que siguen que ya se encuentran disponibles y que no sean notificado por correo
+                    $productions = $user->tracks()->wherePivot(User::ATTR_TRACK_PIVOT_MAILED, 0)->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->get();
+
+                    if (count($productions) == 0)
+                        continue;
+
+                    if (count($productions) > 1) {
+                        $description_email = "<p>Este mensaje es para informate que varias producciones que te gustaria ver en nuestra plataforma ya se encuentran disponibles y las puedes ver cuando quieras.</p>" .
+                                "<div style='text-align:center;'>" .
+                                "<h2>Nuevas producciones disponibles para ti</h2>" .
+                                "</div>" .
+                                "<div style='text-align:center;'>";
+                    } else {
+                        $description_email = "<p>Este mensaje es para informate que una producción que te gustaria ver en nuestra plataforma ya se encuentran disponible y la puede ver cuando quieras.</p>" .
+                                "<div style='text-align:center;'>" .
+                                "<h2>Nueva producción disponible para ti</h2>" .
+                                "</div>" .
+                                "<div style='text-align:center;'>";
+                    }
+
+                    foreach ($productions as $production) {
+                        //Notifica las producciones disponibles asociadas
+                        $description_email.="<a href='" . "http://bandicot.com/production/" . $production->slug . "'><img width='192px' height='289px' style='margin: 0px 10px;' src='" . $production->image . "'></a>";
+                        $production->pivot->mailed = 1;
+                        $production->pivot->save();
+                    }
+
+                    $description_email.="</div>";
+
+                    //Envia el correo de notificacion del usuario
+                    $email = new Email((count($productions) > 1) ? "¡Hay varias producciones que te gustaria ver que ya estan disponible!" : "¡Una producción que te gustaria ver ya esta disponible!", $user[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description_email]);
+                    $email->queue();
+                }
+
+                return "Notificaciones realizadas (Si aplican)";
             });
         });
     }

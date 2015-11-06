@@ -14,14 +14,14 @@ class Production extends Model {
     const ATTR_ID = "id";
     const ATTR_TITLE = "title";
     const ATTR_TITLE_ORIGINAL = "title_original";
-    const ATTR_SLUG = "slug";  
+    const ATTR_SLUG = "slug";
     const ATTR_DESCRIPTION = "description";
     const ATTR_STATE = "state";
     const ATTR_YEAR = "year";
     const ATTR_RATING_REL = "rating_rel";
     const ATTR_DURATION = "duration";
     const ATTR_IMAGE = "image";
-    const ATTR_POSTER="poster";
+    const ATTR_POSTER = "poster";
     const ATTR_CREATED_AT = "created_at";
     const ATTR_UPDATED_AT = "updated_at";
     //ESTADO
@@ -80,7 +80,6 @@ class Production extends Model {
         return $this->belongsToMany("App\System\Models\User", "playbacks", "production_id", "user_id")->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP);
     }
 
-    
     /** Obtiene el estilo de color representativo del estado de una produccion
      * 
      * @param type $state
@@ -103,10 +102,10 @@ class Production extends Model {
     public function setSlugAttribute($value) {
         //Evita que un slug se repita
         $count = Production::where(Production::ATTR_SLUG, $value)->get()->count();
-        
-        if(!isset($this->attributes[Production::ATTR_SLUG]))
+
+        if (!isset($this->attributes[Production::ATTR_SLUG]))
             $this->attributes[Production::ATTR_SLUG] = $value;
-        
+
         if (is_null($this->attributes[Production::ATTR_SLUG]) && $count > 0)
             $this->attributes[Production::ATTR_SLUG] = $value . "-" . (intval($count) + 1);
         else
@@ -120,6 +119,15 @@ class Production extends Model {
      */
     static function inFavorites($production_id) {
         return (Auth::user()->favorites()->where("production_id", $production_id)->count() > 0);
+    }
+
+    /** Indica si una produccion esta siendo seguida por un usuario
+     * 
+     * @param type $production_id
+     * @return type
+     */
+    static function isTracking($production_id) {
+        return (Auth::user()->tracks()->where("production_id", $production_id)->count() > 0);
     }
 
     /** Obtiene un html en un formato standar para mostrar la produccion

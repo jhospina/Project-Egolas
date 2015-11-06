@@ -122,8 +122,25 @@ class UserController extends Controller {
         $data = $request->all();
 
         Auth::user()->favorites()->detach($data["production_id"]);
-        
+
         return json_encode(array(true));
+    }
+
+    /**
+     *  Agrega una produccion al listado de seguimientos del usuario
+     */
+    function ajax_trackProduction(Request $request) {
+        if (!$request->ajax())
+            return;
+
+        $data = $request->all();
+
+        if (Auth::check() && Auth::user()->role==User::ROLE_SUSCRIPTOR_PREMIUM && !Production::isTracking($data["production_id"])) {
+            Auth::user()->tracks()->attach($data["production_id"]);
+            return json_encode(array("true"));
+        }
+
+        return json_encode(array("false"));
     }
 
 }

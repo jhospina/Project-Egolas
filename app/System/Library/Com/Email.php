@@ -32,7 +32,7 @@ class Email {
         $this->setEmail($email);
 
         $this->setHeader(isset($data[Email::VAR_HEADER]) ? $data[Email::VAR_HEADER] : $subject);
-        $this->setName(isset($data[Email::VAR_NAME]) ? $data[Email::VAR_NAME] : (Auth::check()) ? Auth::user()->name : null);
+        $this->setName(isset($data[Email::VAR_NAME]) ? $data[Email::VAR_NAME] : null);
         $this->setDescription(isset($data[Email::VAR_DESCRIPTION]) ? $data[Email::VAR_DESCRIPTION] : null);
         $this->setTemplate($template);
     }

@@ -18,6 +18,7 @@ class AutoProcess extends Model {
     const CRON_PRODUCTION_TRACK = "productionTrack";
     const CRON_PRODUCTIONS_FEED = "productionsFeed";
     const CRON_PERSON_TRACK = "personTrack";
+    const CRON_USER_PRODUCTION_TRACK_SEND_MAIL = "userProductionTrackSendMail";
 
     /** Busca un proceso por su nombre
      * 

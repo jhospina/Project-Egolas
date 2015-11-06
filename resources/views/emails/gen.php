@@ -38,7 +38,7 @@
                                                 </tbody></table> 
                                             <table cellpadding="0" cellspacing="0" width="770" align="center" bgcolor="#ffffff" border="0"> 
                                                 <tbody><tr>
-                                                        <td align="middle" style="font-family:Helvetica,Arial,sans-serif;color:#2b2b2b;font-size:20px;font-weight:normal;line-height:24px;padding:20px 34px 25px 34px"><?php print($header); ?></td>
+                                                        <td align="middle" style="font-family:Helvetica,Arial,sans-serif;color:#2b2b2b;font-size:22px;font-weight:bold;line-height:24px;padding:20px 34px 25px 34px"><?php print($header); ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td style="font-family:Helvetica,Arial,sans-serif;color:#2b2b2b;font-size:14px;padding:0px 34px 5px 34px;line-height:20px;font-weight:lighter">Hola, <?php print($name); ?>:</td>

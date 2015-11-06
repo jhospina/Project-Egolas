@@ -16,6 +16,7 @@ class CreateTableTerms extends Migration
             $table->increments('id');
             $table->integer("taxonomy_id");
             $table->string("name");
+            $table->string("mote",50)->nullable();
             $table->string('slug');
             $table->timestamps();
         });

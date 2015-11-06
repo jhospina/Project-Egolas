@@ -11,6 +11,8 @@ class PersonController extends Controller {
 
     function getInfo($slug) {
         $person = Person::where(Person::ATTR_SLUG, $slug)->get()[0];
+        if(is_null($person->biography))
+            abort (404);
         $productions = $person->productions;
         return view("frontend/contents/person/info")
                         ->with("person", $person)

@@ -20,7 +20,7 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Explorar <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     @foreach($categories as $category)
-                    <li><a href="{{URL::to("category/".$category->slug)}}">{{ucfirst($category->name)}}</a></li>
+                    <li><a href="{{URL::to("category/".$category->slug)}}">{{ucfirst($category->mote)}}</a></li>
                     @endforeach
                 </ul>
             </li>
@@ -75,7 +75,7 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
         <div id="categories-mobile">
         <div class="list-group clearfix">
             @foreach($categories as $category)
-            <a class="list-group-item" href="{{URL::to("category/".$category->slug)}}"><span class="glyphicon glyphicon-tag"></span> {{ucfirst($category->name)}}</a>
+            <a class="list-group-item" href="{{URL::to("category/".$category->slug)}}"><span class="glyphicon glyphicon-tag"></span> {{ucfirst($category->mote)}}</a>
             @endforeach
         </div>
         </div>

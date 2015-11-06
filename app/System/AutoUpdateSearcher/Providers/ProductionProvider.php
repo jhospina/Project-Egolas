@@ -204,6 +204,7 @@ class ProductionProvider extends HTMLProvider {
         $director = $this->getDirector();
         $staff_director = (is_null($person = Person::searchByName($director[0]))) ? new Person() : $person;
         $staff_director->name = $director[0];
+        $staff_director->slug = Util::createSlug($director[0]);
         $staff_director->save();
         $staff_director->productions()->attach($production->id, array(Person::ATTR_PIVOT_ROLE => Person::ROLE_DIRECTOR));
 
@@ -226,6 +227,7 @@ class ProductionProvider extends HTMLProvider {
                 continue;
             $staff_actor = (is_null($person = Person::searchByName($actor[0]))) ? new Person() : $person;
             $staff_actor->name = $actor[0];
+            $staff_actor->slug = Util::createSlug($actor[0]);
             $staff_actor->save();
             $staff_actor->productions()->attach($production->id, array(Person::ATTR_PIVOT_ROLE => Person::ROLE_ACTOR));
 

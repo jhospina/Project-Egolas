@@ -37,7 +37,7 @@ $(document).ready(function () {
                 $("#submit-post-comment").html("Comentar");
                 $("#submit-post-comment").removeAttr("disabled");
                 $("#submit-post-comment").removeClass("disabled");
-                
+
             }
         });
     });
@@ -246,6 +246,40 @@ $(document).ready(function () {
                         $("#content-add-favorite").remove();
                         $("#poster").append("<div id='inFav' title='En favoritos'><span class='glyphicon glyphicon-star'></span></div>");
                     }, 3000);
+                }
+            }
+        });
+    });
+});
+
+//TRACK
+$(document).ready(function () {
+    
+    $("a.ver-online").click(function(){
+        $(this).html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span> Cargando...");
+        $(this).attr("disabled");
+        $(this).addClass("disabled");
+    });
+    
+    $("#track-production").click(function () {
+        $(this).attr("disabled");
+        $(this).addClass("disabled");
+        $(this).html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span> Espere...");
+        $.ajax({
+            url: ajax_post_track,
+            type: 'POST',
+            dataType: 'json',
+            data: {"_token": token, production_id: $("#production-id").val()},
+            success: function (response) {
+                if (response == "true") {
+                    $("#track-production").html("<span class='glyphicon glyphicon-ok'></span> Listo");
+                    $("#track-production").tooltip({placement: "top", trigger: "manual", title: "¡Bien hecho! Cuando esta producción este disponible, te avisaremos por medio de un correo electrónico y tambien por nuestra plataforma."});
+                    $("#track-production").tooltip("show");
+                    setTimeout(function(){
+                        $("#track-production").tooltip("hide");
+                    },10000);
+                } else {
+                    $("#track-production").html("<span class='glyphicon glyphicon-alert'></span> Ocurrio un error");
                 }
             }
         });

@@ -53,6 +53,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     //Playbacks
     const ATTR_PLAYBACKS_PIVOT_IP = "ip";
     const ATTR_PLAYBACKS_PIVOT_DATE = "date";
+    //Production track
+    const ATTR_TRACK_PIVOT_NOTIFIED = "notified";
+    const ATTR_TRACK_PIVOT_MAILED = "mailed";
 
     static public function editPassword($current, $new) {
 
@@ -97,6 +100,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function playbacks() {
         return $this->belongsToMany("App\System\Models\Production", "playbacks", "user_id", "production_id")->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP);
+    }
+
+    public function tracks() {
+        return $this->belongsToMany("App\System\Models\Production", "productions_track", "user_id", "production_id")->withPivot(User::ATTR_TRACK_PIVOT_NOTIFIED)->withPivot(User::ATTR_TRACK_PIVOT_MAILED);
     }
 
     /** Obtiene un array con la información de la ultima reproduccion del usuario autenticado
