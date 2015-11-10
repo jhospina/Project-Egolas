@@ -149,7 +149,8 @@ class UserController extends Controller {
                 "id" => $production->id,
                 "title" => $production->title,
                 "image" => $production->image,
-                "description" => Util::trimText($production->description, 150));
+                "description" => Util::trimText($production->description, 150),
+                "state"=>$production->state);
 
             if ($data["skip"] == 0)
                 $data_fav["total"] = $total_productions;

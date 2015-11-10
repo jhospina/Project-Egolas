@@ -175,3 +175,40 @@ img.icon-dealer{
     cursor: pointer;
 }
 
+
+.total-stats{
+    width: 100%;
+    display: inline-block;
+    padding: 0px;
+    font-size: 50pt;
+    font-family: calibri;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    margin-bottom: 10px;
+}
+
+.stats{
+    background: #F9F9F9;
+    border: 1px #111111 solid;
+    margin: 10px 0px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.stats.total h2 {
+    width: 100%;
+    margin: 0px;
+    padding: 10px;
+    border-bottom: 1px gray solid;
+    margin-bottom: 5px;
+}
+
+
+.stats.total {
+    background: red;
+    color: white;
+}

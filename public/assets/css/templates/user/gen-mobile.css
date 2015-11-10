@@ -140,11 +140,47 @@ div#menu-mobile .item.active {
         font-size: 20pt;
         text-align: center;
     }
-    
+
     div#modal-message .caption-date{
         text-align: center;
     }
-    
+
+    #activity-dashboard .panel-bandicot > .panel-body .badge{
+        width: 100%;
+        padding: 5px;
+        border-radius: 0px;
+        margin-bottom: 10px;
+    }
+
+
+    .date-activity{
+        border-radius: 0px;
+        -webkit-border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-right: 1px black solid;
+    }
+
+    .description-activity{
+        border-radius: 0px;
+        border-left: 1px black solid;
+        margin-top: 0px;
+        border-top:0px;
+        -webkit-border-bottom-right-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-radius-bottomright: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+
+    .pagination > li > a, .pagination > li > span{
+        width: 50%;
+    }
+
 }
 
 @media screen and (max-width:850px){
@@ -185,6 +221,7 @@ div#menu-mobile .item.active {
         white-space: normal;
         text-align: center;
     }
+
 
 
 }

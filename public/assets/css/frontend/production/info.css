@@ -159,7 +159,7 @@
     padding-top: 14px;
 }
 
-a.ver-online{
+.ver-online{
     margin-top: 20px;
     display: inline-block;
     width: 100%;
@@ -182,10 +182,10 @@ a.ver-online{
     cursor: pointer;
     border: 1px #26328A inset;
     margin-bottom: 20px;
-     text-decoration: none!important;
+    text-decoration: none!important;
 }
 
-a.ver-online:hover{
+.ver-online:hover{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
     background: #ff3019; /* Old browsers */
     background: -moz-linear-gradient(top,  #ff3019 0%, #cf0404 100%); /* FF3.6+ */
@@ -198,6 +198,26 @@ a.ver-online:hover{
     text-decoration: none!important;
 }
 
+
+.ver-online.disabled{
+    color: #FF2222;
+    cursor: not-allowed;
+    border: 1px white solid;
+}
+
+
+.ver-online.disabled:hover{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc0000+100;Red+Flat */
+    background: #cc0000; /* Old browsers */
+    background: -moz-linear-gradient(top,  #cc0000 0%, #cc0000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cc0000), color-stop(100%,#cc0000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #cc0000 0%,#cc0000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
+
+}
 #ver-online-poster{
     display:none;
 }

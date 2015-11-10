@@ -62,6 +62,7 @@ Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["auth"
     menu_user();
     auth_user();
     account_user();
+    activity_user();
 });
 
 function menu_user() {
@@ -93,6 +94,13 @@ function account_user() {
     Route::post("account/ajax/send/email/confirmation", $class . "ajaxSendConfirmation");
 }
 
+
+function activity_user(){
+    $class = "ActivityController@";
+     Route::get("activity/ratings", $class . "getRatings");
+     Route::get("activity/comments", $class . "getComments");
+}
+
 //*****************************************************
 //FRONTEND*********************************************
 //*****************************************************
@@ -102,7 +110,6 @@ Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend","notif
     productions_frontend();
     category_frontend();
     persons_frontend();
-    user_fronted();
     home_fronted();
     search_frontend();
 });
@@ -136,10 +143,7 @@ function persons_frontend() {
     Route::get("person/{slug}", $class . "getInfo");
 }
 
-function user_fronted() {
-    $class = "UserController@";
-    Route::post("user/post/create/account", $class . "postCreateAccount");
-}
+
 
 //*****************************************************
 //VISITANTES*********************************************
@@ -148,7 +152,14 @@ function user_fronted() {
 Route::group(["namespace" => "Frontend"], function() {
     home_guest();
     productions_guest();
+    user_guest();
 });
+
+
+function user_guest() {
+    $class = "UserController@";
+    Route::post("user/post/create/account", $class . "postCreateAccount");
+}
 
 function home_guest() {
     $class = "HomeController@";

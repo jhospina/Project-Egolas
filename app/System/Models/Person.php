@@ -40,6 +40,11 @@ class Person extends Model {
     public function setSlugAttribute($value){
         //Evita que un slug se repita
         $count=Person::where(Person::ATTR_SLUG,$value)->get()->count();
+        
+        
+        if (!isset($this->attributes[Person::ATTR_SLUG]))
+            $this->attributes[Person::ATTR_SLUG] = $value;
+        
        if(is_null($this->attributes[Person::ATTR_SLUG]) && $count>0)
            $this->attributes[Person::ATTR_SLUG]=$value."-".(intval($count)+1);
        else

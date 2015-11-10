@@ -1,6 +1,7 @@
 <?php
 
 use App\System\Models\Production;
+use App\System\Models\User;
 
 $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 ?>
@@ -47,7 +48,11 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
         @if($isVideoMain)
         <div class="col-md-12 value text-center">
+            @if(Auth::user()->state==User::STATE_UNCONFIRMED_ACCOUNT)
+            <div id="ver-online-poster" class="ver-online disabled"><span class="glyphicon glyphicon-ban-circle"></span> Reproducir</div>
+            @else 
             <a id="ver-online-poster" class="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
+            @endif
         </div>
         @endif
     </div>
@@ -70,7 +75,11 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
         @if($isVideoMain)
         <div class="col-md-12 value text-center">
+            @if(Auth::user()->state==User::STATE_UNCONFIRMED_ACCOUNT)
+            <div id="ver-online-st" class="ver-online disabled"><span class="glyphicon glyphicon-ban-circle"></span> Reproducir</div>
+            @else 
             <a id="ver-online-st" class="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
+            @endif
         </div>
         @endif
         @if($production->state!=Production::STATE_ACTIVE)
@@ -199,7 +208,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
             <img class="avatar img-circle" src="{{(is_null(Auth::user()->avatar))?URL::to("assets/images/user_icon.png"):Auth::user()->avatar}}">
         </div>
         <div class="col-xs-11">
-            <textarea class="form-control input-lg" id="content-comment" placeholder="Escribe un comentario aquí..."></textarea>
+            <textarea class="form-control input-lg" id="content-comment" maxlength="1500" placeholder="Escribe un comentario aquí..."></textarea>
             <div class="col-mx-12 text-right">
                 <input type="hidden" id="production-id" value="{{$production->id}}">
                 <button type="button" id="submit-post-comment" class="btn btn-primary">Comentar</button>

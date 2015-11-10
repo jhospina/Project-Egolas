@@ -24,3 +24,10 @@ if(!session()->has("modal_message_title"))
         $("#modal-message").modal("show");
     });
 </script>
+
+<?php
+//Elimina los datos en sesion del mensaje
+session()->forget("modal_message_title");
+session()->forget("modal_message_content");
+session()->forget("modal_message_btn_close");
+?>

@@ -45,7 +45,9 @@ function loadProductions() {
                 }
 
                 var html = "<div class='production' id='production-" + response[i].id + "' data-slug='" + response[i].slug + "' data-id='" + response[i].id + "'>" +
-                        "<img class='img-thumbnail' src='" + response[i].image + "'>" +
+                        "<img class='img-thumbnail";
+                html += (response[i].state != "AC") ? " production-not-available" : "";
+                html += "' src='" + response[i].image + "'>" +
                         "<div class='information'>" +
                         "<div class='title'>" + response[i].title + "</div>" +
                         "<div class='description'>" +

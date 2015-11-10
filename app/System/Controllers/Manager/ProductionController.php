@@ -15,7 +15,19 @@ use App\System\Library\Complements\Util;
 class ProductionController extends Controller {
 
     function index() {
-        $productions = DB::table("productions")->orderBy("id", "DESC")->paginate(60);
+
+        if (isset($_GET["search"])) {
+            $productions = Production::where(Production::ATTR_TITLE, "LIKE", "%" . $_GET["search"] . "%")->orWhere(Production::ATTR_TITLE_ORIGINAL, "LIKE", "%" . $_GET["search"] . "%");
+        } else {
+            $productions = Production::where(Production::ATTR_TITLE, "!=", "%%");
+        }
+
+        if (isset($_GET["filter"]))
+            $productions = $productions->where(Production::ATTR_STATE, $_GET["filter"]);
+
+
+        $productions = $productions->orderBy("id", "DESC")->paginate(60);
+
         return view("manager/contents/production/index")->with("productions", $productions);
     }
 
@@ -46,6 +58,7 @@ class ProductionController extends Controller {
     function postEdit(Request $request) {
         $data = $request->all();
         $production = Production::findOrNew($data[Production::ATTR_ID]);
+        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE]);
         $production->fill($data);
         $production->save();
 
@@ -89,6 +102,11 @@ class ProductionController extends Controller {
         $id = $data["id"];
         $attr = $data["attr"];
         $value = $data["value"];
+        //Si es un titulo genera su slug
+        if ($attr == Production::ATTR_TITLE) {
+            $data[Production::ATTR_SLUG] = Util::createSlug($value);
+            DB::table("productions")->where("id", $id)->update([Production::ATTR_SLUG => $data[Production::ATTR_SLUG]]);
+        }
 
         DB::table("productions")->where("id", $id)->update([$attr => $value]);
 
@@ -135,8 +153,8 @@ class ProductionController extends Controller {
                     Chapter::ATTR_STATE => $chapter->state)
         );
     }
-    
-    function ajaxDeleteChapter(Request $request){
+
+    function ajaxDeleteChapter(Request $request) {
         if (!$request->ajax())
             return;
         $data = $request->all();

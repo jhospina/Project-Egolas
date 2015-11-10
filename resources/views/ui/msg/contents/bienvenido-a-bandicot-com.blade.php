@@ -1,4 +1,4 @@
-<p>Ya casi estas listo para comenzar ver peliculas gratis en la mejor calidad y completamente en español.</p>
+<p>Ya casi estas listo para comenzar reproducir el mejor contenido de nuestro catalogo y completamente en español.</p>
 <div class="col-lg-12 text-center"><img width='200px' src='{{URL::to("assets/images/email-send.png")}}'/></div>
 <h2 class="text-center">Activa tu cuenta</h2>
 <p>Te hemos enviado un mensaje a tu correo electrónico con un enlace para activar tu cuenta revísalo por favor. Si no vez ningún mensaje, revisa tu repositorio de correo no deseado.</p>

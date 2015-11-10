@@ -125,5 +125,11 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
             jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
         </script>
 
+        <script language="Javascript">
+            document.oncontextmenu = function () {
+                return false
+            }
+        </script>
+
     </body>
 </html>

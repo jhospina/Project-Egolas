@@ -71,6 +71,14 @@ div#overligth-menu-mob {
         width:auto;
     }
 
+    h1#modal-message-title {
+        font-size: 19pt;
+    }
+    
+    #modal-message .modal-body h2{
+        font-size: 17pt;
+    }
+
     #navbar, #navbar.navbar {
         height: 65px!important;
     }
@@ -118,9 +126,9 @@ div#overligth-menu-mob {
         height: 36px;
         overflow: hidden;
     }
-    
-        #body-search #persons .person .name-person:active{
-            background: red;
-            color:white;
-        }
+
+    #body-search #persons .person .name-person:active{
+        background: red;
+        color:white;
+    }
 }

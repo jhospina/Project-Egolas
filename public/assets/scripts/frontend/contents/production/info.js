@@ -5,44 +5,58 @@ $(document).ready(function () {
         $(this).html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span> Enviando...");
         $(this).attr("disabled");
         $(this).addClass("disabled");
+        postComment();
+    });
 
-        $.ajax({
-            url: ajax_post_comment,
-            type: 'POST',
-            dataType: 'json',
-            data: {"_token": token, production_id: $("#production-id").val(), content: $("#content-comment").val()},
-            success: function (response) {
-
-                if ($("#content-not-comments").length > 0)
-                    $("#content-not-comments").remove();
-
-                if (total_comment != -1)
-                    total_comment++;
-
-                var html = "<div class='comment'>" +
-                        "<div class='col-xs-1 col-md-1'>" +
-                        "<img class='avatar img-circle' src='" + $("#create-comment .avatar").attr("src") + "'> " +
-                        "</div>" +
-                        "<div class='col-xs-11'>" +
-                        " <div class='col-xs-4' style='padding-left:0px;text-align:left;'>" + name_user + "</div>" +
-                        " <div class='col-xs-8 text-right'>Hace un momento</div>" +
-                        " <div class='comment-content'>" +
-                        response.content +
-                        " </div>" +
-                        " </div>" +
-                        "  </div>";
-
-                $("#list-comment").prepend(html);
-                $("#content-comment").val("");
-                $("#submit-post-comment").html("Comentar");
-                $("#submit-post-comment").removeAttr("disabled");
-                $("#submit-post-comment").removeClass("disabled");
-
-            }
-        });
+    $(".ver-online.disabled").click(function () {
+        $(this).tooltip({placement: "top", trigger: "manual", title: "No puedes reproducir ningún contenido hasta que no actives tu cuenta."});
+        $(this).tooltip("show");
+        setTimeout(function () {
+            $(".ver-online.disabled").tooltip("hide");
+        }, 5000);
     });
 
 });
+
+
+function postComment() {
+
+    $.ajax({
+        url: ajax_post_comment,
+        type: 'POST',
+        dataType: 'json',
+        data: {"_token": token, production_id: $("#production-id").val(), content: $("#content-comment").val()},
+        success: function (response) {
+
+            if ($("#content-not-comments").length > 0)
+                $("#content-not-comments").remove();
+
+            if (total_comment != -1)
+                total_comment++;
+
+            var html = "<div class='comment'>" +
+                    "<div class='col-xs-1 col-md-1'>" +
+                    "<img class='avatar img-circle' src='" + $("#create-comment .avatar").attr("src") + "'> " +
+                    "</div>" +
+                    "<div class='col-xs-11'>" +
+                    " <div class='col-xs-4' style='padding-left:0px;text-align:left;'>" + name_user + "</div>" +
+                    " <div class='col-xs-8 text-right'>Hace un momento</div>" +
+                    " <div class='comment-content'>" +
+                    response.content +
+                    " </div>" +
+                    " </div>" +
+                    "  </div>";
+
+            $("#list-comment").prepend(html);
+            $("#content-comment").val("");
+            $("#submit-post-comment").html("Comentar");
+            $("#submit-post-comment").removeAttr("disabled");
+            $("#submit-post-comment").removeClass("disabled");
+
+        }
+    });
+}
+
 
 var skip = 0;
 var total_comment = -1;
@@ -254,13 +268,13 @@ $(document).ready(function () {
 
 //TRACK
 $(document).ready(function () {
-    
-    $("a.ver-online").click(function(){
+
+    $("a.ver-online").click(function () {
         $(this).html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span> Cargando...");
         $(this).attr("disabled");
         $(this).addClass("disabled");
     });
-    
+
     $("#track-production").click(function () {
         $(this).attr("disabled");
         $(this).addClass("disabled");
@@ -275,9 +289,9 @@ $(document).ready(function () {
                     $("#track-production").html("<span class='glyphicon glyphicon-ok'></span> Listo");
                     $("#track-production").tooltip({placement: "top", trigger: "manual", title: "¡Bien hecho! Cuando esta producción este disponible, te avisaremos por medio de un correo electrónico y tambien por nuestra plataforma."});
                     $("#track-production").tooltip("show");
-                    setTimeout(function(){
+                    setTimeout(function () {
                         $("#track-production").tooltip("hide");
-                    },10000);
+                    }, 10000);
                 } else {
                     $("#track-production").html("<span class='glyphicon glyphicon-alert'></span> Ocurrio un error");
                 }
@@ -285,3 +299,6 @@ $(document).ready(function () {
         });
     });
 });
+
+
+

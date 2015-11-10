@@ -48,6 +48,10 @@ class ProductionController extends Controller {
     }
 
     function getPlay($slug) {
+
+        if (Auth::user()->state == User::STATE_UNCONFIRMED_ACCOUNT)
+            return redirect("");
+
         $production = Production::where(Production::ATTR_SLUG, $slug)->get();
         if (count($production) == 0)
             return redirect("");
@@ -74,7 +78,7 @@ class ProductionController extends Controller {
                 return view("frontend/contents/production/play-forbbiden")
                                 ->with("production", $production)
                                 ->with("message", view("ui/msg/contents/play-forbidden-production-time-out")
-                                        ->with("production", Production::find($play_production))->with("time",$time)->render())
+                                        ->with("production", Production::find($play_production))->with("time", $time)->render())
                                 ->with("script", "assets/plugins/countdown/js/countdown.js")
                                 ->with("css", array("assets/plugins/countdown/css/styles.css"));
         }

@@ -3,7 +3,7 @@
 return [
     "doc.terms" => "Términos y condiciones de uso",
     "doc.privacy.policy" => "Politica de privacidad",
-    "price.cuant" => "6",
+    "price.cuant" => "6.9",
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",

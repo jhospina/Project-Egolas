@@ -4,8 +4,11 @@ use \App\System\Models\Production;
 use App\System\Models\Chapter;
 use App\System\Library\Enum\Language;
 use App\System\Models\Production\ProductionRating;
+use App\System\Models\User;
 
 return [
+    "user.role.".User::ROLE_SUSCRIPTOR=>"Gratis",
+    "user.role.".User::ROLE_SUSCRIPTOR_PREMIUM=>"Premium",    
     "production." . Production::ATTR_STATE . "." . Production::STATE_ACTIVE => "Activo",
     "production." . Production::ATTR_STATE . "." . Production::STATE_IN_WAIT => "En espera",
     "production." . Production::ATTR_STATE . "." . Production::STATE_COMING_SOON => "Proximamente",

@@ -151,7 +151,7 @@ class Util {
 
         if (isset($url['host']) && $url['host'] != gethostbyname($url['host'])) {
 
-            $fp = fsockopen($url['host'], $url['port'], $errno, $errstr, 30);
+            $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 30);
 
             if (!$fp)
                 return false; //socket not opened
@@ -433,6 +433,69 @@ class Util {
         return $url;
     }
 
+    /** Paginacion de resultados
+     * 
+     * @param type $results
+     * @return string
+     */
+    static function pagination($results) {
+
+        if ($results->lastPage() == 1)
+            return;
+
+        $url = Util::getCurrentUrl();
+
+        $html = '<ul class="pagination">';
+        if ($results->currentPage() == 1)
+            $html.='<li class="disabled"><span>«</span></li>';
+        else
+            $html.='<li><a href="' . Util::addVariableToUrl($url, "page", $results->currentPage() - 1) . '" rel="prev">«</a></li>';
+
+
+        $br = false;
+
+        if ($results->currentPage() >= 7) {
+            $html.='<li><a href="' . Util::addVariableToUrl($url, "page", 1) . '">1</a></li>';
+            $html.='<li><a href="' . Util::addVariableToUrl($url, "page", 2) . '">2</a></li>';
+            $html.='<li class="disabled"><span>...</span></li>';
+            $br = true;
+        }
+
+        for ($i = $results->currentPage() - 7; $i <= $results->currentPage() + 7; $i++) {
+            if ($i < 1)
+                $i = 1;
+
+            if ($br && $i < 3)
+                $i = 3;
+
+            if ($i > $results->lastPage())
+                break;
+
+            if ($results->currentPage() + 7 == $i) {
+                break;
+            }
+
+            if ($i == $results->currentPage())
+                $html.='<li class="active"><span>' . $results->currentPage() . '</span></li>';
+            else
+                $html.='<li><a href="' . Util::addVariableToUrl($url, "page", $i) . '">' . $i . '</a></li>';
+        }
+        if (($i - 1) < $results->lastPage()) {
+            $html.='<li class="disabled"><span>...</span></li>';
+            $html.='<li><a href="' . Util::addVariableToUrl($url, "page", $results->lastPage() - 1) . '">' . ($results->lastPage() - 1) . '</a></li>';
+            $html.='<li><a href="' . Util::addVariableToUrl($url, "page", $results->lastPage()) . '">' . $results->lastPage() . '</a></li>';
+        }
+
+        if ($results->currentPage() == $results->lastPage())
+            $html.='<li class="disabled"><span>»</span></li>';
+        else
+            $html.='<li><a href="' . Util::addVariableToUrl($url, "page", $results->currentPage() + 1) . '" rel="next">»</a></li></ul>';
+
+
+
+        return $html;
+    }
+
     /** Indica si es una URL valida
      * 
      * @param type $url
@@ -448,7 +511,7 @@ class Util {
      * @return type
      */
     static function createSlug($text) {
-        return str_replace(array(" ", ".", ":",","), array("-", "", "",""), strtolower(Util::textDecodetoSimply($text)));
+        return str_replace(array(" ", ".", ":", ","), array("-", "", "", ""), strtolower(Util::textDecodetoSimply($text)));
     }
 
     /** Traduce un texto con ayuda de Google Translate

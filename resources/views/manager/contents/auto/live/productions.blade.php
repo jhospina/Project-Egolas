@@ -81,10 +81,10 @@
                     handlerClickEdit();
                 }
 
-                
-                 setTimeout(function () {
-                 getProduction();
-                 }, 60000);
+
+                setTimeout(function () {
+                    getProduction();
+                }, 60000);
 
             }
         });
@@ -95,11 +95,11 @@
 <script>
     function handlerClickEdit() {
         $("td.attr").click(function () {
-            
-            var attr=($(this).attr("id").toString().split("-"))[0];
-             var id=($(this).attr("id").toString().split("-"))[1];
-             var id_td="#" + $(this).attr("id");
-            
+
+            var attr = ($(this).attr("id").toString().split("-"))[0];
+            var id = ($(this).attr("id").toString().split("-"))[1];
+            var id_td = "#" + $(this).attr("id");
+
             if (!($("#" + $(this).attr("id") + " input").length > 0)) {
                 $("#" + $(this).attr("id")).html("<input type='text' class='form-control' value='" + $("#" + $(this).attr("id")).html() + "'/>");
                 //Enfoca en el input creado
@@ -111,13 +111,17 @@
                 $("#" + $(this).attr("id") + " input").keypress(function (event) {
                     var keycode = (event.keyCode ? event.keyCode : event.which);
                     if (keycode == '13') {
-                         $(id_td).html($(this).val());
+                        $(id_td).html($(this).val());
                         $.ajax({
                             url: "{{URL::to('manager/productions/ajax/post/edit/')}}",
                             type: 'POST',
                             dataType: 'json',
-                            data: {"_token": "{{ Session::token() }}","id":id,"attr": attr,"value":$(this).val()},
-                            success: function (data) {}});
+                            data: {"_token": "{{ Session::token() }}", "id": id, "attr": attr, "value": $(this).val()},
+                            success: function (data) {
+                                if (data.slug) {
+                                    $("#{{App\System\Models\Production::ATTR_SLUG}}-" + data.id).html(data.slug);
+                                }
+                            }});
 
                     }
                 });
