@@ -14,6 +14,7 @@ class PersonController extends Controller {
         if(is_null($person->biography))
             abort (404);
         $productions = $person->productions;
+        $productions=Production::sortByState($productions);
         return view("frontend/contents/person/info")
                         ->with("person", $person)
                         ->with("productions", $productions);

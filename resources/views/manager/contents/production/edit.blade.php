@@ -60,7 +60,7 @@ if ($isVideoMain)
             </div>
             <div class="form-group">
                 <label>{{trans("gen.info.description")}}</label>
-                <textarea name="description" class="input-lg form-control" style="height:133px;">{{$production->description}}</textarea>
+                <textarea name="description" class="input-lg form-control" maxlength="525" style="height:133px;">{{$production->description}}</textarea>
             </div>
             <div class="form-group">
                 <label>{{trans("gen.info.rating")}}</label>
@@ -104,7 +104,9 @@ if ($isVideoMain)
         </div>
         <div class="col-md-2">
             <div id="image-mask">
+                <a target="_blank" href="{{URL::to('production/'.$production->slug)}}">
                 <img src="{{$production->image}}"/><br/>
+                </a>
                 {{trans("gen.info.mask")}}
             </div>
         </div>

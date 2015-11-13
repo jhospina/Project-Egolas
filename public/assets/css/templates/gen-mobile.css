@@ -74,7 +74,7 @@ div#overligth-menu-mob {
     h1#modal-message-title {
         font-size: 19pt;
     }
-    
+
     #modal-message .modal-body h2{
         font-size: 17pt;
     }
@@ -130,5 +130,14 @@ div#overligth-menu-mob {
     #body-search #persons .person .name-person:active{
         background: red;
         color:white;
+    }
+
+    #modal-message img.production-nots{
+        width: 96px;
+        height: 145.5px;
+    }
+    
+    footer{
+        text-align: center;
     }
 }

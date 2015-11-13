@@ -76,6 +76,8 @@ class ProductionFeed extends HTMLProvider {
 
         foreach ($this->dataRepository as $data) {
             $queue = new QueueProductions;
+            if (QueueProductions::existsByLink($data[1]))
+                continue;
             $queue->name = $data[0];
             $queue->link = $data[1];
             $queue->date_creation = DateUtil::getCurrentTime();

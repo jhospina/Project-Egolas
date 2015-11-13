@@ -9,6 +9,9 @@ use App\System\Models\Production;
 
 @section("title"){{$person->name}}@stop
 
+@section("meta-description")Mira todas las peliculas de {{$person->name}} en un solo lugar. Bandicot te ofrece una gran base de datos de directores y actores de cine con su respectiva biografía.@stop
+
+
 @section("css")
 {{ HTML::style('assets/css/frontend/person/info.css', array('media' => 'screen')) }}
 @stop
@@ -17,9 +20,9 @@ use App\System\Models\Production;
 
 <div id="info" class="content container">
     <div class="col-md-12 title">{{$person->name}}</div>
-    <div id="biography" class="col-md-12">
-        <p><img class="img-rounded" src="{{$person->image}}"/> {{Util::applyJumpsIntoText($person->biography)}}</p>
-    </div>
+    <article id="biography" class="col-md-12">
+        <p><img class="img-rounded" alt="{{$person->name}}" src="{{$person->image}}"/> {{Util::applyJumpsIntoText($person->biography)}}</p>
+    </article>
 </div>
 
 <div id="movies" class="content container">

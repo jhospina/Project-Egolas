@@ -73,7 +73,7 @@ class Notifications {
 
         foreach ($productions as $production) {
             //Notifica las producciones disponibles asociadas
-            $description.="<a href='" . url("production/".$production->slug) . "'><img width='192px' height='289px' style='margin: 0px 10px;' src='" . $production->image . "'></a>";
+            $description.="<a href='" . url("production/" . $production->slug) . "'><img class='production-nots' width='192px' height='289px' style='margin: 0px 10px;' src='" . $production->image . "'></a>";
             $production->pivot->notified = 1;
             $production->pivot->save();
         }

@@ -68,14 +68,7 @@
         text-align: center;
     }
 
-    #ver-online-poster{
-        display:block;
-    }
 
-    #ver-online-st{
-        display: none;
-    }
-    
     #director{
         margin-top:20px;
     }
@@ -85,7 +78,12 @@
 
 @media screen and (max-width:570px){
 
-     #director{
+    #ver-online-poster{
+        max-width: 245px;
+    }
+
+
+    #director{
         margin-top:20px;
     }
 
@@ -95,14 +93,6 @@
 
     #title-production-mob{
         display:block;
-    }
-
-    #ver-online-poster{
-        display:block;
-    }
-
-    #ver-online-st{
-        display: none;
     }
 
     #image-content {

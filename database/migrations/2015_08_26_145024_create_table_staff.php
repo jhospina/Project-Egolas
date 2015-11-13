@@ -17,6 +17,7 @@ class CreateTableStaff extends Migration
             $table->integer("person_id");
             $table->integer('production_id');
             $table->string('role',2);
+            $table->index(['person_id', 'production_id']);
         });
     }
 

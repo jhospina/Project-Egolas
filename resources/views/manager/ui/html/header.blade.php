@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bandicot System - @yield('titulo',"Bandicot - El lugar para encontrar lo quieres ver")</title>
+        <title>Bandicot System - @yield('titulo',"Bandicot - Todo lo que quieres ver")</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="NoIndex, NoFollow">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap-theme.css', array('media' => 'screen')) }}

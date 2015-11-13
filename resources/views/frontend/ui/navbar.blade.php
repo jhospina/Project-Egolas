@@ -80,8 +80,8 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
         </div>
         </div>
         <div class="list-group my-account">
-            <a class="list-group-item" href="{{URL::to("user/dashboard")}}" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a>
-            <a class="list-group-item" href="{{URL::to("user/auth/logout")}}" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a>
+            <a class="list-group-item" rel="nofollow" href="{{URL::to("user/dashboard")}}" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a>
+            <a class="list-group-item" rel="nofollow" href="{{URL::to("user/auth/logout")}}" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a>
         </div>
     </div>
     @endif

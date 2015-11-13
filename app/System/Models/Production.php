@@ -147,8 +147,8 @@ class Production extends Model {
         return $html;
     }
 
-    static function search($query) {
-        return Production::where(self::ATTR_TITLE, "LIKE", "%" . $query . "%")->orWhere(self::ATTR_TITLE_ORIGINAL, "LIKE", "%" . $query . "%")->orderBy(self::ATTR_STATE, "DESC")->get();
+    static function search($query,$take=50) {
+        return Production::where(self::ATTR_TITLE, "LIKE", "%" . $query . "%")->orWhere(self::ATTR_TITLE_ORIGINAL, "LIKE", "%" . $query . "%")->orderBy(self::ATTR_STATE, "DESC")->take($take)->get();
     }
 
     /** Ordene una coleccion de produccion por el estado, posicionando los que estan activos en primer lugar

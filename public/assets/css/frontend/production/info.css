@@ -19,6 +19,8 @@
 }
 
 
+
+
 #chapters{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
     background: #ffffff; /* Old browsers */
@@ -137,10 +139,11 @@
 }
 
 #staff-content{
-    height: 260px;
+    height: 310px;
     overflow-y: auto;
     overflow-x: hidden;
     margin-top:10px;
+    margin-bottom:20px;
 }
 
 
@@ -159,11 +162,19 @@
     padding-top: 14px;
 }
 
-.ver-online{
-    margin-top: 20px;
-    display: inline-block;
+#poster img{
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     width: 100%;
-    font-size: 20pt;
+}
+
+.ver-online{
+    display: inline-block;
+    font-size: 15pt;
     padding: 10px;
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cc0000+0,cc0000+100;Red+Flat */
     background: #cc0000; /* Old browsers */
@@ -174,15 +185,20 @@
     background: -ms-linear-gradient(top,  #cc0000 0%,#cc0000 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #cc0000 0%,#cc0000 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    color: white;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;color: white;
     -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.5);
     cursor: pointer;
-    border: 1px #26328A inset;
+    border: 0;
     margin-bottom: 20px;
     text-decoration: none!important;
+    text-align: center;
+    max-width: 214px;
+    width:100%;
 }
 
 .ver-online:hover{
@@ -196,6 +212,8 @@
     background: linear-gradient(to bottom,  #ff3019 0%,#cf0404 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* IE6-9 */
     text-decoration: none!important;
+    color:white;
+
 }
 
 
@@ -203,6 +221,7 @@
     color: #FF2222;
     cursor: not-allowed;
     border: 1px white solid;
+    border: 0;
 }
 
 
@@ -218,9 +237,7 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=0 ); /* IE6-9 */
 
 }
-#ver-online-poster{
-    display:none;
-}
+
 
 #title-play{
     padding: 10px;
@@ -446,6 +463,8 @@ img.inactive{
 #poster{
     display: inline-block;
     position: relative;
+    max-width: 214px;
+    min-height: 310px;
 }
 
 #content-add-favorite{

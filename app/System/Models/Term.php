@@ -10,6 +10,7 @@ class Term extends Model {
     const ATTR_ID = "id";
     const ATTR_TAXONOMY_ID = "taxonomy_id";
     const ATTR_NAME = "name";
+    const ATTR_MOTE = "mote";
     const ATTR_SLUG = "slug";
     const ATTR_CREATED_AT = "created_at";
     const ATTR_UPDATED_AT = "update_at";

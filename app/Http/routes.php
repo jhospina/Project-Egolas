@@ -94,11 +94,10 @@ function account_user() {
     Route::post("account/ajax/send/email/confirmation", $class . "ajaxSendConfirmation");
 }
 
-
-function activity_user(){
+function activity_user() {
     $class = "ActivityController@";
-     Route::get("activity/ratings", $class . "getRatings");
-     Route::get("activity/comments", $class . "getComments");
+    Route::get("activity/ratings", $class . "getRatings");
+    Route::get("activity/comments", $class . "getComments");
 }
 
 //*****************************************************
@@ -106,10 +105,9 @@ function activity_user(){
 //*****************************************************
 Route::get('/', "Frontend\HomeController@index");
 
-Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend","notifications"]], function() {
+Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend", "notifications"]], function() {
     productions_frontend();
     category_frontend();
-    persons_frontend();
     home_fronted();
     search_frontend();
 });
@@ -131,16 +129,10 @@ function category_frontend() {
 
 function productions_frontend() {
     $class = "ProductionController@";
-    Route::get("production/{slug}", $class . "getInfo");
     Route::get("production/{slug}/play", $class . "getPlay");
     Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
     //Reproductor de video
     Route::get("media/videoplayer/play/", $class . "videoPlayer");
-}
-
-function persons_frontend() {
-    $class = "PersonController@";
-    Route::get("person/{slug}", $class . "getInfo");
 }
 
 
@@ -153,8 +145,8 @@ Route::group(["namespace" => "Frontend"], function() {
     home_guest();
     productions_guest();
     user_guest();
+    persons_guest();
 });
-
 
 function user_guest() {
     $class = "UserController@";
@@ -168,8 +160,14 @@ function home_guest() {
     Route::get("catalogue", $class . "getCatalogue");
 }
 
-function productions_guest(){
-     Route::post("ajax/get/productions", "ProductionController@ajax_getProductions");
+function productions_guest() {
+    Route::post("ajax/get/productions", "ProductionController@ajax_getProductions");
+    Route::get("production/{slug}", "ProductionController@getInfo");
+}
+
+function persons_guest() {
+    $class = "PersonController@";
+    Route::get("person/{slug}", $class . "getInfo");
 }
 
 //*****************************************************
@@ -197,6 +195,7 @@ function productions() {
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");
     Route::post("productions/ajax/chapter/creator", $class . "ajaxChapterCreator");
     Route::post("productions/ajax/chapter/delete", $class . "ajaxDeleteChapter");
+    Route::post("productions/ajax/add/from/imdb", $class . "ajaxAddFromIMDB");
 }
 
 function autoProcess() {

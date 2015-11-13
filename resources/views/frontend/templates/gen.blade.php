@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <title>@yield('title',"Bandicot - El lugar para encontrar lo quieres ver") | Bandicot.com</title>
+        <title>@yield('title',"Todo lo que quieres ver") - Bandicot.com</title>
+        <meta name="robots" content="NoIndex, NoFollow">
+        <meta name="description" content="@yield('meta-description','Disfruta del mejor catalogo de peliculas en internet, miralas online y gratis desde cualquier dispositivo.')">
+        <meta name="keywords" content="bandicot, bandicot.com, peliculas, series, gratis, online, reproducir, directores, actores, cine, estrenos, catalogo, dvd">
+        <meta name='language' content='es' />
+        <meta http-equiv='content-language' content='es' />
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        <meta name="author" content="Bandicot.com">
+        <meta name='owner' content='Bandicot.com' />
+        <meta name='copyright' content='&COPY; Copyright {{date('Y')}} - Todos los derechos reservados' /><meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <meta name="robots" content="noindex">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap-theme.css', array('media' => 'screen')) }}
@@ -42,13 +49,13 @@
         <div class="clearfix"></div>
         <div class='container container text-center' id='legend'><i>"Si llegaste hasta aquí, celébralo, nunca serás más feliz si hubieras muerto antes"</i></div>
         <footer class="container content">
-            <div class="col-xs-6">
+            <div class="col-sm-6">
                 <ul>
                     <li><a href='{{URL::to("doc/terms")}}'>{{trans("gen.doc.terms")}}</a></li>
                     <li><a href='{{URL::to("doc/privacypolicy")}}'>{{trans("gen.doc.privacy.policy")}}</a></li>
                 </ul>
             </div>
-            <div class="col-xs-6">
+            <div class="col-sm-6">
                 <ul>
                     <li>Bandicot.com</li>
                     <li>&COPY; {{date("Y")}} Todos los derechos reservados</li>
@@ -72,7 +79,7 @@
             jQuery(".tooltip-right").tooltip({placement: "right"});
             jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
             var url_site = "{{URL::to('')}}";
-           
+
         </script>
 
         {{--OTROS SCRIPTS--}}

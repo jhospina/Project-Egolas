@@ -1,8 +1,13 @@
 <?php
 
 use \App\System\Models\Production;
+
+$productions_id = array(); //Almacena los ids de las peliculas que se mostraran
 ?>
 @extends("frontend/templates/gen",array("path"=>"frontend/contents/gen/browser","id_body"=>"browser"))
+
+
+@section("title")Principal @stop
 
 @section("css")
 {{ HTML::style('assets/ui/slider/css/slider.css', array('media' => 'screen')) }}
@@ -37,15 +42,21 @@ use \App\System\Models\Production;
 <div id="categories">
     <?php foreach ($categories as $category): ?>
         <?php
-        $productions = $category->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy(Production::ATTR_ID, "DESC")->take(20)->get();
+        $productions = $category->productions()
+                        ->where(Production::ATTR_STATE, Production::STATE_ACTIVE)
+                        ->orderBy(Production::ATTR_YEAR, "DESC")
+                        ->whereNotIn("id", $productions_id)
+                        ->groupBy("id")
+                        ->take(20)->get();
         if (count($productions) < 10)
             continue;
         ?>
-        <a href="{{URL::to("category/".$category->slug)}}"><h2 class="text-center title-category text-uppercase">{{ucfirst($category->name)}}</h2></a>
+        <a href="{{URL::to("category/".$category->slug)}}"><h2 class="text-center title-category text-uppercase">{{ucfirst($category->mote)}}</h2></a>
         <div class="content-slider-productions">
             <div class="slider-bcot">
                 <section>
                     @foreach($productions as $production)
+                    <?php $productions_id[] = $production->id; ?>
                     <div class="content-item">
                         <div class="item">
                             <a href="{{URL::to("production/".$production->slug)}}"><img class="production" title="{{$production->title}}" src="{{$production->image}}">
@@ -54,10 +65,9 @@ use \App\System\Models\Production;
                                     {{$production->title}}
                                 </div>
                             </a>
-
                         </div>
                     </div>
-<?php endforeach; ?>
+                <?php endforeach; ?>
             </section>
         </div>
     </div>

@@ -354,6 +354,8 @@ ul#bar-user {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     font-weight: bold;
+    max-height: 22px;
+    overflow: hidden;
 }
 
 #explore-menu {

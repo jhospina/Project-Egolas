@@ -7,6 +7,9 @@ $titles = array(); //Almacena los nombre de las peliculas a mostrar
 ?>
 @extends("frontend/templates/gen",array("id_body"=>"search"))
 
+@section("title")Buscar: {{$query}} @stop
+
+
 @section("content")
 
 <div class="page-header" style="margin-left:9px;">

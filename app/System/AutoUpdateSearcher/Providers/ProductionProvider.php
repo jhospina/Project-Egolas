@@ -111,12 +111,15 @@ class ProductionProvider extends HTMLProvider {
         if (!preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>(.*?)[\"\']>/i', $match_content, $match_image, PREG_SET_ORDER))
             return;
 
+        $path_image = public_path("assets/db/images/") . md5($this->title_original);
+
+
         try {
             if (Util::UrlExist(strip_tags($match_image[0][1]))) {
-                $path_image = public_path("assets/db/images/") . md5($this->title_original);
                 copy(strip_tags($match_image[0][1]), $path_image . ".jpg");
                 $this->image = Util::convertPathToUrl($path_image . ".jpg");
             } else {
+
                 $this->image = null;
             }
         } catch (Exception $e) {
@@ -144,6 +147,12 @@ class ProductionProvider extends HTMLProvider {
         } catch (Exception $e) {
             $this->poster = null;
         }
+
+
+        if (is_null($this->image))
+            $this->image = $this->poster;
+
+
         //(PERSONAL DE LA PRODUCCION)*************************************
         if (!preg_match_all('/<div\s+.*?itemprop=[\"\']director[\"\']?[^>]*>(.*?)<\/div>/i', $match_content, $match_director_bar, PREG_SET_ORDER))
             return;

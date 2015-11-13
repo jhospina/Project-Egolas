@@ -24,11 +24,18 @@ class ProductionController extends Controller {
         $production = Production::where(Production::ATTR_SLUG, $slug)->get();
         if (count($production) == 0)
             return redirect("");
+
         $production = $production[0];
+
+        //Visitantes
+        if (!Auth::check()) {
+            return view("frontend/contents/production/play-forbbiden")->with("production",$production)->with("message",view("ui/msg/contents/info-production-login")->with("production",$production)->render());
+        }
+
         $categories = $production->terms;
         $director = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0];
         $staff = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get();
-        $isVideoMain = $production->haveVideoMain();
+        $isVideoMain = ($production->haveVideoMain() && $production->state==Production::STATE_ACTIVE);
         $chapters = $production->chapters;
         $rating_count = $production->ratings()->count();
         $rating = number_format(($production->ratings()->avg('rating') * 100) / 5, 0);

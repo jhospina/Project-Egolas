@@ -11,8 +11,8 @@ use App\System\Models\User;
     <a id="btn-mobile-login" href="{{URL::to("user/auth/login")}}"><span class="glyphicon glyphicon-log-in"></span></a>
     <div class="navbar-header">
         <a class="navbar-brand" href="{{URL::to("")}}">
-            <img id="logo" src="{{URL::to("assets/images/logo.png")}}">
-            <img id="logo-mobile" src="{{URL::to("assets/images/logo-mobile.png")}}">
+            <img id="logo" alt="Logo Bandicot.com" src="{{URL::to("assets/images/logo.png")}}">
+            <img id="logo-mobile" alt="Logo Bandicot.com" src="{{URL::to("assets/images/logo-mobile.png")}}">
         </a>
     </div>
     <div class="collapse navbar-collapse" style="text-align: right;">
@@ -23,7 +23,7 @@ use App\System\Models\User;
 <div id="background">
     @foreach($productions as $production)
     <div class="poster">
-        <img src="{{$production->image}}" border="0">
+        <img src="{{$production->image}}" alt="{{$production->title}}">
         <div class="spinner"></div>
     </div>
     @endforeach
@@ -38,7 +38,6 @@ use App\System\Models\User;
 
         <div class="jumbotron" style="background: none;">
             <h1>¡Disfruta del mejor catalogo de peliculas de internet!</h1>
-            <p>
             <ul style="font-size: 16pt;">
                 <li>Peliculas en calidad de DVD</li>
                 <li>¡Puedes verlas completamente gratis!</li>
@@ -49,7 +48,6 @@ use App\System\Models\User;
                 <li>¿Deseas ver una pelicula y no esta disponible? ¡Solicitala!</li>
                 <li>Sin publicidad molesta</li>
             </ul>
-            </p>
             <p><a class="btn btn-danger btn-lg" href="{{URL::to('catalogue')}}" role="button"><span class="glyphicon glyphicon-th"></span> Ver catalogo</a></p>
         </div>
 
@@ -58,7 +56,7 @@ use App\System\Models\User;
 
         <div class="row">
             <div id="content-form" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-                <form role="form" action="{{URL::to('user/post/create/account')}}" method="POST">
+                <form  action="{{URL::to('user/post/create/account')}}" method="POST">
                     {{ csrf_field() }}
                     <h2 class="text-center">¡Crea tu cuenta gratis!</h2>
                     <hr class="colorgraph">
@@ -129,7 +127,7 @@ use App\System\Models\User;
         <div class="modal-content" style="color:black;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h1 class="modal-title" id="myModalLabel">{{trans("gen.doc.terms")}}</h1>
+                <h1 class="modal-title" >{{trans("gen.doc.terms")}}</h1>
             </div>
             <div class="modal-body text-justify">
                 @include("doc/terms")
@@ -147,7 +145,7 @@ use App\System\Models\User;
         <div class="modal-content" style="color:black;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h1 class="modal-title" id="myModalLabel">{{trans("gen.doc.privacy.policy")}}</h1>
+                <h1 class="modal-title" >{{trans("gen.doc.privacy.policy")}}</h1>
             </div>
             <div class="modal-body text-justify">
                 @include("doc/privacy-policy")

@@ -87,8 +87,12 @@ class Util {
     static function formatResultObjects($objects, $propiety, $separator = ", ", $prefix = null, $suffix = null) {
         $contenido = ""; //Almacena el resultado end
 
-        foreach ($objects as $objeto)
+        $bonus = (preg_match("/%.+%/i", $prefix, $match)) ? str_replace("%", "", $match[0]) : null;
+        $prefix_aux = $prefix;
+        foreach ($objects as $objeto) {
+            $prefix = (!is_null($bonus)) ? str_replace("%$bonus%", $objeto[$bonus], $prefix_aux) : $prefix;
             $contenido.=$prefix . $objeto[$propiety] . $suffix . $separator;
+        }
 
         return substr($contenido, 0, strlen($contenido) - strlen($separator));
     }

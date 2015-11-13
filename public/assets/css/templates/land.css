@@ -233,7 +233,7 @@ a#btn-mobile-login {
 }
 
 #msg-forbidden{
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.95);
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -261,7 +261,7 @@ a#btn-mobile-login {
 
 div#logo-msg-forbidden {
     width: 100%;
-    background: rgba(255, 0, 0, 0.8);
+    background: rgba(255, 0, 0, 0.9);
     margin-bottom: 30px;
 }
 

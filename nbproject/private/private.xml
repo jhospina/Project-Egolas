@@ -3,13 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Frontend/SearchController.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/Http/routes.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/views/manager/contents/production/index.blade.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/gen.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Manager/ProductionController.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Models/Person.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/attr.php</file>
-            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Library/Complements/Util.php</file>
             <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/resources/lang/es/ui.php</file>
+            <file>file:/E:/Documents/NetBeansProjects/Bandicot.com/app/System/Controllers/Frontend/ProductionController.php</file>
         </group>
     </open-files>
 </project-private>

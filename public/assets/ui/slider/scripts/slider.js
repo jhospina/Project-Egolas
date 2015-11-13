@@ -18,6 +18,7 @@ $(document).ready(function () {
 
         $(".spinner").fadeOut(function () {
             $(this).remove();
+            $(".slider-bcot .arrow").css("height", $(".slider-bcot img.production").height());
         });
         slider.fadeIn();
     });

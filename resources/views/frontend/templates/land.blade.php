@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
-        <title>@yield('title',"Bandicot - El mejor lugar para ver peliculas gratis") | Bandicot.com</title>
+        <title>@yield('title',"Todo lo que quieres ver") - Bandicot.com</title>
+        <meta name="robots" content="NoIndex, NoFollow">
+        
+        <meta name="description" content="@yield('meta-description','Disfruta del mejor catalogo de peliculas en internet, miralas online y gratis desde cualquier dispositivo.')">
+        <meta name="keywords" content="bandicot, bandicot.com, peliculas, series, gratis, online, reproducir, directores, actores, cine, estrenos, catalogo, dvd">
+        <meta name='language' content='es' />
+        <meta http-equiv='content-language' content='es' />
+        <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+        <meta name="author" content="Bandicot.com">
+        <meta name='owner' content='Bandicot.com' />
+        <meta name='copyright' content='&COPY; Copyright {{date('Y')}} - Todos los derechos reservados' />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
-        <meta name="robots" content="noindex">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap-theme.css', array('media' => 'screen')) }}

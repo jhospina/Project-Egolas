@@ -2,6 +2,11 @@
 
 use App\System\Library\Complements\Util;
 use App\System\Models\Production;
+use App\System\Models\QueueProductions;
+
+
+
+
 ?>
 @extends("manager/ui/templates/main",array("path"=>"manager/contents/production/index"))
 
@@ -85,14 +90,19 @@ use App\System\Models\Production;
                     <h4 class="modal-title" id="myModalLabel">Agregar nueva producción</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="alert alert-info" id="report-moda-add" style="display:none;"></div>
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input class="form-control input-lg" id="name_production" type="text" value="">
+                    </div>
                     <div class="form-group">
                         <label>Enlace de IMDB de la producción</label>
-                        <input class="form-control input-lg" id="link" type="text" value="">
+                        <input class="form-control input-lg" id="link_production" type="text" value="">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Enviar</button>
+                    <button type="button" class="btn btn-primary" id="send">Enviar</button>
                 </div>
             </div>
         </div>
@@ -104,5 +114,7 @@ use App\System\Models\Production;
 
     <script>
         var url_site = "{{URL::to('manager/productions/edit')}}/";
+        var ajax_add_new = "{{URL::to('manager/productions/ajax/add/from/imdb')}}";
+        var token = "{{Session::token()}}";
     </script>
     @stop
