@@ -336,3 +336,37 @@ div#last-playbacks section{
 .pagination{
     font-size: 23pt;
 }
+
+div#time-premium-title {
+    padding: 10px;
+    font-size: 14pt;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 1px black solid;
+}
+div#time-premium-title:after{
+    content: " Tu cuenta premium termina en:";
+}
+
+div#time-premium {
+    border: 1px black solid;
+    padding: 10px;
+    font-size: 14pt;
+    /* border: 1px black solid; */
+    background: #cc0000;
+    background: -moz-radial-gradient(center, ellipse cover, #cc0000 0%, #cc0000 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, #cc0000 0%,#cc0000 100%);
+    background: radial-gradient(ellipse at center, #cc0000 0%,#cc0000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc0000', endColorstr='#cc0000',GradientType=1 );
+    color: white;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

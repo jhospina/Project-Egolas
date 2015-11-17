@@ -53,6 +53,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     //Playbacks
     const ATTR_PLAYBACKS_PIVOT_IP = "ip";
     const ATTR_PLAYBACKS_PIVOT_DATE = "date";
+    const ATTR_PLAYBACKS_PIVOT_TOKEN = "token";
+    const ATTR_PLAYBACKS_PIVOT_VALIDATE = "validate";
+    const ATTR_PLAYBACKS_PIVOT_RUNNING = "running";
     //Production track
     const ATTR_TRACK_PIVOT_NOTIFIED = "notified";
     const ATTR_TRACK_PIVOT_MAILED = "mailed";
@@ -89,14 +92,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     function getPathTemporal() {
         return User::PATH_TEMPORAL . $this->id . "/";
     }
-    
+
     public function comments() {
         return $this->hasMany('App\System\Models\Comment', 'user_id');
     }
-    
+
     public function ratings() {
         return $this->hasMany('App\System\Models\Production\ProductionRating', 'user_id');
     }
+
     public function contributions() {
         return $this->hasMany('App\System\Models\Payment', 'user_id');
     }
@@ -106,7 +110,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     }
 
     public function playbacks() {
-        return $this->belongsToMany("App\System\Models\Production", "playbacks", "user_id", "production_id")->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP);
+        return $this->belongsToMany("App\System\Models\Production", "playbacks", "user_id", "production_id")
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_TOKEN)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_VALIDATE)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_RUNNING);
     }
 
     public function tracks() {

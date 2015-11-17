@@ -8,6 +8,7 @@ use App\System\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\System\Library\Complements\UI;
 use App\System\Models\Production;
+use App\System\Library\Complements\DateUtil;
 
 class Notifications {
 
@@ -38,8 +39,10 @@ class Notifications {
      */
     public function handle($request, Closure $next) {
         if (!$this->auth->guest()) {
-
-            $this->newProductionsAvailable($request);
+            $this->checkStatePremium($request);
+            //Verifica que no halla ningun otro mensaje para mostrar al usuario
+            if (!$request->session()->has(UI::SESSION_MODAL_MESSAGE_TITLE))
+                $this->newProductionsAvailable($request);
         }
 
         return $next($request);
@@ -82,6 +85,25 @@ class Notifications {
 
 
         $request->session()->put(UI::modalMessage((count($productions) > 1) ? "¡Nuevas producciones disponibles!" : "¡Nueva producción disponible!", $description));
+    }
+
+    /**
+     * Verifica el estado Premium del usuario y su tiempo. 
+     */
+    public function checkStatePremium($request) {
+
+        $description = "<p class='caption'>Lamentamos informarte que el tiempo de cuenta premium para disfrutar sin limites en bandicot se ha terminado. Queremos agradecerte por usar nuestra plataforma y pasar tu tiempo con nosotros.</p>" .
+                "<h2 class='text-center' style='margin-top: 45px;margin-bottom: 30px;'>¿Quieres continuar sin limitaciones con una cuenta premium?</h2>" .
+                "<div class='text-center'><img style='width: 23%;' src='" . url("assets/images/logo-premium.png") . "'/><br/><br/><a href='" . url("premium") . "' class='btn btn-primary'><span class='glyphicon glyphicon-arrow-up'></span> ¡Actualizar a cuenta premium!</a></div>";
+
+        if (Auth::user()->role == User::ROLE_SUSCRIPTOR_PREMIUM) {
+            $time = DateUtil::difSec(DateUtil::getCurrentTime(), Auth::user()->premium_to);
+            if ($time <= 0) {
+                Auth::user()->role = User::ROLE_SUSCRIPTOR;
+                Auth::user()->save();
+                $request->session()->put(UI::modalMessage("<span class='glyphicon glyphicon-time'></span> ¡Tu tiempo de cuenta premium se ha terminado!", $description,"Cerrar"));
+            }
+        }
     }
 
 }

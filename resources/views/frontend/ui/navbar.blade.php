@@ -2,6 +2,7 @@
 
 use App\System\Models\Term;
 use App\System\Library\Detection\MobileDetect;
+use App\System\Models\User;
 
 $detect = new MobileDetect();
 
@@ -20,7 +21,7 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Explorar <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     @foreach($categories as $category)
-                    <li><a href="{{URL::to("category/".$category->slug)}}">{{ucfirst($category->mote)}}</a></li>
+                    <li><a href="{{URL::to("category/".$category->slug)}}"><span class="glyphicon glyphicon-film"></span> {{ucfirst($category->mote)}}</a></li>
                     @endforeach
                 </ul>
             </li>
@@ -44,8 +45,11 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{URL::to("user/dashboard")}}"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a></li>
+                    @if(Auth::user()->role==User::ROLE_SUSCRIPTOR)
+                    <li><a href="{{URL::to("premium")}}"><img src='{{URL::to("assets/images/logo-premium.png")}}' style='vertical-align: top;width:20px;'> ¡Premium!</a></li>
                     <li role="separator" class="divider"></li>
+                    @endif
+                    <li><a href="{{URL::to("user/dashboard")}}"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a></li>
                     <li><a href="{{URL::to("user/auth/logout")}}"><span class="glyphicon glyphicon-log-out"></span> {{trans("ui.user.menu.logout")}}</a></li>
                 </ul>
             </li>
@@ -73,15 +77,18 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
         </div>
         <div class="col-xs-12 h2 text-left" style="color:black;">Explorar</div>
         <div id="categories-mobile">
-        <div class="list-group clearfix">
-            @foreach($categories as $category)
-            <a class="list-group-item" href="{{URL::to("category/".$category->slug)}}"><span class="glyphicon glyphicon-tag"></span> {{ucfirst($category->mote)}}</a>
-            @endforeach
-        </div>
+            <div class="list-group clearfix">
+                @foreach($categories as $category)
+                <a class="list-group-item" href="{{URL::to("category/".$category->slug)}}"><span class="glyphicon glyphicon-tag"></span> {{ucfirst($category->mote)}}</a>
+                @endforeach
+            </div>
         </div>
         <div class="list-group my-account">
-            <a class="list-group-item" rel="nofollow" href="{{URL::to("user/dashboard")}}" class="btn btn-danger"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a>
-            <a class="list-group-item" rel="nofollow" href="{{URL::to("user/auth/logout")}}" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a>
+            @if(Auth::user()->role==User::ROLE_SUSCRIPTOR)
+            <a class="list-group-item" href="{{URL::to("premium")}}"><img src='{{URL::to("assets/images/logo-premium.png")}}' style='vertical-align: top;width:20px;'> ¡Premium!</a>
+            @endif
+            <a class="list-group-item" rel="nofollow" href="{{URL::to("user/dashboard")}}"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a>
+            <a class="list-group-item" rel="nofollow" href="{{URL::to("user/auth/logout")}}"><span class="glyphicon glyphicon-log-out"></span> Cerrar sesión</a>
         </div>
     </div>
     @endif

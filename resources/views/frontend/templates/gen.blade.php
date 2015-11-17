@@ -47,19 +47,26 @@
 
         </div>
         <div class="clearfix"></div>
-        <div class='container container text-center' id='legend'><i>"Si llegaste hasta aquí, celébralo, nunca serás más feliz si hubieras muerto antes"</i></div>
-        <footer class="container content">
-            <div class="col-sm-6">
-                <ul>
-                    <li><a href='{{URL::to("doc/terms")}}'>{{trans("gen.doc.terms")}}</a></li>
-                    <li><a href='{{URL::to("doc/privacypolicy")}}'>{{trans("gen.doc.privacy.policy")}}</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-6">
-                <ul>
-                    <li>Bandicot.com</li>
-                    <li>&COPY; {{date("Y")}} Todos los derechos reservados</li>
-                </ul>
+        <div class='container container text-center' id='legend'><i>{{trans("gen.legend")}}</i></div>
+        <footer>
+            <div class="container content">
+                <div class="col-sm-6">
+                    <ul>
+                        <li><a href='{{URL::to("doc/terms")}}'>{{trans("gen.doc.terms")}}</a></li>
+                        <li><a href='{{URL::to("doc/privacypolicy")}}'>{{trans("gen.doc.privacy.policy")}}</a></li>
+                        <li><a href='{{URL::to("doc/cookies-privacy")}}'>{{trans("gen.doc.cookies.policy")}}</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <ul>
+                        <li><a href='{{URL::to("doc/help")}}'>{{trans("gen.doc.help")}}</a></li>
+                        <li><a href='https://www.facebook.com/Bandicotcom-974813252592135/'>Facebook</a></li>
+                        <li><a href=''>Twitter</a></li>
+                    </ul>
+                </div>
+                <div class='col-xs-12 text-center' id='copyright'>
+                    <i>Bandicot.com - &COPY; {{date("Y")}} Todos los derechos reservados</i>
+                </div>
             </div>
         </footer>
 

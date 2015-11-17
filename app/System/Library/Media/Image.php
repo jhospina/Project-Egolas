@@ -83,7 +83,7 @@ class Image {
 
  
         $this->saveImage($copy_rec, $destination);
-        return url($destination);
+        return Util::convertPathToUrl($destination);
     }
 
     /** Calcula las dimensiones (width,height) minimas de redimension proporcional de la image original sin desfasarse para las dimensiones requeridas

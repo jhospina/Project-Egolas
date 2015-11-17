@@ -17,25 +17,33 @@ use App\System\Library\Complements\Util;
 use App\System\Models\Production\ProductionRating;
 use App\System\Models\Production\ProductionFavorite;
 use App\System\Models\Term;
+use App\System\Models\Log\Slug;
+use App\System\Library\Detection\MobileDetect;
 
 class ProductionController extends Controller {
 
     function getInfo($slug) {
+
         $production = Production::where(Production::ATTR_SLUG, $slug)->get();
-        if (count($production) == 0)
-            return redirect("");
+        if (count($production) == 0) {
+            //Verifica en el log el slug
+            if (is_null($id = Slug::getIdProduction($slug)))
+                return abort(404);
+            else
+                return redirect("production/" . Production::findOrNew($id)->slug);
+        }
 
         $production = $production[0];
 
         //Visitantes
         if (!Auth::check()) {
-            return view("frontend/contents/production/play-forbbiden")->with("production",$production)->with("message",view("ui/msg/contents/info-production-login")->with("production",$production)->render());
+            return view("frontend/contents/production/play-forbbiden")->with("production", $production)->with("message", view("ui/msg/contents/info-production-login")->with("production", $production)->render());
         }
 
         $categories = $production->terms;
         $director = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0];
         $staff = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get();
-        $isVideoMain = ($production->haveVideoMain() && $production->state==Production::STATE_ACTIVE);
+        $isVideoMain = ($production->haveVideoMain() && $production->state == Production::STATE_ACTIVE);
         $chapters = $production->chapters;
         $rating_count = $production->ratings()->count();
         $rating = number_format(($production->ratings()->avg('rating') * 100) / 5, 0);
@@ -60,8 +68,14 @@ class ProductionController extends Controller {
             return redirect("");
 
         $production = Production::where(Production::ATTR_SLUG, $slug)->get();
-        if (count($production) == 0)
-            return redirect("");
+        if (count($production) == 0) {
+            //Verifica en el log el slug
+            if (is_null($id = Slug::getIdProduction($slug)))
+                return abort(404);
+            else
+                return redirect("production/" . Production::findOrNew($id)->slug . "/play");
+        }
+
         $production = $production[0];
 
         if ($production->state != Production::STATE_ACTIVE)
@@ -90,34 +104,87 @@ class ProductionController extends Controller {
                                 ->with("css", array("assets/plugins/countdown/css/styles.css"));
         }
 
-        if ($production->id != $play_production) {
-            //Registrar la reproduccion
-            Auth::user()->playbacks()->attach($production->id, array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(), User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime()));
-        }
         $id_video = $production->chapters[0]->video;
-        $video = new Video($id_video);
-        $url_video = $video->getData(array(Video::FIELD_FLVURL));
         return view("ui/media/videoplayer")
                         ->with("production", $production)
-                        ->with("url_video", $url_video)
                         ->with("id_video", $id_video);
     }
 
-    function getPlayChapter($slug, $id_chapter, $name) {
-        $production = Production::where(Production::ATTR_SLUG, $slug)->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->get()[0];
-        $video = $production->chapters()->where(Chapter::ATTR_ID, $id_chapter)->get();
+    /** Recibe una peticion ajax, para generar una url de video con una token especial
+     * 
+     * @param Request $request
+     * @return type
+     */
+    function ajax_getVideoUrl(Request $request) {
+        if (!$request->ajax())
+            return;
 
-        return view("frontend/contents/production/play-chapter")
-                        ->with("production", $production)
-                        ->with("video", html_entity_decode($video[0]->video));
+        if (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_RUNNING, true)->count() > 0)
+            return json_encode(array("error" => "<span style='font-size: 60pt;color: red;' class='glyphicon glyphicon-ban-circle'></span><br/>Lo sentimos, pero no puedes reproducir este contenido, por que esta cuenta ya se esta usando."));
+
+        //Tiempo de paja
+        sleep(3);
+        $data = $request->all();
+        //Verifica que el token no se repite
+        do {
+            $token = Hash::generateToken(100);
+        } while (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->count() > 0);
+
+        //Genera un registro de reproduccion y token de validacion
+        Auth::user()->playbacks()->attach($data["production_id"], array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(),
+            User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime(),
+            User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token));
+
+        return json_encode(array("url" => url("get/source/video/" . $token . "/" . $data["id_video"]), "token" => $token));
     }
 
-    function videoPlayer() {
-        $id_video = Hash::decrypt(urldecode($_GET["s"]));
-        $video = new Video($id_video);
-        $url_video = $video->getData(array(Video::FIELD_FLVURL));
-        exit($url_video);
-        //return view("ui/media/videoplayer")->with("url_video", $url_video);
+    /** Recibe una peticion con token de un unico uso que retornara la url de la fuente del video
+     * 
+     * @param type $token Token de la reproduccion generada anteriormente
+     * @param type $id_video El id del video
+     * @return type
+     */
+    function getVideoSource($token, $id_video) {
+
+        //Tiempo de paja
+        sleep(2);
+
+        $playback = Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->get();
+
+        //Verifica que el token de peticion exista
+        if (count($playback) == 0)
+            return abort(404);
+        $playback = $playback[0];
+
+        //Verifica que el token no haya sido validado
+        if ($playback->pivot->validate != false)
+            return abort(404);
+
+        //Valida el token de reproduccion e indica que esta en reproduccion
+        Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => true, User::ATTR_PLAYBACKS_PIVOT_RUNNING => true));
+
+        $detect = new MobileDetect();
+        if ($detect->isMobile() || $detect->isTablet()) {
+            $url_video = "http://players.brightcove.net/4584534319001/default_default/index.html?videoId=" . $id_video;
+        } else {
+            //Entrega la URL del video
+            $video = new Video($id_video);
+            $url_video = $video->getData(array(Video::FIELD_FLVURL));
+        }
+
+        header("HTTP/1.1 301 Moved Permanently");
+        header("Location: $url_video");
+        header("Connection: close");
+    }
+
+    function ajax_closeVideo(Request $request) {
+
+        if (!$request->ajax())
+            return;
+
+        $data = $request->all();
+        //Cierra la conexion del video
+        Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $data["token_video"])->update(array(User::ATTR_PLAYBACKS_PIVOT_RUNNING => false));
     }
 
     function ajax_postComment(Request $request) {

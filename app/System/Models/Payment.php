@@ -24,19 +24,21 @@ class Payment extends Model {
     //PARAMETROS
     const METHOD_PAYPAL = "paypal";
     const MONEY_CURRENT = "USD";
-    const PAY_NAME = "Cuenta premium - Bandicot.com";
-    const PAY_DESCRIPTION = "Contribución voluntaria - Donación";
-    const PAY_PRICE = "gen.price.cuant";
+    const PAY_NAME = "Cuenta premium";
+    const PAY_DESCRIPTION = "Disfruta sin limites en bandicot.com";
+    const PAY_PRICE_PER_DAY = 0.14; // El precio por dia de cuenta premium (USD)
+    const PAY_MIN_QUANTITY = 30; // Cantidad minima a pagar
     const PAY_QUANTITY = 1;
 
-    static function newRecord($token, $payer_id, $transaction_id) {
+    static function newRecord($token, $payer_id, $transaction_id, $quantity) {
         $current_time = DateUtil::getCurrentTime();
 
         $user = Auth::user();
         $pay = new Payment;
         $pay->user_id = $user->id;
         $pay->method = Payment::METHOD_PAYPAL;
-        $pay->mount = floatval(trans(Payment::PAY_PRICE));
+        $pay->mount = Payment::PAY_PRICE_PER_DAY * $quantity;
+        $pay->quantity = $quantity;
         $pay->transaction_id = $transaction_id;
         $pay->ip = Util::getIP();
         $pay->user_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -46,7 +48,7 @@ class Payment extends Model {
         $pay->save();
 
         $user->role = User::ROLE_SUSCRIPTOR_PREMIUM;
-        $user->premium_to = (is_null($user->premium_to)) ? (new DateUtil($current_time))->addMonths(2) : (new DateUtil($user->premium_to))->addMonths(2);
+        $user->premium_to = (is_null($user->premium_to)) ? (new DateUtil($current_time))->addDays($quantity) : (new DateUtil($user->premium_to))->addDays($quantity);
         $user->save();
     }
 

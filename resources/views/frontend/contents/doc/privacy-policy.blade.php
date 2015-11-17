@@ -5,8 +5,10 @@
 @section("content")
 
 <div class="content container text-justify">
-    <h1 class="text-center">{{trans("gen.doc.privacy.policy")}}</h1>
-@include("doc/privacy-policy")
+    <div class="page-header">
+        <h1 class="text-center text-uppercase">{{trans("gen.doc.privacy.policy")}}</h1>
+    </div>
+    @include("doc/privacy-policy")
 </div>
 
 @stop

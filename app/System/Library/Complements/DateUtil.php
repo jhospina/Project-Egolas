@@ -182,11 +182,11 @@ class DateUtil {
         } elseif ($difference >= $day * 2 && $difference < $month) {
             $time = floor($difference / $day) . " " . trans("gen.time.days");
         } elseif ($difference >= $month && $difference < $month * 2) {
-            $time = "1 " . trans("gen.time.month") . " " . DateDateUtil::calculateDifference($date1, date(DateDateUtil::FORMAT_STANDARD, intval($difference - $month) + strtotime($date1)));
+            $time = "1 " . trans("gen.time.month") . " " . DateUtil::calculateDifference($date1, date(DateUtil::FORMAT_STANDARD, intval($difference - $month) + strtotime($date1)));
         } elseif ($difference >= $month * 2 && $difference < $year) {
-            $time = floor($difference / $month) . " " . trans("gen.time.months") . " " . DateDateUtil::calculateDifference($date1, date(DateDateUtil::FORMAT_STANDARD, intval($difference - $month * floor($difference / $month) + strtotime($date1))));
+            $time = floor($difference / $month) . " " . trans("gen.time.months") . " " . DateUtil::calculateDifference($date1, date(DateUtil::FORMAT_STANDARD, intval($difference - $month * floor($difference / $month) + strtotime($date1))));
         } elseif ($difference >= $year && $difference < $year * 2) {
-            $time = "1 " . trans("gen.time.year") . " " . DateDateUtil::calculateDifference($date1, date(DateDateUtil::FORMAT_STANDARD, intval($difference - $year) + strtotime($date1)));
+            $time = "1 " . trans("gen.time.year") . " " . DateUtil::calculateDifference($date1, date(DateUtil::FORMAT_STANDARD, intval($difference - $year) + strtotime($date1)));
         } elseif ($difference >= $year * 2) {
             $time = floor($difference / $year) . " " . trans("gen.time.years");
         }

@@ -30,17 +30,41 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
 
         <link rel="shortcut icon" href="{{URL::to("/assets/images/favicon.png")}}">
 
+        @if($isMobile)
+        <style>
+            div#curtain {
+                background: rgba(0, 0, 0, 0.9);
+            }
+        </style>
+        @endif
+
         {{-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries --}}
         <!--[if lt IE 9]>
             {{ HTML::script('assets/js/html5shiv.js') }}
             {{ HTML::script('assets/js/respond.min.js') }}
         <![endif]-->
+
+        <style>
+            body{
+                background-image: url("{{$production->poster}}");
+                background-size: cover;
+                background-position: center;
+            }
+        </style>
+
     </head>
     <body>
 
+        <div id="curtain">
+            <div id="loader">
+                <div class="spinner"></div>
+                <div id="msg-loader">Espera por favor...</br> Obteniendo fuentes de video de <i>"{{$production->title}}"</i></div>
+            </div>
+        </div>
+
         @if($isMobile)
 
-        <iframe style='width: 100%;height:100%;' src='//players.brightcove.net/4584534319001/default_default/index.html?videoId={{$id_video}}' allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
+        <iframe id="video" style='width: 100%;height:100%;' allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
         <div id="nots-rotate">
             <section>
@@ -65,8 +89,6 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
                     }
                 }
             });
-
-
         </script>
 
         @else
@@ -74,7 +96,7 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
         <a href="{{URL::to("production/".$production->slug)}}" id="btn-back">
             <span class="glyphicon glyphicon-arrow-left"></span>
         </a>
-        <video id='video' src='{{$url_video}}' autoplay></video>
+        <video id='video'></video>
 
         <div id="barProgress">
             <div class="content-bar">
@@ -115,21 +137,24 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
         {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}
         {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
         {{ HTML::script('assets/js/bootstrap-tooltip.js') }}
-        @if(!$isMobile)
-        {{ HTML::script('assets/js/ui/videoplayer.js') }}
-        @endif
-        <script>;
-            jQuery(".tooltip-left").tooltip({placement: "left"});
-            jQuery(".tooltip-top").tooltip({placement: "top"});
-            jQuery(".tooltip-right").tooltip({placement: "right"});
-            jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
-        </script>
 
         <script language="Javascript">
+            var id_video = "{{$id_video}}";
+            var production_id = "{{$production->id}}"
+            var search_video = "{{URL::to('production/ajax/get/video')}}";
+            var close_video = "{{URL::to('production/ajax/close/video')}}";
+            var poster = "{{$production->poster}}";
+            var token = "{{Session::token()}}";
             document.oncontextmenu = function () {
                 return false
             }
+
         </script>
+        @if($isMobile)
+        {{ HTML::script('assets/js/ui/videoplayer-mobile.js') }}
+        @else
+        {{ HTML::script('assets/js/ui/videoplayer.js') }}
+        @endif
 
     </body>
 </html>

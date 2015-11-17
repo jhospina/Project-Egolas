@@ -22,6 +22,7 @@ class UserController extends Controller {
      */
     function postCreateAccount(Request $request) {
         $data = $request->all();
+         return redirect()->back()->with("error","El registro de usuarios no esta habilitado en este momento.");
 
         if (strlen($data[User::ATTR_NAME]) == 0 || strlen($data[User::ATTR_LASTNAME]) == 0 || !filter_var($data[User::ATTR_EMAIL], FILTER_VALIDATE_EMAIL) || strlen($data[User::ATTR_PASSWORD]) < 6)
             return redirect()->back()

@@ -1,9 +1,17 @@
 <?php
 
+use App\System\Models\Payment;
+
 return [
+    "email.support" => "soporte.bandicot@gmail.com",
+    "legend" => "Bandicot.com no aloja ningún vídeo de las producciones cinematográficas que aquí se muestran, simplemente las enlaza de diversos sitios web de la Internet, gracias a un potente algoritmo de inteligencia artificial que rastrea, analiza y decodifica los vídeos para reproducirlos a disposición de los usuarios.",
+    "doc.help" => "Ayuda",
     "doc.terms" => "Términos y condiciones de uso",
     "doc.privacy.policy" => "Politica de privacidad",
-    "price.cuant" => "6.9",
+    "doc.cookies.policy" => "Politica de Cookies",
+    "price.per.day" => "" . Payment::PAY_PRICE_PER_DAY,
+    "price.cuant" => "" . (Payment::PAY_PRICE_PER_DAY * Payment::PAY_MIN_QUANTITY),
+    "premium.quantity" => "" . (Payment::PAY_MIN_QUANTITY),
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",
@@ -83,7 +91,7 @@ return [
     "date.october" => "Octubre",
     "date.november" => "Noviembre",
     "date.december" => "Diciembre",
-    "info.ip.address"=>"Dirección IP",
-    "info.date"=>"Fecha",
-    "info.search"=>"Buscar",
+    "info.ip.address" => "Dirección IP",
+    "info.date" => "Fecha",
+    "info.search" => "Buscar",
 ];

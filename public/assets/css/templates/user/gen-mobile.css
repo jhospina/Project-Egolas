@@ -181,6 +181,10 @@ div#menu-mobile .item.active {
         width: 50%;
     }
 
+    div#time-premium-title:after{
+        content: " Tiempo premium:";
+    }
+
 }
 
 @media screen and (max-width:850px){
@@ -222,6 +226,33 @@ div#menu-mobile .item.active {
         text-align: center;
     }
 
+}
+
+@media screen and (max-width:453px){
+    div#time-premium-title{
+        width: 100%;
+        border-radius: 0px;
+        -webkit-border-top-left-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-radius-topleft: 5px;
+        -moz-border-radius-topright: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        text-align: center;
+        border-bottom:0px;
+    }
+
+    div#time-premium {
+        width: 100%;
+        border-radius: 0px;
+        -webkit-border-bottom-right-radius: 5px;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-radius-bottomright: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        text-align: center;
+    }
 
 
 }

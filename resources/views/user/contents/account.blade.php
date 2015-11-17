@@ -28,6 +28,11 @@ $birth = new DateUtil($user->birth . " 0:0:0", "Y-n-j H:i:s");
         <div class="page-header">
             <h1>Mis datos</h1>
         </div>
+        @if(Auth::user()->role==User::ROLE_SUSCRIPTOR_PREMIUM)
+        <div class="col-xs-6" id="time-premium-title"> <img style="width: 25px;vertical-align:top;" src="{{URL::to("assets/images/logo-premium.png")}}"></div>
+        <div class="col-xs-6" id="time-premium"><span class="glyphicon glyphicon-time"></span> {{DateUtil::calculateDifference(DateUtil::getCurrentTime(),Auth::user()->premium_to)}}</div>
+        @endif
+        <div class="clearfix" style="margin-bottom: 20px;"></div>
         <div class="progress">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{$completation}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$completation}}%;">
                 {{$completation}}% Completado

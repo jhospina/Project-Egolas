@@ -14,7 +14,7 @@ use App\System\Library\Complements\DateUtil;
     <div class="col-xs-12 text-right" style="margin-top: 20px;margin-bottom: 20px;padding: 0px;">
         <a href="{{URL::to("premium")}}" id="btn-add-contributions" class="btn btn-default" style="font-size: 12pt;">
             <img width="50px" src="{{URL::to("assets/images/logo-premium.png")}}">
-            ¿Quieres otros 2 meses de cuenta premium? Pulsa aquí
+            ¿Quieres más tiempo de cuenta premium? Pulsa aquí
         </a>
     </div>
     <table class="table table-striped table-bordered table-responsive">

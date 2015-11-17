@@ -136,8 +136,15 @@ div#overligth-menu-mob {
         width: 96px;
         height: 145.5px;
     }
-    
+
     footer{
+        text-align: center;
+    }
+
+    a .over .glyphicon-refresh-animate{
+        font-size: 20pt!important;
+        width: 25px;
+        height: 25px!important;
         text-align: center;
     }
 }

@@ -3,20 +3,23 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTablePlaybacks extends Migration
-{
+class CreateTablePlaybacks extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
-       Schema::create('playbacks', function (Blueprint $table) {
+    public function up() {
+        Schema::create('playbacks', function (Blueprint $table) {
             $table->integer("user_id");
             $table->integer("production_id");
             $table->string("ip");
             $table->dateTime("date");
+            $table->string("token",100);
+            $table->boolean("validate");
+            $table->boolean("running");
+            $table->index("token");
         });
     }
 
@@ -25,8 +28,8 @@ class CreateTablePlaybacks extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-       Schema::drop('playbacks');
+    public function down() {
+        Schema::drop('playbacks');
     }
+
 }

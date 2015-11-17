@@ -1,6 +1,8 @@
 var video = $("video")[0];
 var duration = 0;
 var currentTime = 0;
+var video_ready = false;
+var video_decrypt = false;
 //**************************
 //INIT PLAYER
 //**************************
@@ -12,6 +14,8 @@ $(document).ready(function () {
 
 //Muestra la interfaz del video
     $("html").mousemove(function () {
+        if (!video_ready)
+            return;
         $("#controls").show();
         $("#btn-back").show();
         if (!isVolumenShowed)
@@ -30,7 +34,7 @@ $(document).ready(function () {
             $('#volumen-control').fadeOut();
             isVolumenShowed = false;
             $("#btn-back").fadeOut();
-            $('html').css('cursor', 'none');
+            $('body').css('cursor', 'none');
 
         }, 2000);
     });
@@ -60,7 +64,8 @@ $(document).ready(function () {
     });
 
     $("#full-screen").click(function () {
-
+        if (!video_ready)
+            return;
         if ($(this).attr("data-fullscreen") == "false") {
             if (video.requestFullscreen) {
                 video.requestFullscreen();
@@ -106,6 +111,8 @@ var isVolumenShowed = false;//Indica si se esta mostrando el control de volumen
 
 $(document).ready(function () {
     $("#sound").click(function () {
+        if (!video_ready)
+            return;
         if (!isVolumenShowed)
         {
             $('#volumen-control').show();
@@ -119,6 +126,8 @@ $(document).ready(function () {
     });
 
     $('#volumen-control').click(function (e) {
+        if (!video_ready)
+            return;
         var offset = $(this).offset();
         var posBar = $("#content-volumen").height() - (e.clientY - offset.top);
         $("#progress-vol").height(posBar);
@@ -164,6 +173,8 @@ function updateDataVideo() {
 }
 
 function updateProgressBar() {
+    if (!video_ready)
+        return;
     var progress = (currentTime / duration) * 100;
     $("#bar-time").css("width", progress + "%");
     $("#time").html(getTimeFormat(currentTime))
@@ -183,7 +194,20 @@ function getTimeFormat(time) {
 
     hours = Math.floor((time / 60) / 60);
     minutes = Math.floor((time / 60) - hours * 60);
-    seconds = Math.floor((time) - (minutes * 60)-3600);
+    seconds = Math.floor((time) - (minutes * 60) - 3600 * hours);
+
+    if (isNaN(hours)) {
+        return "Cargando...";
+    } else {
+        if (!video_decrypt) {
+            video_decrypt = true;
+            $("#curtain").fadeOut(function () {
+                $("video").css("background", "black");
+                $("video").show();
+                video.play();
+            });
+        }
+    }
 
     if (hours < 10)
         hours = "0" + hours;
@@ -191,11 +215,50 @@ function getTimeFormat(time) {
         minutes = "0" + minutes;
     if (seconds < 10)
         seconds = "0" + seconds;
-    
+
     return hours + ":" + minutes + ":" + "" + seconds;
 }
 
+//SEARCH VIDEO
+var token_video = 0;
+$(document).ready(function () {
+    var imagen = new Image();
+    imagen.onload = getVideo;
+    imagen.src = poster;
 
+});
+
+
+
+function getVideo() {
+    $.ajax({
+        url: search_video,
+        type: 'POST',
+        dataType: 'json',
+        data: {"_token": token, id_video: id_video, production_id: production_id},
+        success: function (response) {
+            if (response.error)
+            {
+                $(".spinner").hide();
+                $("#msg-loader").html(response.error);
+                return;
+            }
+            $("#msg-loader").html("Decodificando video...");
+            video_ready = true;
+            $("#video").attr("src", response.url);
+            token_video = response.token;
+        }
+    });
+}
+
+window.onbeforeunload = function () {
+    $.ajax({
+        url: close_video,
+        type: 'POST',
+        dataType: 'json',
+        data: {"_token": token, token_video: token_video}
+    });
+}
 
 
 

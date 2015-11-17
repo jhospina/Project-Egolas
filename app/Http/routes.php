@@ -130,12 +130,13 @@ function category_frontend() {
 function productions_frontend() {
     $class = "ProductionController@";
     Route::get("production/{slug}/play", $class . "getPlay");
-    Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
+    Route::post("production/ajax/get/video", $class . "ajax_getVideoUrl");
+    Route::post("production/ajax/close/video", $class . "ajax_closeVideo");
+    Route::get("get/source/video/{token}/{id_video}", $class . "getVideoSource");
+    // Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
     //Reproductor de video
-    Route::get("media/videoplayer/play/", $class . "videoPlayer");
+    // Route::get("media/videoplayer/play/", $class . "videoPlayer");
 }
-
-
 
 //*****************************************************
 //VISITANTES*********************************************
@@ -157,6 +158,8 @@ function home_guest() {
     $class = "HomeController@";
     Route::get("doc/terms", $class . "getTerms");
     Route::get("doc/privacypolicy", $class . "getPrivacyPolicy");
+    Route::get("doc/cookies-policy", $class . "getCookiesPolicy");
+    Route::get("doc/help", $class . "getHelp");
     Route::get("catalogue", $class . "getCatalogue");
 }
 

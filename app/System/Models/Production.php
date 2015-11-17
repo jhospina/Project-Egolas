@@ -77,7 +77,12 @@ class Production extends Model {
     }
 
     public function playbacks() {
-        return $this->belongsToMany("App\System\Models\User", "playbacks", "production_id", "user_id")->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP);
+        return $this->belongsToMany("App\System\Models\User", "playbacks", "production_id", "user_id")
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_TOKEN)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_VALIDATE)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_RUNNING);
     }
 
     /** Obtiene el estilo de color representativo del estado de una produccion
@@ -100,16 +105,12 @@ class Production extends Model {
 
     //MUTATORS
     public function setSlugAttribute($value) {
-        //Evita que un slug se repita
-        $count = Production::where(Production::ATTR_SLUG, $value)->get()->count();
+        if (isset($this->attributes[Production::ATTR_SLUG]))
+            if ($this->attributes[Production::ATTR_SLUG] != $value)
+            //Realizar un registro del antiguo slug
+                Log\Slug::add($this->attributes[Production::ATTR_ID], $this->attributes[Production::ATTR_SLUG]);
 
-        if (!isset($this->attributes[Production::ATTR_SLUG]))
-            $this->attributes[Production::ATTR_SLUG] = $value;
-
-        if (is_null($this->attributes[Production::ATTR_SLUG]) && $count > 0)
-            $this->attributes[Production::ATTR_SLUG] = $value . "-" . (intval($count) + 1);
-        else
-            $this->attributes[Production::ATTR_SLUG] = $value;
+        $this->attributes[Production::ATTR_SLUG] = $value;
     }
 
     /**  Indica si la produccion esta en favoritos
@@ -147,7 +148,7 @@ class Production extends Model {
         return $html;
     }
 
-    static function search($query,$take=50) {
+    static function search($query, $take = 50) {
         return Production::where(self::ATTR_TITLE, "LIKE", "%" . $query . "%")->orWhere(self::ATTR_TITLE_ORIGINAL, "LIKE", "%" . $query . "%")->orderBy(self::ATTR_STATE, "DESC")->take($take)->get();
     }
 

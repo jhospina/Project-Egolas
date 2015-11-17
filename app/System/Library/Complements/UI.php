@@ -8,6 +8,9 @@ class UI {
     const MESSAGE_TYPE_SUCCESS = "success";
     const MESSAGE_TYPE_ERROR = "error";
     const MESSAGE_TYPE_WARNING = "warning";
+    //VAR
+    const SESSION_MODAL_MESSAGE_TITLE = "modal_message_title";
+    const SESSION_MODAL_MESSAGE_CONTENT = "modal_message_content";
 
     /** Obtiene un array que activa un mensaje de usuar
      * io 
@@ -23,7 +26,7 @@ class UI {
     }
 
     public static function modalMessage($title, $message, $btn_close = "¡Entendido!") {
-        return array("modal_message_title" => $title, "modal_message_content" => $message, "modal_message_btn_close" => $btn_close);
+        return array(UI::SESSION_MODAL_MESSAGE_TITLE => $title, UI::SESSION_MODAL_MESSAGE_CONTENT => $message, "modal_message_btn_close" => $btn_close);
     }
 
 }

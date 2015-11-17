@@ -34,12 +34,12 @@ $(document).ready(function () {
                     .css("right", "-" + $("#menu-mobile").css("width"))
                     .show()
                     .animate({"right": "0px"}, 500);
-            $(this).css("background","white");
-            $(this).children("a").children(".glyphicon").css("color","black");
+            $(this).css("background", "white");
+            $(this).children("a").children(".glyphicon").css("color", "black");
 
         } else {
-            $(this).css("background","none");
-            $(this).children("a").children(".glyphicon").css("color","white");
+            $(this).css("background", "none");
+            $(this).children("a").children(".glyphicon").css("color", "white");
             $("#overligth-menu-mob").fadeOut(500);
             $("body").animate({"right": "0px"}, 500, function () {
                 menu_mobile = false;
@@ -60,6 +60,7 @@ $(document).ready(function () {
 
 
 function gen_handlerOver() {
+     
     if (!isMobile()) {
         //OVER IN PRODUCTIÖN
         $("div.production").mouseenter(function () {
@@ -73,7 +74,15 @@ function gen_handlerOver() {
         $("div.production").click(function () {
             $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
         });
-
+    } else {
+        $("div.item").click(function () {
+            $(this).children("a").children(".over").css("opacity", 1);
+            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
+        });
+        $("div.production").click(function () {
+            $(this).children("a").children(".over").css("opacity", 1);
+            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
+        });
     }
 }
 

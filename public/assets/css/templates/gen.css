@@ -14,9 +14,18 @@ and open the template in the editor.
     float: left;
 }
 
+.content.container.desk{
+    color:black;
+    background: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding: 0px;
+}
+
 
 #spinner{
-    background: url(http://bandicot.com/public/assets/images/loaders/site-spinner.png) 50% 50%/100% no-repeat;
+    background: url(../../images/loaders/site-spinner.png) 50% 50%/100% no-repeat;
     width: 6.942em;
     height: 6.942em;
     -animation: spin 1.10s infinite linear;
@@ -59,6 +68,11 @@ and open the template in the editor.
 
 #nav-info .dropdown-menu li {
     font-size: 13pt;
+    padding: 2px;
+}
+
+#nav-info .dropdown-menu > li > a{
+    padding: 10px 20px;
 }
 
 
@@ -224,10 +238,12 @@ nav#navbar {
 }
 
 
-footer{
+footer {
     padding: 20px;
     color: #717171;
-    border-top: 7px #292929 double;
+    background: #0E0E0E;
+    width: 100%!important;
+    border-top: 1px #2D2D2D solid;
 }
 
 footer a{
@@ -245,9 +261,7 @@ footer li{
 
 #legend{
     margin-top: 80px;
-    color: #272727;
-    text-shadow: 0px 1px 2px rgb(0, 0, 0);
-    font-family: cursive;
+    color: #434343;
     margin-bottom: 5px;
     clear: both;
 }
@@ -369,7 +383,7 @@ ul#bar-user {
 }
 
 #explore-menu .dropdown-menu{
-    width: 570px;
+    width: 660px;
 }
 
 #explore-menu .dropdown-menu li{
@@ -382,3 +396,15 @@ ul#bar-user {
     height:51px;
 }
 
+#copyright{
+    color: #272727;
+    margin-top: 20px;
+    border-top: 1px #272727 solid;
+    padding-top: 10px;
+    -webkit-border-top-left-radius: 50px;
+    -webkit-border-top-right-radius: 50px;
+    -moz-border-radius-topleft: 50px;
+    -moz-border-radius-topright: 50px;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}

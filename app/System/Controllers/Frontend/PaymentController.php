@@ -23,6 +23,7 @@ use App\System\Library\Complements\UI;
 use \Illuminate\Support\Facades\Session;
 use App\System\Library\Com\Email;
 use App\System\Library\Complements\DateUtil;
+use Illuminate\Http\Request;
 
 class PaymentController extends Controller {
 
@@ -39,7 +40,29 @@ class PaymentController extends Controller {
         $this->_api_context->setConfig($paypal_conf['settings']);
     }
 
-    public function postPayment() {
+    public function postPayment(Request $request) {
+        $data = $request->all();
+        $error = false;
+
+        //Verificacion de existencia de variables
+        if (!isset($data["mount"]) || !isset($data["quantity"]))
+            $error = true;
+        $mount = round(floatval($data["mount"]), 2);
+        $quantity = intval($data["quantity"]);
+
+        //Verificacion del tipo de dato
+        if ($quantity <= 0 || $mount <= 0)
+            $error = true;
+        //Verificacion de cuantias minimas
+        if ($quantity < intval(PayM::PAY_MIN_QUANTITY) || $mount < round(floatval(PayM::PAY_PRICE_PER_DAY * PayM::PAY_MIN_QUANTITY), 2))
+            $error = true;
+        //Verificacion de la integridad de los valores
+        if (($mount / $quantity) != PayM::PAY_PRICE_PER_DAY)
+            $error = true;
+
+        if ($error)
+            return redirect()->back()->with(UI::modalMessage("¡OOUPS ALGO SALIO MAL!", "<div class='text-center'><img width='100px;' src='" . url('assets/images/alert.png') . "'><p style='font-size: 15pt;margin-top:20px;'>Parece que ocurrio un error en la integridad de la información enviada. Por favor intentalo de nuevo. Si el problema persiste intentalo de nuevo más tarde.</p></div>", "¡OK!"));
+
         $payer = new Payer();
 
         $payer->setPaymentMethod(PayM::METHOD_PAYPAL);
@@ -47,19 +70,18 @@ class PaymentController extends Controller {
         $items = array();
         $subtotal = 0;
         $currency = PayM::MONEY_CURRENT;
-        $price = floatval(trans(PayM::PAY_PRICE));
+        $price = $mount;
 
         //Descripción del item a comprar
         $item = new Item();
         $item->setName(PayM::PAY_NAME)
                 ->setCurrency($currency)
-                ->setDescription(PayM::PAY_DESCRIPTION)
+                ->setDescription("x " . $quantity . " días")
                 ->setQuantity(PayM::PAY_QUANTITY)
                 ->setPrice($price);
 
         $items[] = $item;
         $subtotal = $price;
-
 
         //Totales
         $item_list = new ItemList();
@@ -110,7 +132,8 @@ class PaymentController extends Controller {
 
         // add payment ID to session
         Session::put('paypal_payment_id', $payment->getId());
-
+        Session::put('payment_quantity', $quantity);
+        
         if (isset($redirect_url)) {
             // redirect to paypal
             return \Redirect::away($redirect_url);
@@ -126,7 +149,7 @@ class PaymentController extends Controller {
     public function getStatus() {
         // Get the payment ID before session clear
         $payment_id = \Session::get('paypal_payment_id');
-
+        $payment_quantity=Session::get('payment_quantity');
         // clear the session payment ID
         Session::forget('paypal_payment_id');
 
@@ -146,7 +169,7 @@ class PaymentController extends Controller {
 
 
         if ($result->getState() == 'approved') {
-            PayM::newRecord($token, $payerId, $payment_id);
+            PayM::newRecord($token, $payerId, $payment_id,$payment_quantity);
             $date = new DateUtil(Auth::user()->premium_to);
             $message = view("ui/msg/contents/muchas-gracias-usuario")->with("date_premium", $date->getDay() . " de " . $date->getMonth() . " del " . $date->getYear())->render();
             $email = new Email("¡Gracias " . Auth::user()->name . " por tu aporte!", Auth::user()->email);

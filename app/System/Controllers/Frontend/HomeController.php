@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use \App\System\Models\Production;
 use Illuminate\Support\Facades\Auth;
 use App\System\Models\Term;
-
+use App\System\Library\Media\Image;
+use App\System\Library\Complements\Util;
 class HomeController extends Controller {
 
     /**
@@ -24,7 +25,7 @@ class HomeController extends Controller {
     }
 
     public function getBrowser() {
-  
+   
         if (!Auth::check())
             return redirect("user/auth/login?redirect_to=" . url("browser"));
 
@@ -50,6 +51,14 @@ class HomeController extends Controller {
 
     public function getPrivacyPolicy() {
         return view("frontend/contents/doc/privacy-policy");
+    }
+
+    public function getHelp() {
+        return view("frontend/contents/doc/help");
+    }
+
+    public function getCookiesPolicy() {
+        return view("frontend/contents/doc/cookies-policy");
     }
 
 }

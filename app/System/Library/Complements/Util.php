@@ -48,7 +48,7 @@ class Util {
         $desc = explode("/", substr($public, 0, strlen($public) - 1));
         $last = end($desc);
         $posRaiz = strpos($URL, $last);
-        return str_replace("//", "/public/", $public . substr($URL, $posRaiz + strlen($last)));
+        return str_replace(array("//","/public/public/"),array("/public/","/public/"), $public . substr($URL, $posRaiz + strlen($last)));
     }
 
     static function convertPathToUrl($path, $dominio = "bandicot.com") {

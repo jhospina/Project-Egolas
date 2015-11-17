@@ -9,6 +9,7 @@ use App\System\Models\QueuePersons;
 use App\System\Models\Term;
 Use App\System\Library\Complements\DateUtil;
 use App\System\Library\Media\BingSearchImage;
+use App\System\Library\Media\Image;
 
 class ProductionProvider extends HTMLProvider {
 
@@ -149,8 +150,11 @@ class ProductionProvider extends HTMLProvider {
         }
 
 
-        if (is_null($this->image))
-            $this->image = $this->poster;
+        if (is_null($this->image) && !is_null($this->poster)) {
+            $md5 = md5($this->title_original);
+            $image = new Image($this->poster);
+            $this->image = $image->createCopy(214, 334, $md5, public_path("assets/db/images/"), false);
+        }
 
 
         //(PERSONAL DE LA PRODUCCION)*************************************
@@ -371,7 +375,7 @@ class ProductionProvider extends HTMLProvider {
     }
 
     function getDescription() {
-        return $this->description;
+        return str_replace(array("Ver resumen completo", "»"), "", $this->description);
     }
 
     function getYear() {
