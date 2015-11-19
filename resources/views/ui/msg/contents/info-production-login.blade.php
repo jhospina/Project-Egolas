@@ -6,7 +6,7 @@ use App\System\Models\Production;
     <h1 class="text-center">¡Disfruta del mejor catalogo de peliculas de internet!</h1>
 </div>
 <div class="col-sm-6 text-center" style="padding-bottom: 20px;">
-    <h2>¿Quieres ver "{{$production->title}}"?</h2>
+    <h2>¿Quieres ver gratis?<br/>"{{$production->title}}"</h2>
     <div class="col-sm-12">
         <img width="214" height="317"  class="img-rounded" src="{{$production->image}}" alt="{{$production->title}}">
     </div>

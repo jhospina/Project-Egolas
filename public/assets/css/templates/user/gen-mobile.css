@@ -225,6 +225,10 @@ div#menu-mobile .item.active {
         white-space: normal;
         text-align: center;
     }
+    
+    .msj-social .description{
+        display:none;
+    }
 
 }
 

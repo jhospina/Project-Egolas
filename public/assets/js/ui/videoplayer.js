@@ -3,6 +3,7 @@ var duration = 0;
 var currentTime = 0;
 var video_ready = false;
 var video_decrypt = false;
+var video_url = null;
 //**************************
 //INIT PLAYER
 //**************************
@@ -14,8 +15,13 @@ $(document).ready(function () {
 
 //Muestra la interfaz del video
     $("html").mousemove(function () {
-        if (!video_ready)
+
+        if (!video_ready || $("#time").html().toString() == "NaN") {
+            $("#controls").hide();
+            $("#btn-back").hide();
+            $("#barProgress").hide();
             return;
+        }
         $("#controls").show();
         $("#btn-back").show();
         if (!isVolumenShowed)
@@ -93,6 +99,11 @@ $(document).ready(function () {
 //Activa la pausa -play
 function playPause(btn) {
     if ($(btn).attr("data-state") == "play") {
+        time = video.currentTime;
+        $("#curtain").show();
+        $("#curtain #msg-loader").html("Reanudando video...");
+        getVideo();
+        console.clear();
         $(btn).attr("data-state", "pause");
         video.play();
         $(btn).html("<span class='glyphicon glyphicon-pause'></span>");
@@ -158,7 +169,10 @@ $(document).ready(function () {
         var offset = $(this).offset();
         var posBar = (e.clientX - offset.left) / $(this).width();
         $("#bar-time").css("width", (posBar * 100) + "%");
-        video.currentTime = posBar * duration;
+        $("#curtain").show();
+        $("#curtain #msg-loader").html("Cargando video...");
+        time = (posBar * duration);
+        getVideo();
     });
 
 });
@@ -197,7 +211,7 @@ function getTimeFormat(time) {
     seconds = Math.floor((time) - (minutes * 60) - 3600 * hours);
 
     if (isNaN(hours)) {
-        return "Cargando...";
+        return "NaN";
     } else {
         if (!video_decrypt) {
             video_decrypt = true;
@@ -206,6 +220,13 @@ function getTimeFormat(time) {
                 $("video").show();
                 video.play();
             });
+        }
+
+        if (video.readyState === 4) {
+            $("#curtain").hide();
+        } else {
+            $("#curtain").show();
+            $("#curtain #msg-loader").html("Cargando video...");
         }
     }
 
@@ -219,23 +240,29 @@ function getTimeFormat(time) {
     return hours + ":" + minutes + ":" + "" + seconds;
 }
 
-//SEARCH VIDEO
+
+
+//***************
+//SEARCH VIDEO***
+//***************
 var token_video = 0;
 $(document).ready(function () {
-    var imagen = new Image();
-    imagen.onload = getVideo;
-    imagen.src = poster;
+    if (poster.length > 0) {
+        var imagen = new Image();
+        imagen.onload = getVideo;
+        imagen.src = poster;
+    } else {
+        getVideo();
+    }
 
 });
-
-
 
 function getVideo() {
     $.ajax({
         url: search_video,
         type: 'POST',
         dataType: 'json',
-        data: {"_token": token, id_video: id_video, production_id: production_id},
+        data: {"_token": token, id_video: id_video, production_id: production_id, token_video: token_parent},
         success: function (response) {
             if (response.error)
             {
@@ -245,20 +272,15 @@ function getVideo() {
             }
             $("#msg-loader").html("Decodificando video...");
             video_ready = true;
-            $("#video").attr("src", response.url);
+            video_url = response.url + "/" + Math.round(time);
+            $("#video").attr("src", video_url);
+            video.currentTime = time;
+            if (time > 0)
+                video.play();
             token_video = response.token;
+            if (token_parent.length < 1) {
+                token_parent = token_video;
+            }
         }
     });
 }
-
-window.onbeforeunload = function () {
-    $.ajax({
-        url: close_video,
-        type: 'POST',
-        dataType: 'json',
-        data: {"_token": token, token_video: token_video}
-    });
-}
-
-
-

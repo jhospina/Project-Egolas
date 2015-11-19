@@ -12,12 +12,37 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
 @section("meta-description")Ver online gratis {{$production->title}}: {{$production->description}} @stop
 
+@section("meta-tags")
+<meta property="og:type" content="video.movie" />
+<meta property="og:title" content="{{$production->title}}" />
+<meta property="og:url" content="{{URL::to("production/".$production->slug)}}" />
+<meta property="og:image" content="{{URL::to("production/".$production->image)}}" />
+<meta property="og:site_name" content="Bandicot.com - {{trans("gen.head.title")}} " />
+<meta property="og:locale" content="es_ES" />
+@stop
+
 @section("css")
 {{ HTML::style('assets/css/frontend/production/info.css', array('media' => 'screen')) }}
 {{ HTML::style('assets/css/frontend/production/info-mobile.css', array('media' => 'screen')) }}
 @stop
 
 @section("content")
+
+<!-- SCRIPT FACEBOOK -->
+<div id="fb-root"></div>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id))
+            return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.5";
+        js.href = "https://www.facebook.com/Bandicotcom-974813252592135/";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<!-- FINAL SCRIPT FACEBOOK -->
+
+
 
 <h1 id="title-production-mob" class="text-center">{{$production->title}}<br/><small>{{$production->title_original}}</small></h1>
 <div id="info" class="content container">
@@ -127,7 +152,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
 <div id="rating" class="container content">
     @if(!$userIsRated)
-    <div id="open-modal-rating-new" class="btn btn-success"><span class="glyphicon glyphicon-heart"></span> Dar mi opinión</div>
+    <div id="open-modal-rating-new" class="btn btn-success"><span class="glyphicon glyphicon-heart"></span> Puntuar</div>
     @endif
     <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count>1)?"opiniones":"opinión"}})</small></h2>
     <div id="content-bar">
@@ -143,6 +168,28 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     </div>
 </div>
 
+<!-- SOCIAL -->
+<div id="social" class="container content">
+    <div class="col-md-12"><h2><span class="glyphicon glyphicon-share"></span> Comparte</h2></div>
+    <div class="social-content fb col-sm-6">
+        <div class="fb-like" data-href="{{URL::to("production/".$production->slug)}}" data-colorscheme="dark" data-share="true" data-layout="button"></div>
+       <img src="{{URL::to("assets/images/facebook.png")}}">
+    </div>
+    <div class="social-content twitter col-sm-6">
+           <a href="https://twitter.com/intent/tweet?screen_name=bandicotcom&text={{urlencode("Acabe de ver la película \"".$production->title."\" a través de Bandicot.com")}}" class="twitter-mention-button">Twittear que viste esta pelicula</a>
+            <script>!function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+        if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }
+    }(document, 'script', 'twitter-wjs');</script>
+             <img src="{{URL::to("assets/images/twitter.png")}}">
+    </div>
+</div>
+<!-- FIN SOCIAL -->
 
 <!-- Modal Rating -->
 <!-- Modal -->

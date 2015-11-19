@@ -44,8 +44,11 @@ function calculateContributions(who) {
             $("#quantity-days").html(quantity_max);
         }
 
+
         num = setMount(quantity * parseFloat(price_per_day));
-        if (num < setMount(quantity_min * price_per_day))
+
+
+        if (parseFloat(num) < parseFloat(setMount(quantity_min * price_per_day)))
             num = setMount(quantity_min * price_per_day);
         $("#quantity-mount").html(num);
     } else {
@@ -56,6 +59,7 @@ function calculateContributions(who) {
         if (num > quantity_max)
             num = quantity_max;
         $("#quantity-days").html(num);
+
         mount = parseFloat($("#quantity-mount").html());
         quantity = parseInt($("#quantity-days").html());
         $("#quantity-mount").html(setMount(quantity * parseFloat(price_per_day)));

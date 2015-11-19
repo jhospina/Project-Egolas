@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>@yield('title',"Todo lo que quieres ver") - Bandicot.com</title>
+        <title>@yield('title',trans("gen.head.title")) - Bandicot.com</title>
         <meta name="robots" content="NoIndex, NoFollow">
-        
         <meta name="description" content="@yield('meta-description','Disfruta del mejor catalogo de peliculas en internet, miralas online y gratis desde cualquier dispositivo.')">
         <meta name="keywords" content="bandicot, bandicot.com, peliculas, series, gratis, online, reproducir, directores, actores, cine, estrenos, catalogo, dvd">
         <meta name='language' content='es' />
@@ -12,8 +11,10 @@
         <meta name="author" content="Bandicot.com">
         <meta name='owner' content='Bandicot.com' />
         <meta name='copyright' content='&COPY; Copyright {{date('Y')}} - Todos los derechos reservados' />
-        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        @yield("meta-tags")
+
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
         {{-- Bootstrap --}}

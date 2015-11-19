@@ -50,6 +50,12 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
                     <li role="separator" class="divider"></li>
                     @endif
                     <li><a href="{{URL::to("user/dashboard")}}"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a></li>
+                    <li><a href="{{URL::to("user/favorites")}}"><span class="glyphicon glyphicon-star"></span> Mis favoritos</a></li>
+                    <li><a href="{{URL::to("user/contributions")}}"><span class="glyphicon glyphicon-transfer"></span> Contribuciones</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{{URL::to("doc/help")}}"><span class="glyphicon glyphicon-question-sign"></span> Ayuda</a></li>
+                    <li><a href="{{URL::to("report/problem")}}"><span class="glyphicon glyphicon-warning-sign"></span> Reportar un problema</a></li>
+                    <li role="separator" class="divider"></li>
                     <li><a href="{{URL::to("user/auth/logout")}}"><span class="glyphicon glyphicon-log-out"></span> {{trans("ui.user.menu.logout")}}</a></li>
                 </ul>
             </li>

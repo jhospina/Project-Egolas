@@ -51,11 +51,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     //FAVORITES
     const ATTR_FAVORITES_PIVOT_DATE = "date";
     //Playbacks
+    const ATTR_PLAYBACKS_PIVOT_ID = "id";
     const ATTR_PLAYBACKS_PIVOT_IP = "ip";
     const ATTR_PLAYBACKS_PIVOT_DATE = "date";
     const ATTR_PLAYBACKS_PIVOT_TOKEN = "token";
     const ATTR_PLAYBACKS_PIVOT_VALIDATE = "validate";
-    const ATTR_PLAYBACKS_PIVOT_RUNNING = "running";
+    const ATTR_PLAYBACKS_PIVOT_PARENT = "parent";
     //Production track
     const ATTR_TRACK_PIVOT_NOTIFIED = "notified";
     const ATTR_TRACK_PIVOT_MAILED = "mailed";
@@ -111,11 +112,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function playbacks() {
         return $this->belongsToMany("App\System\Models\Production", "playbacks", "user_id", "production_id")
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_ID)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_TOKEN)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_VALIDATE)
-                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_RUNNING);
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_PARENT);
     }
 
     public function tracks() {

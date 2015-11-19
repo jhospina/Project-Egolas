@@ -103,7 +103,7 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
                 <div id="bar-time"></div>
             </div>
             <div id="time">
-                00:00:00
+                NaN
             </div>
         </div>
         <div id="controls">
@@ -142,9 +142,11 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
             var id_video = "{{$id_video}}";
             var production_id = "{{$production->id}}"
             var search_video = "{{URL::to('production/ajax/get/video')}}";
-            var close_video = "{{URL::to('production/ajax/close/video')}}";
             var poster = "{{$production->poster}}";
             var token = "{{Session::token()}}";
+            var time = 0;
+            var production_url = "{{URL::to('production/'.$production->slug.'/play/')}}";
+            var token_parent = "";
             document.oncontextmenu = function () {
                 return false
             }

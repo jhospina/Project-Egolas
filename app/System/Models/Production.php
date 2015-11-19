@@ -82,7 +82,7 @@ class Production extends Model {
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_TOKEN)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_VALIDATE)
-                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_RUNNING);
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_PARENT);
     }
 
     /** Obtiene el estilo de color representativo del estado de una produccion

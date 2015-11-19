@@ -3,7 +3,18 @@
 @section("title"){{$production->title}}@stop
 
 
-@section("meta-description")Ver online gratis {{$production->title}}: {{$production->description}} @stop
+@section("meta-description")Ver Online Gratis "{{$production->title}}": {{$production->description}} @stop
+
+
+@section("meta-tags")
+<meta property="og:type" content="video.movie" />
+<meta property="og:title" content="{{$production->title}}" />
+<meta property="og:description" content="{{$production->title}}: {{$production->description}}" />
+<meta property="og:url" content="{{URL::to("production/".$production->slug)}}" />
+<meta property="og:image" content="{{$production->image}}" />
+<meta property="og:site_name" content="Bandicot.com - {{trans("gen.head.title")}} " />
+<meta property="og:locale" content="es_ES" />
+@stop
 
 @section("css")
 

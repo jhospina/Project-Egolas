@@ -73,7 +73,7 @@ class ProductionController extends Controller {
             if (is_null($id = Slug::getIdProduction($slug)))
                 return abort(404);
             else
-                return redirect("production/" . Production::findOrNew($id)->slug . "/play");
+                return redirect("production/" . Production::findOrNew($id)->slug . "/play/0");
         }
 
         $production = $production[0];
@@ -119,21 +119,37 @@ class ProductionController extends Controller {
         if (!$request->ajax())
             return;
 
-        if (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_RUNNING, true)->count() > 0)
-            return json_encode(array("error" => "<span style='font-size: 60pt;color: red;' class='glyphicon glyphicon-ban-circle'></span><br/>Lo sentimos, pero no puedes reproducir este contenido, por que esta cuenta ya se esta usando."));
-
+        //Evita que se un usuario pueda reproducir dos videos al mismo tiempo
+        //NOTA: Esta funcion no se puede implementar, porque el evento onbeforeunload de javascript no funciona del todo en Google Chrome (Buscar una alternativa)
+        /*
+          if (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_RUNNING, true)->count() > 0)
+          return json_encode(array("error" => "<span style='font-size: 60pt;color: red;' class='glyphicon glyphicon-ban-circle'></span><br/>Lo sentimos, pero no puedes reproducir este contenido, por que esta cuenta ya se esta usando."));
+         */
         //Tiempo de paja
-        sleep(3);
+        //sleep(3);
         $data = $request->all();
         //Verifica que el token no se repite
         do {
             $token = Hash::generateToken(100);
         } while (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->count() > 0);
 
+        if ((strlen($data["token_video"]) > 2)) {
+            $parent_play = Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $data["token_video"])->get();
+            if (count($parent_play) > 0) {
+                $parent_play = $parent_play[0];
+                $parent = $parent_play->pivot->id;
+            } else {
+                return json_encode(array("error" => "Bad Request"));
+            }
+        } else {
+            $parent = 0;
+        }
+
         //Genera un registro de reproduccion y token de validacion
         Auth::user()->playbacks()->attach($data["production_id"], array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(),
             User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime(),
-            User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token));
+            User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token,
+            User::ATTR_PLAYBACKS_PIVOT_PARENT => $parent));
 
         return json_encode(array("url" => url("get/source/video/" . $token . "/" . $data["id_video"]), "token" => $token));
     }
@@ -144,10 +160,10 @@ class ProductionController extends Controller {
      * @param type $id_video El id del video
      * @return type
      */
-    function getVideoSource($token, $id_video) {
+    function getVideoSource($token, $id_video,$time) {
 
         //Tiempo de paja
-        sleep(2);
+        // sleep(2);
 
         $playback = Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->get();
 
@@ -157,15 +173,17 @@ class ProductionController extends Controller {
         $playback = $playback[0];
 
         //Verifica que el token no haya sido validado
-        if ($playback->pivot->validate != false)
+        if (intval($playback->pivot->validate) >= 2)
             return abort(404);
-
-        //Valida el token de reproduccion e indica que esta en reproduccion
-        Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => true, User::ATTR_PLAYBACKS_PIVOT_RUNNING => true));
+        //Valida el token de reproduccion
+        if ($time > 0)
+            Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => intval($playback->pivot->validate) + 1));
+        else
+            Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => 2));
 
         $detect = new MobileDetect();
         if ($detect->isMobile() || $detect->isTablet()) {
-            $url_video = "http://players.brightcove.net/4584534319001/default_default/index.html?videoId=" . $id_video;
+            $url_video = Video::PLAYER_DEFAULT . "?videoId=" . $id_video;
         } else {
             //Entrega la URL del video
             $video = new Video($id_video);
@@ -175,16 +193,6 @@ class ProductionController extends Controller {
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: $url_video");
         header("Connection: close");
-    }
-
-    function ajax_closeVideo(Request $request) {
-
-        if (!$request->ajax())
-            return;
-
-        $data = $request->all();
-        //Cierra la conexion del video
-        Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $data["token_video"])->update(array(User::ATTR_PLAYBACKS_PIVOT_RUNNING => false));
     }
 
     function ajax_postComment(Request $request) {

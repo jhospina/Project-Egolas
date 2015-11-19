@@ -128,7 +128,7 @@ class ProductionProvider extends HTMLProvider {
         }
 
         //POSTER
-        $search = new BingSearchImage($this->title_original . " poster", 1700, 1200);
+        $search = new BingSearchImage($this->title_original ." ".$this->year. " poster", 1700, 1200);
         $images = $search->getResult();
 
         //Verifica que la url este bien

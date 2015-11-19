@@ -110,7 +110,14 @@ Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend", "noti
     category_frontend();
     home_fronted();
     search_frontend();
+    report_fronted();
 });
+
+function report_fronted() {
+    $class = "ReportController@";
+    Route::get("report/problem", $class . "getReportProblem");
+    Route::post("report/problem", $class . "postReportProblem");
+}
 
 function home_fronted() {
     $class = "HomeController@";
@@ -131,8 +138,7 @@ function productions_frontend() {
     $class = "ProductionController@";
     Route::get("production/{slug}/play", $class . "getPlay");
     Route::post("production/ajax/get/video", $class . "ajax_getVideoUrl");
-    Route::post("production/ajax/close/video", $class . "ajax_closeVideo");
-    Route::get("get/source/video/{token}/{id_video}", $class . "getVideoSource");
+    Route::get("get/source/video/{token}/{id_video}/{time}", $class . "getVideoSource");
     // Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
     //Reproductor de video
     // Route::get("media/videoplayer/play/", $class . "videoPlayer");
@@ -181,6 +187,7 @@ Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => [
     Route::get('auth/login', "Auth\AuthController@getLogin");
     Route::post('auth/login', "Auth\AuthController@postLogin");
     Route::get("dashboard", "DashboardController@index");
+    Route::get("reports", "ReportController@getReports");
     Route::get('auth/logout', "Auth\AuthController@logout");
     Route::get("password/edit", "Auth\PasswordController@getEditPassword");
     Route::post("password/edit", "Auth\PasswordController@postEditPassword");

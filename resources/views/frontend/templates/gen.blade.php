@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>@yield('title',"Todo lo que quieres ver") - Bandicot.com</title>
+        <title>@yield('title',trans("gen.head.title")) - Bandicot.com</title>
         <meta name="robots" content="NoIndex, NoFollow">
         <meta name="description" content="@yield('meta-description','Disfruta del mejor catalogo de peliculas en internet, miralas online y gratis desde cualquier dispositivo.')">
         <meta name="keywords" content="bandicot, bandicot.com, peliculas, series, gratis, online, reproducir, directores, actores, cine, estrenos, catalogo, dvd">
@@ -11,6 +11,10 @@
         <meta name="author" content="Bandicot.com">
         <meta name='owner' content='Bandicot.com' />
         <meta name='copyright' content='&COPY; Copyright {{date('Y')}} - Todos los derechos reservados' /><meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        @yield("meta-tags")
+
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
@@ -60,8 +64,8 @@
                 <div class="col-sm-6">
                     <ul>
                         <li><a href='{{URL::to("doc/help")}}'>{{trans("gen.doc.help")}}</a></li>
-                        <li><a href='https://www.facebook.com/Bandicotcom-974813252592135/'>Facebook</a></li>
-                        <li><a href=''>Twitter</a></li>
+                        <li><a href='{{trans("gen.social.facebook.link")}}'>Facebook</a></li>
+                        <li><a href='{{trans("gen.social.twitter.link")}}'>Twitter</a></li>
                     </ul>
                 </div>
                 <div class='col-xs-12 text-center' id='copyright'>

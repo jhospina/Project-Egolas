@@ -3,9 +3,13 @@ var token_video = 0;
 $(document).ready(function () {
     if (portrait)
         return;
-    var imagen = new Image();
-    imagen.onload = getVideo;
-    imagen.src = poster;
+    if (poster.length > 0) {
+        var imagen = new Image();
+        imagen.onload = getVideo;
+        imagen.src = poster;
+    } else {
+        getVideo();
+    }
 });
 
 function getVideo() {
@@ -13,7 +17,7 @@ function getVideo() {
         url: search_video,
         type: 'POST',
         dataType: 'json',
-        data: {"_token": token, id_video: id_video, production_id: production_id},
+        data: {"_token": token, id_video: id_video, production_id: production_id, token_video: ""},
         success: function (response) {
             if (response.error)
             {
@@ -23,7 +27,7 @@ function getVideo() {
             }
             $("#msg-loader").html("Decodificando video...");
             setTimeout(function () {
-                $("#video").attr("src", response.url);
+                $("#video").attr("src", response.url + "/0");
                 token_video = response.token;
                 $("#curtain").fadeOut(function () {
                     $("#video").show();
@@ -33,15 +37,4 @@ function getVideo() {
         }
     });
 }
-
-window.onbeforeunload = function () {
-    $.ajax({
-        url: close_video,
-        type: 'POST',
-        dataType: 'json',
-        data: {"_token": token, token_video: token_video}
-    });
-}
-
-
 

@@ -12,13 +12,14 @@ class CreateTablePlaybacks extends Migration {
      */
     public function up() {
         Schema::create('playbacks', function (Blueprint $table) {
+            $table->bigIncrements("id");
             $table->integer("user_id");
             $table->integer("production_id");
             $table->string("ip");
             $table->dateTime("date");
             $table->string("token",100);
             $table->boolean("validate");
-            $table->boolean("running");
+            $table->bigInteger("parent");
             $table->index("token");
         });
     }

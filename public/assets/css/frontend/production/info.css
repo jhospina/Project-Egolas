@@ -552,3 +552,66 @@ div#details .attr, #details .value {
     margin-bottom:20px;
 }
 
+
+
+#social{
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px #272727 solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: #1C1C1C;
+}
+
+#social .col-md-12 {
+    text-transform: uppercase;
+    text-align: center;
+}
+#social .social-content{
+    padding: 10px;
+    vertical-align: top;
+    margin: 0px;
+    position: relative;
+    border-top: 5px white solid;
+    border-bottom: 5px white solid;
+}
+
+#social .social-content.fb{
+    background: #233D74;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    min-height: 41px;
+}
+
+#social .social-content img{
+    width: 30px;
+    position: absolute;
+
+}
+
+#social .social-content.twitter{
+    background: #00aced;
+    padding-bottom: 6px;
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-align: right;
+}
+
+#social .social-content.twitter img{
+    top: 10px;
+    left: 8px;
+}
+
+#social .social-content.fb img{
+    right: 8px;
+    top: 7px;
+}

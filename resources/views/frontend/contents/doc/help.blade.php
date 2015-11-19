@@ -7,7 +7,7 @@
 <div class="content container desk">
     <div class="jumbotron">
         <h1><span class="glyphicon glyphicon-exclamation-sign"></span> {{trans("gen.doc.help")}}</h1>
-        <p>Si tienes dudas o inquietudes acerca de nuestro servicio, envianos un mensaje al correo electrónico <i><b>{{trans("gen.email.support")}}</b></i> y con gusto atenderemos tus dudas.</p>
+        <p>Si tienes algún problema, dudas o inquietudes acerca de nuestra plataforma, envianos un mensaje al correo electrónico <i><b>{{trans("gen.email.support")}}</b></i> y con gusto te atenderemos.</p>
         <h2 style="margin-top:50px;"><span class="glyphicon glyphicon-question-sign"></span> Preguntas Frecuentes</h2>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">

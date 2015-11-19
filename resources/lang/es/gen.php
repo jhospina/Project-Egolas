@@ -3,8 +3,10 @@
 use App\System\Models\Payment;
 
 return [
+    "social.facebook.link" => "https://www.facebook.com/Bandicotcom-974813252592135/",
+    "social.twitter.link" => "https://twitter.com/bandicotcom",
     "email.support" => "soporte.bandicot@gmail.com",
-    "legend" => "Bandicot.com no aloja ningún vídeo de las producciones cinematográficas que aquí se muestran, simplemente las enlaza de diversos sitios web de la Internet, gracias a un potente algoritmo de inteligencia artificial que rastrea, analiza y decodifica los vídeos para reproducirlos a disposición de los usuarios.",
+    "legend" => "Bandicot.com no aloja ningún vídeo de las producciones cinematográficas que aquí se muestran, simplemente las enlaza de diversos sitios web de la Internet, gracias a un potente algoritmo de inteligencia artificial que rastrea, analiza y decodifica los vídeos para ponerlo a disposición de los usuarios para su reproducción.",
     "doc.help" => "Ayuda",
     "doc.terms" => "Términos y condiciones de uso",
     "doc.privacy.policy" => "Politica de privacidad",
@@ -12,6 +14,7 @@ return [
     "price.per.day" => "" . Payment::PAY_PRICE_PER_DAY,
     "price.cuant" => "" . (Payment::PAY_PRICE_PER_DAY * Payment::PAY_MIN_QUANTITY),
     "premium.quantity" => "" . (Payment::PAY_MIN_QUANTITY),
+    "head.title" => "El mejor lugar para ver peliculas gratis",
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",
