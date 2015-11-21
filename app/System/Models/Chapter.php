@@ -12,7 +12,7 @@ class Chapter extends Model {
     const ATTR_ID = "id";
     const ATTR_PRODUCTION_ID = "production_id";
     const ATTR_NAME = "name";
-    const ATTR_VIDEO = "video";
+    const ATTR_VIDEOMEGA_REF = "videomega_ref";
     const ATTR_LANGUAGES = "languages";
     const ATTR_SUBTITLES = "subtitles";
     const ATTR_QUALITY = "quality";

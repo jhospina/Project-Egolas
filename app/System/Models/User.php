@@ -56,7 +56,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const ATTR_PLAYBACKS_PIVOT_DATE = "date";
     const ATTR_PLAYBACKS_PIVOT_TOKEN = "token";
     const ATTR_PLAYBACKS_PIVOT_VALIDATE = "validate";
-    const ATTR_PLAYBACKS_PIVOT_PARENT = "parent";
+
     //Production track
     const ATTR_TRACK_PIVOT_NOTIFIED = "notified";
     const ATTR_TRACK_PIVOT_MAILED = "mailed";
@@ -116,8 +116,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_TOKEN)
-                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_VALIDATE)
-                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_PARENT);
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_VALIDATE);
     }
 
     public function tracks() {

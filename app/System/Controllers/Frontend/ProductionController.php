@@ -7,7 +7,7 @@ use \App\System\Models\Production;
 use App\System\Models\Person;
 use App\System\Models\Chapter;
 use App\System\Library\Security\Hash;
-use App\System\Library\Media\Video;
+use App\System\Library\Media\VideoCloudBrigthtcove;
 use Illuminate\Http\Request;
 use App\System\Models\Comment;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +19,7 @@ use App\System\Models\Production\ProductionFavorite;
 use App\System\Models\Term;
 use App\System\Models\Log\Slug;
 use App\System\Library\Detection\MobileDetect;
+use DB;
 
 class ProductionController extends Controller {
 
@@ -41,8 +42,9 @@ class ProductionController extends Controller {
         }
 
         $categories = $production->terms;
-        $director = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0];
-        $staff = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get();
+
+        $director = ($production->staff()->count() > 0) ? $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0] : null;
+        $staff = ($production->staff()->count() > 0) ? $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get() : null;
         $isVideoMain = ($production->haveVideoMain() && $production->state == Production::STATE_ACTIVE);
         $chapters = $production->chapters;
         $rating_count = $production->ratings()->count();
@@ -104,7 +106,7 @@ class ProductionController extends Controller {
                                 ->with("css", array("assets/plugins/countdown/css/styles.css"));
         }
 
-        $id_video = $production->chapters[0]->video;
+        $id_video = $production->chapters[0]->id;
         return view("ui/media/videoplayer")
                         ->with("production", $production)
                         ->with("id_video", $id_video);
@@ -119,37 +121,19 @@ class ProductionController extends Controller {
         if (!$request->ajax())
             return;
 
-        //Evita que se un usuario pueda reproducir dos videos al mismo tiempo
-        //NOTA: Esta funcion no se puede implementar, porque el evento onbeforeunload de javascript no funciona del todo en Google Chrome (Buscar una alternativa)
-        /*
-          if (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_RUNNING, true)->count() > 0)
-          return json_encode(array("error" => "<span style='font-size: 60pt;color: red;' class='glyphicon glyphicon-ban-circle'></span><br/>Lo sentimos, pero no puedes reproducir este contenido, por que esta cuenta ya se esta usando."));
-         */
         //Tiempo de paja
-        //sleep(3);
+        sleep(3);
         $data = $request->all();
         //Verifica que el token no se repite
         do {
             $token = Hash::generateToken(100);
         } while (Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->count() > 0);
 
-        if ((strlen($data["token_video"]) > 2)) {
-            $parent_play = Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $data["token_video"])->get();
-            if (count($parent_play) > 0) {
-                $parent_play = $parent_play[0];
-                $parent = $parent_play->pivot->id;
-            } else {
-                return json_encode(array("error" => "Bad Request"));
-            }
-        } else {
-            $parent = 0;
-        }
 
         //Genera un registro de reproduccion y token de validacion
         Auth::user()->playbacks()->attach($data["production_id"], array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(),
             User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime(),
-            User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token,
-            User::ATTR_PLAYBACKS_PIVOT_PARENT => $parent));
+            User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token));
 
         return json_encode(array("url" => url("get/source/video/" . $token . "/" . $data["id_video"]), "token" => $token));
     }
@@ -160,36 +144,25 @@ class ProductionController extends Controller {
      * @param type $id_video El id del video
      * @return type
      */
-    function getVideoSource($token, $id_video,$time) {
-
+    function getVideoSource($token, $id_video) { 
         //Tiempo de paja
         // sleep(2);
-
         $playback = Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->get();
 
         //Verifica que el token de peticion exista
         if (count($playback) == 0)
             return abort(404);
+
         $playback = $playback[0];
 
         //Verifica que el token no haya sido validado
-        if (intval($playback->pivot->validate) >= 2)
+        if (intval($playback->pivot->validate) == true)
             return abort(404);
+
         //Valida el token de reproduccion
-        if ($time > 0)
-            Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => intval($playback->pivot->validate) + 1));
-        else
-            Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => 2));
+        Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => true));
 
-        $detect = new MobileDetect();
-        if ($detect->isMobile() || $detect->isTablet()) {
-            $url_video = Video::PLAYER_DEFAULT . "?videoId=" . $id_video;
-        } else {
-            //Entrega la URL del video
-            $video = new Video($id_video);
-            $url_video = $video->getData(array(Video::FIELD_FLVURL));
-        }
-
+        $url_video = "http://videomega.tv/view.php?ref=" . DB::select("select " . Chapter::ATTR_VIDEOMEGA_REF . " from chapters where id='" . $id_video . "'")[0]->videomega_ref;
         header("HTTP/1.1 301 Moved Permanently");
         header("Location: $url_video");
         header("Connection: close");

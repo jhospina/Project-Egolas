@@ -3,7 +3,7 @@
 use App\System\Library\Complements\Util;
 use App\System\Library\Security\Hash;
 use App\System\Library\Detection\MobileDetect;
-use App\System\Library\Media\Video;
+use App\System\Library\Media\VideoCloudBrigthtcove;
 
 $detect = new MobileDetect();
 $isMobile = ($detect->isMobile() || $detect->isTablet());
@@ -62,8 +62,6 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
             </div>
         </div>
 
-        @if($isMobile)
-
         <iframe id="video" style='width: 100%;height:100%;' allowfullscreen webkitallowfullscreen mozallowfullscreen></iframe>
 
         <div id="nots-rotate">
@@ -91,52 +89,6 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
             });
         </script>
 
-        @else
-
-        <a href="{{URL::to("production/".$production->slug)}}" id="btn-back">
-            <span class="glyphicon glyphicon-arrow-left"></span>
-        </a>
-        <video id='video'></video>
-
-        <div id="barProgress">
-            <div class="content-bar">
-                <div id="bar-time"></div>
-            </div>
-            <div id="time">
-                NaN
-            </div>
-        </div>
-        <div id="controls">
-            <div id="left">
-                <section>
-                    <div id="play" data-state="pause" class="driver"><span class="glyphicon glyphicon-pause"></span></div>
-                </section>
-                <section>
-                    <div id="volumen-control">
-                        <div id="content-volumen">
-                            <div id="progress-vol"></div>
-                            <div id="market-vol"></div>
-                        </div>
-                    </div>
-                    <div id="sound" class="driver"><span class="glyphicon glyphicon-volume-down"></span></div>
-                    <div id="title-video" class="driver">
-                        {{$production->title}}
-                    </div>
-                </section>
-            </div>
-            <div id="right">
-                <section>
-                    <div id="full-screen" data-fullscreen="false" class="driver"><span class="glyphicon glyphicon-fullscreen"></span></div>
-                </section>
-            </div>
-        </div>
-
-        @endif
-
-        {{-- Include all compiled plugins (below), or include individual files as needed --}}
-        {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}
-        {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
-        {{ HTML::script('assets/js/bootstrap-tooltip.js') }}
 
         <script language="Javascript">
             var id_video = "{{$id_video}}";
@@ -144,19 +96,13 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
             var search_video = "{{URL::to('production/ajax/get/video')}}";
             var poster = "{{$production->poster}}";
             var token = "{{Session::token()}}";
-            var time = 0;
-            var production_url = "{{URL::to('production/'.$production->slug.'/play/')}}";
-            var token_parent = "";
             document.oncontextmenu = function () {
                 return false
             }
 
         </script>
-        @if($isMobile)
-        {{ HTML::script('assets/js/ui/videoplayer-mobile.js') }}
-        @else
         {{ HTML::script('assets/js/ui/videoplayer.js') }}
-        @endif
+
 
     </body>
 </html>

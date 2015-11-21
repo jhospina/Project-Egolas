@@ -6,7 +6,7 @@ use App\System\AutoUpdateSearcher\Providers\HTMLProvider;
 use App\System\Models\Chapter;
 use App\System\Library\Complements\Util;
 
-class Video {
+class VideoCloudBrigthtcove {
 
     //Token de lectura
     const TOKEN_READ = "c1xrJv7-ih1Fw5hX_b7JBvUyiIrooZejAfHZDC4CkXFiVuuq95-crA..";

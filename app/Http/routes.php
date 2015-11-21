@@ -138,7 +138,7 @@ function productions_frontend() {
     $class = "ProductionController@";
     Route::get("production/{slug}/play", $class . "getPlay");
     Route::post("production/ajax/get/video", $class . "ajax_getVideoUrl");
-    Route::get("get/source/video/{token}/{id_video}/{time}", $class . "getVideoSource");
+    Route::get("get/source/video/{token}/{id_video}", $class . "getVideoSource");
     // Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
     //Reproductor de video
     // Route::get("media/videoplayer/play/", $class . "videoPlayer");
@@ -198,8 +198,13 @@ Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => [
 function productions() {
     $class = "ProductionController@";
     Route::get("productions", $class . "index");
+    Route::get("productions/create", $class . "getCreate");
+    Route::post("productions/create", $class . "postCreate");
     Route::get("productions/edit/{id}", $class . "getEdit");
     Route::post("productions/edit/{id}", $class . "postEdit");
+    Route::get("productions/videomega", $class . "getGeneratorVideoMega");
+    Route::post("productions/ajax/get/videos/csv", $class . "ajax_videolinks");
+
     //AJAX
     Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");

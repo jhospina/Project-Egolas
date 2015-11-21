@@ -36,8 +36,32 @@ $(document).ready(function () {
                 $("#send").html("Enviar");
                 $("#send").removeAttr("disabled");
                 $("#send").removeClass("disabled");
-                
-                setTimeout(function(){$("#report-moda-add").fadeOut()},5000);
+
+                setTimeout(function () {
+                    $("#report-moda-add").fadeOut()
+                }, 5000);
+            },
+            error: function (request, status, error) {
+                $("#report-moda-add").removeClass("alert-info");
+                $("#report-moda-add").addClass("alert-danger");
+
+                $("#report-moda-add").html("Ocurrio un error durante el procesamiento de la producción. La inclusión debe hacerse manualmente.");
+                $("#report-moda-add").fadeIn();
+                $("#name_production").val("");
+                $("#link_production").val("");
+                $("#link_production").removeAttr("disabled");
+                $("#name_production").removeAttr("disabled");
+                $("#send").html("Enviar");
+                $("#send").removeAttr("disabled");
+                $("#send").removeClass("disabled");
+
+                setTimeout(function () {
+                    $("#report-moda-add").fadeOut(function () {
+                        $("#report-moda-add").removeClass("alert-dangerao");
+                        $("#report-moda-add").addClass("alert-info");
+                    })
+                }, 5000);
+
             }
         });
     });

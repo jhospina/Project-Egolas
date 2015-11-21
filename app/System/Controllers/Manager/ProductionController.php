@@ -14,6 +14,8 @@ use App\System\Library\Complements\Util;
 use App\System\Models\QueueProductions;
 use App\System\AutoUpdateSearcher\Providers\ProductionProvider;
 use App\System\Library\Complements\DateUtil;
+use App\System\Library\Media\Image;
+use App\System\Library\Media\VideoCloudBrigthtcove;
 
 class ProductionController extends Controller {
 
@@ -32,6 +34,66 @@ class ProductionController extends Controller {
         $productions = $productions->orderBy("id", "DESC")->paginate(60);
 
         return view("manager/contents/production/index")->with("productions", $productions);
+    }
+
+    function getCreate() {
+        $categories = Taxonomy::getAllTerms(Production::TAXONOMY_ID);
+        return view("manager/contents/production/create")
+                        ->with("categories", $categories);
+    }
+
+    function postCreate(Request $request) {
+        $data = $request->all();
+        //SLUG
+        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE] . " " . $data[Production::ATTR_YEAR]);
+        $data[Production::ATTR_STATE] = Production::STATE_IN_WAIT;
+
+        $production = new Production;
+        $production->fill($data);
+        $production->save();
+
+        //Asigna las Categorias
+        foreach ($data as $index => $value) {
+            if (strpos($index, "cat-") !== false)
+                $production->terms()->attach($value);
+        }
+
+        /*
+         * OBTIENES LAS IMAGENES DE LA PRODUCCION
+         */
+
+        $path_image = public_path("assets/db/images/") . md5($production->title_original);
+
+        copy($data[Production::ATTR_POSTER], $path_image . "-poster.jpg");
+        $production->poster = Util::convertPathToUrl($path_image . "-poster.jpg");
+
+        if (strlen($data[Production::ATTR_IMAGE]) > 9) {
+            copy($data[Production::ATTR_IMAGE], $path_image . ".jpg");
+            $production->image = Util::convertPathToUrl($path_image . ".jpg");
+        } else {
+            $title_md5 = md5($production->title_original);
+            $image = new Image($production->poster);
+            $production->image = $image->createCopy(214, 334, $title_md5, public_path("assets/db/images/"), false);
+        }
+
+
+        $production->save();
+
+        //Cola de procesamiento
+        $queue = new QueueProductions;
+        //Si existe
+        if (QueueProductions::existsByLink($data["imdb"])) {
+            $queue = QueueProductions::where(QueueProductions::ATTR_LINK, $data["imdb"])->get()[0];
+        } else {
+            $queue->name = $data[Production::ATTR_TITLE_ORIGINAL];
+            $queue->link = $data["imdb"];
+            $queue->date_creation = DateUtil::getCurrentTime();
+        }
+        $queue->production_id = $production->id;
+        $queue->date_processed = DateUtil::getCurrentTime();
+        $queue->save();
+
+        return redirect("manager/productions/edit/" . $production->id);
     }
 
     function getEdit($id) {
@@ -61,7 +123,7 @@ class ProductionController extends Controller {
     function postEdit(Request $request) {
         $data = $request->all();
         $production = Production::findOrNew($data[Production::ATTR_ID]);
-        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE]." ".$data[Production::ATTR_YEAR]); 
+        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE] . " " . $data[Production::ATTR_YEAR]);
         $production->fill($data);
         $production->save();
 
@@ -92,7 +154,37 @@ class ProductionController extends Controller {
         return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.info.change.saved"), null, 2));
     }
 
-    /** Edita un atributo de una produccion mendiante ajax (manager/productions/ajax/post/edit/)
+    function getGeneratorVideoMega() {
+        return view("manager/contents/production/videomega");
+    }
+
+    function ajax_videolinks(Request $request) {
+        if (!$request->ajax())
+            return;
+        $data = $request->all();
+        $regs = explode("\n", $data["csv"]);
+        $csv = array();
+        for ($i = 0; $i < count($regs); $i++) {
+            $csv[] = str_getcsv($regs[$i], ";");
+        }
+
+        $return = array();
+
+        foreach ($csv as $video) {
+            $title = $video[0];
+            $title_md5 = $video[1];
+            $lote = $video[3];
+            $id_video = $video[5];
+            $video = new VideoCloudBrigthtcove($id_video);
+            $url_video = $video->getData(array(VideoCloudBrigthtcove::FIELD_FLVURL));
+
+            $return[] = array("title" => $title, "title_md5" => $title_md5, "lote" => $lote, "url" => $url_video);
+        }
+
+        return json_encode($return);
+    }
+
+    /** Edita un atributo de una produccion mediante ajax (manager/productions/ajax/post/edit/)
      * 
      * @param Request $request
      * @return boolean
@@ -138,7 +230,7 @@ class ProductionController extends Controller {
         $chapter = (isset($data[Chapter::ATTR_ID])) ? Chapter::findOrNew($data[Chapter::ATTR_ID]) : new Chapter();
         $chapter->production_id = $data[Chapter::ATTR_PRODUCTION_ID];
         $chapter->name = $data[Chapter::ATTR_NAME];
-        $chapter->video = str_replace(array("\n","\t","\r"," "),"", $data[Chapter::ATTR_VIDEO]);
+        $chapter->videomega_ref = str_replace(array("\n", "\t", "\r", " "), "", $data[Chapter::ATTR_VIDEOMEGA_REF]);
         $chapter->quality = $data[Chapter::ATTR_QUALITY];
         $chapter->languages = $data[Chapter::ATTR_LANGUAGES];
         $chapter->subtitles = (isset($data[Chapter::ATTR_SUBTITLES])) ? $data[Chapter::ATTR_SUBTITLES] : null;
@@ -149,7 +241,7 @@ class ProductionController extends Controller {
                 array(
                     Chapter::ATTR_ID => $chapter->id,
                     Chapter::ATTR_NAME => $chapter->name,
-                    Chapter::ATTR_VIDEO => htmlentities($chapter->video),
+                    Chapter::ATTR_VIDEOMEGA_REF => htmlentities($chapter->videomega_ref),
                     Chapter::ATTR_QUALITY => $chapter->quality,
                     Chapter::ATTR_LANGUAGES => Util::formatResultArray($data[Chapter::ATTR_LANGUAGES], ",", "\"", "\""),
                     Chapter::ATTR_SUBTITLES => Util::formatResultArray($chapter->subtitles, ",", "\"", "\""),

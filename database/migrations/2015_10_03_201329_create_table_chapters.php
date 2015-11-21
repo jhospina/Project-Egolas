@@ -14,7 +14,8 @@ class CreateTableChapters extends Migration {
         Schema::create('chapters', function (Blueprint $table) {
             $table->increments("id");
             $table->integer("production_id");
-            $table->text("video"); 
+            $table->string("name");
+            $table->string("videomega_ref")->nullable();
             $table->string("languages");
             $table->string("subtitles")->nullable();
             $table->string("quality", 2);

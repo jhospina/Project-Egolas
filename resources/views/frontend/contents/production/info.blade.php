@@ -121,6 +121,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
     </div>
     <div class="col-md-4" id="director">
+        @if(!is_null($director))
         <div class="col-md-12"><b>{{trans("gen.info.director")}}</b></div>
         <div class="col-md-12">
             @if(!is_null($director->image))<a href="{{URL::to("person/".$director->slug)}}" class="staff"> @endif
@@ -146,6 +147,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
                 @if(!is_null($person->image))  </a> @endif
             @endforeach
         </div>
+        @endif
     </div>
 </div>
 
@@ -173,20 +175,20 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     <div class="col-md-12"><h2><span class="glyphicon glyphicon-share"></span> Comparte</h2></div>
     <div class="social-content fb col-sm-6">
         <div class="fb-like" data-href="{{URL::to("production/".$production->slug)}}" data-colorscheme="dark" data-share="true" data-layout="button"></div>
-       <img src="{{URL::to("assets/images/facebook.png")}}">
+        <img src="{{URL::to("assets/images/facebook.png")}}">
     </div>
     <div class="social-content twitter col-sm-6">
-           <a href="https://twitter.com/intent/tweet?screen_name=bandicotcom&text={{urlencode("Acabe de ver la película \"".$production->title."\" a través de Bandicot.com")}}" class="twitter-mention-button">Twittear que viste esta pelicula</a>
-            <script>!function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-        if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = p + '://platform.twitter.com/widgets.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }
-    }(document, 'script', 'twitter-wjs');</script>
-             <img src="{{URL::to("assets/images/twitter.png")}}">
+        <a href="https://twitter.com/intent/tweet?screen_name=bandicotcom&text={{urlencode("Acabe de ver la película \"".$production->title."\" a través de Bandicot.com")}}" class="twitter-mention-button">Twittear que viste esta pelicula</a>
+        <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');</script>
+        <img src="{{URL::to("assets/images/twitter.png")}}">
     </div>
 </div>
 <!-- FIN SOCIAL -->

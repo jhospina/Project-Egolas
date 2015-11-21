@@ -19,7 +19,6 @@ class CreateTablePlaybacks extends Migration {
             $table->dateTime("date");
             $table->string("token",100);
             $table->boolean("validate");
-            $table->bigInteger("parent");
             $table->index("token");
         });
     }

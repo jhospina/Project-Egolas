@@ -126,8 +126,8 @@ if ($isVideoMain)
                 <input id="name-chapter"type="text" class="input-lg form-control" value="{{(isset($chapter))?$chapter->name:null}}"> 
             </div>
             <div class="col-md-12">
-                <label>{{trans("gen.info.content")}}</label>
-                <textarea id="video-chapter" class="form-control">{{(isset($chapter))?$chapter->video:null}}</textarea>
+                <label>VideoMega REF</label>
+                <input type="text" id="videocloud-id" class="form-control input-lg" value="{{(isset($chapter))?$chapter->videomega_ref:null}}">
             </div>
 
         </div>
@@ -193,7 +193,7 @@ if ($isVideoMain)
             </tr>
             @if(!$isVideoMain)
             @foreach($chapters as $chapter)
-            <tr id='chapter-{{$chapter->id}}' onClick='openFormVideo({{$chapter->id}},"{{$chapter->name}}","{{str_replace('"',"",$chapter->video)}}","{{$chapter->quality}}",[{{Util::formatResultArray($chapter->languages,",","\"","\"")}}],[{{Util::formatResultArray($chapter->subtitles,",","\"","\"")}}],"{{$chapter->state}}")'>
+            <tr id='chapter-{{$chapter->id}}' onClick='openFormVideo({{$chapter->id}},"{{$chapter->name}}","{{str_replace('"',"",$chapter->videomega_ref)}}","{{$chapter->quality}}",[{{Util::formatResultArray($chapter->languages,",","\"","\"")}}],[{{Util::formatResultArray($chapter->subtitles,",","\"","\"")}}],"{{$chapter->state}}")'>
                 <td id='name-{{$chapter->id}}'>{{$chapter->name}}</td>
                 <td id='languages-{{$chapter->id}}'>
                     @foreach($chapter->languages as $lang)
@@ -247,7 +247,7 @@ if ($isVideoMain)
                                             $("#form-add-video").show();
                                             $("#id-chapter").val(id);
                                             $("#name-chapter").val(name);
-                                            $("#video-chapter").val(video);
+                                            $("#videocloud-id").val(video);
                                             $("#quality-chapter-" + quality).prop("checked", true);
                                             for (var i = 0; i < languages.length; i++){
                                     $("#language-chapter-" + languages[i]).prop("checked", true);
@@ -280,7 +280,7 @@ if ($isVideoMain)
                                     $("#form-add-video").show();
                                             $("#id-chapter").val("");
                                             $("#name-chapter").val("");
-                                            $("#video-chapter").val("");
+                                            $("#videocloud-id").val("");
                                             $(".quality-chapter").prop("checked", false);
                                             $(".subs-chapter").prop("checked", false);
                                             $(".lang-chapter").prop("checked", false);
@@ -294,7 +294,7 @@ if ($isVideoMain)
                                     $(this).html("<img src='{{URL::to('assets/images/loaders/barfb.gif')}}'/>");
                                             $(this).attr("disabled", "disabled");
                                             var name = $("#name-chapter").val();
-                                            var video = $("#video-chapter").val();
+                                            var video = $("#videocloud-id").val();
                                             var quality = $('input[name=quality-chapter]:radio:checked').val();
                                             var langs = new Array();
                                             $(".lang-chapter").each(function(){
@@ -312,7 +312,7 @@ if ($isVideoMain)
                                             "_token": "{{ Session::token() }}",
                                                     "{{Chapter::ATTR_PRODUCTION_ID}}":"{{$production->id}}",
                                                     "{{Chapter::ATTR_NAME}}":name,
-                                                    "{{Chapter::ATTR_VIDEO}}":video,
+                                                    "{{Chapter::ATTR_VIDEOMEGA_REF}}":video,
                                                     "{{Chapter::ATTR_LANGUAGES}}":langs,
                                                     "{{Chapter::ATTR_SUBTITLES}}":subs,
                                                     "{{Chapter::ATTR_QUALITY}}":quality,
