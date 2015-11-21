@@ -33,6 +33,57 @@ class ProductionController extends Controller {
 
         return view("manager/contents/production/index")->with("productions", $productions);
     }
+    
+    
+    function getCreate() {
+        $categories = Taxonomy::getAllTerms(Production::TAXONOMY_ID);
+        return view("manager/contents/production/create")
+                        ->with("categories", $categories);
+    }
+    function postCreate(Request $request) {
+        $data = $request->all();
+        //SLUG
+        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE] . " " . $data[Production::ATTR_YEAR]);
+        $data[Production::ATTR_STATE] = Production::STATE_IN_WAIT;
+        $production = new Production;
+        $production->fill($data);
+        $production->save();
+        //Asigna las Categorias
+        foreach ($data as $index => $value) {
+            if (strpos($index, "cat-") !== false)
+                $production->terms()->attach($value);
+        }
+        /*
+         * OBTIENES LAS IMAGENES DE LA PRODUCCION
+         */
+        $path_image = public_path("assets/db/images/") . md5($production->title_original);
+        copy($data[Production::ATTR_POSTER], $path_image . "-poster.jpg");
+        $production->poster = Util::convertPathToUrl($path_image . "-poster.jpg");
+        if (strlen($data[Production::ATTR_IMAGE]) > 9) {
+            copy($data[Production::ATTR_IMAGE], $path_image . ".jpg");
+            $production->image = Util::convertPathToUrl($path_image . ".jpg");
+        } else {
+            $title_md5 = md5($production->title_original);
+            $image = new Image($production->poster);
+            $production->image = $image->createCopy(214, 334, $title_md5, public_path("assets/db/images/"), false);
+        }
+        $production->save();
+        //Cola de procesamiento
+        $queue = new QueueProductions;
+        //Si existe
+        if (QueueProductions::existsByLink($data["imdb"])) {
+            $queue = QueueProductions::where(QueueProductions::ATTR_LINK, $data["imdb"])->get()[0];
+        } else {
+            $queue->name = $data[Production::ATTR_TITLE_ORIGINAL];
+            $queue->link = $data["imdb"];
+            $queue->date_creation = DateUtil::getCurrentTime();
+        }
+        $queue->production_id = $production->id;
+        $queue->date_processed = DateUtil::getCurrentTime();
+        $queue->save();
+        return redirect("manager/productions/edit/" . $production->id);
+    }
+    
 
     function getEdit($id) {
         $production = Production::find($id);

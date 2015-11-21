@@ -41,8 +41,8 @@ class ProductionController extends Controller {
         }
 
         $categories = $production->terms;
-        $director = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0];
-        $staff = $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get();
+        $director = ($production->staff()->count() > 0) ? $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_DIRECTOR)->get()[0] : null;
+        $staff = ($production->staff()->count() > 0) ? $production->staff()->where(Person::ATTR_PIVOT_ROLE, Person::ROLE_ACTOR)->get() : null;
         $isVideoMain = ($production->haveVideoMain() && $production->state == Production::STATE_ACTIVE);
         $chapters = $production->chapters;
         $rating_count = $production->ratings()->count();
@@ -160,7 +160,7 @@ class ProductionController extends Controller {
      * @param type $id_video El id del video
      * @return type
      */
-    function getVideoSource($token, $id_video,$time) {
+    function getVideoSource($token, $id_video, $time) {
 
         //Tiempo de paja
         // sleep(2);
@@ -172,6 +172,7 @@ class ProductionController extends Controller {
             return abort(404);
         $playback = $playback[0];
 
+        /*
         //Verifica que el token no haya sido validado
         if (intval($playback->pivot->validate) >= 2)
             return abort(404);
@@ -180,7 +181,7 @@ class ProductionController extends Controller {
             Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => intval($playback->pivot->validate) + 1));
         else
             Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => 2));
-
+ */
         $detect = new MobileDetect();
         if ($detect->isMobile() || $detect->isTablet()) {
             $url_video = Video::PLAYER_DEFAULT . "?videoId=" . $id_video;

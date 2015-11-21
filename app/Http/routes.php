@@ -198,6 +198,8 @@ Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => [
 function productions() {
     $class = "ProductionController@";
     Route::get("productions", $class . "index");
+    Route::get("productions/create", $class . "getCreate");
+    Route::post("productions/create", $class . "postCreate");
     Route::get("productions/edit/{id}", $class . "getEdit");
     Route::post("productions/edit/{id}", $class . "postEdit");
     //AJAX

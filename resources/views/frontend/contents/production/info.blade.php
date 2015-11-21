@@ -83,7 +83,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
         @endif
     </div>
-    <div class="col-md-4" style="margin-bottom: 15px;">
+    <div class="col-md-{{(is_null($director))?"8":"4"}}" style="margin-bottom: 15px;">
         <b>{{trans("gen.info.synopsis")}}</b><br/>
         <p class="text-justify">{{$production->description}}</p>
         <div id="details">
@@ -120,6 +120,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         @endif
 
     </div>
+    @if(!is_null($director))
     <div class="col-md-4" id="director">
         <div class="col-md-12"><b>{{trans("gen.info.director")}}</b></div>
         <div class="col-md-12">
@@ -147,6 +148,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
             @endforeach
         </div>
     </div>
+    @endif
 </div>
 
 

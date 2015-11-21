@@ -4,13 +4,10 @@ use App\System\Library\Complements\Util;
 use App\System\Models\Production;
 use App\System\Models\QueueProductions;
 
-
-
-
 ?>
 @extends("manager/ui/templates/main",array("path"=>"manager/contents/production/index"))
 
-@section("title") {{trans("ui.menu.item.productions")}}@stop
+@section("title") {{trans("ui.menu.item.productions")}} @stop
 
 @section("content")
 
@@ -19,7 +16,9 @@ use App\System\Models\QueueProductions;
     <h1><span class="glyphicon glyphicon-cog"></span> {{trans("ui.menu.item.productions")}}</h1>
 
     <div class="well well-sm">
-        <a class="btn btn-primary" id="add-new"><span class="glyphicon glyphicon-plus"></span> Nuevo</a>
+        <a class="btn btn-primary" id="add-new"><span class="glyphicon glyphicon-plus"></span> Agregar desde IMDB</a>
+        <a class="btn btn-primary" href="{{URL::to("manager/productions/create")}}"><span class="glyphicon glyphicon-plus"></span> Agregar Manualmente</a>
+        
     </div>
 
     <div class="col-xs-12" style="padding: 0px;">
