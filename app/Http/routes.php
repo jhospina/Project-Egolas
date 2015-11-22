@@ -63,6 +63,7 @@ Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["auth"
     auth_user();
     account_user();
     activity_user();
+    request_user();
 });
 
 function menu_user() {
@@ -71,6 +72,7 @@ function menu_user() {
     Route::get("account", $class . "getAccount");
     Route::get("contributions", $class . "getContributions");
     Route::get("favorites", $class . "getFavorites");
+    Route::get("requests", $class . "getRequests");
 }
 
 function auth_user() {
@@ -92,6 +94,12 @@ function account_user() {
     //Ajax
     Route::post("account/ajax/upload/avatar", $class . "ajaxUpdateAvatar");
     Route::post("account/ajax/send/email/confirmation", $class . "ajaxSendConfirmation");
+}
+
+function request_user() {
+    $class = "RequestController@";
+    //AJAX
+    Route::post("request/ajax/post/add", $class . "ajax_postAdd");
 }
 
 function activity_user() {
@@ -187,6 +195,8 @@ Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => [
     Route::get('auth/login', "Auth\AuthController@getLogin");
     Route::post('auth/login', "Auth\AuthController@postLogin");
     Route::get("dashboard", "DashboardController@index");
+    Route::get("set/image/production/{production_id}/", "DashboardController@setImageProduction");
+
     Route::get("reports", "ReportController@getReports");
     Route::get('auth/logout', "Auth\AuthController@logout");
     Route::get("password/edit", "Auth\PasswordController@getEditPassword");

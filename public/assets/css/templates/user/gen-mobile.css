@@ -8,6 +8,8 @@ div#menu-mobile {
     z-index: 10;
 }
 
+
+
 div#menu-mobile .item:first-child{
     border-left: 0px;
 }
@@ -26,6 +28,15 @@ div#menu-mobile .item{
     background: -ms-linear-gradient(top, #3f4c6b 0%,#3f4c6b 100%);
     background: linear-gradient(to bottom, #3f4c6b 0%,#3f4c6b 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#3f4c6b',GradientType=0 );
+}
+
+#menu-mobile .item.disabled{
+    background: #242b4a;
+    background: -moz-linear-gradient(left, #242b4a 0%, #242b4a 100%);
+    background: -webkit-linear-gradient(left, #242b4a 0%,#242b4a 100%);
+    background: linear-gradient(to right, #242b4a 0%,#242b4a 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#242b4a', endColorstr='#242b4a',GradientType=1 );
+    color: gray;   
 }
 
 div#menu-mobile .item.active {
@@ -185,6 +196,23 @@ div#menu-mobile .item.active {
         content: " Tiempo premium:";
     }
 
+    ul.pagination {
+        width: 100%;
+    }
+
+
+    #table-requests .link-imdb{
+        display: none;
+    }
+
+    #attention-request{
+        display: none;
+    }
+    #set-request{
+        text-align: center;
+    }
+
+
 }
 
 @media screen and (max-width:850px){
@@ -221,11 +249,11 @@ div#menu-mobile .item.active {
     }
 
     #btn-new-contribution{
-        font-size: 18pt;
+        font-size: 15pt!;
         white-space: normal;
         text-align: center;
     }
-    
+
     .msj-social .description{
         display:none;
     }

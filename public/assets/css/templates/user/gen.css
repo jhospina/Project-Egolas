@@ -334,7 +334,8 @@ div#last-playbacks section{
 }
 
 .pagination{
-    font-size: 23pt;
+    font-size: 12pt;
+    margin-bottom: 40px;
 }
 
 div#time-premium-title {
@@ -421,6 +422,7 @@ div#facebook-content,div#twitter-content {
     display: inline-block;
     max-width: 600px;
     width: 100%;
+    text-align: left;
 }
 
 .msj-social.twitter .content-image-social {
@@ -436,4 +438,46 @@ div#table-contributions {
     margin-top: 50px;
     border-top: 1px #999999 solid;
     padding-top: 33px;
+    clear: both;
+}
+
+#set-request{
+    border-top: 1px #B7B7B7 solid;
+    border-bottom: 1px #B7B7B7 solid;
+    padding: 10px;
+    background: #ECECEC;
+    margin:20px 0px;
+    clear: both;
+}
+
+
+#modal-request div#production-response {
+    padding: 10px;
+    background: #EEEEEE;
+    border: 1px #B7B7B7 solid;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#modal-request p.caption{
+    background: red;
+    color: white;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.glyphicon-flag.in-queue{
+    color: gray;
+}
+
+.glyphicon-flag.in-wait{
+    color:orange;
+}
+
+.glyphicon-flag.available{
+    color:green;
 }

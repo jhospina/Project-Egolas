@@ -12,6 +12,7 @@ return [
     "btn.select.file" => "Seleccionar archivo",
     "menu.item.dashboard" => "Dashboard",
     "menu.item.contributions" => "Contribuciones",
+    "menu.item.requests" => "Solicitud de producciones",
     "menu.item.productions" => "Producciones",
     "menu.item.autogenerator" => "Auto-generador",
     "menu.item.autogenerator.processes" => "Procesos",

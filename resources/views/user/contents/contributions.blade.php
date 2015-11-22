@@ -23,7 +23,7 @@ use App\System\Library\Complements\DateUtil;
 
 
 
-<div class="col-xs-6">
+<div class="col-sm-6">
     <h2>¡Apoyanos en Facebook!</h2>
     <div class="msj-social fb">
         <div class="content-image-social">
@@ -35,7 +35,7 @@ use App\System\Library\Complements\DateUtil;
         <div class="fb-like" data-href="{{trans("gen.social.facebook.link")}}" data-share="true" data-layout="button"></div>
     </div>
 </div>
-<div class="col-xs-6">
+<div class="col-sm-6">
     <h2>¡Apoyanos en Twitter!</h2>
     <div class="msj-social twitter">
         <div class="content-image-social">
@@ -77,7 +77,7 @@ use App\System\Library\Complements\DateUtil;
     <div class="jumbotron text-center" style="background:none;color:black;">
         <h2>Todavia no has hecho ninguna contribución</h2>
         <p><img src="{{URL::to("assets/images/sad.png")}}"></p>
-        <p style="margin-top: 80px;"><a id="btn-new-contribution" href="{{URL::to("premium")}}" class="btn btn-lg btn-primary" style="font-size: 18pt;">
+        <p style="margin-top: 80px;"><a id="btn-new-contribution" href="{{URL::to("premium")}}" class="btn btn-lg btn-primary">
                 <img width="50px" src="{{URL::to("assets/images/logo-premium.png")}}">
                 ¡Obtén una cuenta premium! Pulsa aquí
             </a></p>

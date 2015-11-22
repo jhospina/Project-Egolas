@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\System\Library\Complements\UI;
 use App\System\Library\Complements\DateUtil;
 use App\System\Library\Com\Email;
+use App\System\Models\User;
+use App\Http\Requests\Request;
 
 class MenuController extends Controller {
 
@@ -32,6 +34,15 @@ class MenuController extends Controller {
 
     function getFavorites() {
         return view("user/contents/favorites");
+    }
+
+    function getRequests() {
+
+        if (Auth::user()->role != User::ROLE_SUSCRIPTOR_PREMIUM)
+            return redirect("user/dashboard");
+
+        $requests = Auth::user()->requests()->orderBy("id", "DESC")->paginate(10);
+        return view("user/contents/requests")->with("requests", $requests);
     }
 
 }

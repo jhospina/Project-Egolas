@@ -73,8 +73,8 @@ class ProductionProvider extends HTMLProvider {
 
         //(TITULO ORIGINAL)*************************/
         //Busca el titulo original de la produccion, si no lo encuentra asigna el titulo encontrado
-        if (preg_match_all('/<span[^>]*class=["\']title-extra*["\'] itemprop=["\']name*["\']\>(.*?)<\/span>/i', $match[0][0], $match_title_original, PREG_SET_ORDER))
-            $this->title_original = str_replace(array("\"", "(original title)", "  "), "", strip_tags((isset($match_title_original[0][1])) ? $match_title_original[0][1] : null));
+        if (preg_match_all('/<span[^>]*itemprop=["\']name*["\']\>(.*?)<\/span>/i', $match[0][0], $match_title_original, PREG_SET_ORDER))
+            $this->title_original = str_replace(array("\"", "(original title)", "  "), "", strip_tags((isset($match_title_original[0][0])) ? $match_title_original[0][0] : null));
         else
             $this->title_original = $title_ori;
 
@@ -112,7 +112,7 @@ class ProductionProvider extends HTMLProvider {
         if (!preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>(.*?)[\"\']>/i', $match_content, $match_image, PREG_SET_ORDER))
             return;
 
-        $path_image = public_path("assets/db/images/") . md5($this->title_original);
+        $path_image = public_path("assets/db/images/") . md5($this->title_original . $this->year);
 
 
         try {
@@ -128,7 +128,7 @@ class ProductionProvider extends HTMLProvider {
         }
 
         //POSTER
-        $search = new BingSearchImage($this->title_original ." ".$this->year. " poster", 1700, 1200);
+        $search = new BingSearchImage($this->title_original . " " . $this->year . " poster", 1700, 1200);
         $images = $search->getResult();
 
         //Verifica que la url este bien
@@ -151,7 +151,7 @@ class ProductionProvider extends HTMLProvider {
 
 
         if (is_null($this->image) && !is_null($this->poster)) {
-            $md5 = md5($this->title_original);
+            $md5 = md5($this->title_original . $this->year);
             $image = new Image($this->poster);
             $this->image = $image->createCopy(214, 334, $md5, public_path("assets/db/images/"), false);
         }
@@ -255,6 +255,8 @@ class ProductionProvider extends HTMLProvider {
                 $queue->save();
             }
         }
+
+        return $production->id;
     }
 
     function extractLinkPerson($text) {

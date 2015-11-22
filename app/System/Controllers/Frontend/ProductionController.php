@@ -172,7 +172,7 @@ class ProductionController extends Controller {
             return abort(404);
         $playback = $playback[0];
 
-        /*
+        
         //Verifica que el token no haya sido validado
         if (intval($playback->pivot->validate) >= 2)
             return abort(404);
@@ -181,7 +181,7 @@ class ProductionController extends Controller {
             Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => intval($playback->pivot->validate) + 1));
         else
             Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => 2));
- */
+ 
         $detect = new MobileDetect();
         if ($detect->isMobile() || $detect->isTablet()) {
             $url_video = Video::PLAYER_DEFAULT . "?videoId=" . $id_video;

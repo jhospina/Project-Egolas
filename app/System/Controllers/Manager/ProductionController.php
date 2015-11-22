@@ -33,13 +33,13 @@ class ProductionController extends Controller {
 
         return view("manager/contents/production/index")->with("productions", $productions);
     }
-    
-    
+
     function getCreate() {
         $categories = Taxonomy::getAllTerms(Production::TAXONOMY_ID);
         return view("manager/contents/production/create")
                         ->with("categories", $categories);
     }
+
     function postCreate(Request $request) {
         $data = $request->all();
         //SLUG
@@ -56,14 +56,14 @@ class ProductionController extends Controller {
         /*
          * OBTIENES LAS IMAGENES DE LA PRODUCCION
          */
-        $path_image = public_path("assets/db/images/") . md5($production->title_original);
+        $path_image = public_path("assets/db/images/") . md5($production->title_original . $production->year);
         copy($data[Production::ATTR_POSTER], $path_image . "-poster.jpg");
         $production->poster = Util::convertPathToUrl($path_image . "-poster.jpg");
         if (strlen($data[Production::ATTR_IMAGE]) > 9) {
             copy($data[Production::ATTR_IMAGE], $path_image . ".jpg");
             $production->image = Util::convertPathToUrl($path_image . ".jpg");
         } else {
-            $title_md5 = md5($production->title_original);
+            $title_md5 = md5($production->title_original . $production->year);
             $image = new Image($production->poster);
             $production->image = $image->createCopy(214, 334, $title_md5, public_path("assets/db/images/"), false);
         }
@@ -83,7 +83,6 @@ class ProductionController extends Controller {
         $queue->save();
         return redirect("manager/productions/edit/" . $production->id);
     }
-    
 
     function getEdit($id) {
         $production = Production::find($id);
@@ -112,7 +111,7 @@ class ProductionController extends Controller {
     function postEdit(Request $request) {
         $data = $request->all();
         $production = Production::findOrNew($data[Production::ATTR_ID]);
-        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE]." ".$data[Production::ATTR_YEAR]); 
+        $data[Production::ATTR_SLUG] = Util::createSlug($data[Production::ATTR_TITLE] . " " . $data[Production::ATTR_YEAR]);
         $production->fill($data);
         $production->save();
 
@@ -189,7 +188,7 @@ class ProductionController extends Controller {
         $chapter = (isset($data[Chapter::ATTR_ID])) ? Chapter::findOrNew($data[Chapter::ATTR_ID]) : new Chapter();
         $chapter->production_id = $data[Chapter::ATTR_PRODUCTION_ID];
         $chapter->name = $data[Chapter::ATTR_NAME];
-        $chapter->video = str_replace(array("\n","\t","\r"," "),"", $data[Chapter::ATTR_VIDEO]);
+        $chapter->video = str_replace(array("\n", "\t", "\r", " "), "", $data[Chapter::ATTR_VIDEO]);
         $chapter->quality = $data[Chapter::ATTR_QUALITY];
         $chapter->languages = $data[Chapter::ATTR_LANGUAGES];
         $chapter->subtitles = (isset($data[Chapter::ATTR_SUBTITLES])) ? $data[Chapter::ATTR_SUBTITLES] : null;
@@ -235,16 +234,18 @@ class ProductionController extends Controller {
 
 
         $provider = new ProductionProvider($name, $link);
-        $provider->save();
+        $production_id = $provider->save();
 
         //Verifica si ya existia en la cola de procesamiento, si es asi lo indica como procesado y si no, lo crea.
         if (QueueProductions::existsByLink($link)) {
             $queue = QueueProductions::where(QueueProductions::ATTR_LINK, $link)->get()[0];
             $queue->date_processed = DateUtil::getCurrentTime();
+            $queue->production_id = $production_id;
             $queue->save();
             return json_encode(array("msg" => "<span class='glyphicon glyphicon-ok-circle'></span> " . $name . " Procesado con éxito"));
         } else {
             $queue = new QueueProductions;
+            $queue->production_id = $production_id;
             $queue->name = $name;
             $queue->link = $data[1];
             $queue->date_creation = DateUtil::getCurrentTime();

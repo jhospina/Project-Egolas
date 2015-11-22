@@ -5,6 +5,8 @@ use App\System\Library\Media\Image;
 use Illuminate\Support\Facades\Storage;
 use App\System\Models\User;
 
+$isPremium=!(Auth::user()->role==User::ROLE_SUSCRIPTOR_PREMIUM);
+
 $url = Util::getCurrentUrl();
 ?>
 <div id="menu" class="col-xs-2">
@@ -32,6 +34,9 @@ $url = Util::getCurrentUrl();
     <div class="list-group">
         <a href="{{URL::to("user/dashboard")}}" class="list-group-item {{(strpos($url,"dashboard")!==false)?'active':null}}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a>
         <a href="{{URL::to("user/favorites")}}" class="list-group-item {{(strpos($url,"favorites")!==false)?'active':null}}"><span class="glyphicon glyphicon-star"></span> {{trans('ui.menu.item.my.list.favorites')}}</a>
+        
+        <a href="{{($isPremium)?URL::to("user/requests"):""}}" title="Solo Usuarios Premium" class="list-group-item {{(!$isPremium)?'disabled tooltip-top':''}} {{(strpos($url,"requests")!==false)?'active':null}}"><span class="glyphicon glyphicon-flag"></span> {{trans('ui.menu.item.requests')}}</a>
+
         <a href="{{URL::to("user/contributions")}}" class="list-group-item {{(strpos($url,"contributions")!==false)?'active':null}}"><span class="glyphicon glyphicon-transfer"></span> {{trans('ui.menu.item.contributions')}}</a>
         <a href="{{URL::to("user/account")}}" class="list-group-item {{(strpos($url,"account")!==false)?'active':null}}"><span class="glyphicon glyphicon-user"></span> {{trans('ui.menu.item.my.account')}}</a>
         <a href="{{URL::to("user/auth/logout")}}" class="list-group-item"><span class="glyphicon glyphicon-log-out"></span> {{trans("ui.user.menu.logout")}} </a>
@@ -41,8 +46,9 @@ $url = Util::getCurrentUrl();
 
 
 <div id="menu-mobile" class="col-xs-12">
-    <a href="{{URL::to("user/dashboard")}}" class="col-xs-3 item {{(strpos($url,"dashboard")!==false)?'active':null}}"><span class="glyphicon glyphicon-dashboard"></span></a>
-    <a href="{{URL::to("user/favorites")}}" class="col-xs-3 item {{(strpos($url,"favorites")!==false)?'active':null}}"><span class="glyphicon glyphicon-star"></span></a>
+    <a href="{{URL::to("user/dashboard")}}" class="col-xs-2 item {{(strpos($url,"dashboard")!==false)?'active':null}}"><span class="glyphicon glyphicon-dashboard"></span></a>
+    <a href="{{URL::to("user/favorites")}}" class="col-xs-2 item {{(strpos($url,"favorites")!==false)?'active':null}}"><span class="glyphicon glyphicon-star"></span></a>
+    <a href="{{($isPremium)?URL::to("user/requests"):""}}" class="col-xs-2 item {{(!$isPremium)?'disabled':''}} {{(strpos($url,"requests")!==false)?'active':null}}"><span class="glyphicon glyphicon-flag"></span></a>
     <a href="{{URL::to("user/contributions")}}" class="col-xs-2 item {{(strpos($url,"contributions")!==false)?'active':null}}"><span class="glyphicon glyphicon-transfer"></span></a>
     <a href="{{URL::to("user/account")}}" class="col-xs-2 item {{(strpos($url,"account")!==false)?'active':null}}"><span class="glyphicon glyphicon-user"></span></a>
     <a href="{{URL::to("user/auth/logout")}}" class="col-xs-2 item"><span class="glyphicon glyphicon-log-out"></span></a>
