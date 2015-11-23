@@ -2,6 +2,7 @@
 
 use App\System\Models\Chapter;
 use App\System\Library\Complements\Util;
+use App\System\Models\VideoCloudAccount;
 
 $langs = App\System\Library\Enum\Language::getAll();
 $qualities = Chapter::getQualities();
@@ -10,8 +11,12 @@ $subs = Chapter::getSubtitles();
 $chapters = $production->chapters;
 $isVideoMain = $production->haveVideoMain();
 
+
+
 if ($isVideoMain)
     $chapter = $chapters[0];
+
+$videocloud = (!isset($chapter)) ? VideoCloudAccount::getCurrentAccountEmail() : VideoCloudAccount::getAccountEmailById($chapter->videocloud_id);
 ?>
 @extends("manager/ui/templates/main")
 
@@ -105,7 +110,7 @@ if ($isVideoMain)
         <div class="col-md-2">
             <div id="image-mask">
                 <a target="_blank" href="{{URL::to('production/'.$production->slug)}}">
-                <img src="{{$production->image}}"/><br/>
+                    <img src="{{$production->image}}"/><br/>
                 </a>
                 {{trans("gen.info.mask")}}
             </div>
@@ -126,10 +131,13 @@ if ($isVideoMain)
                 <input id="name-chapter"type="text" class="input-lg form-control" value="{{(isset($chapter))?$chapter->name:null}}"> 
             </div>
             <div class="col-md-12">
-                <label>{{trans("gen.info.content")}}</label>
-                <textarea id="video-chapter" class="form-control">{{(isset($chapter))?$chapter->video:null}}</textarea>
+                <label>ID Video</label>
+                <input id="video-chapter" class="form-control" value='{{(isset($chapter))?$chapter->video:null}}'>
             </div>
-
+            <div class="col-md-12">
+                <label>Cuenta Videocloud</label>
+                <input readonly="readonly" class="form-control" value='{{$videocloud}}'>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="col-md-6">
@@ -225,8 +233,8 @@ if ($isVideoMain)
 
 <script>
                                             function deleteChapter(id){
-                                                resetVideo();
-                                            $("#chapter-" + id).fadeOut(function(){$("#chapter-" + id).remove()});
+                                            resetVideo();
+                                                    $("#chapter-" + id).fadeOut(function(){$("#chapter-" + id).remove()});
                                                     var data = {
                                                     "_token": "{{ Session::token() }}",
                                                             "{{Chapter::ATTR_ID}}":id

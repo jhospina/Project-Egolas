@@ -14,6 +14,9 @@ use App\System\Library\Complements\Util;
 use App\System\Models\QueueProductions;
 use App\System\AutoUpdateSearcher\Providers\ProductionProvider;
 use App\System\Library\Complements\DateUtil;
+use App\System\Library\Media\Video;
+use App\System\Models\VideoCloudAccount;
+use App\System\Library\Media\Image;
 
 class ProductionController extends Controller {
 
@@ -105,7 +108,6 @@ class ProductionController extends Controller {
                         ->with("cats_selected", $cats_selected)
                         ->with("categories", $categories)
                         ->with("dealers", $dealers);
-        ;
     }
 
     function postEdit(Request $request) {
@@ -140,6 +142,44 @@ class ProductionController extends Controller {
             $production->terms()->attach($set[$i]);
 
         return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.info.change.saved"), null, 2));
+    }
+
+    function getMigration() {  
+        $total = Chapter::all()->count();
+        return view("manager/contents/production/migration")->with("total", $total);
+    }
+
+    function ajax_loadVideosMigration(Request $request) {
+        if (!$request->ajax())
+            return;
+
+        $data = $request->all();
+        $skip = $data["skip"];
+        $return = array();
+
+        $chapters = Chapter::skip($skip)->take(30)->orderBy("id", "DESC")->get();
+
+        foreach ($chapters as $chapter) {
+            $video = new Video($chapter->video);
+            $return[] = array("id" => $chapter->id, "url" => $video->getUrlVideo());
+        }
+
+        return json_encode($return);
+    }
+
+    function ajax_setVideosId(Request $request) {
+        if (!$request->ajax())
+            return;
+
+        $data = $request->all();
+        $video = $data["video"];
+        $id = $data["id"];
+
+        $chapter = Chapter::find($id);
+        $chapter->video = $video;
+        $chapter->videocloud_id= VideoCloudAccount::getCurrentAccountId();
+        $chapter->save();
+        return json_encode($data);
     }
 
     /** Edita un atributo de una produccion mendiante ajax (manager/productions/ajax/post/edit/)
@@ -189,6 +229,7 @@ class ProductionController extends Controller {
         $chapter->production_id = $data[Chapter::ATTR_PRODUCTION_ID];
         $chapter->name = $data[Chapter::ATTR_NAME];
         $chapter->video = str_replace(array("\n", "\t", "\r", " "), "", $data[Chapter::ATTR_VIDEO]);
+        $chapter->videocloud_id=  VideoCloudAccount::getCurrentAccountId();
         $chapter->quality = $data[Chapter::ATTR_QUALITY];
         $chapter->languages = $data[Chapter::ATTR_LANGUAGES];
         $chapter->subtitles = (isset($data[Chapter::ATTR_SUBTITLES])) ? $data[Chapter::ATTR_SUBTITLES] : null;

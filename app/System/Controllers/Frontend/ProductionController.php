@@ -172,7 +172,7 @@ class ProductionController extends Controller {
             return abort(404);
         $playback = $playback[0];
 
-        
+
         //Verifica que el token no haya sido validado
         if (intval($playback->pivot->validate) >= 2)
             return abort(404);
@@ -181,14 +181,14 @@ class ProductionController extends Controller {
             Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => intval($playback->pivot->validate) + 1));
         else
             Auth::user()->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_TOKEN, $token)->update(array(User::ATTR_PLAYBACKS_PIVOT_VALIDATE => 2));
- 
+
         $detect = new MobileDetect();
+        $video = new Video($id_video);
         if ($detect->isMobile() || $detect->isTablet()) {
-            $url_video = Video::PLAYER_DEFAULT . "?videoId=" . $id_video;
+            $url_video = $video->getUrlVideoPlayer();
         } else {
             //Entrega la URL del video
-            $video = new Video($id_video);
-            $url_video = $video->getData(array(Video::FIELD_FLVURL));
+            $url_video = $video->getUrlVideo();
         }
 
         header("HTTP/1.1 301 Moved Permanently");
@@ -280,11 +280,12 @@ class ProductionController extends Controller {
         $skip = $data["skip"];
         $filtered = (isset($data["filtered"]) && $data["filtered"] == "true") ? true : false;
 
-        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("state", "ASC")->skip($skip)->take(36)->get() : Term::findOrNew($cat_id)->productions()->orderBy("state", "ASC")->skip($skip)->take(36)->get();
+        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("state", "ASC")->skip($skip)->take(36)->groupBy("id")->get() : Term::findOrNew($cat_id)->productions()->orderBy("state", "ASC")->skip($skip)->take(36)->groupBy("id")->get();
 
         $response = array();
         if ($skip == 0)
             $total_productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->count() : Term::findOrNew($cat_id)->productions()->count();
+
 
         foreach ($productions as $production) {
             $data_production = array("html" => Production::getVisualHtml($production));
@@ -296,6 +297,8 @@ class ProductionController extends Controller {
 
         if (count($productions) == 0)
             $response[] = array("total" => 0);
+
+
 
         return json_encode($response);
     }

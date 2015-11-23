@@ -203,15 +203,26 @@ Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => [
     Route::post("password/edit", "Auth\PasswordController@postEditPassword");
     autoProcess();
     productions();
+    videocloud();
 });
+
+function videocloud() {
+    $class = "VideoCloudController@";
+    Route::get("videocloud/index", $class . "getIndex");
+    Route::post("videocloud/index", $class . "postCreate");
+}
 
 function productions() {
     $class = "ProductionController@";
     Route::get("productions", $class . "index");
+    Route::get("productions/migration", $class . "getMigration");
     Route::get("productions/create", $class . "getCreate");
     Route::post("productions/create", $class . "postCreate");
     Route::get("productions/edit/{id}", $class . "getEdit");
     Route::post("productions/edit/{id}", $class . "postEdit");
+    Route::post("productions/ajax/get/video/migration", $class . "ajax_loadVideosMigration");
+    Route::post("productions/ajax/set/video/id", $class . "ajax_setVideosId");
+
     //AJAX
     Route::post("productions/ajax/post/edit/", $class . "ajaxPostEdit");
     Route::post("productions/ajax/get/records", $class . "ajaxGetRecords");

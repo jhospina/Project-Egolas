@@ -14,12 +14,13 @@ class CreateTableChapters extends Migration {
         Schema::create('chapters', function (Blueprint $table) {
             $table->increments("id");
             $table->integer("production_id");
-            $table->text("video"); 
+            $table->text("video")->unique();
             $table->string("languages");
             $table->string("subtitles")->nullable();
             $table->string("quality", 2);
             $table->string("type", 2);
             $table->string("state", 2);
+            $table->integer("videocloud_id");
         });
     }
 

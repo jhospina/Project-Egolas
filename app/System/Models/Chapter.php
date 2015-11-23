@@ -18,6 +18,7 @@ class Chapter extends Model {
     const ATTR_QUALITY = "quality";
     const ATTR_TYPE = "type";
     const ATTR_STATE = "state";
+    const ATTR_VIDEOCLOUD_ID="videocloud_id";
     //TYPE
     const TYPE_MAIN = "MA";
     const TYPE_EPISODE = "EP";
@@ -62,7 +63,8 @@ class Chapter extends Model {
         }
         return $subtitles;
     }
-
+    
+    
     public function setLanguagesAttribute($value) {
         $this->attributes[Chapter::ATTR_LANGUAGES] = json_encode($value);
     }
@@ -77,6 +79,15 @@ class Chapter extends Model {
 
     public function getSubtitlesAttribute($value) {
         return (is_null($value)) ? $value : json_decode($value);
+    }
+
+    //MUTATORS
+    public function setVideoAttribute($value) {
+        if (isset($this->attributes[Chapter::ATTR_VIDEO]))
+            if ($this->attributes[Chapter::ATTR_VIDEO] != $value)
+            //Realizar un registro del antiguo slug
+                Log\ChapterVideoID::add($this->attributes["id"],trim($this->attributes[Chapter::ATTR_VIDEO]));
+        $this->attributes[Chapter::ATTR_VIDEO] = trim($value);
     }
 
 }

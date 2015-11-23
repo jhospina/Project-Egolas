@@ -4,39 +4,42 @@ namespace App\System\Library\Media;
 
 use App\System\AutoUpdateSearcher\Providers\HTMLProvider;
 use App\System\Models\Chapter;
-use App\System\Library\Complements\Util;
+use App\System\Models\VideoCloudAccount;
 
 class Video {
 
-    //Token de lectura
-    const TOKEN_READ = "c1xrJv7-ih1Fw5hX_b7JBvUyiIrooZejAfHZDC4CkXFiVuuq95-crA..";
-    const PLAYER_DEFAULT="https://players.brightcove.net/4584534319001/default_default/index.html";
     var $id_video;
-
+    var $token;
+    var $player;
+   
     //METADATOS DEL VIDEO
     const FIELD_NAME = "name";
     const FIELD_LENGTH = "length";
     const FIELD_FLVURL = "FLVURL";
 
     function __construct($id_video) {
-        $this->id_video = $id_video;
+        $this->id_video = intval(trim($id_video));
+        $videocloud = VideoCloudAccount::find(Chapter::where(Chapter::ATTR_VIDEO, $id_video)->get()[0]->videocloud_id);
+        $this->token = $videocloud->token;
+        $this->player = $videocloud->player;
     }
 
     /** Obtiene un array con los datos solicitados del video
      * 
-     * @param type $fields // Los datos a solicitar
      * @return type
      */
-    function getData($fields) {
-        if (!is_array($fields))
-            return null;
+    function getUrlVideo() {
         $json = new HTMLProvider();
-        $json->loadContent("https://api.brightcove.com/services/library?command=find_video_by_id&video_id=" . $this->id_video . "&video_fields=" . Util::formatResultArray($fields, ",") . "&media_delivery=http&token=" . self::TOKEN_READ);
-        $data = json_decode($json->htmlContent,true);
-        if (count($fields) == 1)
-            return array_values($data)[0];
-        else
-            return $data;
+        $json->loadContent("https://api.brightcove.com/services/library?command=find_video_by_id&video_id=" . $this->id_video . "&video_fields=" . Video::FIELD_FLVURL . "&media_delivery=http&token=" . $this->token);
+        $data = json_decode($json->htmlContent, true);
+        return $data[Video::FIELD_FLVURL];
+    }
+
+    /**
+     * Obtiene la url del reproduccion asignado a la cuenta con el video a reproducir
+     */
+    function getUrlVideoPlayer() {
+        return $this->player . "?videoId=" . $this->id_video;
     }
 
 }

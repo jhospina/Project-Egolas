@@ -34,7 +34,18 @@ function getVideo() {
                 });
             }, 3000);
 
+        },
+        error: function (request, status, error) {
+            $(".spinner").hide();
+            $("#msg-loader").html("<span class='glyphicon glyphicon-alert' style='font-size: 50pt;display: block;margin-bottom: 10px;'></span>  OOUPS! Parece que la fuente de video no esta disponible en este momento. Por favor inténtalo de nuevo más tarde. Si el problema persiste informanos. ");
+            return;
         }
     });
 }
 
+
+
+window.addEventListener('error', function (e) {
+    $(".spinner").hide();
+    $("#msg-loader").html("<span class='glyphicon glyphicon-alert' style='font-size: 50pt;display: block;margin-bottom: 10px;'></span>  OOUPS! Parece que la fuente de video no esta disponible en este momento. Por favor inténtalo de nuevo más tarde. Si el problema persiste informanos. ");
+}, true);

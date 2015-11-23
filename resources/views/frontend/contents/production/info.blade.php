@@ -46,7 +46,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
 <h1 id="title-production-mob" class="text-center">{{$production->title}}<br/><small>{{$production->title_original}}</small></h1>
 <div id="info" class="content container">
-    <div id="title-production" class="col-md-10">{{$production->title}} <span id="title-ori">({{$production->title_original}})</span></div>
+    <div id="title-production" class="col-md-10"><div>{{$production->title}}</div>@if($production->title!=$production->title_original)<div><span id="title-ori" style="vertical-align:top;">{{$production->title_original}}</span></div>@endif</div>
     @if(!is_null($production->rating_rel) && floatVal($production->rating_rel)>0)
     <div class="col-md-2 text-right" style="padding: 0px;">
         <div id="rating-imdb">

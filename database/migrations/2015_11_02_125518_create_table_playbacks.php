@@ -17,10 +17,9 @@ class CreateTablePlaybacks extends Migration {
             $table->integer("production_id");
             $table->string("ip");
             $table->dateTime("date");
-            $table->string("token",100);
+            $table->string("token",100)->unique();
             $table->boolean("validate");
             $table->bigInteger("parent");
-            $table->index("token");
         });
     }
 
