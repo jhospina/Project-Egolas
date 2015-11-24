@@ -17,7 +17,7 @@
 <p>Cualquier usuario nuevo que se registre obtendra una cuenta gratis en Bandicot.com sujeto a disposición los siguientes derechos:</p>
 <p>
 <ul>
-    <li>Tiene derecho a ver o a reproducir una producción cinematografica enlazada con Bandicot.com una unica vez por semana.</li>
+    <li>Tiene derecho a ver o a reproducir una producción cinematografica enlazada con Bandicot.com una unica vez por día.</li>
     <li>Tiene derecho a comentar y dar a conocer sus opiniones en relación a las producciones enlazadas en la plataforma.</li>
     <li>Tiene derecho a puntuar su satisfacción, interes o expresión emocional despetarda por cualquier producción cinematografica enlazada en la plataforma.</li>
     <li>Tiene derecho a navegar en todo el catalogo de producciones disponibles y no disponibles enlazados en la plataforma de Bandicot.com</li>
@@ -33,7 +33,7 @@
 </ul>
 </p>
 <h3>Exclusión de garantías y de responsabilidad</h3>
-<p>El aporte economico de los usuarios a bandicot.com no contrae un contrato legal de servicio aplicable entre Bandicot.com y el usuario, por lo que Bandicot.com puede por terminado el servicio en cualquier momento sin previo aviso si así lo dispone.</p>
+<p>El aporte economico de los usuarios a bandicot.com no contrae un contrato legal de servicio aplicable entre Bandicot.com y el usuario, por lo que Bandicot.com puede por dar por terminado el servicio en cualquier momento sin previo aviso si así lo dispone.</p>
 <p>Bandicot.com no garantiza la licitud, fiabilidad y utilidad de los contenidos. Asi mismo se excluye, con toda la extensión permitida por el ordenamiento jurídico, cualquier responsabilidad por los daños y perjuicios de toda naturaleza que puedan deberse a la transmisión, difusión, almacenamiento, puesta a disposición, recepción, obtención o acceso a los contenidos, y en particular, aunque no de modo exclusivo, por los daños y perjuicios que puedan deberse a:</p>
 <p>
 <ol>
@@ -53,7 +53,7 @@
 <h3>Legislación aplicable</h3>
 <p>Las presentes condiciones expuestas se rigen por la legislación colombiana. La interpretación y resolución de cualquier conflicto que se pueda derivar de la participación del usuario en los servicios de Bandicot.com estará sujeta a los Juzgados y Tribunales de la Republica de Colombia.</p>
 <h3>Violación de materiales con Copyright</h3>
-<p>Bandicot.com en su buena fé no supone violar los derechos de autor correspondientes a las producciones que la plataforma expone. Sin embargo, esta abierto a cualquier solicitud que de alguna manera convenga a eliminar cualquier contenido protegido con derechos de autor que exprese violar las normas sujetas. Cualquier solicitud debe ser enviada al correo electrónico <i>{{trans("gen.email.support")}}</i> indicando en el asunto "Violación de Copyright", con la cual se procederá a la eliminación de la producción dentro catalogo y posteriormete se creara un registro de bloqueo para que nuestro sistema de algoritmos de rastreo no vuelvan incluirlo.</p>
+<p>Bandicot.com en su buena fé no supone violar los derechos de autor correspondientes a las producciones que la plataforma expone. Sin embargo, esta abierto a cualquier solicitud que de alguna manera convenga a eliminar cualquier contenido protegido con derechos de autor que exprese violar las normas juridicas sujetas. Cualquier solicitud debe ser enviada al correo electrónico <i>{{trans("gen.email.support")}}</i> indicando en el asunto "Violación de Copyright", con la cual se procederá a la eliminación de la producción dentro catalogo y posteriormete se creara un registro de bloqueo para que nuestro sistema de rastreo no vuelva incluirlo.</p>
 <h3>Disposición final</h3>
 <p>La visita o acceso a Bandicot.com, sitio de carácter privado y no público, exige la aceptación del presente aviso. En esta web se puede acceder a contenidos recopilados de otros sitios webs de almacenamiento. El único material existente en este sitio son enlaces a dicho contenido, facilitando únicamente la copia privada. Los propietarios de plataformas de webs especializadas en el almacenamiento de archivos como bitshear, hotfile y el resto de sitios son completamente responsables de sus contenidos.</p>
 <p>Por consiguiente, Bandicot.com ni aprueba, ni hace suyos los productos, servicios, contenidos, información, datos, opiniones, archivos o cualquier clase de material (o comentarios realizados por los usuarios) existente en bitshear, hotfile y similares y no controla ni se hace responsable de la calidad, licitud, fiabilidad o utilidad de la información, contenidos y servicios existentes en dichos sitios.</p>

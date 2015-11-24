@@ -26,7 +26,7 @@ class Payment extends Model {
     const MONEY_CURRENT = "USD";
     const PAY_NAME = "Cuenta premium";
     const PAY_DESCRIPTION = "Disfruta sin limites en bandicot.com";
-    const PAY_PRICE_PER_DAY = 0.14; // El precio por dia de cuenta premium (USD)
+    const PAY_PRICE_PER_DAY = 0.13; // El precio por dia de cuenta premium (USD)
     const PAY_MIN_QUANTITY = 30; // Cantidad minima a pagar
     const PAY_QUANTITY = 1;
 

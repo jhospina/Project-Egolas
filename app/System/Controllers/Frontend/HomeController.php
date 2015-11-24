@@ -29,8 +29,8 @@ class HomeController extends Controller {
         if (!Auth::check())
             return redirect("user/auth/login?redirect_to=" . url("browser"));
 
-        $productions = Production::where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("id", "DESC")->take(30)->get();
-        $categories = Term::all();
+        $productions = Production::where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("updated_at", "DESC")->take(30)->get();
+        $categories = Term::orderBy(Term::ATTR_MOTE,"ASC")->get();
         return view("frontend/contents/gen/browser")
                         ->with("productions", $productions)
                         ->with("categories", $categories);

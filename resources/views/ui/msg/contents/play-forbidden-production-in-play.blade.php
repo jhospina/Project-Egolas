@@ -2,7 +2,7 @@
 <div class="page-header">
     <h1 class="text-center"><span class="glyphicon glyphicon-alert"></span> Lo sentimos no puedes reproducir este contenido</h1>
 </div>
-<p class="caption text-center">Tú tipo de cuenta, no te permite reproducir más de un contenido por semana y que ya hallas empezado a ver.</p>
+<p class="caption text-center">Tú tipo de cuenta, no te permite reproducir más de un contenido por día y que ya hallas empezado a ver.</p>
 <br/>
 <div class="col-sm-6 text-center" style="padding-bottom: 20px;">
     <h3 class="text-center">Actualmente estabas viendo<br/>"{{$production->title}}"</h3>

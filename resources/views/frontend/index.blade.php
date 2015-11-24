@@ -41,9 +41,8 @@ use App\System\Models\User;
             <ul style="font-size: 16pt;">
                 <li>Peliculas en calidad de DVD</li>
                 <li>¡Puedes verlas completamente gratis!</li>
-                <li>Ve peliculas desde casi cualquier dispositivo</li>
-                <li>La mejor selección para tus gustos</li>
-                <li>Todo el contenido en español</li>
+                <li>Desde casi cualquier dispositivo</li>
+                <li>Todo el contenido 100% en español</li>
                 <li>Hazle seguimiento a los proximos estrenos</li>
                 <li>¿Deseas ver una pelicula y no esta disponible? ¡Solicitala!</li>
                 <li>Sin publicidad molesta</li>

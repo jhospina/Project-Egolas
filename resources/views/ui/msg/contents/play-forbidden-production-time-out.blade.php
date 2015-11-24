@@ -4,7 +4,7 @@ use App\System\Library\Complements\DateUtil;
 
 $date = new DateUtil(DateUtil::getCurrentTime());
 //Calcula el tiempo restante para que el usuario pueda ver otra pelicula
-$coming_date = $date->addSeconds((60 * 60 * 24 * 7) - $time);
+$coming_date = $date->addSeconds((60 * 60 * 24) - $time);
 ?>
 
 

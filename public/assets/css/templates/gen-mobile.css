@@ -147,4 +147,12 @@ div#overligth-menu-mob {
         height: 25px!important;
         text-align: center;
     }
+
+    h2{
+        font-size: 18pt;
+    }
+
+    #body-browser #categories {
+        margin-top: 35px;
+    }
 }

@@ -14,13 +14,32 @@ $(document).ready(function () {
 
     $(".slider-bcot").append("<div class='spinner'></div>");
 
+    $(".slider-bcot").each(function () {
+        var parent_id = "#" + $(this).attr("id");
+        var images = $(parent_id + " .content-item img");
+        var total_images = images.length;
+        var images_load = 0;
+        images.load(function () {
+            images_load++;
+            if (images_load == total_images) {
+                $(parent_id + " .spinner").fadeOut(function () {
+                    $(this).remove();
+                    $(parent_id + " .arrow").css("height", $(parent_id + " section").height()-2);
+                    $(parent_id + " section").fadeIn();
+                });
+            }
+        });
+    })
+
+
+
     $(window).load(function () {
 
-        $(".spinner").fadeOut(function () {
-            $(this).remove();
-            $(".slider-bcot .arrow").css("height", $(".slider-bcot img.production").height());
-        });
-        slider.fadeIn();
+        /* $(".spinner").fadeOut(function () {
+         $(this).remove();
+         $(".slider-bcot .arrow").css("height", $(".slider-bcot img.production").height());
+         });
+         slider.fadeIn();*/
     });
 
     adapter();
@@ -124,16 +143,16 @@ function handlerOver() {
         //OVER IN PRODUCTIÖN
         $(".slider-bcot .item").mouseenter(function () {
             //$(this).animate({"width": 214, "height": 318}, 50);
-            $(this).children("a").children(".over").css("opacity",1);
+            $(this).children("a").children(".over").css("opacity", 1);
         }).mouseleave(function () {
             //$(this).animate({"width": w_item, "height": h_item}, 50);
-            $(this).children("a").children(".over").css("opacity",0);
+            $(this).children("a").children(".over").css("opacity", 0);
         });
-        
-        $(".slider-bcot .item").click(function(){
-            $(this).children("a").children(".over").children("span").attr("class","glyphicon glyphicon-refresh glyphicon-refresh-animate");
+
+        $(".slider-bcot .item").click(function () {
+            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
         });
-        
+
     }
 }
 

@@ -20,8 +20,9 @@ $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
 
 @section("content")
 
+<h2>&nbsp;Agregado recientemente</h2>
 <div class="content-slider-productions">
-    <div class="slider-bcot">
+    <div class="slider-bcot" id="slider-recently">
         <section>
             @foreach($productions as $production)
             <div class="content-item">
@@ -53,7 +54,7 @@ $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
         ?>
         <a href="{{URL::to("category/".$category->slug)}}"><h2 class="text-center title-category text-uppercase">{{ucfirst($category->mote)}}</h2></a>
         <div class="content-slider-productions">
-            <div class="slider-bcot">
+            <div class="slider-bcot" id="slider-{{$category->id}}">
                 <section>
                     @foreach($productions as $production)
                     <?php $productions_id[] = $production->id; ?>

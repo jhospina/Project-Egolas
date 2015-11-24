@@ -46,7 +46,7 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
                 </a>
                 <ul class="dropdown-menu">
                     @if(Auth::user()->role==User::ROLE_SUSCRIPTOR)
-                    <li><a href="{{URL::to("premium")}}"><img src='{{URL::to("assets/images/logo-premium.png")}}' style='vertical-align: top;width:20px;'> ¡Premium!</a></li>
+                    <li><a href="{{URL::to("premium")}}"><img src='{{URL::to("assets/images/logo-premium.png")}}' style='vertical-align: top;width:20px;'> ¡Obtener Premium!</a></li>
                     <li role="separator" class="divider"></li>
                     @endif
                     <li><a href="{{URL::to("user/dashboard")}}"><span class="glyphicon glyphicon-user"></span> Mi cuenta</a></li>

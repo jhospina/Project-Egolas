@@ -134,7 +134,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public function getLastPlayBack() {
         if ($this->playbacks()->count() > 0) {
-            $play = $this->playbacks()->orderBy(User::ATTR_PLAYBACKS_PIVOT_DATE, "DESC")->get()[0];
+            $play = $this->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_PARENT, 0)->orderBy(User::ATTR_PLAYBACKS_PIVOT_DATE, "DESC")->get()[0];
             return array($play->pivot->date, $play->pivot->ip, $play->id);
         } else {
             return array(null, null, null);

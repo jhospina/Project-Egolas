@@ -70,6 +70,7 @@ use App\System\Models\Payment;
     {{ csrf_field() }}
     <input type="hidden" id="mount" name="mount" value="{{(Payment::PAY_PRICE_PER_DAY*Payment::PAY_MIN_QUANTITY)}}">
     <input type="hidden" id="quantity" name="quantity" value="{{Payment::PAY_MIN_QUANTITY}}">
+    <div id="response-redirect" class="col-xs-12" style="color: #878787;display:none;"><h3>Seras redirigido a Paypal...</h3></div>
     <div id="btn-pay" class="btn btn-primary">
         <section><span class="glyphicon glyphicon-credit-card"></span> Pagar con</section>
         <img src="{{URL::to('assets/images/paypal.jpg')}}"/>
@@ -87,6 +88,7 @@ use App\System\Models\Payment;
     var price_per_day = "{{Payment::PAY_PRICE_PER_DAY}}";
     $(document).ready(function () {
         $("#btn-pay").click(function () {
+            $("#response-redirect").show();
             $("#btn-pay section").html("<span class='glyphicon glyphicon-refresh glyphicon-refresh-animate'></span> Espera...");
             $(this).attr("disabled");
             $(this).addClass("disabled");

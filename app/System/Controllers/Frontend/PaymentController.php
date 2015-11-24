@@ -157,7 +157,7 @@ class PaymentController extends Controller {
         $token = isset($_GET['token']) ? $_GET['token'] : null;
 
         if (is_null($payerId) || is_null($token)) {
-            return redirect()->back()->with(UI::modalMessage("Pago cancelado", "<div class='text-center'><img width='150px;' src='" . url('assets/images/sad.png') . "'><p style='font-size: 15pt;margin-top:20px;'>Parece ser que has cancelado el pago. Eso nos pone muy triste. BUAAAAAA</p></div>", "¡No me importa!"));
+            return redirect()->back()->with(UI::modalMessage("Pago cancelado", "<div class='text-center'><img width='150px;' src='" . url('assets/images/sad.png') . "'><p style='font-size: 15pt;margin-top:20px;'>Parece ser que has cancelado el pago. ¿Quieres intentarlo de nuevo?</p></div>", "Cerrar"));
         }
 
         $payment = Payment::get($payment_id, $this->_api_context);

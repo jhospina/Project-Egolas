@@ -94,8 +94,8 @@ class ProductionController extends Controller {
             if ($time < (60 * 60 * 24) && $production->id != $play_production)
                 return view("frontend/contents/production/play-forbbiden")->with("production", $production)->with("message", view("ui/msg/contents/play-forbidden-production-in-play")->with("production", Production::find($play_production))->render());
 
-            //El usuario solo puede ver una produccion por semana
-            if ($time < (60 * 60 * 24 * 7) && $time > (60 * 60 * 24))
+            //El usuario solo puede ver una produccion por dia
+            if ($time < (60 * 60 * 24))
                 return view("frontend/contents/production/play-forbbiden")
                                 ->with("production", $production)
                                 ->with("message", view("ui/msg/contents/play-forbidden-production-time-out")
