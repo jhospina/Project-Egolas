@@ -48,7 +48,7 @@
         <a href="{{URL::to("")}}"><img alt="Logo Bandicot.com" src="{{URL::to("assets/images/logo.png")}}"></a>
     </div>
 
-    <div id="msg-forbidden" class="container content">
+    <div id="msg-forbidden" class="container content" style="margin-bottom: 50px;">
         {{$message}}
     </div>
 

@@ -97,13 +97,13 @@
                 <div class="panel-heading" role="tab" id="heading10">
                     <h4 class="panel-title">
                         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
-                            ¿Por que solamente puedo reproducir una película una vez a la semana?
+                            ¿Por que solamente puedo reproducir una película una vez al día?
                         </a>
                     </h4>
                 </div>
                 <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
                     <div class="panel-body">
-                        Debido a que el uso de nuestros recursos de servidor son altamente costosos no podemos ofrecer un servicio totalmente gratuito, así que debemos limitar la reproducción de las películas una única vez por semana a los usuarios gratuitos. De todas maneras la adquisición de una cuenta premium la hemos establecido aún bajo costo para que cualquiera pueda adquirirla. 
+                        Debido a que el uso de nuestros recursos de servidor son altamente costosos no podemos ofrecer un servicio totalmente gratuito, así que debemos limitar la reproducción de las películas una única vez por día a los usuarios gratuitos. De todas maneras la adquisición de una cuenta premium la hemos establecido aún bajo costo para que cualquiera pueda adquirirla. 
                     </div>
                 </div>
             </div>

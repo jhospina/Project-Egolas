@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 //*****************************************************
 //PAYMENT*********************************************
 //*****************************************************
-Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => ["auth"]], function() {
+Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => ["auth.frontend"]], function() {
     $class = "PaymentController@";
     Route::get("/", $class . "getIndex");
     Route::post("payment/post", $class . "postPayment");
@@ -30,7 +30,7 @@ Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => 
 //*****************************************************
 
 
-Route::group(["prefix" => "ajax", "middleware" => ["auth"]], function() {
+Route::group(["prefix" => "ajax", "middleware" => ["auth.frontend"]], function() {
     ajax_comments();
     ajax_user();
     ajax_productions();

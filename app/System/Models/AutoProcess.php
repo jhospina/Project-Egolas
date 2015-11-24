@@ -9,6 +9,7 @@ class AutoProcess extends Model {
 
     protected $table = "autoprocess";
     public $timestamps = false;
+    const URL_SITE="http://bandicot.com/";
 
     const ATTR_ID = "id";
     const ATTR_NAME = "name";
@@ -19,6 +20,7 @@ class AutoProcess extends Model {
     const CRON_PRODUCTIONS_FEED = "productionsFeed";
     const CRON_PERSON_TRACK = "personTrack";
     const CRON_USER_PRODUCTION_TRACK_SEND_MAIL = "userProductionTrackSendMail";
+    const CRON_GENERATE_SITEMAP="generateSitemap";
 
     /** Busca un proceso por su nombre
      * 

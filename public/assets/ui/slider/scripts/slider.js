@@ -24,22 +24,21 @@ $(document).ready(function () {
             if (images_load == total_images) {
                 $(parent_id + " .spinner").fadeOut(function () {
                     $(this).remove();
-                    $(parent_id + " .arrow").css("height", $(parent_id + " section").height()-2);
+                    $(parent_id + " .arrow").css("height", $(parent_id + " section").height() - 2);
                     $(parent_id + " section").fadeIn();
                 });
             }
         });
-    })
+    });
 
 
 
     $(window).load(function () {
 
-        /* $(".spinner").fadeOut(function () {
-         $(this).remove();
-         $(".slider-bcot .arrow").css("height", $(".slider-bcot img.production").height());
-         });
-         slider.fadeIn();*/
+        $(".spinner").fadeOut(function () {
+            $(this).remove();
+        });
+        slider.fadeIn();
     });
 
     adapter();

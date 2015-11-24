@@ -286,7 +286,7 @@ div#logo-msg-forbidden {
 }
 
 #msg-forbidden #content-premium{
-    border-left:1px white solid;
+    border-left:1px #434343 solid;
     padding-bottom: 20px;
 }
 

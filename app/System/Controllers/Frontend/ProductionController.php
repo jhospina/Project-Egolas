@@ -91,14 +91,11 @@ class ProductionController extends Controller {
             /**
              * EL usuario gratis tiene 24 horas para ver la produccion que escogio
              */
+            
             if ($time < (60 * 60 * 24) && $production->id != $play_production)
-                return view("frontend/contents/production/play-forbbiden")->with("production", $production)->with("message", view("ui/msg/contents/play-forbidden-production-in-play")->with("production", Production::find($play_production))->render());
-
-            //El usuario solo puede ver una produccion por dia
-            if ($time < (60 * 60 * 24))
                 return view("frontend/contents/production/play-forbbiden")
                                 ->with("production", $production)
-                                ->with("message", view("ui/msg/contents/play-forbidden-production-time-out")
+                                ->with("message", view("ui/msg/contents/play-forbidden-production-in-play")
                                         ->with("production", Production::find($play_production))->with("time", $time)->render())
                                 ->with("script", "assets/plugins/countdown/js/countdown.js")
                                 ->with("css", array("assets/plugins/countdown/css/styles.css"));

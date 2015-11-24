@@ -464,7 +464,6 @@ img.inactive{
     display: inline-block;
     position: relative;
     max-width: 214px;
-    min-height: 310px;
 }
 
 #content-add-favorite{
@@ -575,6 +574,7 @@ div#details .attr, #details .value {
     position: relative;
     border-top: 5px white solid;
     border-bottom: 5px white solid;
+     min-height: 52px;
 }
 
 #social .social-content.fb{
@@ -585,7 +585,6 @@ div#details .attr, #details .value {
     -moz-border-radius-bottomleft: 5px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    min-height: 41px;
 }
 
 #social .social-content img{
@@ -615,3 +614,8 @@ div#details .attr, #details .value {
     right: 8px;
     top: 7px;
 }
+
+#image-content,#content-ver-online{
+    text-align: left;
+}
+

@@ -13,6 +13,7 @@ use App\System\AutoUpdateSearcher\Providers\PersonProvider;
 use App\System\Models\User;
 use App\System\Models\Production;
 use App\System\Library\Com\Email;
+use App\System\Models\Person;
 
 class AppServiceProvider extends ServiceProvider {
 
@@ -30,7 +31,10 @@ class AppServiceProvider extends ServiceProvider {
 
     private function cron() {
 
+
         \Event::listen('cron.collectJobs', function() {
+
+
             /**
              * CRON: Alimentación de cola de producciones
              * DESCRIPCION: Alimenta la cola de producciones que se van a procesar
@@ -136,7 +140,7 @@ class AppServiceProvider extends ServiceProvider {
 
                     foreach ($productions as $production) {
                         //Notifica las producciones disponibles asociadas
-                        $description_email.="<a href='" . "http://bandicot.com/production/" . $production->slug . "'><img width='192px' height='289px' style='margin: 0px 10px;' src='" . $production->image . "'></a>";
+                        $description_email.="<a href='" . AutoProcess::URL_SITE . "production/" . $production->slug . "'><img width='192px' height='289px' style='margin: 0px 10px;' src='" . $production->image . "'></a>";
                         $production->pivot->mailed = 1;
                         $production->pivot->save();
                     }
@@ -149,6 +153,42 @@ class AppServiceProvider extends ServiceProvider {
                 }
 
                 return "Notificaciones realizadas (Si aplican)";
+            });
+
+            /**
+             * CRON: Genera el sitemap.xml del sitio
+             * EJECUCION: Cada Semana
+             */
+            \Cron::add(AutoProcess::CRON_GENERATE_SITEMAP, '* * */7 * *', function() {
+                //Url standards del sitio web
+                $urls = array(
+                    AutoProcess::URL_SITE,
+                    AutoProcess::URL_SITE . "doc/terms",
+                    AutoProcess::URL_SITE . "doc/privacypolicy",
+                    AutoProcess::URL_SITE . "doc/cookies-policy",
+                    AutoProcess::URL_SITE . "doc/help",
+                    AutoProcess::URL_SITE . "catalogue"
+                );
+
+                $file = fopen(public_path("sitemap.xml"), "w");
+                fwrite($file, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" . PHP_EOL);
+                fwrite($file, "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"> " . PHP_EOL);
+                for ($i = 0; $i < count($urls); $i++)
+                    fwrite($file, "<url><loc>" . $urls[$i] . "</loc></url>" . PHP_EOL);
+ 
+                //Inserta las url de cada persona
+                $persons = \App\System\Models\Person::all();
+                foreach ($persons as $person)
+                    fwrite($file, "<url><loc>" . AutoProcess::URL_SITE . "person/" . $person->slug . "</loc></url>" . PHP_EOL);
+                //Inserta las url de todas las producciones
+                $productions = Production::all();
+                foreach ($productions as $production)
+                    fwrite($file, "<url><loc>" . AutoProcess::URL_SITE . "production/" . $production->slug . "</loc></url>" . PHP_EOL);
+
+                fwrite($file, "</urlset>" . PHP_EOL);
+                fclose($file);
+
+                return "Sitemap.xml generado (" . count($persons) . " Personas) (" . count($productions) . " Producciones)";
             });
         });
     }

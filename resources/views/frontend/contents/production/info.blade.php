@@ -74,7 +74,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
             @endif
         </div>
         @if($isVideoMain)
-        <div class="text-center">
+        <div id="content-ver-online">
             @if(Auth::user()->state==User::STATE_UNCONFIRMED_ACCOUNT)
             <div id="ver-online-poster" rel="nofollow" class="ver-online disabled"><span class="glyphicon glyphicon-ban-circle"></span> Reproducir</div>
             @else 
@@ -156,11 +156,11 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     @if(!$userIsRated)
     <div id="open-modal-rating-new" class="btn btn-success"><span class="glyphicon glyphicon-heart"></span> Puntuar</div>
     @endif
-    <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count>1)?"opiniones":"opinión"}})</small></h2>
+                <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count>1)?"opiniones":"opinión"}})</small></h2>
     <div id="content-bar">
         @for($i=1;$i<=5;$i++)
-        <div class="line" style="left:{{($i*20)-0.2}}%">
-            <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\Production\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
+                    <div class="line" style="left:{{($i*20)-0.2}}%">
+                <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\Production\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
         </div>
         @endfor
         <div class="progress">
@@ -175,20 +175,20 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     <div class="col-md-12"><h2><span class="glyphicon glyphicon-share"></span> Comparte</h2></div>
     <div class="social-content fb col-sm-6">
         <div class="fb-like" data-href="{{URL::to("production/".$production->slug)}}" data-colorscheme="dark" data-share="true" data-layout="button"></div>
-       <img src="{{URL::to("assets/images/facebook.png")}}">
+        <img src="{{URL::to("assets/images/facebook.png")}}">
     </div>
     <div class="social-content twitter col-sm-6">
-           <a href="https://twitter.com/intent/tweet?screen_name=bandicotcom&text={{urlencode("Acabe de ver la película \"".$production->title."\" a través de Bandicot.com")}}" class="twitter-mention-button">Twittear que viste esta pelicula</a>
-            <script>!function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-        if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = p + '://platform.twitter.com/widgets.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }
-    }(document, 'script', 'twitter-wjs');</script>
-             <img src="{{URL::to("assets/images/twitter.png")}}">
+        <a href="https://twitter.com/intent/tweet?screen_name=bandicotcom&text={{urlencode("Acabe de ver la película \"".$production->title."\" a través de Bandicot.com")}}" class="twitter-mention-button">Twittear que viste esta pelicula</a>
+        <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + '://platform.twitter.com/widgets.js';
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, 'script', 'twitter-wjs');</script>
+        <img src="{{URL::to("assets/images/twitter.png")}}">
     </div>
 </div>
 <!-- FIN SOCIAL -->
@@ -232,7 +232,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 
     <div id="display-chapters" class="col-md-12">
         @foreach($chapters as $chapter)
-        <a class="chapter col-md-12" href="{{URL::to("f/production/".$production->slug."/play/".$chapter->id."/".Util::createSlug($chapter->name))}}">
+            <a class="chapter col-md-12" href="{{URL::to("f/production/".$production->slug."/play/".$chapter->id."/".Util::createSlug($chapter->name))}}">
             <div class="col-md-8">{{$chapter->name}}</div>
             <div class="col-md-4 text-right"><span class="glyphicon glyphicon-play-circle"></span></div>
         </a>    

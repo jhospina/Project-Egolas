@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\System\Models\Term;
 use App\System\Library\Media\Image;
 use App\System\Library\Complements\Util;
+use DB;
+
 class HomeController extends Controller {
 
     /**
@@ -25,12 +27,13 @@ class HomeController extends Controller {
     }
 
     public function getBrowser() {
-   
+
         if (!Auth::check())
             return redirect("user/auth/login?redirect_to=" . url("browser"));
 
-        $productions = Production::where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("updated_at", "DESC")->take(30)->get();
-        $categories = Term::orderBy(Term::ATTR_MOTE,"ASC")->get();
+        //Obtiene las 30 ultimas produccion agregadas
+        $productions = DB::select("SELECT productions.* FROM chapters,productions WHERE chapters.production_id=productions.id and productions.state='" . Production::STATE_ACTIVE . "' ORDER BY chapters.id DESC LIMIT 0,30 ");
+        $categories = Term::orderBy(Term::ATTR_MOTE, "ASC")->get();
         return view("frontend/contents/gen/browser")
                         ->with("productions", $productions)
                         ->with("categories", $categories);
