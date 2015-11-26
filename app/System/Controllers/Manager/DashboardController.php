@@ -34,7 +34,7 @@ class DashboardController extends Controller {
 
 
 
-        $users_state = array(User::all()->where(User::ATTR_STATE, User::STATE_ACTIVED_ACCOUNT)->count(), User::all()->where(User::ATTR_STATE, User::STATE_ACTIVED_ACCOUNT)->count());
+        $users_state = array(User::all()->where(User::ATTR_STATE, User::STATE_UNCONFIRMED_ACCOUNT)->count(), User::all()->where(User::ATTR_STATE, User::STATE_ACTIVED_ACCOUNT)->count());
         $users_role = array(User::all()->where(User::ATTR_ROLE, User::ROLE_SUSCRIPTOR)->count(), User::all()->where(User::ATTR_ROLE, User::ROLE_SUSCRIPTOR_PREMIUM)->count());
         $productions = array(Production::all()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->count(), Production::whereNotIn(Production::ATTR_STATE, array(Production::STATE_ACTIVE))->count());
         $total_playbacks = DB::table("playbacks")->where(User::ATTR_PLAYBACKS_PIVOT_PARENT,0)->where(User::ATTR_PLAYBACKS_PIVOT_VALIDATE,2)->count();
