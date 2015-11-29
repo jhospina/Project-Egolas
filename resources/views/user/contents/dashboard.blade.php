@@ -19,7 +19,7 @@ use App\System\Library\Complements\DateUtil;
     @else
     <div class="col-lg-12 without-info" style="padding: 40px;">
         <span class="glyphicon glyphicon glyphicon-send"></span><br>
-        <div>Aún no tienes reproducciones </br><a href="{{URL::to("")}}">Clic aquí para ver el catalogo</a></div>
+        <div>Aún no tienes reproducciones </br><a href="{{URL::to("")}}">Clic aquí para ver el catalogo producciones</a></div>
     </div>
     @endif
 </div>

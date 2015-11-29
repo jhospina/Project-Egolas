@@ -21,6 +21,13 @@ $(document).ready(function () {
 
 function postComment() {
 
+    if ($("#content-comment").val().length < 2) {
+        $("#submit-post-comment").html("Comentar");
+        $("#submit-post-comment").removeAttr("disabled");
+        $("#submit-post-comment").removeClass("disabled");
+        return;
+    }
+
     $.ajax({
         url: ajax_post_comment,
         type: 'POST',
@@ -31,8 +38,10 @@ function postComment() {
             if ($("#content-not-comments").length > 0)
                 $("#content-not-comments").remove();
 
-            if (total_comment != -1)
+            if (total_comment != -1){
                 total_comment++;
+                skip++;
+            }
 
             var html = "<div class='comment'>" +
                     "<div class='col-xs-1 col-md-1'>" +
@@ -97,6 +106,7 @@ function loadComments() {
                 if (total_comment == -1)
                     total_comment = response[i].total;
 
+                 
                 if (total_comment == 0) {
                     $("#list-comment").html("<div id='content-not-comments'><div class='col-xs-3'></div><div class='col-xs-6 text-center'><h3><span class='glyphicon glyphicon-ban-circle'></span> <i>Sin comentarios aún. ¡Sé el primero!</i></h3></div><div class='col-xs-3'></div></div>");
                     skip = 0;

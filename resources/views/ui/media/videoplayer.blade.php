@@ -11,7 +11,7 @@ $isMobile = ($detect->isMobile() || $detect->isTablet());
 <html>
     <head>
         <title>{{$production->title}} | Bandicot.com</title>
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <meta name="robots" content="noindex">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

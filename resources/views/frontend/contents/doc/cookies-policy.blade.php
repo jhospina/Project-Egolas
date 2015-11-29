@@ -28,9 +28,9 @@
         A continuación le ofrecemos enlaces en los que encontrará información sobre cómo puede activar sus preferencias en los principales navegadores:</p>
     <ul>
         <li><a title="Chrome" href="https://support.google.com/chrome/answer/95647?hl=es&amp;ref_topic=14666" target="_blank">Google Chrome</a></li>
-        <li><a title="Internet Explorer" href="http://windows.microsoft.com/es-xl/internet-explorer/delete-manage-cookies#ie=ie-10" target="_blank">Internet Explorer</a></li>
-        <li><a title="Firefox" href="http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we" target="_blank">Mozilla Firefox</a></li>
-        <li><a title="Safari" href="http://support.apple.com/kb/HT1677?viewlocale=es_ES&amp;locale=es_ES" target="_blank">Safari</a></li>
+        <li><a title="Internet Explorer" href="//windows.microsoft.com/es-xl/internet-explorer/delete-manage-cookies#ie=ie-10" target="_blank">Internet Explorer</a></li>
+        <li><a title="Firefox" href="//support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we" target="_blank">Mozilla Firefox</a></li>
+        <li><a title="Safari" href="//support.apple.com/kb/HT1677?viewlocale=es_ES&amp;locale=es_ES" target="_blank">Safari</a></li>
     </ul>
     <h2>¿Qué ocurre si se deshabilitan las cookies?</h2>
     <p>En el caso de bloquear o no aceptar la instalación de cookies es posible que ciertos servicios ofrecidos por nuestro sitio web que necesitan su uso queden deshabilitados y, por lo tanto, no estén disponibles para usted por lo que no podrá aprovechar por completo todo lo que nuestras webs y aplicaciones le ofrecen. Es posible también que la calidad de funcionamiento de la página web pueda disminuir.</p>

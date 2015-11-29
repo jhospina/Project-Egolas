@@ -61,7 +61,7 @@ $coming_date = $date->addSeconds((60 * 60 * 24) - $time);
 
     $(document).ready(function () {
         $("#countdown").countdown({
-            date: "{{$coming_date}}",
+            date: "{{str_replace(' ','T',$coming_date)}}",
             format: "on"
         },
         function () {

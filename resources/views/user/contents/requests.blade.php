@@ -21,7 +21,7 @@ use App\System\Library\Complements\Util;
         </table>
     </div>
     <div class="col-sm-6 text-justify" id="attention-request">
-        <b>Atención: </b> Las solicitud de producciones de los usuarios no nos obliga a incluir dicha producción. Las producciones solicitadas sirven al sistema como referencia de las preferencias de los usuarios, lo puede ocasionar que las priorice y las incluya en el catalogo antes que otras no solicitadas.
+        <b>Atención: </b> Las solicitud de producciones de los usuarios no nos obliga a incluir dicha producción. Las producciones solicitadas sirven al sistema como referencia de las preferencias de los usuarios, lo que puede ocasionar que las priorice y las incluya en el catalogo antes que otras producciones no indexadas o no disponibles.
     </div>
 </div>
 
@@ -56,7 +56,7 @@ use App\System\Library\Complements\Util;
 
 @else
 
-<div class="col-lg-12 witdout-info" style="padding: 40px;">
+<div class="col-lg-12 without-info" style="padding: 40px;">
     <span class="glyphicon glyphicon glyphicon-flag"></span><br>
     <div>¿No encuentras una producción en nuestro catalogo? ¡Solicitala! </br><small>Aún no has realizado ninguna solicitud</small></div>
 </div>
@@ -76,7 +76,7 @@ use App\System\Library\Complements\Util;
                     <p>Para que podamos incluir la producción que deseas, necesitamos saber exactamente a cual te refieres. Para ello debe ingresar a la base de datos de producciones cinematográficas más grande del mundo, conocida como IMDB y obtener el enlace de la producción que deseas.</p>
                     <h4>Sigue estos pasos:</h4>
                     <ol>
-                        <li>Ingresa a <a target="_blank" href="http://imdb.com">imdb.com</a></li>
+                        <li>Ingresa a <a target="_blank" href="https://www.imdb.com">imdb.com</a></li>
                         <li>Busca el titulo de la producción que deseas que incluyamos en nuestro catalogo.<br/> (Para que lo puedas encontrar más facilmente, buscalo por su titulo en ingles.)</li>
                         <li>Copia la dirección de enlace de la producción.</li>
                         <li>Pega el enlace aquí...</li>

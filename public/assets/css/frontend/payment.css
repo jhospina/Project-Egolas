@@ -48,7 +48,7 @@ and open the template in the editor.
 .jumbotron li {
     text-align: left;
     font-size: 16pt;
-    list-style-image: url(http://bandicot.com/assets/images/favicon.png);
+    list-style-image: url(https://bandicot.com/assets/images/favicon.png);
 }
 
 #body-payment-index #btn-pay{

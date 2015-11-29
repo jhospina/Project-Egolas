@@ -18,6 +18,7 @@ class HomeController extends Controller {
      * @return Response
      */
     public function index() {
+
         if (Auth::check())
             return redirect("browser");
 

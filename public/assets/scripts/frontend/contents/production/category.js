@@ -5,7 +5,7 @@ $(document).ready(function () {
     loadProductions();
 //Carga las productions cuando llegan al final de la pagina
     $(window).scroll(function () {
-        if ($(window).scrollTop() + $(window).height()  >= $(document).height()*0.85) {
+        if ($(window).scrollTop() + $(window).height()  >= $(document).height()*0.5) {
             loadProductions();
         }
     });

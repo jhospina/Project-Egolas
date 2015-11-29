@@ -98,7 +98,7 @@ use App\System\Models\User;
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            Al hacer clic en el botón <i>"Registrarme"</i>, tu aceptas haber leido y aceptado los <a href="#" data-toggle="modal" data-target="#t_and_c_m">{{trans("gen.doc.terms")}}</a> ademas de la <a href="#" data-toggle="modal" data-target="#t_and_c_privacy">{{trans("gen.doc.privacy.policy")}}</a> para el uso de nuestro plataforma web.
+                            Al hacer clic en el botón <i>"Registrarme"</i>, tu aceptas haber leido y aceptado los <a href="#" data-toggle="modal" data-target="#t_and_c_m">{{trans("gen.doc.terms")}}</a>, la <a href="#" data-toggle="modal" data-target="#t_and_c_privacy">{{trans("gen.doc.privacy.policy")}}</a> y ademas la <a target="_blank" href="{{URL::to("doc/cookies-policy")}}">{{trans("gen.doc.cookies.policy")}}</a> para el uso de nuestro plataforma web.
                         </div>
                     </div>
                     <div class="row">

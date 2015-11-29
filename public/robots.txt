@@ -1,5 +1,4 @@
 User-agent: *
-Disallow: /
 Disallow: /manager/
 Disallow: /user/
 Sitemap: https://bandicot.com/sitemap.xml

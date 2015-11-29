@@ -3,7 +3,7 @@
     <head>
         <title>{{(isset($title))?strip_tags($title):"Todo Lo que quieres ver"}} - Bandicot.com</title>
         <meta name="robots" content="NoIndex, NoFollow">
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name='language' content='es' />
         {{-- Bootstrap --}}

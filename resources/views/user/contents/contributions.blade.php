@@ -16,7 +16,6 @@ use App\System\Library\Complements\DateUtil;
         js = d.createElement(s);
         js.id = id;
         js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.5";
-        js.href = "https://www.facebook.com/Bandicotcom-974813252592135/";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 
@@ -29,7 +28,7 @@ use App\System\Library\Complements\DateUtil;
         <div class="content-image-social">
             <img src="{{URL::to("assets/images/facebook.png")}}">
         </div>
-        <div class="description"> Para nosotros seria muy valioso si nos ayudas a crecer. Contribuir no te cuenta nada. Regalanos un "Me gusta".</div>
+        <div class="description"> Para nosotros seria muy valioso si nos ayudas a crecer. Contribuir no te cuesta nada. Regalanos un "Me gusta".</div>
     </div>
     <div id="facebook-content">
         <div class="fb-like" data-href="{{trans("gen.social.facebook.link")}}" data-share="true" data-layout="button"></div>
@@ -41,7 +40,7 @@ use App\System\Library\Complements\DateUtil;
         <div class="content-image-social">
             <img src="{{URL::to("assets/images/twitter.png")}}">
         </div>
-        <div class="description"> Para nosotros seria muy valioso si nos ayudas a crecer. Contribuir no te cuenta nada. Seguinos en Twitter.</div>
+        <div class="description"> Para nosotros seria muy valioso si nos ayudas a crecer. Contribuir no te cuesta nada. Seguinos en Twitter.</div>
     </div>
     <div id="twitter-content">
         <a href="https://twitter.com/bandicotcom" class="twitter-follow-button" data-show-count="false">¡Siguenos en Twitter!</a>

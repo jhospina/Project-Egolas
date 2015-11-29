@@ -277,7 +277,7 @@ class ProductionController extends Controller {
         $skip = $data["skip"];
         $filtered = (isset($data["filtered"]) && $data["filtered"] == "true") ? true : false;
 
-        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("state", "ASC")->skip($skip)->take(36)->groupBy("id")->get() : Term::findOrNew($cat_id)->productions()->orderBy("state", "ASC")->skip($skip)->take(36)->groupBy("id")->get();
+        $productions = ($filtered) ? Term::findOrNew($cat_id)->productions()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->orderBy("state", "ASC")->skip($skip)->take(72)->groupBy("id")->get() : Term::findOrNew($cat_id)->productions()->orderBy("state", "ASC")->skip($skip)->take(72)->groupBy("id")->get();
 
         $response = array();
         if ($skip == 0)

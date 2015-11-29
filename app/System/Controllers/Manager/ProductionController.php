@@ -288,7 +288,7 @@ class ProductionController extends Controller {
             $queue = new QueueProductions;
             $queue->production_id = $production_id;
             $queue->name = $name;
-            $queue->link = $data[1];
+            $queue->link = $link;
             $queue->date_creation = DateUtil::getCurrentTime();
             $queue->date_processed = DateUtil::getCurrentTime();
             $queue->save();

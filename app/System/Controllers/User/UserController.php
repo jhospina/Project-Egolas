@@ -79,7 +79,7 @@ class UserController extends Controller {
 
         //Crear carpeta de usuario predeterminada
         $image = new Image(url($temp . $filename));
-        $url_avatar = $image->createCopy(200, 200, DateUtil::getTimeStamp(), Auth::user()->getPathUploads(), false);
+        $url_avatar = $image->createCopy(200, 200, DateUtil::getTimeStamp(), public_path(Auth::user()->getPathUploads()), false);
 
         //Elimina el archivo temporal
         unlink(Util::convertUrltoPath(url($temp . $filename)));
@@ -150,7 +150,7 @@ class UserController extends Controller {
                 "title" => $production->title,
                 "image" => $production->image,
                 "description" => Util::trimText($production->description, 150),
-                "state"=>$production->state);
+                "state" => $production->state);
 
             if ($data["skip"] == 0)
                 $data_fav["total"] = $total_productions;

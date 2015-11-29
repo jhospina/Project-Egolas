@@ -9,7 +9,7 @@ class AutoProcess extends Model {
 
     protected $table = "autoprocess";
     public $timestamps = false;
-    const URL_SITE="http://bandicot.com/";
+    const URL_SITE="https://bandicot.com/";
 
     const ATTR_ID = "id";
     const ATTR_NAME = "name";

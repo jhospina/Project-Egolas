@@ -159,7 +159,7 @@ class AppServiceProvider extends ServiceProvider {
              * CRON: Genera el sitemap.xml del sitio
              * EJECUCION: Cada Semana
              */
-            \Cron::add(AutoProcess::CRON_GENERATE_SITEMAP, '* * */7 * *', function() {
+            \Cron::add(AutoProcess::CRON_GENERATE_SITEMAP, '0 0 * * 0', function() {
                 //Url standards del sitio web
                 $urls = array(
                     AutoProcess::URL_SITE,

@@ -4,8 +4,7 @@ var send = $("#send");
 $(document).ready(function () {
 
     $("#open-modal-request").click(function () {
-        console.log("ABRIR");
-        $("#modal-request").modal("show");
+         $("#modal-request").modal("show");
     });
 
     $("#send").click(function () {

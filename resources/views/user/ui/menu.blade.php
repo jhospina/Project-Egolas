@@ -5,7 +5,7 @@ use App\System\Library\Media\Image;
 use Illuminate\Support\Facades\Storage;
 use App\System\Models\User;
 
-$isPremium=!(Auth::user()->role==User::ROLE_SUSCRIPTOR_PREMIUM);
+$isPremium=(Auth::user()->role==User::ROLE_SUSCRIPTOR_PREMIUM);
 
 $url = Util::getCurrentUrl();
 ?>
@@ -35,7 +35,7 @@ $url = Util::getCurrentUrl();
         <a href="{{URL::to("user/dashboard")}}" class="list-group-item {{(strpos($url,"dashboard")!==false)?'active':null}}"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a>
         <a href="{{URL::to("user/favorites")}}" class="list-group-item {{(strpos($url,"favorites")!==false)?'active':null}}"><span class="glyphicon glyphicon-star"></span> {{trans('ui.menu.item.my.list.favorites')}}</a>
         
-        <a href="{{($isPremium)?URL::to("user/requests"):""}}" title="Solo Usuarios Premium" class="list-group-item {{(!$isPremium)?'disabled tooltip-top':''}} {{(strpos($url,"requests")!==false)?'active':null}}"><span class="glyphicon glyphicon-flag"></span> {{trans('ui.menu.item.requests')}}</a>
+        <a href="{{($isPremium)?URL::to("user/requests"):""}}" title="{{(!$isPremium)?'Solo Usuarios Premium':''}}" class="list-group-item {{(!$isPremium)?'disabled tooltip-top':''}} {{(strpos($url,"requests")!==false)?'active':null}}"><span class="glyphicon glyphicon-flag"></span> {{trans('ui.menu.item.requests')}}</a>
 
         <a href="{{URL::to("user/contributions")}}" class="list-group-item {{(strpos($url,"contributions")!==false)?'active':null}}"><span class="glyphicon glyphicon-transfer"></span> {{trans('ui.menu.item.contributions')}}</a>
         <a href="{{URL::to("user/account")}}" class="list-group-item {{(strpos($url,"account")!==false)?'active':null}}"><span class="glyphicon glyphicon-user"></span> {{trans('ui.menu.item.my.account')}}</a>

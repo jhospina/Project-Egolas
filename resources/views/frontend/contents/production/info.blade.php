@@ -2,6 +2,7 @@
 
 use App\System\Models\Production;
 use App\System\Models\User;
+use App\System\Library\Complements\Util;
 
 $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 ?>
@@ -37,7 +38,6 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         js = d.createElement(s);
         js.id = id;
         js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.5";
-        js.href = "https://www.facebook.com/Bandicotcom-974813252592135/";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
 <!-- FINAL SCRIPT FACEBOOK -->
@@ -63,7 +63,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     @endif
     <div class="col-md-3 text-center" id="image-content">
         <div id="poster">
-            <img class="{{($production->state!=Production::STATE_ACTIVE)?"inactive":""}}" src="{{$production->image}}" alt="{{$production->title}}">
+            <img class="{{($production->state!=Production::STATE_ACTIVE)?"inactive":""}}" src="{{Util::convertToSecureUrl($production->image)}}" alt="{{$production->title}}">
             @if(!$inFav)
             <div id="content-add-favorite">
                 <span class="glyphicon glyphicon-star-empty"></span>
@@ -126,7 +126,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         <div class="col-md-12">
             @if(!is_null($director->image))<a href="{{URL::to("person/".$director->slug)}}" class="staff"> @endif
                 @if(!is_null($director->image)) <div class="avatar">
-                    <img class="img-circle" alt="{{$director->name}}" src="{{$director->image}}"/>
+                    <img class="img-circle" alt="{{$director->name}}" src="{{Util::convertToSecureUrl($director->image)}}"/>
                 </div>
                 @endif
                 <div class="person" style="{{(is_null($director->image))?"width:100%":""}}">{{$director->name}}</div>
@@ -140,7 +140,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
                 @endif
                 @if(!is_null($person->image))
                 <div class="avatar">
-                    <img class="img-circle" alt="{{$person->name}}" src="{{$person->image}}"/>
+                    <img class="img-circle" alt="{{$person->name}}" src="{{Util::convertToSecureUrl($person->image)}}"/>
                 </div>
                 @endif
                 <div class="person" style="{{(is_null($person->image))?"width:100%":""}}">{{$person->name}}</div>
@@ -156,7 +156,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     @if(!$userIsRated)
     <div id="open-modal-rating-new" class="btn btn-success"><span class="glyphicon glyphicon-heart"></span> Puntuar</div>
     @endif
-                <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count>1)?"opiniones":"opinión"}})</small></h2>
+                <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count==1)?"opinión":"opiniones"}})</small></h2>
     <div id="content-bar">
         @for($i=1;$i<=5;$i++)
                     <div class="line" style="left:{{($i*20)-0.2}}%">

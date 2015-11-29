@@ -30,8 +30,8 @@
                                                    ">
                                                 <tbody><tr>
                                                         <td align="center" valign="middle" style="padding:30px 0px 20px 0px">
-                                                            <a href="http://badicot.com" target="_blank">
-                                                                <img style="display:block;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#333333" src="http://bandicot.com/assets/images/logo.png" width="250" height="58" border="0" alt="Bandicot" class="CToWUd">
+                                                            <a href="https://badicot.com" target="_blank">
+                                                                <img style="display:block;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#333333" src="https://bandicot.com/assets/images/logo.png" width="250" height="58" border="0" alt="Bandicot" class="CToWUd">
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -82,7 +82,7 @@
 
                                                 <tbody><tr>
                                                         <td>
-                                                            <img style="display:block" src="https://ci3.googleusercontent.com/proxy/k-1-mvmH4RUp7DaHKpQuGZqfR3rWnw2NPl8KzXUThN6GYR0B5JEeWuBqd7udf82dgM2wJHlIIm2sacYuFy7ImtE2b1gZtb9tiCHcw3G7Aw=s0-d-e1-ft#http://cdn.nflximg.com/us/email/logo/newDesign/shadow.png" width="770" height="25" border="0" alt="" class="CToWUd">
+                                                            <img style="display:block" src="httpss://ci3.googleusercontent.com/proxy/k-1-mvmH4RUp7DaHKpQuGZqfR3rWnw2NPl8KzXUThN6GYR0B5JEeWuBqd7udf82dgM2wJHlIIm2sacYuFy7ImtE2b1gZtb9tiCHcw3G7Aw=s0-d-e1-ft#https://cdn.nflximg.com/us/email/logo/newDesign/shadow.png" width="770" height="25" border="0" alt="" class="CToWUd">
                                                         </td>
                                                     </tr> 
 
@@ -96,7 +96,7 @@
                                     <tr><td style="font-family:Helvetica,Arial,sans-serif;color:#949494;font-size:11px;padding:0px 20px 10px 20px;font-weight:lighter">Te enviamos este email como parte de tu suscripción en <span class="il">Bandicot.com</span>. No respondas a este email, ya que no podemos contestarte desde esta dirección.</td></tr>
                                     <tr><td style="font-family:Helvetica,Arial,sans-serif;color:#949494;font-size:11px;padding:0px 20px 2px 20px;font-weight:lighter">&nbsp;Este mensaje se envió a&nbsp;[<a style="color: #C52C2C;" href="mailto:<?php print($email); ?>" target="_blank"><?php print($email); ?></a>]&nbsp;de parte de <span class="il">Bandicot.com</span>.</td></tr>
                                     <tr><td style="font-family:Helvetica,Arial,sans-serif;color:#949494;font-size:11px;padding:0px 20px 2px 20px;font-weight:lighter">
-                                    <tr><td style="font-family:Helvetica,Arial,sans-serif;color:#949494;font-size:11px;padding:0px 20px 2px 20px;font-weight:lighter"> El uso del servicio y del sitio web de <span class="il">Bandicot</span> está sujeto a nuestros <a style="color: #FFFFFF;" href="http://bandicot.com/doc/terms" target="_blank">Términos y condiciones</a> y a nuestra <a style="color: #FFFFFF;" href="http://bandicot.com/doc/privacypolicy" target="_blank">Declaración de privacidad</a>.</td></tr>
+                                    <tr><td style="font-family:Helvetica,Arial,sans-serif;color:#949494;font-size:11px;padding:0px 20px 2px 20px;font-weight:lighter"> El uso del servicio y del sitio web de <span class="il">Bandicot</span> está sujeto a nuestros <a style="color: #FFFFFF;" href="https://bandicot.com/doc/terms" target="_blank">Términos y condiciones</a> y a nuestra <a style="color: #FFFFFF;" href="https://bandicot.com/doc/privacypolicy" target="_blank">Politica de privacidad</a>.</td></tr>
                                     <tr><td style="font-family:Helvetica,Arial,sans-serif;color:#949494;font-size:11px;padding:0px 20px 2px 20px;font-weight:lighter">
                                         </td></tr>   
                                 </tbody></table>

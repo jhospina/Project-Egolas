@@ -2,7 +2,6 @@
 <html lang="es">
     <head>
         <title>@yield('title',trans("gen.head.title")) - Bandicot.com</title>
-        <meta name="robots" content="NoIndex, NoFollow">
         <meta name="description" content="@yield('meta-description','Disfruta del mejor catalogo de peliculas en internet, miralas online y gratis desde cualquier dispositivo.')">
         <meta name="keywords" content="bandicot, bandicot.com, peliculas, series, gratis, online, reproducir, directores, actores, cine, estrenos, catalogo, dvd">
         <meta name='language' content='es' />
@@ -15,7 +14,7 @@
 
         @yield("meta-tags")
 
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 
         {{-- Bootstrap --}}
         {{ HTML::style('assets/plugins/bootstrap/css/bootstrap.css', array('media' => 'screen')) }}
@@ -65,6 +64,26 @@
         @if(isset($path))
         {{App\System\Library\Complements\Util::getImportJScriptCurrent($path)}}
         @endif
+
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                        m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-39740132-5', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+
     </body>
 
 </html>

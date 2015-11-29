@@ -48,12 +48,18 @@ class Util {
         $desc = explode("/", substr($public, 0, strlen($public) - 1));
         $last = end($desc);
         $posRaiz = strpos($URL, $last);
-        return str_replace(array("//","/public/public/"),array("/public/","/public/"), $public . substr($URL, $posRaiz + strlen($last)));
+        return str_replace(array("//", "/public/public/"), array("/public/", "/public/"), $public . substr($URL, $posRaiz + strlen($last)));
     }
 
     static function convertPathToUrl($path, $dominio = "bandicot.com") {
         $path = explode($dominio, $path);
         return Util::createUrl($dominio . $path[1]);
+    }
+
+    static function convertToSecureUrl($url) {
+        if (isset($_SERVER['HTTPS']) && strpos($url, "https") === false)
+            return str_replace("http", "https", $url);
+        return $url;
     }
 
     /** Recorta un texto hasta la longitud dada.
@@ -515,7 +521,7 @@ class Util {
      * @return type
      */
     static function createSlug($text) {
-        return str_replace(array(" ", ".", ":", ",","?","¿","&"), array("-", "", "", "","","","y"), strtolower(Util::textDecodetoSimply($text)));
+        return str_replace(array(" ", ".", ":", ",", "?", "¿", "&", "/"), array("-", "", "", "", "", "", "y", ""), strtolower(Util::textDecodetoSimply($text)));
     }
 
     /** Traduce un texto con ayuda de Google Translate

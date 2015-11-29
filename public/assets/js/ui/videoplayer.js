@@ -274,9 +274,10 @@ function getVideo() {
             video_ready = true;
             video_url = response.url + "/" + Math.round(time);
             $("#video").attr("src", video_url);
-            video.currentTime = time;
-            if (time > 0)
+            if (time > 0) {
+                video.currentTime = time;
                 video.play();
+            }
             token_video = response.token;
             if (token_parent.length < 1) {
                 token_parent = token_video;

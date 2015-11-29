@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 //*****************************************************
 //PAYMENT*********************************************
 //*****************************************************
-Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => ["auth.frontend"]], function() {
+Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => ["secure.connection", "auth.frontend"]], function() {
     $class = "PaymentController@";
     Route::get("/", $class . "getIndex");
     Route::post("payment/post", $class . "postPayment");
@@ -30,7 +30,7 @@ Route::group(["prefix" => "premium", "namespace" => "Frontend", "middleware" => 
 //*****************************************************
 
 
-Route::group(["prefix" => "ajax", "middleware" => ["auth.frontend"]], function() {
+Route::group(["prefix" => "ajax", "middleware" => ["secure.connection", "auth.frontend"]], function() {
     ajax_comments();
     ajax_user();
     ajax_productions();
@@ -58,7 +58,7 @@ function ajax_productions() {
 //*****************************************************
 
 
-Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["auth"]], function() {
+Route::group(["prefix" => "user", "namespace" => "User", "middleware" => ["secure.connection", "auth"]], function() {
     menu_user();
     auth_user();
     account_user();
@@ -111,9 +111,9 @@ function activity_user() {
 //*****************************************************
 //FRONTEND*********************************************
 //*****************************************************
-Route::get('/', "Frontend\HomeController@index");
+Route::get('/',"Frontend\HomeController@index")->middleware(["secure.connection"]);
 
-Route::group(["namespace" => "Frontend", "middleware" => ["auth.frontend", "notifications"]], function() {
+Route::group(["namespace" => "Frontend", "middleware" => ["secure.connection", "auth.frontend", "notifications"]], function() {
     productions_frontend();
     category_frontend();
     home_fronted();
@@ -156,7 +156,7 @@ function productions_frontend() {
 //VISITANTES*********************************************
 //*****************************************************
 
-Route::group(["namespace" => "Frontend"], function() {
+Route::group(["namespace" => "Frontend", "middleware" => ["secure.connection"]], function() {
     home_guest();
     productions_guest();
     user_guest();
@@ -191,7 +191,7 @@ function persons_guest() {
 //MANAGER*********************************************
 //*****************************************************
 
-Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => ["auth"]], function() {
+Route::group(["prefix" => "manager", "namespace" => "Manager", "middleware" => ["secure.connection", "auth"]], function() {
     Route::get('auth/login', "Auth\AuthController@getLogin");
     Route::post('auth/login', "Auth\AuthController@postLogin");
     Route::get("dashboard", "DashboardController@index");
