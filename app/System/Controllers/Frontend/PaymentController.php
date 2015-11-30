@@ -103,7 +103,7 @@ class PaymentController extends Controller {
         $redirect_urls = new RedirectUrls();
         $redirect_urls->setReturnUrl(url('premium/payment/status'))
                 ->setCancelUrl(url('premium/payment/status'));
-
+        
         $payment = new Payment();
         $payment->setIntent('Sale')
                 ->setPayer($payer)
@@ -177,7 +177,7 @@ class PaymentController extends Controller {
             $email->setName(Auth::user()->name);
             //Envia un correo de agredecimiento
             $email->queue();
-            return redirect("user/dashboard")->with(UI::modalMessage("Pago realizado. ¡Muchas gracias " . Auth::user()->name . "!", $message, "De nada, es un placer"));
+            return redirect("user/contributions")->with(UI::modalMessage("Pago realizado. ¡Muchas gracias " . Auth::user()->name . "!", $message, "De nada, es un placer"));
         }
 
         return redirect()->back()->with(UI::modalMessage("ERROR", "<div class='text-center'><img width='150px;' src='" . url('assets/images/alert.png') . "'><p style='font-size: 15pt;margin-top:20px;'>Parece que hubo un problema al realizar el pago. ¿No tienes fondos?</p></div>", "Cerrar"));
