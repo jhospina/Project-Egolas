@@ -14,7 +14,7 @@ return [
     "price.per.day" => "" . Payment::PAY_PRICE_PER_DAY,
     "price.cuant" => "" . (Payment::PAY_PRICE_PER_DAY * Payment::PAY_MIN_QUANTITY),
     "premium.quantity" => "" . (Payment::PAY_MIN_QUANTITY),
-    "head.title" => "Peliculas online",
+    "head.title" => "Peliculas Online",
     "join.into.system" => "Ingreso al sistema",
     "copyright" => "&copy; Copyright - Todos los derechos reservados",
     "info.name" => "Nombre",

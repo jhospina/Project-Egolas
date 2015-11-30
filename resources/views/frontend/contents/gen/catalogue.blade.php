@@ -1,5 +1,7 @@
 @extends("frontend/templates/gen",array("path"=>"frontend/contents/gen/catalogue"))
 
+@section("title")Catalogo de Referencia @stop
+
 @section("css")
 <style>
     .production-not-available {
