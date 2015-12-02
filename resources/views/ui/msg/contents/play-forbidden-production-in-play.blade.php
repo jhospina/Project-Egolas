@@ -4,7 +4,8 @@ use App\System\Library\Complements\DateUtil;
 
 $date = new DateUtil(DateUtil::getCurrentTime());
 //Calcula el tiempo restante para que el usuario pueda ver otra pelicula
-$coming_date = $date->addSeconds((60 * 60 * 24) - $time);
+$coming_date = $date->addSeconds($time);
+
 ?>
 
 <div class="page-header">
@@ -61,12 +62,13 @@ $coming_date = $date->addSeconds((60 * 60 * 24) - $time);
 
     $(document).ready(function () {
         $("#countdown").countdown({
-            date: "{{str_replace(' ','T',$coming_date)}}",
-            format: "on"
+            date: "{{strtotime($coming_date)}}",
+            format: "on",
+            "current": "{{time()}}",
         },
-        function () {
+                function () {
 // callback function
-        });
+                });
     });
 
 </script>

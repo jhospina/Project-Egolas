@@ -50,23 +50,23 @@ class ProductionController extends Controller {
         $rating = number_format(($production->ratings()->avg('rating') * 100) / 5, 0);
         $userIsRated = ProductionRating::userIsRated($production->id);
         $inFav = Production::inFavorites($production->id);
-        
-        $view=view("frontend/contents/production/info")
-                        ->with("production", $production)
-                        ->with("categories", $categories)
-                        ->with("staff", $staff)
-                        ->with("director", $director)
-                        ->with("isVideoMain", $isVideoMain)
-                        ->with("chapters", $chapters)
-                        ->with("rating", $rating)
-                        ->with("rating_count", $rating_count)
-                        ->with("userIsRated", $userIsRated)
-                        ->with("inFav", $inFav);
-        
+
+        $view = view("frontend/contents/production/info")
+                ->with("production", $production)
+                ->with("categories", $categories)
+                ->with("staff", $staff)
+                ->with("director", $director)
+                ->with("isVideoMain", $isVideoMain)
+                ->with("chapters", $chapters)
+                ->with("rating", $rating)
+                ->with("rating_count", $rating_count)
+                ->with("userIsRated", $userIsRated)
+                ->with("inFav", $inFav);
+
         //Muestra un mensaje para indicarle al usuario que debe activar su cuenta
-        if(Auth::user()->state==User::STATE_UNCONFIRMED_ACCOUNT)
-          Session::put(\App\System\Library\Complements\UI::modalMessage("¡ACTIVA TU CUENTA!", view("ui/msg/contents/activa-tu-cuenta")->render()));
-        
+        if (Auth::user()->state == User::STATE_UNCONFIRMED_ACCOUNT)
+            Session::put(\App\System\Library\Complements\UI::modalMessage("¡ACTIVA TU CUENTA!", view("ui/msg/contents/activa-tu-cuenta")->render()));
+
         return $view;
     }
 
@@ -92,15 +92,21 @@ class ProductionController extends Controller {
         //Obtiene los datos de la ultima reproduccion del usuario
         list($play_date, $play_ip, $play_production) = Auth::user()->getLastPlayBack();
 
-        //Verifica la restriccion de usuario gratis, en la que solo permite ver una pelicula por semana
+        //Verifica la restriccion de usuario gratis, en la que solo permite ver una pelicula por dia
         if (Auth::user()->role == User::ROLE_SUSCRIPTOR) {
-
-            $time = DateUtil::difSec($play_date, DateUtil::getCurrentTime());
             /**
              * EL usuario gratis tiene 24 horas para ver la produccion que escogio
              */
-            
-            if ($time < (60 * 60 * 24) && $production->id != $play_production)
+            $play_date = new DateUtil($play_date);
+            //Agrega un dia, para determinar la proxima reproduccion
+            $play_date->addDays(1);
+
+            $next_date = $play_date->year . "-" . DateUtil::numberAdapt($play_date->month) . "-" . DateUtil::numberAdapt($play_date->day) . " 00:00:00";
+
+            //Calcula la diferencia de tiempo entre el tiempo actual y la fecha de la proxima reproduccion
+            $time = DateUtil::difSec(DateUtil::getCurrentTime(), $next_date);
+
+            if ($time > 0 && $production->id != $play_production)
                 return view("frontend/contents/production/play-forbbiden")
                                 ->with("production", $production)
                                 ->with("message", view("ui/msg/contents/play-forbidden-production-in-play")
