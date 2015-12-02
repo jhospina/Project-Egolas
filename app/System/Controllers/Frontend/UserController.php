@@ -82,6 +82,7 @@ class UserController extends Controller {
         $description = "<p>Este correo electrónico ha sido asociado a una nueva cuenta en bandicot&#46;com, para poder usar esta cuenta es necesario activarla confirmando este correo electrónico.</p>" .
                 "<p>Para confirmar este correo electrónico debes hacer clic en botón \"Activar cuenta\" que se muestra a continuación:<br/><br/>" .
                 "<a style='display: block;padding: 10px;border: 1px black solid;width: 200px;text-align: center;color: white;background: red;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;font-style: normal;text-transform: uppercase;margin: auto;' href='" . $activationLink . "' target='_blank'>Activar cuenta</a></p>" .
+                "<p>Si el botón no funciona, copia y pega el siguiente enlace para activar tu cuenta:<br/><br/>$activationLink</p>".
                 "<p><i><b>Atención:<b/> Si crees que se ha tratado de una equivocación, por favor ignora este mensaje.</i></p>";
 
         $email = new Email("Activación de cuenta", $data[User::ATTR_EMAIL], [Email::VAR_NAME => $user->name, Email::VAR_DESCRIPTION => $description]);

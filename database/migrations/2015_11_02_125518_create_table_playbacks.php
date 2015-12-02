@@ -16,6 +16,7 @@ class CreateTablePlaybacks extends Migration {
             $table->integer("user_id");
             $table->integer("production_id");
             $table->string("ip");
+            $table->string("user_agent")->nullable();
             $table->dateTime("date");
             $table->string("token",100)->unique();
             $table->boolean("validate");

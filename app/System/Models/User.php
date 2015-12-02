@@ -57,6 +57,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const ATTR_PLAYBACKS_PIVOT_TOKEN = "token";
     const ATTR_PLAYBACKS_PIVOT_VALIDATE = "validate";
     const ATTR_PLAYBACKS_PIVOT_PARENT = "parent";
+    const ATTR_PLAYBACKS_PIVOT_USER_AGENT="user_agent";
     //Production track
     const ATTR_TRACK_PIVOT_NOTIFIED = "notified";
     const ATTR_TRACK_PIVOT_MAILED = "mailed";

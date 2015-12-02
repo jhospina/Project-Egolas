@@ -135,6 +135,20 @@
                     </div>
                 </div>
             </div>
+             <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading4343">
+                    <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4343" aria-expanded="false" aria-controls="collapse4343">
+                            ¿Cómo cambio la foto de perfil de mi cuenta?
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse4343" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4343">
+                    <div class="panel-body">
+                        Para cambiar la foto de perfil de tu cuenta debes ingresar a la sección de <a href="{{URL::to("user/account")}}">"Mi Cuenta"</a> y pulsar encima de la foto de perfil, al hacerlo se abrira una ventana en donde deberas de elegir tu foto de perfil y listo.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

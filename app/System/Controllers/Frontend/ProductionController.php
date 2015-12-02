@@ -160,7 +160,8 @@ class ProductionController extends Controller {
         Auth::user()->playbacks()->attach($data["production_id"], array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(),
             User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime(),
             User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token,
-            User::ATTR_PLAYBACKS_PIVOT_PARENT => $parent));
+            User::ATTR_PLAYBACKS_PIVOT_PARENT => $parent,
+            User::ATTR_PLAYBACKS_PIVOT_USER_AGENT=>$_SERVER['HTTP_USER_AGENT']));
 
         return json_encode(array("url" => url("get/source/video/" . $token . "/" . $data["id_video"]), "token" => $token));
     }
