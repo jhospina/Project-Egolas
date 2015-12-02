@@ -144,7 +144,7 @@ class ProductionController extends Controller {
         return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.info.change.saved"), null, 2));
     }
 
-    function getMigration() {  
+    function getMigration() {
         $total = Chapter::all()->count();
         return view("manager/contents/production/migration")->with("total", $total);
     }
@@ -177,7 +177,7 @@ class ProductionController extends Controller {
 
         $chapter = Chapter::find($id);
         $chapter->video = $video;
-        $chapter->videocloud_id= VideoCloudAccount::getCurrentAccountId();
+        $chapter->videocloud_id = VideoCloudAccount::getCurrentAccountId();
         $chapter->save();
         return json_encode($data);
     }
@@ -197,8 +197,9 @@ class ProductionController extends Controller {
         $value = $data["value"];
         //Si es un titulo genera su slug
         if ($attr == Production::ATTR_TITLE) {
-            $data[Production::ATTR_SLUG] = Util::createSlug($value);
-            DB::table("productions")->where("id", $id)->update([Production::ATTR_SLUG => $data[Production::ATTR_SLUG]]);
+            $production = Production::find($id);
+            $data[Production::ATTR_SLUG] = Util::createSlug($value . " " . $production->year);
+            $production->slug = $data[Production::ATTR_SLUG];
         }
 
         DB::table("productions")->where("id", $id)->update([$attr => $value]);
@@ -229,7 +230,7 @@ class ProductionController extends Controller {
         $chapter->production_id = $data[Chapter::ATTR_PRODUCTION_ID];
         $chapter->name = $data[Chapter::ATTR_NAME];
         $chapter->video = str_replace(array("\n", "\t", "\r", " "), "", $data[Chapter::ATTR_VIDEO]);
-        $chapter->videocloud_id=  VideoCloudAccount::getCurrentAccountId();
+        $chapter->videocloud_id = VideoCloudAccount::getCurrentAccountId();
         $chapter->quality = $data[Chapter::ATTR_QUALITY];
         $chapter->languages = $data[Chapter::ATTR_LANGUAGES];
         $chapter->subtitles = (isset($data[Chapter::ATTR_SUBTITLES])) ? $data[Chapter::ATTR_SUBTITLES] : null;

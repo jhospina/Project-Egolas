@@ -10,6 +10,7 @@ use App\System\Models\Term;
 Use App\System\Library\Complements\DateUtil;
 use App\System\Library\Media\BingSearchImage;
 use App\System\Library\Media\Image;
+use DB;
 
 class ProductionProvider extends HTMLProvider {
 
@@ -79,7 +80,7 @@ class ProductionProvider extends HTMLProvider {
             $this->title_original = $title_ori;
 
         //(SLUG)*************************/
-        $this->slug = Util::createSlug(trim($this->title));
+        $this->slug = Util::createSlug(trim($this->title)." ".$this->year);
 
         //(DESCRIPCION)*************************/
         if (!preg_match_all('/<p[^>]*itemprop=["\']description*["\']\>(.*?)<\/p>/i', $match_content, $match_description, PREG_SET_ORDER))
@@ -128,7 +129,7 @@ class ProductionProvider extends HTMLProvider {
         }
 
         //POSTER
-        $search = new BingSearchImage($this->title_original . " poster ". $this->year, 1700, 1200);
+        $search = new BingSearchImage($this->title_original . " poster " . $this->year, 1700, 1200);
         $images = $search->getResult();
 
         //Verifica que la url este bien
@@ -219,7 +220,8 @@ class ProductionProvider extends HTMLProvider {
         $staff_director->name = $director[0];
         $staff_director->slug = Util::createSlug($director[0]);
         $staff_director->save();
-        $staff_director->productions()->attach($production->id, array(Person::ATTR_PIVOT_ROLE => Person::ROLE_DIRECTOR));
+        if (count(DB::select("SELECT * FROM staff WHERE production_id='" . $production->id . "' && person_id='" . $staff_director->id . "'")) == 0)
+            $staff_director->productions()->attach($production->id, array(Person::ATTR_PIVOT_ROLE => Person::ROLE_DIRECTOR));
 
 
         //Determina si el nombre del director se encuentra en cola para actualización, si no lo esta, lo agrega. 
@@ -242,6 +244,7 @@ class ProductionProvider extends HTMLProvider {
             $staff_actor->name = $actor[0];
             $staff_actor->slug = Util::createSlug($actor[0]);
             $staff_actor->save();
+             if (count(DB::select("SELECT * FROM staff WHERE production_id='" . $production->id . "' && person_id='" . $staff_actor->id . "'")) == 0)
             $staff_actor->productions()->attach($production->id, array(Person::ATTR_PIVOT_ROLE => Person::ROLE_ACTOR));
 
 

@@ -16,7 +16,7 @@ class CreateTableQueueProductionsAutoupdate extends Migration
             $table->increments('id');
             $table->integer("production_id")->nullable();
             $table->string("name");
-            $table->string('link');
+            $table->string('link')->unique();
             $table->timestamp('date_creation');
             $table->timestamp('date_processed')->nullable();
         });
