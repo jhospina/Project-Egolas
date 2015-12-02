@@ -19,6 +19,7 @@ use App\System\Models\Production\ProductionFavorite;
 use App\System\Models\Term;
 use App\System\Models\Log\Slug;
 use App\System\Library\Detection\MobileDetect;
+use \Illuminate\Support\Facades\Session;
 
 class ProductionController extends Controller {
 
@@ -49,7 +50,8 @@ class ProductionController extends Controller {
         $rating = number_format(($production->ratings()->avg('rating') * 100) / 5, 0);
         $userIsRated = ProductionRating::userIsRated($production->id);
         $inFav = Production::inFavorites($production->id);
-        return view("frontend/contents/production/info")
+        
+        $view=view("frontend/contents/production/info")
                         ->with("production", $production)
                         ->with("categories", $categories)
                         ->with("staff", $staff)
@@ -60,6 +62,12 @@ class ProductionController extends Controller {
                         ->with("rating_count", $rating_count)
                         ->with("userIsRated", $userIsRated)
                         ->with("inFav", $inFav);
+        
+        //Muestra un mensaje para indicarle al usuario que debe activar su cuenta
+        if(Auth::user()->state==User::STATE_UNCONFIRMED_ACCOUNT)
+          Session::put(\App\System\Library\Complements\UI::modalMessage("¡ACTIVA TU CUENTA!", view("ui/msg/contents/activa-tu-cuenta")->render()));
+        
+        return $view;
     }
 
     function getPlay($slug) {

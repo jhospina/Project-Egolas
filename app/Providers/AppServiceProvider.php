@@ -177,7 +177,7 @@ class AppServiceProvider extends ServiceProvider {
                     fwrite($file, "<url><loc>" . $urls[$i] . "</loc></url>" . PHP_EOL);
  
                 //Inserta las url de cada persona
-                $persons = \App\System\Models\Person::all();
+                $persons = \App\System\Models\Person::whereNotNull(Person::ATTR_BIOGRAPHY)->get();
                 foreach ($persons as $person)
                     fwrite($file, "<url><loc>" . AutoProcess::URL_SITE . "person/" . $person->slug . "</loc></url>" . PHP_EOL);
                 //Inserta las url de todas las producciones

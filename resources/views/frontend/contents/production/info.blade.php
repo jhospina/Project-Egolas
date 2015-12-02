@@ -132,6 +132,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
                 <div class="person" style="{{(is_null($director->image))?"width:100%":""}}">{{$director->name}}</div>
                 @if(!is_null($director->image))</a>@endif
         </div>
+        @if(count($staff)>0)
         <div class="col-md-12"><b>{{trans("gen.info.delivery")}}</b></div>
         <div class="col-md-12" id="staff-content">
             @foreach($staff as $person)
@@ -147,6 +148,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
                 @if(!is_null($person->image))  </a> @endif
             @endforeach
         </div>
+        @endif
     </div>
     @endif
 </div>
