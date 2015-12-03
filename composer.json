@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "illuminate/html": "~5.0",
         "liebig/cron": "dev-master",
-        "paypal/rest-api-sdk-php": "^1.6"
+        "paypal/rest-api-sdk-php": "^1.6",
+        "guzzlehttp/guzzle": "~5.3|~6.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

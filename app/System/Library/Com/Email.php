@@ -27,7 +27,7 @@ class Email {
      * @param type $data //Datos del contenido
      * @param type $template //Plantilla del correo
      */
-    function __construct($subject, $email, $data = null, $template = "gen") {
+    function __construct($subject, $email, $data = null, $template = "basic") {
         $this->setSubject($subject);
         $this->setEmail($email);
 

@@ -15,10 +15,12 @@ use App\System\AutoUpdateSearcher\Providers\ProductionProvider;
 use App\System\Library\Complements\DateUtil;
 use App\System\Library\Complements\Util;
 use App\System\Library\Media\Image;
+use App\System\Library\Com\Email;
 
 class DashboardController extends Controller {
 
     function index() {
+  
         /*
           $queue = QueueProductions::where(QueueProductions::ATTR_DATE_PROCESSED, null)->orderBy(QueueProductions::ATTR_ID, "ASC")->take(1)->get();
 
@@ -33,11 +35,10 @@ class DashboardController extends Controller {
           return; */
 
 
-
-        $users_state = array(User::where(User::ATTR_STATE, User::STATE_UNCONFIRMED_ACCOUNT)->whereNotIn(User::ATTR_ROLE,[User::ROLE_ADMIN])->count(), User::where(User::ATTR_STATE, User::STATE_ACTIVED_ACCOUNT)->whereNotIn(User::ATTR_ROLE,[User::ROLE_ADMIN])->count());
+        $users_state = array(User::where(User::ATTR_STATE, User::STATE_UNCONFIRMED_ACCOUNT)->whereNotIn(User::ATTR_ROLE, [User::ROLE_ADMIN])->count(), User::where(User::ATTR_STATE, User::STATE_ACTIVED_ACCOUNT)->whereNotIn(User::ATTR_ROLE, [User::ROLE_ADMIN])->count());
         $users_role = array(User::all()->where(User::ATTR_ROLE, User::ROLE_SUSCRIPTOR)->count(), User::all()->where(User::ATTR_ROLE, User::ROLE_SUSCRIPTOR_PREMIUM)->count());
         $productions = array(Production::all()->where(Production::ATTR_STATE, Production::STATE_ACTIVE)->count(), Production::whereNotIn(Production::ATTR_STATE, array(Production::STATE_ACTIVE))->count());
-        $total_playbacks = DB::table("playbacks")->where(User::ATTR_PLAYBACKS_PIVOT_PARENT,0)->where(User::ATTR_PLAYBACKS_PIVOT_VALIDATE,2)->count();
+        $total_playbacks = DB::table("playbacks")->where(User::ATTR_PLAYBACKS_PIVOT_PARENT, 0)->where(User::ATTR_PLAYBACKS_PIVOT_VALIDATE, 2)->count();
         $total_ratings = DB::table("production_ratings")->count();
         $total_comments = DB::table("comments")->count();
         $total_payments = Payment::all()->sum(Payment::ATTR_MOUNT);
@@ -65,7 +66,7 @@ class DashboardController extends Controller {
         $production = Production::find($production_id);
 
         $data[Production::ATTR_IMAGE] = "";
-        $data[Production::ATTR_POSTER] = "http://".$_GET["poster"];
+        $data[Production::ATTR_POSTER] = "http://" . $_GET["poster"];
         $path_image = public_path("assets/db/images/") . md5($production->title_original . $production->year);
         copy($data[Production::ATTR_POSTER], $path_image . "-poster.jpg");
         $production->poster = Util::convertPathToUrl($path_image . "-poster.jpg");

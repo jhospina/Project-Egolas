@@ -8,6 +8,8 @@ use App\System\Models\User;
 
 @section("css")
 
+<meta name="google-site-verification" content="YTbafZ_EYNhESZojzcwOERfVFovPxifxSvl-BIXdgfE" />
+
 <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
