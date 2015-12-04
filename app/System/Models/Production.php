@@ -29,6 +29,7 @@ class Production extends Model {
     const STATE_COMING_SOON = "CS"; //Proximo a estrenar
     const STATE_ACTIVE = "AC"; //Activo
     const STATE_IN_CINEMA = "IC"; // SOLO EN CINES
+    const STATE_PROGRAMMED = "PR"; //PROGRAMADO
     //ESTADO - Distribuidores online de las producciones
     const STATE_DEALER_ACTIVE = "DA";
     const STATE_DEALER_INACTIVE = "DI";
@@ -100,6 +101,8 @@ class Production extends Model {
                 return "warning";
             case Production::STATE_IN_CINEMA:
                 return "danger";
+            case Production::STATE_PROGRAMMED:
+                return "warning";
         }
     }
 

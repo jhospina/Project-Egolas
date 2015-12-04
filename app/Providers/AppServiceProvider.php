@@ -109,7 +109,7 @@ class AppServiceProvider extends ServiceProvider {
              * DESCRIPCION: Verifica todos las producciones en seguimientos por parte de los usuarios premium y cuando esten disponibles les envia un correo notificandoles
              * EJECUCION: Cada 12 horas
              */
-            \Cron::add(AutoProcess::CRON_USER_PRODUCTION_TRACK_SEND_MAIL, '* */12 * * *', function() {
+            \Cron::add(AutoProcess::CRON_USER_PRODUCTION_TRACK_SEND_MAIL, '0 */12 * * *', function() {
 
                 if (!AutoProcess::isActived(AutoProcess::CRON_USER_PRODUCTION_TRACK_SEND_MAIL))
                     return "Desactivado";
@@ -175,7 +175,7 @@ class AppServiceProvider extends ServiceProvider {
                 fwrite($file, "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"> " . PHP_EOL);
                 for ($i = 0; $i < count($urls); $i++)
                     fwrite($file, "<url><loc>" . $urls[$i] . "</loc></url>" . PHP_EOL);
- 
+
                 //Inserta las url de cada persona
                 $persons = \App\System\Models\Person::whereNotNull(Person::ATTR_BIOGRAPHY)->get();
                 foreach ($persons as $person)
@@ -189,6 +189,23 @@ class AppServiceProvider extends ServiceProvider {
                 fclose($file);
 
                 return "Sitemap.xml generado (" . count($persons) . " Personas) (" . count($productions) . " Producciones)";
+            });
+
+            /**
+             * CRON: Publica automaticamente una produccion programada
+             * EJECUCION: Cada hora
+             */
+            \Cron::add(AutoProcess::CRON_PRODUCTION_AUTO_PUBLISH, '0 */4 * * *', function() {
+
+                $productions = Production::where(Production::ATTR_STATE, Production::STATE_PROGRAMMED)->orderBy(Production::ATTR_UPDATED_AT, "ASC")->take(1)->get();
+
+                foreach ($productions as $production) {
+                    $production->state = Production::STATE_ACTIVE;
+                    $production->save();
+                    return $production->title . " Publicado";
+                }
+                
+                return "No hay producciones programadas";
             });
         });
     }

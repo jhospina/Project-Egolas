@@ -38,9 +38,9 @@ class SecureConnection {
     public function handle($request, Closure $next) {
 
         $petition = $request->getRequestUri();
-        if (!Util::isSecureConnection()) {
-            return redirect(str_replace("http", "https", url($petition)));
-        }
+       // if (!Util::isSecureConnection()) {
+       //     return redirect(str_replace("http", "https", url($petition)));
+       // }
 
         return $next($request);
     }

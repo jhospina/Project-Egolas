@@ -20,7 +20,7 @@ use App\System\Library\Com\Email;
 class DashboardController extends Controller {
 
     function index() {
-  
+        
         /*
           $queue = QueueProductions::where(QueueProductions::ATTR_DATE_PROCESSED, null)->orderBy(QueueProductions::ATTR_ID, "ASC")->take(1)->get();
 

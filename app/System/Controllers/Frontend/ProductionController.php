@@ -161,7 +161,7 @@ class ProductionController extends Controller {
             User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime(),
             User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token,
             User::ATTR_PLAYBACKS_PIVOT_PARENT => $parent,
-            User::ATTR_PLAYBACKS_PIVOT_USER_AGENT=>$_SERVER['HTTP_USER_AGENT']));
+            User::ATTR_PLAYBACKS_PIVOT_USER_AGENT => (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : null));
 
         return json_encode(array("url" => url("get/source/video/" . $token . "/" . $data["id_video"]), "token" => $token));
     }

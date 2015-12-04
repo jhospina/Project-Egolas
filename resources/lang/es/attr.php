@@ -14,6 +14,7 @@ return [
     "production." . Production::ATTR_STATE . "." . Production::STATE_IN_WAIT => "En espera",
     "production." . Production::ATTR_STATE . "." . Production::STATE_COMING_SOON => "Proximamente",
     "production." . Production::ATTR_STATE . "." . Production::STATE_IN_CINEMA => "Solo en cines",
+    "production." . Production::ATTR_STATE . "." . Production::STATE_PROGRAMMED => "Programado",
     "chapter." . Chapter::ATTR_TYPE . "." . Chapter::TYPE_MAIN => "Principal",
     "chapter." . Chapter::ATTR_TYPE . "." . Chapter::TYPE_EPISODE => "Capitulo",
     "chapter." . Chapter::ATTR_STATE . "." . Chapter::STATE_AVAILABLE => "Disponible",

@@ -76,9 +76,9 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         @if($isVideoMain)
         <div id="content-ver-online">
             @if(Auth::user()->state==User::STATE_UNCONFIRMED_ACCOUNT)
-            <div id="ver-online-poster" rel="nofollow" class="ver-online disabled"><span class="glyphicon glyphicon-ban-circle"></span> Reproducir</div>
+            <div id="ver-online-poster" rel="nofollow" class="ver-online disabled"><span class="glyphicon glyphicon-ban-circle"></span> VER PELICULA</div>
             @else 
-            <a id="ver-online-poster" rel="nofollow" class="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> Reproducir</a>
+            <a id="ver-online-poster" rel="nofollow" class="ver-online" href="{{URL::to("production/".$production->slug."/play")}}"><span class="glyphicon glyphicon-play-circle"></span> VER PELICULA</a>
             @endif
         </div>
         @endif

@@ -34,7 +34,7 @@ use App\System\Models\QueueProductions;
                         <li {{(isset($_GET["filter"]) && $_GET["filter"]==Production::STATE_ACTIVE)?"class='active'":null}}><a href="{{Util::addVariableToUrl(Util::getCurrentUrl(),"filter",  Production::STATE_ACTIVE)}}"><span class="glyphicon glyphicon-ok-sign"></span> Activos</a></li>
                         <li {{(isset($_GET["filter"]) && $_GET["filter"]==Production::STATE_IN_WAIT)?"class='active'":null}}><a href="{{Util::addVariableToUrl(Util::getCurrentUrl(),"filter",  Production::STATE_IN_WAIT)}}"><span class="glyphicon glyphicon-hourglass"></span> En Espera</a></li>
                         <li {{(isset($_GET["filter"]) && $_GET["filter"]==Production::STATE_COMING_SOON)?"class='active'":null}}><a href="{{Util::addVariableToUrl(Util::getCurrentUrl(),"filter",  Production::STATE_COMING_SOON)}}"><span class="glyphicon glyphicon-plane"></span> Proximamente</a></li>
-                        <li {{(isset($_GET["filter"]) && $_GET["filter"]==Production::STATE_IN_CINEMA)?"class='active'":null}}><a href="{{Util::addVariableToUrl(Util::getCurrentUrl(),"filter",  Production::STATE_IN_CINEMA)}}"><span class="glyphicon glyphicon-film"></span> Solo en Cines</a></li>
+                        <li {{(isset($_GET["filter"]) && $_GET["filter"]==Production::STATE_PROGRAMMED)?"class='active'":null}}><a href="{{Util::addVariableToUrl(Util::getCurrentUrl(),"filter",  Production::STATE_PROGRAMMED)}}"><span class="glyphicon glyphicon-calendar"></span> Programados</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
