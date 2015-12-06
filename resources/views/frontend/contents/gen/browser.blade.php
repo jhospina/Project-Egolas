@@ -27,7 +27,9 @@ $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
             @foreach($productions as $production)
             <div class="content-item">
                 <div class="item">
-                    <a href="{{URL::to("production/".$production->slug)}}"><img class="production" title="{{$production->title}}" src="{{$production->image}}">
+                    <a onClick="modalProduction('{{$production->id}}');">
+                        <img class="production" id="img-production-{{$production->id}}" title="{{$production->title}}" src="{{$production->image}}">
+                        <span class="hidden" id="url-{{$production->id}}">{{URL::to("production/".$production->slug)}}</span>
                         <div class="over">
                             <span class="glyphicon glyphicon-play-circle"></span>
                             {{$production->title}}
@@ -60,7 +62,9 @@ $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
                     <?php $productions_id[] = $production->id; ?>
                     <div class="content-item">
                         <div class="item">
-                            <a href="{{URL::to("production/".$production->slug)}}"><img class="production" title="{{$production->title}}" src="{{$production->image}}">
+                            <a onClick="modalProduction('{{$production->id}}');">
+                                <img class="production" id="img-production-{{$production->id}}" title="{{$production->title}}" src="{{$production->image}}">
+                                <span class="hidden" id="url-{{$production->id}}">{{URL::to("production/".$production->slug)}}</span>
                                 <div class="over">
                                     <span class="glyphicon glyphicon-play-circle"></span>
                                     {{$production->title}}

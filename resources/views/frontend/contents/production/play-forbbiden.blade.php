@@ -49,6 +49,9 @@
     </div>
 
     <div id="msg-forbidden" class="container content" style="margin-bottom: 50px;">
+        @if(isset($title))
+        <h1 class="text-center">{{$title}}</h1>
+        @endif
         {{$message}}
     </div>
 

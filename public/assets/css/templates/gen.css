@@ -408,3 +408,11 @@ ul#bar-user {
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
 }
+
+#view-production-title{
+    color:black;
+}
+
+#view-production-image{
+    margin-bottom: 10px;
+}

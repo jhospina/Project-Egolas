@@ -60,7 +60,7 @@ $(document).ready(function () {
 
 
 function gen_handlerOver() {
-     
+
     if (!isMobile()) {
         //OVER IN PRODUCTIÖN
         $("div.production").mouseenter(function () {
@@ -72,16 +72,18 @@ function gen_handlerOver() {
         });
 
         $("div.production").click(function () {
-            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
+            if ($(this).children("a").children("img").hasClass("production-not-available")) {
+                $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
+            }
         });
     } else {
         $("div.item").click(function () {
-            $(this).children("a").children(".over").css("opacity", 1);
-            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
+            //$(this).children("a").children(".over").css("opacity", 1);
+            // $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
         });
         $("div.production").click(function () {
-            $(this).children("a").children(".over").css("opacity", 1);
-            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
+            // $(this).children("a").children(".over").css("opacity", 1);
+            // $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
         });
     }
 }
@@ -115,8 +117,7 @@ function gen_adapter() {
 
 
 function isMobile() {
-    return (
-            (navigator.userAgent.match(/Android/i)) ||
+    return ((navigator.userAgent.match(/Android/i)) ||
             (navigator.userAgent.match(/webOS/i)) ||
             (navigator.userAgent.match(/iPhone/i)) ||
             (navigator.userAgent.match(/iPod/i)) ||
@@ -124,3 +125,20 @@ function isMobile() {
             (navigator.userAgent.match(/BlackBerry/))
             );
 }
+
+
+function modalProduction(id) {
+
+    if ($("#img-production-" + id).hasClass("production-not-available"))
+    {
+        location.href = $("#url-" + id).html();
+        return;
+    }
+
+    $("#view-production-title").html($("#img-production-" + id).attr("title"));
+    $("#view-production-image").attr("src", $("#img-production-" + id).attr("src"));
+    $("#view-production-play").attr("href", $("#url-" + id).html() + "/play");
+    $("#view-production-info").attr("href", $("#url-" + id).html());
+    $("#modal-view-production").modal("show");
+}
+

@@ -72,22 +72,27 @@ class ProductionController extends Controller {
 
     function getPlay($slug) {
 
-        if (Auth::user()->state == User::STATE_UNCONFIRMED_ACCOUNT)
-            return redirect("");
-
         $production = Production::where(Production::ATTR_SLUG, $slug)->get();
         if (count($production) == 0) {
             //Verifica en el log el slug
             if (is_null($id = Slug::getIdProduction($slug)))
                 return abort(404);
             else
-                return redirect("production/" . Production::findOrNew($id)->slug . "/play/0");
+                return redirect("production/" . Production::findOrNew($id)->slug . "/play");
         }
-
+        
         $production = $production[0];
 
+        //Verifica si la pelicula esta activa
         if ($production->state != Production::STATE_ACTIVE)
             return redirect("production/" . $slug);
+        
+        if(Auth::user()->state!=User::STATE_ACTIVED_ACCOUNT){
+           return view("frontend/contents/production/play-forbbiden")->with("production",$production)->with("title","¡ACTIVA TU CUENTA!")->with("message",view("ui/msg/contents/activa-tu-cuenta")->render());
+        }
+        
+        
+        
 
         //Obtiene los datos de la ultima reproduccion del usuario
         list($play_date, $play_ip, $play_production) = Auth::user()->getLastPlayBack();

@@ -73,6 +73,27 @@
             </div>
         </footer>
 
+
+        <div class="modal fade" id="modal-view-production" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title text-center" id="view-production-title"></h3>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-sm-12 text-center"><img id="view-production-image" class="img-rounded"></div>
+                        <div class="col-sm-12">
+                            <a class="btn btn-lg btn-danger btn-block" id="view-production-play"><span class="glyphicon glyphicon-play-circle"></span> VER PELICULA</a>
+                            <a class="btn btn-lg btn-primary btn-block" id="view-production-info"><span class="glyphicon glyphicon-exclamation-sign"></span> INFORMACIÓN</a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
         {{-- Include all compiled plugins (below), or include individual files as needed --}}
         {{ HTML::script('assets/plugins/bootstrap/js/bootstrap.js') }}
         {{ HTML::script('assets/plugins/bootstrap-submenu/js/bootstrap-submenu.js') }}
@@ -89,7 +110,6 @@
             jQuery(".tooltip-right").tooltip({placement: "right"});
             jQuery(".tooltip-bottom").tooltip({placement: "bottom"});
             var url_site = "{{URL::to('')}}";
-
         </script>
 
         {{--OTROS SCRIPTS--}}
@@ -101,18 +121,17 @@
 
 
         <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
+                    (function (i, s, o, g, r, a, m) {
+                        i['GoogleAnalyticsObject'] = r;
+                        i[r] = i[r] || function () {
+                            (i[r].q = i[r].q || []).push(arguments)
+                        }, i[r].l = 1 * new Date();
+                        a = s.createElement(o),
+                                m = s.getElementsByTagName(o)[0];
+                        a.async = 1;
+                        a.src = g;
+                        m.parentNode.insertBefore(a, m)
+                    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
             ga('create', 'UA-39740132-5', 'auto');
             ga('send', 'pageview');
 

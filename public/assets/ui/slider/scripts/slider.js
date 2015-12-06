@@ -147,12 +147,6 @@ function handlerOver() {
             //$(this).animate({"width": w_item, "height": h_item}, 50);
             $(this).children("a").children(".over").css("opacity", 0);
         });
-
-        $(".slider-bcot .item").click(function () {
-            $(this).children("a").children(".over").children("span").attr("class", "glyphicon glyphicon-refresh glyphicon-refresh-animate");
-        });
-
     }
 }
-
 

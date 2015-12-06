@@ -175,8 +175,8 @@ class Production extends Model {
      */
     static function getVisualHtml(Production $production) {
         $html = "<div class='production'>" .
-                "<a href='" . url("production/" . $production->slug) . "'>" .
-                "<img class='img-rounded";
+                "<a onClick='modalProduction(\"".$production->id."\");'>" .
+                "<span class='hidden' id='url-".$production->id."'>".url("production/" . $production->slug)."</span><img id='img-production-".$production->id."' title='".$production->title."' class='img-rounded";
         $html.=($production->state != Production::STATE_ACTIVE) ? " production-not-available" : "";
         $html.="' src='" . $production->image . "'><div class='over'><span class='glyphicon glyphicon-play-circle'></span>" . $production->title . "</div>" .
                 "</a>" .
