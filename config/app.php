@@ -136,6 +136,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Thujohn\Twitter\TwitterServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -199,6 +200,7 @@ return [
         "User"=>  App\System\Models\User::class,
         "Util"=>  App\System\Library\Complements\Util::class,
         "HtmlControl"=>  \App\System\Library\Complements\HtmlControl::class,
+        "Twitter"=>Thujohn\Twitter\Facades\Twitter::class,
     ],
 
 ];

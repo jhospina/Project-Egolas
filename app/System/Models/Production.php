@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\System\Models\Chapter;
 use Illuminate\Support\Facades\Auth;
 use App\System\Models\User;
+use Thujohn\Twitter\Facades\Twitter;
+use Illuminate\Support\Facades\File;
+use App\System\Library\Complements\Util;
 
 class Production extends Model {
 
@@ -114,6 +117,37 @@ class Production extends Model {
                 Log\Slug::add($this->attributes[Production::ATTR_ID], $this->attributes[Production::ATTR_SLUG]);
 
         $this->attributes[Production::ATTR_SLUG] = $value;
+    }
+
+    public function setStateAttribute($value) {
+
+        if (isset($this->attributes[Production::ATTR_STATE])) {
+            //Publicacion en redes sociales
+            if ($this->attributes[Production::ATTR_STATE] == Production::STATE_PROGRAMMED && $value == Production::STATE_ACTIVE) {
+                //PUBLICA EN LA PAGINA DE FACEBOOK LA NUEVA PRODUCCION AGREGADA
+                $page_id = "974813252592135";
+                $post_url = 'https://graph.facebook.com/' . $page_id . '/feed';
+                $page_access_token = 'CAAMlvU2gRHsBAPt2mZBymHkjZChELemLYpyRjMDp6VqjscjB3VwUbGfQsdyuFfNqpFaXZCnvL6ngWorbg6q2V6FP4rrcIUB5dgisdVSr4STFTzecD2zRoOCYFZCei1D6zxNEm0zHZCXr7DFtbMPTIVSioR1sitpGqcV1aTFgZBadL1CVlmbeMk';
+                $data['access_token'] = $page_access_token;
+                $data['link'] = url("production/" . $this->attributes[Production::ATTR_SLUG]);
+                $data['message'] = "¡Hemos agregado recientemente \"" . $this->attributes[Production::ATTR_TITLE] . "\", desde ya puedes disfrutarla online y gratis!";
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $post_url);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_exec($ch);
+                curl_close($ch);
+                //PUBLIC EN TWITTER
+                $url = $this->attributes[Production::ATTR_IMAGE];
+                $path = public_path("assets/db/images/" . Util::fileExtractName($url) . "." . Util::fileExtractExtension($url));
+                $uploaded_media = Twitter::uploadMedia(['media' => File::get($path)]);
+                @Twitter::postTweet(['status' => "Hemos agregado \"".$this->attributes[Production::ATTR_TITLE]."\" ¡Disfrutalo desde ya!", 'media_ids' => $uploaded_media->media_id_string]);
+            }
+        }
+
+        $this->attributes[Production::ATTR_STATE] = $value;
     }
 
     /**  Indica si la produccion esta en favoritos
