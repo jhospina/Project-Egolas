@@ -155,4 +155,8 @@ div#overligth-menu-mob {
     #body-browser #categories {
         margin-top: 35px;
     }
+
+    img#view-production-image {
+        max-height: 250px;
+    }
 }
