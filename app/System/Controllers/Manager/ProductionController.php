@@ -135,11 +135,12 @@ class ProductionController extends Controller {
         //Obtiene los termino a asociar
         $set = array_diff($cats, $terms_id);
 
-        for ($i = 0; $i < count($unset); $i++)
-            $production->terms()->detach($unset[$i]);
 
-        for ($i = 0; $i < count($set); $i++)
-            $production->terms()->attach($set[$i]);
+        foreach ($unset as $index => $value)
+            $production->terms()->detach($value);
+
+        foreach ($set as $index => $value)
+            $production->terms()->attach($value);
 
         return redirect()->back()->with(UI::message(UI::MESSAGE_TYPE_WARNING, trans("msg.info.change.saved"), null, 2));
     }
