@@ -80,44 +80,47 @@ class ProductionController extends Controller {
             else
                 return redirect("production/" . Production::findOrNew($id)->slug . "/play");
         }
-        
+
         $production = $production[0];
 
         //Verifica si la pelicula esta activa
         if ($production->state != Production::STATE_ACTIVE)
             return redirect("production/" . $slug);
-        
-        if(Auth::user()->state!=User::STATE_ACTIVED_ACCOUNT){
-           return view("frontend/contents/production/play-forbbiden")->with("production",$production)->with("title","¡ACTIVA TU CUENTA!")->with("message",view("ui/msg/contents/activa-tu-cuenta")->render());
+
+        if (Auth::user()->state != User::STATE_ACTIVED_ACCOUNT) {
+            return view("frontend/contents/production/play-forbbiden")->with("production", $production)->with("title", "¡ACTIVA TU CUENTA!")->with("message", view("ui/msg/contents/activa-tu-cuenta")->render());
         }
-        
-        
-        
+
+
+
 
         //Obtiene los datos de la ultima reproduccion del usuario
         list($play_date, $play_ip, $play_production) = Auth::user()->getLastPlayBack();
 
         //Verifica la restriccion de usuario gratis, en la que solo permite ver una pelicula por dia
         if (Auth::user()->role == User::ROLE_SUSCRIPTOR) {
-            /**
-             * EL usuario gratis tiene 24 horas para ver la produccion que escogio
-             */
-            $play_date = new DateUtil($play_date);
-            //Agrega un dia, para determinar la proxima reproduccion
-            $play_date->addDays(1);
 
-            $next_date = $play_date->year . "-" . DateUtil::numberAdapt($play_date->month) . "-" . DateUtil::numberAdapt($play_date->day) . " 00:00:00";
+            if (!is_null($play_production)) {
+                /**
+                 * EL usuario gratis tiene 24 horas para ver la produccion que escogio
+                 */
+                $play_date = new DateUtil($play_date);
+                //Agrega un dia, para determinar la proxima reproduccion
+                $play_date->addDays(1);
 
-            //Calcula la diferencia de tiempo entre el tiempo actual y la fecha de la proxima reproduccion
-            $time = DateUtil::difSec(DateUtil::getCurrentTime(), $next_date);
+                $next_date = $play_date->year . "-" . DateUtil::numberAdapt($play_date->month) . "-" . DateUtil::numberAdapt($play_date->day) . " 00:00:00";
 
-            if ($time > 0 && $production->id != $play_production)
-                return view("frontend/contents/production/play-forbbiden")
-                                ->with("production", $production)
-                                ->with("message", view("ui/msg/contents/play-forbidden-production-in-play")
-                                        ->with("production", Production::find($play_production))->with("time", $time)->render())
-                                ->with("script", "assets/plugins/countdown/js/countdown.js")
-                                ->with("css", array("assets/plugins/countdown/css/styles.css"));
+                //Calcula la diferencia de tiempo entre el tiempo actual y la fecha de la proxima reproduccion
+                $time = DateUtil::difSec(DateUtil::getCurrentTime(), $next_date);
+
+                if ($time > 0 && $production->id != $play_production)
+                    return view("frontend/contents/production/play-forbbiden")
+                                    ->with("production", $production)
+                                    ->with("message", view("ui/msg/contents/play-forbidden-production-in-play")
+                                            ->with("production", Production::find($play_production))->with("time", $time)->render())
+                                    ->with("script", "assets/plugins/countdown/js/countdown.js")
+                                    ->with("css", array("assets/plugins/countdown/css/styles.css"));
+            }
         }
 
         $id_video = $production->chapters[0]->video;
