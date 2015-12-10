@@ -1,6 +1,7 @@
 <?php
 
 use \App\System\Models\Production;
+use App\System\Library\Complements\Util;
 
 $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
 ?>
@@ -28,7 +29,7 @@ $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
             <div class="content-item">
                 <div class="item">
                     <a onClick="modalProduction('{{$production->id}}');">
-                        <img class="production" id="img-production-{{$production->id}}" title="{{$production->title}}" src="{{$production->image}}">
+                        <img class="production" id="img-production-{{$production->id}}" title="{{$production->title}}" src="{{Util::convertToSecureUrl($production->image)}}">
                         <span class="hidden" id="url-{{$production->id}}">{{URL::to("production/".$production->slug)}}</span>
                         <div class="over">
                             <span class="glyphicon glyphicon-play-circle"></span>
@@ -63,7 +64,7 @@ $productions_id = array(); //Almacena los ids de las peliculas que se mostraran
                     <div class="content-item">
                         <div class="item">
                             <a onClick="modalProduction('{{$production->id}}');">
-                                <img class="production" id="img-production-{{$production->id}}" title="{{$production->title}}" src="{{$production->image}}">
+                                <img class="production" id="img-production-{{$production->id}}" title="{{$production->title}}" src="{{Util::convertToSecureUrl($production->image)}}">
                                 <span class="hidden" id="url-{{$production->id}}">{{URL::to("production/".$production->slug)}}</span>
                                 <div class="over">
                                     <span class="glyphicon glyphicon-play-circle"></span>
