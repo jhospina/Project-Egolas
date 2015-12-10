@@ -40,7 +40,7 @@ $categories = Term::orderBy(Term::ATTR_NAME, "ASC")->get();
             </li>      
             <li class="dropdown" style="border-left: 1px #902B2B solid;">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <span style="color:white;">{{Auth::user()->name}}</span>&nbsp;
+                    <span style="color:white;color: white;width: 20px;overflow-x: hidden;display: inline-table;">{{Auth::user()->name}}</span>&nbsp;
                     <img class="img-circle" id="img-avatar" src="{{(is_null(Auth::user()->avatar))?URL::to("assets/images/user_icon.png"):Auth::user()->avatar}}"/>            
                     <span class="caret"></span>
                 </a>
