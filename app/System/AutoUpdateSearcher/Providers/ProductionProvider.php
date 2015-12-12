@@ -109,12 +109,12 @@ class ProductionProvider extends HTMLProvider {
         if (preg_match_all('/<div[^>]*class=["\']titlePageSprite star-box-giga-star*["\']\>(.*?)<\/div>/i', $match_content, $match_rating, PREG_SET_ORDER))
             $this->rating_rel = trim(strip_tags($match_rating[0][1]));
 
+   
         //IMAGEN
-        if (!preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>(.*?)[\"\']>/i', $match_content, $match_image, PREG_SET_ORDER))
+        if (!preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>/i', $match_content, $match_image, PREG_SET_ORDER))
             return;
 
         $path_image = public_path("assets/db/images/") . md5($this->title_original . $this->year);
-
 
         try {
             if (Util::UrlExist(strip_tags($match_image[0][1]))) {
@@ -127,7 +127,7 @@ class ProductionProvider extends HTMLProvider {
         } catch (Exception $e) {
             $this->image = null;
         }
-
+       
         //POSTER
         $search = new BingSearchImage($this->title_original . " poster " . $this->year, 1700, 1200);
         $images = $search->getResult();
