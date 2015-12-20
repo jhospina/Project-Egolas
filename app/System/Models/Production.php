@@ -143,7 +143,7 @@ class Production extends Model {
                 $url = $this->attributes[Production::ATTR_IMAGE];
                 $path = public_path("assets/db/images/" . Util::fileExtractName($url) . "." . Util::fileExtractExtension($url));
                 $uploaded_media = Twitter::uploadMedia(['media' => File::get($path)]);
-                @Twitter::postTweet(['status' => "Hemos agregado \"".$this->attributes[Production::ATTR_TITLE]."\" ¡Disfrutalo desde ya!", 'media_ids' => $uploaded_media->media_id_string]);
+                @Twitter::postTweet(['status' => "Hemos agregado \"" . $this->attributes[Production::ATTR_TITLE] . "\" ¡Disfrutalo desde ya!", 'media_ids' => $uploaded_media->media_id_string]);
             }
         }
 
@@ -173,10 +173,30 @@ class Production extends Model {
      * @param type $production (Production) El objeto de production
      * @return type
      */
-    static function getVisualHtml(Production $production) {
-        $html = "<div class='production'>" .
-                "<a onClick='modalProduction(\"".$production->id."\");'>" .
-                "<span class='hidden' id='url-".$production->id."'>".url("production/" . $production->slug)."</span><img id='img-production-".$production->id."' title='".$production->title."' class='img-rounded";
+    static function getVisualHtml(Production $production,$classname="production",$classimage="img-rounded") {
+
+        $isVideoMain = $production->haveVideoMain();
+
+        $html = "<div class='".$classname."'>";
+        $html .="<a ";
+        if (Auth::check())
+            $html .= "onClick='modalProduction(\"" . $production->id . "\");'";
+        else
+            $html .= "href='" . url("production/" . $production->slug) . "'";
+        $html.= ">";
+
+        //Si la produccion es una serie incrustar la información de los capitulos
+        if (!$isVideoMain) {
+            $chapters = Chapter::where(Chapter::ATTR_PRODUCTION_ID, $production->id)->get();
+            $json = array();
+            foreach ($chapters as $chapter) {
+                $json[] = array($chapter->name, url("production/" . $production->slug . "/play/" . urlencode(\App\System\Library\Security\Hash::encrypt($chapter->id))));
+            }
+
+            $html.="<span class='hidden' id='chapters-" . $production->id . "'>" . json_encode($json) . "</span>";
+        }
+
+        $html.="<span class='hidden' id='url-" . $production->id . "'>" . url("production/" . $production->slug) . "</span><img id='img-production-" . $production->id . "' title='" . $production->title . "' class='".$classimage;
         $html.=($production->state != Production::STATE_ACTIVE) ? " production-not-available" : "";
         $html.="' src='" . Util::convertToSecureUrl($production->image) . "'><div class='over'><span class='glyphicon glyphicon-play-circle'></span>" . $production->title . "</div>" .
                 "</a>" .

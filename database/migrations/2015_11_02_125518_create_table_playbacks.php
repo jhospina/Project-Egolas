@@ -15,6 +15,7 @@ class CreateTablePlaybacks extends Migration {
             $table->bigIncrements("id");
             $table->integer("user_id");
             $table->integer("production_id");
+            $table->integer("chapter_id");
             $table->string("ip");
             $table->string("user_agent")->nullable();
             $table->dateTime("date");

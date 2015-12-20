@@ -86,6 +86,7 @@
                         <div class="col-sm-12">
                             <a class="btn btn-lg btn-danger btn-block" id="view-production-play"><span class="glyphicon glyphicon-play-circle"></span> VER PELICULA</a>
                             <a class="btn btn-lg btn-primary btn-block" id="view-production-info"><span class="glyphicon glyphicon-exclamation-sign"></span> INFORMACIÓN</a>
+                            <h2 id="view-production-title-chapters" style='color:black;display:hidden;'>Capitulos</h2>
                         </div>
                         <div class="clearfix"></div>
                     </div>

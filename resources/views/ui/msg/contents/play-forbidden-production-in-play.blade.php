@@ -1,11 +1,14 @@
 <?php
 
 use App\System\Library\Complements\DateUtil;
+use App\System\Library\Security\Hash;
+
 
 $date = new DateUtil(DateUtil::getCurrentTime());
 //Calcula el tiempo restante para que el usuario pueda ver otra pelicula
 $coming_date = $date->addSeconds($time);
 
+$isVideoMain = $production->haveVideoMain();
 ?>
 
 <div class="page-header">
@@ -15,11 +18,18 @@ $coming_date = $date->addSeconds($time);
 <br/>
 <div class="col-sm-6 text-center" style="padding-bottom: 20px;">
     <h3 class="text-center">Actualmente estabas viendo<br/>"{{$production->title}}"</h3>
+    @if(!$isVideoMain)
+    <h3 class="text-center">{{$chapter->name}}</h3>
+    @endif
     <div class="col-sm-12">
         <img width="214" height="317"  class="img-rounded" src="{{$production->image}}">
     </div>
     <div class="col-sm-12" style="margin-top: 10px;">
+        @if($isVideoMain)
         <a href="{{URL::to('production/'.$production->slug."/play")}}" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-play-circle"></span> Continuar viendo</a>
+        @else
+        <a href="{{URL::to("production/".$production->slug."/play/".urlencode(Hash::encrypt($chapter->id))."/")}}" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-play-circle"></span> Continuar viendo</a>
+        @endif
     </div>
 </div>
 <div class="col-sm-6 text-center" id="content-premium">

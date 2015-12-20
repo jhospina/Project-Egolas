@@ -145,9 +145,10 @@ function category_frontend() {
 function productions_frontend() {
     $class = "ProductionController@";
     Route::get("production/{slug}/play", $class . "getPlay");
+    Route::get("production/{slug}/play/{id_chapter}/", $class . "getPlayChapter");
     Route::post("production/ajax/get/video", $class . "ajax_getVideoUrl");
     Route::get("get/source/video/{token}/{id_video}/{time}", $class . "getVideoSource");
-    // Route::get("production/{slug}/play/{id_chapter}/{name}", $class . "getPlayChapter");
+    Route::get("production/{slug}/play/{id_chapter}/", $class . "getPlayChapter");
     //Reproductor de video
     // Route::get("media/videoplayer/play/", $class . "videoPlayer");
 }

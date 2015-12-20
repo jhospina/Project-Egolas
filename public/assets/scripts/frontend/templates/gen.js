@@ -129,14 +129,43 @@ function isMobile() {
 
 function modalProduction(id) {
 
+    var content = $("#view-production-play").parent();
+
     if ($("#img-production-" + id).hasClass("production-not-available"))
     {
         location.href = $("#url-" + id).html();
         return;
     }
 
+    $("#modal-view-production .content-chapters").remove();
+
+    //Si es una serie
+    if ($("#chapters-" + id).length > 0) {
+
+        $("#view-production-play").hide();
+        $("#view-production-title-chapters").show();
+
+        //Obtiene los enlace de los capitulos
+        var data = $.parseJSON($("#chapters-" + id).html());
+
+        var html = "<div class='well well-sm content-chapters'>";
+
+        for (var i = 0; i < data.length; i++) {
+            var chapter_name = data[i][0];
+            var chapter_link = data[i][1];
+            html += '<a class="btn btn-lg btn-danger btn-block" style="text-align: left;" id="view-production-play" href="' + chapter_link + '"><span class="glyphicon glyphicon-play-circle"></span> ' + chapter_name + '</a>';
+
+        }
+
+        content.append(html + "</div>");
+    } else {
+        $("#view-production-play").show();
+        $("#view-production-title-chapters").hide();
+    }
+
     $("#view-production-title").html($("#img-production-" + id).attr("title"));
     $("#view-production-image").attr("src", $("#img-production-" + id).attr("src"));
+
     $("#view-production-play").attr("href", $("#url-" + id).html() + "/play");
     $("#view-production-info").attr("href", $("#url-" + id).html());
     $("#modal-view-production").modal("show");

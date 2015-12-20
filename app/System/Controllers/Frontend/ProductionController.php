@@ -93,9 +93,11 @@ class ProductionController extends Controller {
 
 
 
+        $id_video = $production->chapters[0]->video;
+        $id_chapter = $production->chapters[0]->id;
 
         //Obtiene los datos de la ultima reproduccion del usuario
-        list($play_date, $play_ip, $play_production) = Auth::user()->getLastPlayBack();
+        list($play_date, $play_ip, $play_production, $play_chapter) = Auth::user()->getLastPlayBack();
 
         //Verifica la restriccion de usuario gratis, en la que solo permite ver una pelicula por dia
         if (Auth::user()->role == User::ROLE_SUSCRIPTOR) {
@@ -113,17 +115,87 @@ class ProductionController extends Controller {
                 //Calcula la diferencia de tiempo entre el tiempo actual y la fecha de la proxima reproduccion
                 $time = DateUtil::difSec(DateUtil::getCurrentTime(), $next_date);
 
-                if ($time > 0 && $production->id != $play_production)
+                if ($time > 0 && $id_chapter != $play_chapter)
                     return view("frontend/contents/production/play-forbbiden")
                                     ->with("production", $production)
                                     ->with("message", view("ui/msg/contents/play-forbidden-production-in-play")
-                                            ->with("production", Production::find($play_production))->with("time", $time)->render())
+                                            ->with("production", Production::find($play_production))
+                                            ->with("time", $time)
+                                            ->with("chapter", Chapter::find($play_chapter))
+                                            ->render())
                                     ->with("script", "assets/plugins/countdown/js/countdown.js")
                                     ->with("css", array("assets/plugins/countdown/css/styles.css"));
             }
         }
 
-        $id_video = $production->chapters[0]->video;
+
+        return view("ui/media/videoplayer")
+                        ->with("production", $production)
+                        ->with("id_video", $id_video);
+    }
+
+    //Reproduce un capitulo de una serie
+    function getPlayChapter($slug, $id_chapter) {
+
+        $id_chapter = Hash::decrypt(urldecode($id_chapter));
+
+        $production = Production::where(Production::ATTR_SLUG, $slug)->get();
+        if (count($production) == 0) {
+            //Verifica en el log el slug
+            if (is_null($id = Slug::getIdProduction($slug)))
+                return abort(404);
+            else
+                return redirect("production/" . Production::findOrNew($id)->slug . "/play");
+        }
+
+        $production = $production[0];
+
+        //Verifica que el id del capitulo exista
+        if (Chapter::where(Chapter::ATTR_ID, $id_chapter)->count() == 0 || !is_numeric($id_chapter))
+            return redirect("production/" . $production->slug);
+
+        //Verifica si la pelicula esta activa
+        if ($production->state != Production::STATE_ACTIVE)
+            return redirect("production/" . $slug);
+
+        if (Auth::user()->state != User::STATE_ACTIVED_ACCOUNT) {
+            return view("frontend/contents/production/play-forbbiden")->with("production", $production)->with("title", "¡ACTIVA TU CUENTA!")->with("message", view("ui/msg/contents/activa-tu-cuenta")->render());
+        }
+
+        //Obtiene los datos de la ultima reproduccion del usuario
+        list($play_date, $play_ip, $play_production, $play_chapter) = Auth::user()->getLastPlayBack();
+
+        //Verifica la restriccion de usuario gratis, en la que solo permite ver una pelicula por dia
+        if (Auth::user()->role == User::ROLE_SUSCRIPTOR) {
+
+            if (!is_null($play_production)) {
+                /**
+                 * EL usuario gratis tiene 24 horas para ver la produccion que escogio
+                 */
+                $play_date = new DateUtil($play_date);
+                //Agrega un dia, para determinar la proxima reproduccion
+                $play_date->addDays(1);
+
+                $next_date = $play_date->year . "-" . DateUtil::numberAdapt($play_date->month) . "-" . DateUtil::numberAdapt($play_date->day) . " 00:00:00";
+
+                //Calcula la diferencia de tiempo entre el tiempo actual y la fecha de la proxima reproduccion
+                $time = DateUtil::difSec(DateUtil::getCurrentTime(), $next_date);
+
+
+                if ($time > 0 && $id_chapter != $play_chapter)
+                    return view("frontend/contents/production/play-forbbiden")
+                                    ->with("production", $production)
+                                    ->with("message", view("ui/msg/contents/play-forbidden-production-in-play")
+                                            ->with("production", Production::find($play_production))
+                                            ->with("time", $time)
+                                            ->with("chapter", Chapter::find($play_chapter))
+                                            ->render())
+                                    ->with("script", "assets/plugins/countdown/js/countdown.js")
+                                    ->with("css", array("assets/plugins/countdown/css/styles.css"));
+            }
+        }
+
+        $id_video = Chapter::find($id_chapter)->video;
         return view("ui/media/videoplayer")
                         ->with("production", $production)
                         ->with("id_video", $id_video);
@@ -164,8 +236,13 @@ class ProductionController extends Controller {
             $parent = 0;
         }
 
+        //Obtiene la información del video
+        $chapter = Chapter::firstOrNew([Chapter::ATTR_VIDEO => $data["id_video"]]);
+
         //Genera un registro de reproduccion y token de validacion
-        Auth::user()->playbacks()->attach($data["production_id"], array(User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(),
+        Auth::user()->playbacks()->attach($data["production_id"], array(
+            User::ATTR_PLAYBACKS_PIVOT_CHAPTER_ID => $chapter->id,
+            User::ATTR_PLAYBACKS_PIVOT_IP => Util::getIP(),
             User::ATTR_PLAYBACKS_PIVOT_DATE => DateUtil::getCurrentTime(),
             User::ATTR_PLAYBACKS_PIVOT_TOKEN => $token,
             User::ATTR_PLAYBACKS_PIVOT_PARENT => $parent,

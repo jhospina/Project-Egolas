@@ -248,11 +248,11 @@
 
 #chapters a.chapter{
     cursor: pointer;
-    font-size: 13pt;
-    border-left: 3px solid #FFF;
+    font-size: 14pt;
+    border-left: 3px solid #F2F2F2;
     border-bottom: 3px solid #FFF;
     border-radius: 10px;
-    background: #ECECEC none repeat scroll 0% 0%;
+    background: #FFFFFF none repeat scroll 0% 0%;
     box-shadow: 0px 0px 2px 2px #B8B8B8;
     margin-bottom: 10px;
     padding-top: 10px;

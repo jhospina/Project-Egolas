@@ -33,7 +33,7 @@ class HomeController extends Controller {
             return redirect("user/auth/login?redirect_to=" . url("browser"));
 
         //Obtiene las 30 ultimas produccion agregadas
-        $productions = DB::select("SELECT productions.* FROM chapters,productions WHERE chapters.production_id=productions.id and productions.state='" . Production::STATE_ACTIVE . "' ORDER BY chapters.id DESC LIMIT 0,30 ");
+        $productions = DB::select("SELECT productions.id FROM chapters,productions WHERE chapters.production_id=productions.id and productions.state='" . Production::STATE_ACTIVE . "' GROUP BY chapters.production_id ORDER BY chapters.id DESC LIMIT 0,30 ");
         $categories = Term::orderBy(Term::ATTR_MOTE, "ASC")->get();
         return view("frontend/contents/gen/browser")
                         ->with("productions", $productions)

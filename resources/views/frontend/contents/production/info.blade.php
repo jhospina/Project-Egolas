@@ -3,6 +3,8 @@
 use App\System\Models\Production;
 use App\System\Models\User;
 use App\System\Library\Complements\Util;
+use App\System\Library\Security\Hash;
+
 
 $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
 ?>
@@ -87,8 +89,9 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         <b>{{trans("gen.info.synopsis")}}</b><br/>
         <p class="text-justify">{{$production->description}}</p>
         <div id="details">
-            @if($isVideoMain)
+
             <div class="col-xs-4 attr"><span class="glyphicon glyphicon-calendar"></span> {{trans("gen.time.year")}}</div><div class="col-xs-8 value">{{$production->year}}</div>
+            @if($isVideoMain)
             <div class="col-xs-4 attr"><span class="glyphicon glyphicon-time"></span> {{trans("gen.info.duration")}}</div><div class="col-xs-8 value">{{$production->duration}} min</div>
             <?php $video = $chapters[0]; ?> 
             <div class="col-xs-4 attr"><span class="glyphicon glyphicon-hd-video"></span> {{trans("gen.info.quality")}}</div><div class="col-xs-8 value">{{trans("attr.chapter.quality.".$video->quality)}}</div>
@@ -96,9 +99,10 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
             @if(count($video->subtitles)>0)
             <div class="col-xs-4 attr"><span class="glyphicon glyphicon-subtitles"></span> {{trans("gen.info.subtitles")}}</div><div class="col-xs-8 value">{{trans("attr.chapter.subtitles.".$video->subtitles[0])}}</div>
             @endif
+            @endif
             <div class="col-md-12 attr" style="margin-top:20px;">{{trans("gen.info.categories")}}</div>
             <div class="col-md-12 value">{{Util::formatResultObjects($categories, \App\System\Models\Term::ATTR_MOTE,", ","<a href='".URL::to("category/%slug%")."'>","</a>")}}</div>
-            @endif
+
         </div>
         @if($production->state!=Production::STATE_ACTIVE)
         @if(!Production::isTracking($production->id))
@@ -158,11 +162,11 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
     @if(!$userIsRated)
     <div id="open-modal-rating-new" class="btn btn-success"><span class="glyphicon glyphicon-heart"></span> Puntuar</div>
     @endif
-                <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count==1)?"opinión":"opiniones"}})</small></h2>
+    <h2><span class="glyphicon glyphicon-thumbs-up"></span> Nivel de satisfacción del público <small>({{$rating_count}} {{($rating_count==1)?"opinión":"opiniones"}})</small></h2>
     <div id="content-bar">
         @for($i=1;$i<=5;$i++)
-                    <div class="line" style="left:{{($i*20)-0.2}}%">
-                <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\Production\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
+        <div class="line" style="left:{{($i*20)-0.2}}%">
+            <img class="tooltip-bottom {{($rating>=$i*20 && $rating<($i+1)*20)?"":"inactive"}}" title="{{trans("attr.production.rating.".constant("App\System\Models\Production\ProductionRating::RATING_".$i).".public")}}" src="{{URL::to("assets/images/ratings/".$i.".png")}}">
         </div>
         @endfor
         <div class="progress">
@@ -171,6 +175,28 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
     </div>
 </div>
+
+
+
+@if(!$isVideoMain && count($chapters)>1)
+<div id="chapters" class="content container">
+
+    <div class="title col-md-12">{{trans("gen.info.episodes")}}</div>
+
+    <div id="display-chapters" class="col-md-12">
+        @foreach($chapters as $chapter)
+        <a class="chapter col-xs-12" href="{{URL::to("production/".$production->slug."/play/".urlencode(Hash::encrypt($chapter->id))."/")}}">
+            <div class="col-xs-10 text-left">{{$chapter->name}}</div>
+            <div class="col-xs-2 text-right"><span class="glyphicon glyphicon-play-circle"></span></div>
+        </a>    
+        @endforeach
+    </div>
+
+</div>
+@endif
+
+
+
 
 <!-- SOCIAL -->
 <div id="social" class="container content">
@@ -225,25 +251,6 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
     </div>
 </div>
-
-
-@if(!$isVideoMain && count($chapters)>1)
-<div id="chapters" class="content container">
-
-    <div class="title col-md-12">{{trans("gen.info.episodes")}}</div>
-
-    <div id="display-chapters" class="col-md-12">
-        @foreach($chapters as $chapter)
-            <a class="chapter col-md-12" href="{{URL::to("f/production/".$production->slug."/play/".$chapter->id."/".Util::createSlug($chapter->name))}}">
-            <div class="col-md-8">{{$chapter->name}}</div>
-            <div class="col-md-4 text-right"><span class="glyphicon glyphicon-play-circle"></span></div>
-        </a>    
-        @endforeach
-    </div>
-
-</div>
-@endif
-
 
 <div id="comments" class="content container">
     <div class="title col-md-12"><h2>¿Qué te parecio esta película? Haz un comentario</h2></div>

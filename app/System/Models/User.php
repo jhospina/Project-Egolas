@@ -52,12 +52,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     const ATTR_FAVORITES_PIVOT_DATE = "date";
     //Playbacks
     const ATTR_PLAYBACKS_PIVOT_ID = "id";
+    const ATTR_PLAYBACKS_PIVOT_PRODUCTION_ID = "production_id";
+    const ATTR_PLAYBACKS_PIVOT_CHAPTER_ID = "chapter_id";
     const ATTR_PLAYBACKS_PIVOT_IP = "ip";
     const ATTR_PLAYBACKS_PIVOT_DATE = "date";
     const ATTR_PLAYBACKS_PIVOT_TOKEN = "token";
     const ATTR_PLAYBACKS_PIVOT_VALIDATE = "validate";
     const ATTR_PLAYBACKS_PIVOT_PARENT = "parent";
-    const ATTR_PLAYBACKS_PIVOT_USER_AGENT="user_agent";
+    const ATTR_PLAYBACKS_PIVOT_USER_AGENT = "user_agent";
     //Production track
     const ATTR_TRACK_PIVOT_NOTIFIED = "notified";
     const ATTR_TRACK_PIVOT_MAILED = "mailed";
@@ -118,6 +120,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function playbacks() {
         return $this->belongsToMany("App\System\Models\Production", "playbacks", "user_id", "production_id")
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_ID)
+                        ->withPivot(User::ATTR_PLAYBACKS_PIVOT_CHAPTER_ID)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_DATE)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_IP)
                         ->withPivot(User::ATTR_PLAYBACKS_PIVOT_TOKEN)
@@ -136,9 +139,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getLastPlayBack() {
         if ($this->playbacks()->count() > 0) {
             $play = $this->playbacks()->where(User::ATTR_PLAYBACKS_PIVOT_PARENT, 0)->orderBy(User::ATTR_PLAYBACKS_PIVOT_DATE, "DESC")->get()[0];
-            return array($play->pivot->date, $play->pivot->ip, $play->pivot->production_id);  
+            return array($play->pivot->date, $play->pivot->ip, $play->pivot->production_id,$play->pivot->chapter_id);
         } else {
-            return array(null, null, null);
+            return array(null, null, null,null);
         }
     }
 
