@@ -28,8 +28,8 @@ $(document).ready(function () {
 
                 $("#report-moda-add").html(response.msg);
                 $("#report-moda-add").fadeIn();
-                $("#name_production").val("");
-                $("#link_production").val("");
+                //$("#name_production").val("");
+                //$("#link_production").val("");
                 $("#link_production").removeAttr("disabled");
                 $("#name_production").removeAttr("disabled");
                 $("#send").html("Enviar");
