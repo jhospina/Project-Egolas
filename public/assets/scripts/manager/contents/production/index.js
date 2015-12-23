@@ -46,8 +46,8 @@ $(document).ready(function () {
 
                 $("#report-moda-add").html("Ocurrio un error durante el procesamiento de la producción. La inclusión debe hacerse manualmente.");
                 $("#report-moda-add").fadeIn();
-                $("#name_production").val("");
-                $("#link_production").val("");
+                //$("#name_production").val("");
+                //$("#link_production").val("");
                 $("#link_production").removeAttr("disabled");
                 $("#name_production").removeAttr("disabled");
                 $("#send").html("Enviar");
