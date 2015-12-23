@@ -278,6 +278,9 @@ class ProductionController extends Controller {
 
         $provider = new ProductionProvider($name, $link);
         $production_id = $provider->save();
+        if (!is_null($production_id)) {
+             return json_encode(array("msg" => "<span class='glyphicon glyphicon-remove-circle'></span> " . $name . " El acceso a la información de la producción no fue posible intentalo de nuevo."));
+        }
 
         //Verifica si ya existia en la cola de procesamiento, si es asi lo indica como procesado y si no, lo crea.
         if (QueueProductions::existsByLink($link)) {

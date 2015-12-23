@@ -182,7 +182,7 @@ class ProductionProvider extends HTMLProvider {
 
     function save() {
         if (!$this->validate())
-            return;
+            return null;
 
         $production = (is_null($object = Production::searchByTitle($this->getTitle()))) ? new Production : $object;
         $production->title = $this->getTitle();
