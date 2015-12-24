@@ -146,7 +146,7 @@ class ProductionController extends Controller {
     }
 
     function getMigration() {
-        $total = Chapter::all()->count();
+        $total = (isset($_GET["account"])) ? Chapter::where("videocloud_id", $_GET["account"])->count() : Chapter::all()->count();
         return view("manager/contents/production/migration")->with("total", $total);
     }
 
@@ -158,7 +158,7 @@ class ProductionController extends Controller {
         $skip = $data["skip"];
         $return = array();
 
-        $chapters = Chapter::skip($skip)->take(30)->orderBy("id", "DESC")->get();
+        $chapters = Chapter::where("videocloud_id", $data["videocloud_id"])->skip($skip)->take(30)->orderBy("id", "DESC")->get();
 
         foreach ($chapters as $chapter) {
             $video = new Video($chapter->video);
@@ -279,7 +279,7 @@ class ProductionController extends Controller {
         $provider = new ProductionProvider($name, $link);
         $production_id = $provider->save();
         if (is_null($production_id)) {
-             return json_encode(array("msg" => "<span class='glyphicon glyphicon-remove-circle'></span> " . $name . " El acceso a la información de la producción no fue posible intentalo de nuevo."));
+            return json_encode(array("msg" => "<span class='glyphicon glyphicon-remove-circle'></span> " . $name . " El acceso a la información de la producción no fue posible intentalo de nuevo."));
         }
 
         //Verifica si ya existia en la cola de procesamiento, si es asi lo indica como procesado y si no, lo crea.

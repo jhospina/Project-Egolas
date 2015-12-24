@@ -39,5 +39,6 @@ use App\System\Models\VideoCloudAccount;
         var ajax_setVideo = "{{URL::to('manager/productions/ajax/set/video/id')}}";
         var token = "{{Session::token()}}";
         var total = "{{$total}}";
+        var videocloud_id="{{(isset($_GET['account'])) ? $_GET['account'] : (VideoCloudAccount::getCurrentAccountId())}}";
     </script>
     @stop

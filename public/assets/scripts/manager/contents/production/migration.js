@@ -14,7 +14,7 @@ function loadVideos() {
         url: ajax_loadVideo,
         type: 'POST',
         dataType: 'json',
-        data: {"_token": token, skip: parseInt(videocount.html())},
+        data: {"_token": token, skip: parseInt(videocount.html()),videocloud_id:videocloud_id},
         success: function (response) {
 
             videocount.html(parseInt(videocount.html()) + response.length);
