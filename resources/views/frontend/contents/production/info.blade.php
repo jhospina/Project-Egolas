@@ -106,6 +106,7 @@ $aux = ($rating >= 80) ? number_format(($rating / 100) * 255, 0) : 0;
         </div>
         @if($production->state!=Production::STATE_ACTIVE)
         @if(!Production::isTracking($production->id))
+        <div class="clearfix"></div>
         <div id="content-notified">
             <h4 class="text-center">¿Quieres que te informemos cuando esta producción este disponible?</h4>
             <div class="text-center" style="margin-top:20px;">
